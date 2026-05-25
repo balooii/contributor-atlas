@@ -22,6 +22,8 @@ python3 -m http.server
 # then open http://localhost:8000
 ```
 
+Alternatively, the current GIMP dataset is also deployed at **https://contributor-atlas-4dab97.pages.gitlab.gnome.org** if you just want to explore it without running anything locally.
+
 | File                | Description                                                                                                                         |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `index.html`        | **Gathering** — all contributors packed in a circle with the project in the center                                                  |
