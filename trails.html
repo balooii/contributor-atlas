@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Trails</title>
+    <link rel="stylesheet" href="css/page.css" />
+    <link rel="stylesheet" href="css/timeline-control.css" />
+    <script src="pageTheme.js"></script>
+    <script src="lib/d3.v7.js"></script>
+    <script src="createTooltip.js"></script>
+    <script src="chartBase.js"></script>
+    <script src="createTrails.js"></script>
+    <script src="createTimelineControl.js"></script>
+    <script src="pageBootstrap.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Gathering</a>
+      <a href="pulse.html">Pulse</a>
+      <a href="trails.html" class="active">Trails</a>
+      <a href="ripples.html">Ripples</a>
+      <a href="cornerstones.html">Cornerstones</a>
+    </nav>
+
+    <div id="chart-container"></div>
+    <div id="controls"></div>
+
+    <script>
+      const container = document.getElementById("chart-container");
+      const Visual = createTrails(container);
+
+      bootstrapPage({
+        files: [
+          { path: "data/gimp/contributions.csv", type: "csv" },
+          { path: "data/gimp/categories.json" },
+          { path: "data/gimp/chapters.json", optional: true },
+        ],
+        onReady: ([contributions, categories, chapters]) => {
+          const stored = createTimelineControl.loadRange();
+          if (stored) Visual.setRange(stored.start, stored.end);
+          Visual([contributions, categories]);
+          const sortControl = createTimelineControl.buildButtonGroup(
+            "sort",
+            [
+              { label: "contributions", value: "count" },
+              { label: "first seen", value: "first" },
+              { label: "longest career 🌳", value: "career" },
+            ],
+            "count",
+            (v) => Visual.setSortBy(v),
+          );
+          createTimelineControl(document.getElementById("controls"))
+            .chapters(chapters || [])
+            .extras(sortControl)
+            .attach(Visual);
+          Visual.resize();
+        },
+        onResize: () => Visual.resize(),
+        resizeDelay: 200,
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+host: gitlab.gnome.org
+project: projects/World%2Fgimp-ci%2Fdocker-gimp
+bug_labels: []
+exclude_users:
+  - bugzilla-migration
+bug_category: bug-reporting
+fallback_category: bug-reporting
+closed_mr_category: coding-other

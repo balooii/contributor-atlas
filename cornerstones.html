@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Cornerstones</title>
+    <link rel="stylesheet" href="css/page.css" />
+    <link rel="stylesheet" href="css/timeline-control.css" />
+    <script src="pageTheme.js"></script>
+    <script src="lib/d3.v7.js"></script>
+    <script src="createTooltip.js"></script>
+    <script src="chartBase.js"></script>
+    <script src="createCornerstones.js"></script>
+    <script src="createTimelineControl.js"></script>
+    <script src="pageBootstrap.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Gathering</a>
+      <a href="pulse.html">Pulse</a>
+      <a href="trails.html">Trails</a>
+      <a href="ripples.html">Ripples</a>
+      <a href="cornerstones.html" class="active">Cornerstones</a>
+    </nav>
+    <div id="chart-container"></div>
+    <div id="controls"></div>
+
+    <script>
+      const container = document.getElementById("chart-container");
+      const Visual = createCornerstones(container)
+        .width(container.offsetWidth)
+        .height(container.offsetHeight);
+
+      bootstrapPage({
+        files: [
+          { path: "data/gimp/contributions.csv", type: "csv" },
+          { path: "data/gimp/categories.json" },
+          { path: "data/gimp/chapters.json", optional: true },
+          { path: "data/gimp/project.json" },
+        ],
+        onReady: ([contributions, categories, chapters, project]) => {
+          Visual.project(project);
+          const stored = createTimelineControl.loadRange();
+          if (stored) Visual.setRange(stored.start, stored.end);
+          Visual([contributions, categories]);
+          createTimelineControl(document.getElementById("controls"))
+            .chapters(chapters || [])
+            .categories(true)
+            .attach(Visual);
+          Visual.width(container.offsetWidth)
+            .height(container.offsetHeight)
+            .resize();
+        },
+        onResize: () =>
+          Visual.width(container.offsetWidth)
+            .height(container.offsetHeight)
+            .resize(),
+      });
+    </script>
+  </body>
+</html>

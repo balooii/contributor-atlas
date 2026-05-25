@@ -1,0 +1,570 @@
+// Shared primitives used by the round-cluster chart factories (Cornerstones,
+// Ripples, Gathering) and - for a couple of helpers - Trails. None of these own
+// state; each chart factory threads its own state through.
+
+window.ChartBase = (() => {
+  // -- Filters -----------------------------------------------------
+
+  function filterByRange(rows, start, end) {
+    if (start == null) return rows;
+    return rows.filter((d) => {
+      const ts = +d.timestamp;
+      return ts >= start && ts <= end;
+    });
+  }
+
+  function filterByCategory(rows, activeSet) {
+    if (activeSet == null) return rows;
+    return rows.filter((d) => activeSet.has(d.category));
+  }
+
+  // -- Aggregation -------------------------------------------------
+
+  // Roll up rows of `{contributor_id, contributor_name, category, timestamp, …}` into one record
+  // per contributor with totals, per-category breakdown, and first/last timestamp.
+  function aggregateByContributor(rows) {
+    const map = new Map();
+    for (const d of rows) {
+      const ts = +d.timestamp;
+      const cat = d.category;
+      let r = map.get(d.contributor_id);
+      if (!r) {
+        r = {
+          contributor_id: d.contributor_id,
+          contributor_name: d.contributor_name,
+          total_contribution_count: 0,
+          contribution_count_by_category: new Map(),
+          contribution_sec_min: ts,
+          contribution_sec_max: ts,
+        };
+        map.set(d.contributor_id, r);
+      }
+      r.total_contribution_count++;
+      r.contribution_count_by_category.set(
+        cat,
+        (r.contribution_count_by_category.get(cat) || 0) + 1,
+      );
+      if (ts < r.contribution_sec_min) r.contribution_sec_min = ts;
+      if (ts > r.contribution_sec_max) r.contribution_sec_max = ts;
+    }
+    return [...map.values()];
+  }
+
+  // Pick the dominant category by first finding the group with the highest
+  // aggregate count, then returning the top individual category within it.
+  function dominantCategory(catCounts, catToGroup = {}) {
+    const groupTotals = {};
+    for (const [cat, n] of Object.entries(catCounts)) {
+      const g = catToGroup[cat] ?? cat;
+      groupTotals[g] = (groupTotals[g] || 0) + n;
+    }
+    const topGroup = Object.entries(groupTotals).sort(
+      (a, b) => b[1] - a[1],
+    )[0][0];
+    return Object.entries(catCounts)
+      .filter(([cat]) => (catToGroup[cat] ?? cat) === topGroup)
+      .sort((a, b) => b[1] - a[1])[0][0];
+  }
+
+  // For each category in `rows`, returns { cat, count, pct } sorted by count desc.
+  function categoryStats(rows) {
+    if (!rows.length) return [];
+    const m = new Map();
+    for (const d of rows) m.set(d.category, (m.get(d.category) || 0) + 1);
+    return [...m.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([cat, count]) => ({
+        cat,
+        count,
+        pct: Math.round((count / rows.length) * 100),
+      }));
+  }
+
+  // -- Tooltip -----------------------------------------------------
+
+  const _formatDigit = d3.format(",.2s");
+  const _formatDate = d3.timeFormat("%b %Y");
+
+  // Build the contributor-or-project tooltip HTML used by Cornerstones / Ripples / Gathering.
+  //   d            - node with .data.{contributor_name, total_contribution_count,
+  //                                    contribution_count_by_category, contribution_sec_min, contribution_sec_max}
+  //   tooltip      - createTooltip() result (for escapeHtml + categoryRow)
+  //   categoryColor - (cat) => hex
+  //   accent       - bar + italic-label color
+  //   isProject    - true for the synthetic central node (hides date range, swaps label)
+  function buildContributorTooltipHTML(
+    d,
+    { tooltip, categoryColor, accent, isProject = false },
+  ) {
+    const typeLabel = isProject ? "Project" : "Contributor";
+    const name = d.data.contributor_name;
+    const count = d.data.total_contribution_count;
+    const countStr = count < 10 ? count : _formatDigit(count);
+
+    let html = `<div class="tt-accent-bar" style="background:${accent}"></div>`;
+    html += `<div class="tt-type-label" style="color:${accent}">${typeLabel}</div>`;
+    html += `<div class="tt-title">${tooltip.escapeHtml(name)}</div>`;
+    let countLine = tooltip.pluralize(count, "contribution", countStr);
+    if (isProject && d.data.contributor_count != null) {
+      const cc = d.data.contributor_count;
+      countLine += ` · ${tooltip.pluralize(cc, "contributor", _formatDigit(cc))}`;
+    }
+    html += `<div class="tt-meta">${countLine}</div>`;
+
+    if (
+      !isProject &&
+      d.data.contribution_sec_min &&
+      d.data.contribution_sec_max
+    ) {
+      const mn = d.data.contribution_sec_min,
+        mx = d.data.contribution_sec_max;
+      const sameMonth =
+        mn.getMonth() === mx.getMonth() &&
+        mn.getFullYear() === mx.getFullYear();
+      const dateStr = sameMonth
+        ? `In ${_formatDate(mn)}`
+        : `Between ${_formatDate(mn)} &amp; ${_formatDate(mx)}`;
+      html += `<div class="tt-meta">${dateStr}</div>`;
+    }
+
+    if (d.data.contribution_count_by_category?.size > 0) {
+      const sorted = [...d.data.contribution_count_by_category.entries()].sort(
+        (a, b) => b[1] - a[1],
+      );
+      const total = sorted.reduce((s, [, v]) => s + v, 0);
+      html += `<div class="tt-section-label">Categories</div>`;
+      sorted.forEach(([cat, cnt]) => {
+        html += tooltip.categoryRow(
+          cat,
+          cnt,
+          Math.round((cnt / total) * 100),
+          categoryColor(cat),
+        );
+      });
+    }
+    return html;
+  }
+
+  // Position a node-anchored tooltip above/below the node, accounting for
+  // the chart's centered logical coordinate space + pixel-ratio scale factor.
+  function showAnchoredTooltip(
+    tooltip,
+    html,
+    d,
+    { width, height, SF, pixelRatio, centerX = 0, centerY = 0 },
+  ) {
+    const edgeY = d.y + (d.y < 0 ? 1 : -1) * d.r;
+    const cx = width / 2 + ((d.x - centerX) * SF) / pixelRatio;
+    const cy = height / 2 + ((edgeY - centerY) * SF) / pixelRatio;
+    tooltip.showAt(html, cx, cy, d.y < 0 ? "below" : "above");
+  }
+
+  // -- Shared chart init --------------------------------------------
+
+  // Parse the two-element values array that every cluster chart receives on
+  // first call: [contributions_csv_rows, categories_json_object].
+  // Returns the derived fields so each factory doesn't repeat this boilerplate.
+  const _parseDateUnix = d3.timeParse("%s");
+
+  function parseChartValues(values) {
+    const contributions = values[0];
+    const catToGroup = {};
+    contributions.forEach((d) => {
+      if (d.category_group) catToGroup[d.category] = d.category_group;
+    });
+    const FULL_MIN = d3.min(contributions, (d) => +d.timestamp);
+    const FULL_MAX = d3.max(contributions, (d) => +d.timestamp);
+    const cats = values[1];
+    const scale_category_color = d3
+      .scaleOrdinal()
+      .domain(Object.keys(cats))
+      .range(Object.values(cats));
+    return {
+      contributions,
+      catToGroup,
+      FULL_MIN,
+      FULL_MAX,
+      scale_category_color,
+    };
+  }
+
+  // Map aggregated contributor records (from aggregateByContributor) into node objects.
+  function buildNodes(aggregated, catToGroup) {
+    return aggregated.map((d) => {
+      const catCounts = Object.fromEntries(d.contribution_count_by_category);
+      const dom =
+        d.contribution_count_by_category.size > 0
+          ? dominantCategory(catCounts, catToGroup)
+          : null;
+      return {
+        data: {
+          contributor_id: d.contributor_id,
+          contributor_name: d.contributor_name,
+          total_contribution_count: d.total_contribution_count,
+          contribution_count_by_category: d.contribution_count_by_category,
+          contribution_sec_min: _parseDateUnix(String(d.contribution_sec_min)),
+          contribution_sec_max: _parseDateUnix(String(d.contribution_sec_max)),
+        },
+        first_ts: d.contribution_sec_min,
+        count: d.total_contribution_count,
+        dominant_cat: dom,
+      };
+    });
+  }
+
+  // Accumulate the per-category map and grand total across all contributor nodes.
+  function buildCentralData(nodes) {
+    const catMap = new Map();
+    let total = 0;
+    for (const n of nodes) {
+      total += n.count;
+      n.data.contribution_count_by_category.forEach((cnt, cat) => {
+        catMap.set(cat, (catMap.get(cat) || 0) + cnt);
+      });
+    }
+    return { catMap, total };
+  }
+
+  // Draw a soft radial halo around a node. Used by Cornerstones, Ripples, and Gathering.
+  //   innerR - optional override for the halo's inner edge (physical pixels already
+  //            multiplied by SF). When omitted, defaults to n.r * SF and the node dot
+  //            is redrawn on top. When provided, a donut arc is used so the area inside
+  //            innerR is left untouched (useful when a category ring sits between the
+  //            node edge and the halo).
+  function _bgIsDark(hex) {
+    if (!hex || hex[0] !== "#") return true;
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    return 0.299 * r + 0.587 * g + 0.114 * b < 0.5;
+  }
+
+  function drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND, innerR }) {
+    const cx = n.x * SF,
+      cy = n.y * SF;
+    const inner = innerR ?? n.r * SF;
+    const outer = inner + 14 * SF;
+    const grad = ctx.createRadialGradient(cx, cy, inner, cx, cy, outer);
+    const dark = _bgIsDark(COLOR_BACKGROUND);
+    grad.addColorStop(0, dark ? "rgba(255,255,255,0.18)" : "#00000040");
+    grad.addColorStop(1, dark ? "rgba(255,255,255,0.00)" : "#00000000");
+    ctx.save();
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, outer, 0, TAU);
+    if (innerR != null) ctx.arc(cx, cy, inner, 0, TAU, true); // donut: leave inner area untouched
+    ctx.fill();
+    ctx.restore();
+    if (innerR == null) {
+      ctx.fillStyle = n.color;
+      ctx.beginPath();
+      ctx.arc(cx, cy, inner, 0, TAU);
+      ctx.fill();
+      ctx.strokeStyle = COLOR_BACKGROUND;
+      ctx.lineWidth = Math.max(1.5, n.r * 0.07) * SF;
+      ctx.beginPath();
+      ctx.arc(cx, cy, inner, 0, TAU);
+      ctx.stroke();
+    }
+  }
+
+  // -- Interaction -------------------------------------------------
+
+  // Draw the hover-state overlay for a round-cluster chart.
+  //   isCenterNode(d)        - true if d is the central project node
+  //   drawCenter(ctx, hovered) - redraws the full central node (circle + label) at
+  //                      origin, called within an already-translated context. The
+  //                      hovered flag is true only when the center node itself is hovered.
+  //   drawHighlight    - ChartBase.drawNodeHighlight bound with chart's SF/TAU/COLOR_BACKGROUND
+  // When a contributor is hovered: center stays bright, contributor gets the halo.
+  // When the center node is hovered: halo first (redraws the circle), then label on top.
+  function drawClusterHoverState(
+    ctx,
+    d,
+    { WIDTH, HEIGHT, isCenterNode, drawCenter, drawHighlight },
+  ) {
+    ctx.save();
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    ctx.translate(WIDTH / 2, HEIGHT / 2);
+    if (isCenterNode(d)) {
+      drawHighlight(ctx, d);
+      drawCenter(ctx, true);
+    } else {
+      drawCenter(ctx, false);
+      drawHighlight(ctx, d);
+    }
+    ctx.restore();
+  }
+
+  // Wire hover handler for the round-cluster charts onto canvas_hover.
+  // Returns { reset() } which clears state and the hover overlay between reruns.
+  function wireInteraction(
+    canvas_hover,
+    {
+      context_hover,
+      canvas,
+      tooltip,
+      getSize,
+      findNode,
+      drawHoverState,
+      showTooltip,
+    },
+  ) {
+    let HOVER_ACTIVE = false,
+      HOVERED_NODE = null;
+
+    d3.select(canvas_hover).on("mousemove", function (event) {
+      const [mx, my] = d3.pointer(event, this);
+      const [d, FOUND] = findNode(mx, my);
+      const { WIDTH, HEIGHT } = getSize();
+      if (FOUND) {
+        HOVER_ACTIVE = true;
+        HOVERED_NODE = d;
+        canvas.style.opacity = "0.25";
+        drawHoverState(context_hover, d);
+        showTooltip(d);
+      } else {
+        context_hover.clearRect(0, 0, WIDTH, HEIGHT);
+        tooltip.hide();
+        HOVER_ACTIVE = false;
+        HOVERED_NODE = null;
+        canvas.style.opacity = "1";
+      }
+    });
+
+    d3.select(canvas_hover).on("mouseleave", function () {
+      const { WIDTH, HEIGHT } = getSize();
+      context_hover.clearRect(0, 0, WIDTH, HEIGHT);
+      HOVER_ACTIVE = false;
+      HOVERED_NODE = null;
+      canvas.style.opacity = "1";
+      tooltip.hide();
+    });
+
+    return {
+      reset() {
+        const { WIDTH, HEIGHT } = getSize();
+        HOVER_ACTIVE = false;
+        HOVERED_NODE = null;
+        context_hover.clearRect(0, 0, WIDTH, HEIGHT);
+        canvas.style.opacity = "1";
+      },
+    };
+  }
+
+  // Run the shared filter -> aggregate -> build-nodes pipeline used by all
+  // round-cluster charts. categoryStats is computed on the range-filtered rows
+  // (before the category filter) so pill counts reflect the full time window.
+  function runPipeline(raw, rangeStart, rangeEnd, activeCats, catToGroup) {
+    const rangeFiltered = filterByRange(raw, rangeStart, rangeEnd);
+    const catFiltered = filterByCategory(rangeFiltered, activeCats);
+    const nodes = buildNodes(aggregateByContributor(catFiltered), catToGroup);
+    return { nodes, categoryStats: categoryStats(rangeFiltered) };
+  }
+
+  // -- Canvas trio -------------------------------------------------
+
+  // Create the base/click/hover canvas stack used by the round-cluster
+  // visualizations. Returns refs to the canvases and their 2d contexts.
+  function createCanvasLayers(container, backgroundColor) {
+    container.style.position = "relative";
+    if (backgroundColor) container.style.backgroundColor = backgroundColor;
+
+    const make = (id) => {
+      const c = document.createElement("canvas");
+      c.id = id;
+      container.appendChild(c);
+      return c;
+    };
+
+    const base = make("canvas");
+    const click = make("canvas-click");
+    const hover = make("canvas-hover");
+
+    return {
+      base,
+      baseCtx: base.getContext("2d"),
+      click,
+      clickCtx: click.getContext("2d"),
+      hover,
+      hoverCtx: hover.getContext("2d"),
+    };
+  }
+
+  // Shared backing-store density for every canvas in the app. Floored at 2 so
+  // curves, diagonals and small text stay smooth even on 1x displays.
+  function pixelRatio() {
+    return Math.max(2, window.devicePixelRatio || 1);
+  }
+
+  // Size a single canvas to `width × height` CSS pixels at the shared pixel
+  // ratio, returning that ratio. Backing-store dimensions are rounded so a
+  // fractional ratio can't desync the canvas from its CSS box.
+  function sizeCanvas(canvas, width, height) {
+    const PR = pixelRatio();
+    canvas.width = Math.round(width * PR);
+    canvas.height = Math.round(height * PR);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    return PR;
+  }
+
+  // Resize all three canvases to `width × height` CSS pixels, returning the
+  // device pixel ratio and the resulting backing-store dimensions.
+  function sizeCanvasLayers(layers, width, height) {
+    const PIXEL_RATIO = pixelRatio();
+    const W = Math.round(width * PIXEL_RATIO);
+    const H = Math.round(height * PIXEL_RATIO);
+    for (const c of [layers.base, layers.click, layers.hover]) {
+      c.width = W;
+      c.height = H;
+      c.style.width = `${width}px`;
+      c.style.height = `${H / PIXEL_RATIO}px`;
+    }
+    for (const ctx of [layers.baseCtx, layers.clickCtx, layers.hoverCtx]) {
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+    }
+    return { PIXEL_RATIO, WIDTH: W, HEIGHT: H };
+  }
+
+  // -- Font / text -------------------------------------------------
+
+  function setFont(ctx, family, size, weight = 400, style = "normal") {
+    ctx.font = `${weight} ${style} ${size}px ${family}`;
+  }
+
+  // Manual letter-spaced text rendering - Canvas2D has no native letterSpacing.
+  // Respects the context's current textAlign.
+  function renderText(ctx, text, x, y, letterSpacing = 0, stroke = false) {
+    const chars = String.prototype.split.call(text, "");
+    const align = ctx.textAlign;
+    let total = 0;
+    for (let i = 0; i < chars.length; i++)
+      total += ctx.measureText(chars[i]).width + letterSpacing;
+
+    let pos = x;
+    if (align === "right") pos = x - total;
+    else if (align === "center") pos = x - total / 2;
+
+    ctx.textAlign = "left";
+    for (let i = 0; i < chars.length; i++) {
+      const ch = chars[i];
+      if (stroke) ctx.strokeText(ch, pos, y);
+      ctx.fillText(ch, pos, y);
+      pos += ctx.measureText(ch).width + letterSpacing;
+    }
+    ctx.textAlign = align;
+  }
+
+  function createLoadingOverlay(container) {
+    const el = document.createElement("div");
+    el.className = "loading-overlay";
+    el.innerHTML = '<div class="loading-spinner"></div>';
+    el.style.display = "none";
+    container.appendChild(el);
+    return el;
+  }
+
+  function loadProjectImage(url, onLoad) {
+    const img = new Image();
+    img.onload = () => onLoad(img);
+    img.onerror = () => onLoad(null);
+    img.src = url;
+  }
+
+  // Draw the project logo (if loaded) or name text centered at (cx, cy) inside
+  // a circle of pixel-radius r. Clips to the circle when drawing the logo.
+  function drawProjectNodeContent(
+    ctx,
+    {
+      cx,
+      cy,
+      r,
+      name,
+      logoImage,
+      COLOR_TEXT,
+      FONT_FAMILY,
+      fontSize,
+      letterSpacing,
+    },
+  ) {
+    if (logoImage) {
+      // Fit the logo inside a square box, preserving its aspect ratio.
+      const box = r * 1.2;
+      const iw = logoImage.naturalWidth || logoImage.width;
+      const ih = logoImage.naturalHeight || logoImage.height;
+      const scale = box / Math.max(iw, ih);
+      const w = iw * scale;
+      const h = ih * scale;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(logoImage, cx - w / 2, cy - h / 2, w, h);
+      ctx.restore();
+    } else {
+      setFont(ctx, FONT_FAMILY, fontSize, 700, "normal");
+      ctx.fillStyle = COLOR_TEXT;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      renderText(ctx, name, cx, cy, letterSpacing);
+    }
+  }
+
+  function tickAsync(sim, totalTicks, chunkSize, onDone) {
+    let done = 0;
+    let cancelled = false;
+
+    function step() {
+      if (cancelled) return;
+      const end = Math.min(done + chunkSize, totalTicks);
+      while (done < end) {
+        sim.tick();
+        done++;
+      }
+      if (done < totalTicks) {
+        setTimeout(step, 0);
+      } else {
+        sim.stop();
+        onDone();
+      }
+    }
+
+    setTimeout(step, 0);
+    return {
+      cancel() {
+        cancelled = true;
+        sim.stop();
+      },
+    };
+  }
+
+  return {
+    filterByRange,
+    filterByCategory,
+    aggregateByContributor,
+    dominantCategory,
+    categoryStats,
+    buildContributorTooltipHTML,
+    showAnchoredTooltip,
+    createCanvasLayers,
+    sizeCanvas,
+    sizeCanvasLayers,
+    pixelRatio,
+    setFont,
+    renderText,
+    parseChartValues,
+    parseDateUnix: _parseDateUnix,
+    buildNodes,
+    buildCentralData,
+    drawNodeHighlight,
+    drawClusterHoverState,
+    wireInteraction,
+    runPipeline,
+    createLoadingOverlay,
+    tickAsync,
+    loadProjectImage,
+    drawProjectNodeContent,
+  };
+})();

@@ -1,0 +1,8 @@
+host: gitlab.gnome.org
+project: projects/Infrastructure%2Fgimp-web
+bug_labels: []
+exclude_users:
+  - bugzilla-migration
+bug_category: bug-reporting
+fallback_category: improvement-suggestion
+closed_mr_category: coding-other

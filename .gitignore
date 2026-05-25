@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+__pycache__/
+*.cache.json
+*.git/
+*.tmp
+data/*/_contributions_*_bugzilla.csv
+data/*/_contributions_*_gitlab.csv
+data/*/_contributions_*_git.csv
+contributions.csv

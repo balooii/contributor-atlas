@@ -1,0 +1,10 @@
+repository:
+  url: https://gitlab.gnome.org/World/gimp-ci/documentation.git
+  branch: master
+categories:
+  - documentation
+  - coding-other
+fallback: coding-other
+prompt: ""
+shortcuts:
+  "*": documentation

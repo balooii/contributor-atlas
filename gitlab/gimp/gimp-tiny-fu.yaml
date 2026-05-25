@@ -1,0 +1,8 @@
+host: gitlab.gnome.org
+project: projects/Archive%2Fgimp-tiny-fu
+bug_labels: []
+exclude_users:
+  - bugzilla-migration
+bug_category: bug-reporting
+fallback_category: improvement-suggestion
+closed_mr_category: coding-other

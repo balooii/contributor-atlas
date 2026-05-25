@@ -1,0 +1,9 @@
+repository:
+  url: https://gitlab.gnome.org/World/gimp-ci/jenkins.git
+  branch: master
+categories:
+  - coding-other
+fallback: coding-other
+prompt: ""
+shortcuts:
+  "*": coding-other

@@ -1,0 +1,1141 @@
+# contributor-aliases.txt — canonical name + every known ID for each contributor.
+# Read by merge.py to unify identities across git, GitLab, and Bugzilla before
+# writing contributions.csv.
+#
+# One line per contributor (names are not unique — two lines with the same name
+# are different people):
+#   Name <id> [<id> ...]
+#
+# All identifiers on a line belong to the same person; order doesn't matter.
+# ID types:
+#   <real[at]email.com>   git commit email
+#   <@gitlab-handle>   GitLab username
+#   <#bugzilla-name>   Bugzilla display name
+#
+# An ID may carry a "|name" annotation — <id|Observed Name> — recording the
+# contributor name the source data actually used for that ID. It is added
+# (by make_alias_draft.py, on draft suggestions) only when that observed name
+# differs from the canonical name at the start of the line, as a hint for why
+# the ID was grouped here; an ID seen only under the canonical name gets no
+# annotation. When one ID appeared under several different names, they are
+# listed separated by "/": <id|Name One/Name Two>. Annotations are purely
+# informational — merge.py ignores everything from "|" on — so they are safe
+# to keep or delete.
+#
+# Workflow: make_alias_draft.py appends commented draft suggestions below this
+# block, grouped by confidence. To accept one, just uncomment its line — the
+# next run sorts it into the alphabetical block above, so don't worry about
+# where it lands. If a draft lumps together IDs that actually belong to
+# different people, don't uncomment it as-is; instead assign each ID to the
+# right person by hand: add the IDs to that person's existing line above, or,
+# if they aren't listed yet, add a new line with their Name.
+#
+# Unsure who an ID belongs to? Grep it (the email, @gitlab-handle, or
+# #bugzilla-name) in contributions.csv to list that identity's contributions.
+# Each row's leading contribution_id encodes the source and a reference you can
+# chase down further: commit-<project>-<git-hash>, bugzilla-<project>-<bug-id>,
+# or issue-<project>-<issue-or-MR-number>[-note-<id>]
+#
+
+
+Aaron Franke <arnfranke[at]yahoo.com> <@aaronfranke> <#Aaron-Franke>
+Abderrahim Kitouni <akitouni[at]gnome.org> <@akitouni>
+Abel Cheung <maddog[at]linux.org.hk> <#Abel-Cheung>
+Adam D. Moss <adam[at]gimp.org> <adam[at]src.gnome.org> <#Adam-D.-Moss>
+Adam Fontenot <adam.m.fontenot[at]gmail.com> <@afontenot>
+Adam Nielsen <@malvineous> <#Adam-Nielsen>
+Adam Sampson <@atsampson> <#Adam-Sampson>
+Adam Turcotte <adam.turcotte[at]gmail.com> <aturcotte[at]src.gnome.org> <#Adam-Turcotte>
+Adam Weinberger <adamw[at]gnome.org> <adamw[at]src.gnome.org> <#Adam-Weinberger>
+Aditya Tiwari <suntiwari3495[at]gmail.com> <@suntiwari>
+Adolfo Jayme Barrientos <fitoschido[at]fedoraproject.org> <@fito>
+Adrian Bunk <@AdrianBunk> <#Adrian-Bunk>
+Adrian Likins <adrian[at]gimp.org> <adrian[at]src.gnome.org> <alikins[at]redhat.com> <#Adrian-Likins>
+Adrián Pérez de Castro <aperez[at]igalia.com> <@aperezdc>
+Adrian Siemieniak <@Saur0o0n> <#Adrian-Siemieniak>
+Adrien Plazas <aplazas[at]gnome.org> <@aplazas>
+Ahmed E. Yassin <eng.ahmedessamyassin[at]gmail.com> <@AhmedE.Yassin>
+Akascape <akashbora737[at]gmail.com> <@Akascape>
+A Kelday <garagecoder[at]gmail.com> <#A-Kelday>
+Akkana Peck <akkana[at]git.gnome.org> <akkana[at]shallowsky.com> <akkana[at]src.gnome.org> <@akkana> <#Akkana-Peck>
+alampy <arcticlampyrid[at]outlook.com> <@alampy>
+Alberto Garcia Briz <alberto.garciabriz[at]gmail.com> <@AlbertoG>
+Alevtina <karashokovaaa[at]basealt.ru|Alevtina/Alevtina Karashokova> <@karashokovaaa>
+Alexander Hämmerle <Alexander.Haemmerle[at]gmx.de> <#Alexander-Hämmerle>
+Alexander Larsson <alexl[at]redhat.com> <#Alexander-Larsson>
+Alexander Rabtchevich <@BigSerpent> <#Alexander-Rabtchevich>
+Alexander Thomas <@DrLex> <#Alexander-Thomas>
+Alexandre Brault <@abrault> <#Alexandre-Brault>
+Alexandre Franke <afranke[at]gnome.org> <alexandre.franke[at]gmail.com> <@afranke> <#Alexandre-Franke>
+Alexandre Prokoudine <alexandre.prokoudine[at]gmail.com> <alexandre[at]darkroom> <aprokoudine[at]src.gnome.org> <@prokoudine> <#Alexandre-Prokoudine>
+Alex Dunkel <@makilahy> <26904-makilahy[at]users.noreply.gitlab.gnome.org>
+Alexia Death <alexiadeath[at]gmail.com> <#Alexia-Death>
+Alexis Wilhelm <alexiswilhelm%40gmail.com> <alexiswilhelm[at]gmail.com> <#Alexis-Wilhelm>
+alex premie <@alex666> <#alex.premie>
+Alex Samorukov <samm[at]net-art.cz> <samm[at]os2.kiev.ua> <@samm-git>
+Alfred Wingate <parona[at]protonmail.com> <@parona>
+Aliya Rahmani <aliyarahmani786[at]gmail.com> <@aliyarahmani786>
+Allan Day <aday[at]gnome.org> <#Allan-Day>
+Alpesh Jamgade <alpeshjamgade21[at]gmail.com> <@alpeshjamgade>
+Alx Sa <cmyk.student[at]gmail.com> <@cmyk.student>
+Americo Gobbo <americogobbo[at]gmail.com> <@americo_gobbo>
+Anders Jonsson <anders.jonsson[at]norsjovallen.se> <@ajonsson> <#Anders-Jonsson>
+Andika Triwidada <andika[at]gmail.com> <atriwidada[at]gnome.org> <#Andika-Triwidada>
+Andras Timar <timar74[at]gmail.com> <timar[at]gnome.hu> <@timar>
+Andreas Fischer <andreas.fischer[at]student.kit.edu> <#Andreas-Fischer>
+Andreas Scherer <andreas_github[at]freenet.de> <@ascherer>
+Andrea Veri <andrea.veri[at]gmail.com> <averi[at]redhat.com> <@averi>
+Andrei Rybak <rybak.a.v[at]gmail.com> <@andrybak>
+André Klapper <a9016009[at]gmx.de> <ak-47[at]gmx.net> <@aklapper> <#André-Klapper>
+André Tupinambá <andrelrt[at]gmail.com> <#André-Tupinambá>
+Andrew Church <@achurch> <#Andrew-Church>
+Andrew Kirkland <@djandiek> <#Andrew-Kirkland>
+Andrew Pennebaker <@andrew.pennebaker> <#andrew.pennebaker>
+Andrew Worsley <amworsley[at]gmail.com> <#Andrew-Worsley>
+Andrew Wyatt <andywyatt[at]onetel.com> <#Andrew-Wyatt>
+Andrey Brusnik <dev[at]shdwchn.io> <@shdwchn10>
+Andrzej Hunt <andrzej[at]ahunt.org> <@ahunt>
+Angel Zaprianov <anzaprianov[at]gmail.com> <@fire1.a.zaprianov>
+Antoine Jacoutot <@ajacoutot> <#Antoine-Jacoutot>
+António Fernandes <antoniof[at]gnome.org> <@antoniof>
+Antonio Ospite <@ao2> <#Antonio-Ospite>
+Arangel Angov <arangela[at]src.gnome.org> <#Arangel-Angov>
+Arfrever Frehtes Taifersar Arahesis <Arfrever.FTA[at]gmail.com> <#Arfrever-Frehtes-Taifersar-Arahesis>
+Ariela Wenner <@ariSun> <#Ariela-Wenner>
+Ari Pollak <@aripollak> <#Ari-Pollak>
+Arnaud Chéritat <@Arnache> <#Arnaud-Chéritat>
+Aron Xu <aronxu[at]gnome.org> <aronxu[at]src.gnome.org> <happyaron.xu[at]gmail.com> <@aron>
+Arturo Espinosa <unammx[at]src.gnome.org> <#Arturo-Espinosa>
+Aruius <@aruius> <155729-aruius[at]users.noreply.gitlab.gnome.org|aruius>
+Aryeom <aryeom[at]gimp.org> <aryeom[at]girinstud.io|Aryeom/Aryeom Han> <@aryeom>
+A S Alam <aalam[at]users.sf.net> <#A-S-Alam>
+Asier Saratsua Garmendia <asiersarasua[at]ni.eus|Asier Sarasua Garmendia/Asier Saratsua Garmendia> <@asiersarasua>
+Ask Hjorth Larsen <askhl[at]proton.me> <asklarsen[at]gmail.com> <@askhl> <#Ask-Hjorth-Larsen>
+Aurimas Juška <aurimas.juska[at]gmail.com> <aurisj[at]src.gnome.org> <aurisj[at]svn.gnome.org> <#Aurimas-Juška>
+Aurore D <@Rore> <#Aurore-D>
+Austin Donnelly <and1000[at]research.att.com> <austin[at]gimp.org> <austin[at]greenend.org.uk> <austin[at]src.gnome.org> <#Austin-Donnelly> <#Austin.Donnelly>
+Awaw Fumin <awawfumin[at]gmail.com> <#Awaw-Fumin>
+Axel Wernicke <axel.wernicke[at]gmail.com> <axel.wernicke[at]gmx.de> <axelw[at]src.gnome.org> <#Axel-Wernicke>
+Babs Keeley <babs.keeley[at]sky.com> <@BabsKy>
+Balázs Úr <@urbalazs> <14539-urbalazs[at]users.noreply.gitlab.gnome.org>
+balooii <balooii[at]proton.me|balooii/balooii balooii> <@balooii>
+Baptiste Mille-Mathias <@bmillemathias> <#Baptiste-Mille-Mathias>
+Bart Piotrowski <bpiotrowski[at]gnome.org|Bart Piotrowski/Bartłomiej Piotrowski> <@barthalion>
+Bastian Ilsø Hougaard <bastianilso[at]gnome.org> <@bastianilso>
+Bastian Salmela <@bastian.salmela> <#bastian-salmela>
+Bastien Nocera <@hadess> <#Bastien-Nocera>
+BdR76 <bdr1976[at]gmail.com> <@BdR76>
+Behdad Esfahbod <behdad[at]behdad.org> <@behdad> <#Behdad-Esfahbod>
+Behnam Momeni <sbmomeni[at]gmail.com> <@momeni>
+Ben Gertzfield <che[at]src.gnome.org> <#Ben-Gertzfield>
+Benjamin Kerensa <bkerensa[at]gmail.com> <#Benjamin-Kerensa>
+Benjamín Valero Espinosa <benjavalero[at]gmail.com> <#Benjamín-Valero-Espinosa>
+Benoit Touchette <draekko.software+gimp[at]gmail.com> <draekko.sofware[at]gmail.com> <@bentou>
+Bertus Den Droef <dendroefbertus[at]gmail.com> <@dendroefbertus>
+Bill Kendrick <@billkendrick> <#Bill-Kendrick>
+Biswapriyo Nath <nathbappai[at]gmail.com> <@Biswa96>
+Björn Kautler <Bjoern[at]Kautler.net> <#Björn-Kautler>
+Blezecon <dfyyasdd[at]gmail.com> <@blezecon>
+Bogdan Petcu <bogdanconstantinpetcu[at]gmail.com> <#Bogdan-Petcu>
+Brandon Henderson <brandon.noises[at]gmail.com> <@bhenderson>
+Branko Collin <branko[at]src.gnome.org> <@bcollin> <#Branko-Collin>
+Brian Alef <brianceltic1234[at]gmail.com> <@brianceltic1234>
+Brian Popow <popow[at]gmx.de> <@brianpopow>
+Brian Stafford <contact[at]brianstafford.info> <@briancs>
+Bruce Cowan <bcowan[at]fastmail.co.uk> <bruce[at]bcowan.me.uk> <@suborbitalpigeon> <#Bruce-Cowan>
+Bruce Guenter <@bruceg> <#Bruce-Guenter>
+Bruno <brunolopesdsilv[at]outlook.com|Bruno/Bruno Lopes> <brunvonlope[at]outlook.com|Bruno/Bruno Lopes> <@brunvonlope>
+Bruno <brunolopesdsilv[at]outlook.com> <#Bruno> <#bruno>
+Bruno Duyé <@brunetton> <#Bruno-Duyé>
+Bruno Postle <@brunopostle> <#Bruno-Postle>
+Cai Qian <caiqian[at]debian> <caiqian[at]gnome.org> <caiqian[at]src.gnome.org> <#Cai-Qian>
+Caleb Xu <calebcenter[at]live.com> <@alebcay>
+Cameron Gregory <public[at]bloke.com> <@blokecom> <#Cameron-Gregory>
+Carlos Garnacho <carlosg[at]gnome.org> <@carlosg> <#Carlos-Garnacho>
+Carlos Perelló Marín <carlos[at]gnome-db.org> <carlos[at]src.gnome.org> <#Carlos-Perelló-Marín>
+Carlos Zubieta <czubieta.dev[at]gmail.com> <#Carlos-Zubieta>
+Carol Spears <carol.spears[at]gmail.com> <carol[at]gimp.org> <carol[at]src.gnome.org> <@Rabo> <#Carol-Spears>
+Carsten Jensen <@tomse0008> <#Carsten-Jensen>
+Cătălin George Feștilă <@catafest> <#Cătălin-George-Feștilă>
+Changwoo Ryu <cwryu[at]debian.org> <cwryu[at]src.gnome.org> <@cwryu>
+Chas Belov <docorbit[at]sonic.net> <@ChasBelov>
+Chris Leonard <cjl[at]laptop.org> <#Chris-Leonard>
+Chris Mayo <aklhfex[at]gmail.com> <@chrism>
+Christian Heusel <christian[at]heusel.eu> <@christian-heusel>
+Christian Kirbach <Christian.Kirbach[at]gmail.com> <Christian.Kirbach[at]googlemail.com> <christian.kirbach[at]gmail.com> <#Christian-Kirbach>
+Christian Lehmann <dev[at]christianl.de> <#Christian-Lehmann>
+Christian Rose <menthos[at]menthos.com> <menthos[at]src.gnome.org> <#Christian-Rose>
+Christoph Anton Mitterer <calestyo[at]scientia.org> <@calestyo> <#Christoph-Anton-Mitterer>
+Christopher Benson <chris.benson.sr[at]gmail.com> <@ChristopherBenson>
+Christopher Davis <brainblasted[at]disroot.org> <@BrainBlasted>
+Christopher Howard <choward[at]indicium.us> <#Christopher-Howard>
+Christoph Reiter <reiter.christoph[at]gmail.com> <@creiter>
+Chris Wilson <chris[at]chris-wilson.co.uk> <#Chris-Wilson>
+Claude Paroz <claude[at]2xlibre.net> <claudep[at]src.gnome.org> <@claudep> <#Claude-Paroz>
+Claudio Saavedra <csaavedra[at]alumnos.utalca.cl> <#Claudio-Saavedra>
+Claudio Wunder <cwunder[at]gnome.org> <@cwunder>
+Clayton Walker <blender3dartist[at]gmail.com> <clayton.m.walker[at]gmail.com> <#Clayton-Walker>
+Clément Lesné <clement[at]lesne.pro> <@clementlesne>
+Cliff Esler <@cliff.esler> <#Cliff-Esler>
+Clytie Siddall <clyties[at]src.gnome.org> <#Clytie-Siddall>
+Commenter <c[at]commenter.cc> <@Commenter25>
+Corentin Noël <corentin.noel[at]collabora.com> <@tintou>
+Corey Berla <corey[at]berla.me> <@coreyberla>
+Corrado Venturini <@corradoventu> <#corrado-venturini>
+Cristian Secară <cristi[at]secarica.ro> <liste[at]secarica.ro> <@secarica> <#Cristian-Secară>
+Cyril Richard <cyril.richard42[at]gmail.com> <@lock042>
+Damien de Lemeny <d.delemeny[at]gmail.com> <#Damien-de-Lemeny>
+Daniel Boles <@dboles> <#Daniel-Boles>
+Daniele Cruciani <@danielecr> <#Daniele-Cruciani>
+Daniel Egger <de[at]axiros.com> <degger[at]fhm.edu> <egger[at]fhm.edu> <egger[at]interearth.com> <egger[at]src.gnome.org> <egger[at]suse.de> <#Daniel-Egger>
+Daniel Korostil <ted.korostiled[at]gmail.com> <@dankor> <#Daniel-Korostil>
+Daniel Mustieles <daniel.mustieles.contractor[at]bbva.com> <daniel.mustieles[at]gmail.com> <dnaiel.mustieles[at]gmail.com> <#Daniel-Mustieles>
+Daniel Novomeský <dnovomesky[at]gmail.com|Daniel Novomesky/Daniel Novomeský> <@dnovomesky>
+Daniel Nylander <dnylande[at]src.gnome.org> <po[at]danielnylander.se> <#Daniel-Nylander>
+Daniel P. Berrange <berrange[at]redhat.com> <#Daniel-P.-Berrange>
+Daniel R. Grayson <danielrichardgrayson[at]gmail.com> <@DanGrayson>
+Daniel Rogers <daniel[at]phasevelocity.org> <dsrogers[at]src.gnome.org> <#Daniel-Rogers>
+Daniel Sabo <DanielSabo[at]gmail.com> <#Daniel-Sabo>
+Danilo Šegan <danilo[at]src.gnome.org> <dsegan[at]gmx.net> <#Danilo-Segan>
+Danny Robson <danny[at]blubinc.net> <#Danny-Robson>
+darkraid1 <darkraid1[at]gmail.com> <#darkraid1>
+darnuria <darnuria[at]darnuria.eu> <@darnuria>
+Dave Jarvis <@DaveJarvis> <#Dave-Jarvis>
+Dave Neary <bolsh[at]gimp.org> <dneary[at]eircom.net> <nearyd[at]eircom.net> <#Dave-Neary>
+David Cook <@davidarcook> <#david-cook>
+David C. Rankin <@drankinatty> <#David-C.-Rankin>
+David Evans <devans[at]macports.org> <#David-Evans>
+David Gowers <00ai99[at]gmail.com> <finticemo[at]gmail.com> <@tilkau> <#David-Gowers> <#david-gowers>
+David Monniaux <monniaux[at]src.gnome.org> <@monniaux> <#David-Monniaux>
+David Odin <dindinx[at]src.gnome.org> <#David-Odin>
+Dean Birch <dean.birch[at]arm.com> <@deanbirch>
+Debarshi Ray <debarshir[at]freedesktop.org> <debarshir[at]gnome.org> <debarshir[at]src.gnome.org> <rishi.is[at]lostca.se> <@debarshir> <#Debarshi-Ray>
+Denis Knoepfle <penpal.denis[at]web.de> <#Denis-Knoepfle>
+Denis Rangelov <rangelovd[at]tuta.io> <@rangelovd> <84382-rangelovd[at]users.noreply.gitlab.gnome.org>
+Dick Groskamp <dikgro[at]yahoo.co.uk> <@digro>
+Dima Ryazanov <dima[at]gmail.com> <@dima>
+Dimitris Apostolou <@rex4539> <#Dimitris-Apostolou>
+Dimitris Papavasiliou <dpapavas[at]gmail.com> <#Dimitris-Papavasiliou>
+Dimitris Spingos <dmtrs32[at]gmail.com> <@dimspingos>
+Dirk Hoffmann <@Hoffmann> <#Dirk_Hoffmann>
+Dominique Leuenberger <dimstar[at]opensuse.org> <@DimStar77> <#Dominique-Leuenberger>
+Doug Richardson <doug[at]rekt.email> <@drichardson>
+Dov Grobgeld <dov.grobgeld[at]gmail.com> <dov[at]imagic.weizmann.ac.il> <dov[at]src.gnome.org> <#Dov-Grobgeld>
+drewtato <@drewtato> <16223-drewtato[at]users.noreply.gitlab.gnome.org>
+dsl101 <@dsl101> <#dsl101>
+Ed J <ed[at]s5h.net|ed> <edj[at]src.gnome.org> <m8r-35s8eo[at]mailinator.com> <@edj> <@edt|Ed> <@ehines|Ed> <#Ed|Ed> <#Ed-J> <#ed|ed> <mohawk2[at]users.noreply.github.com>
+Eduardo Silva <@esilva> <#Eduardo-Silva>
+Edward E. <develinthedetail[at]gmail.com> <@cbrt64> <#Edward-E.>
+Elad Shahar <dawn.ever[at]gmail.com> <@eladsha> <#Elad-Shahar>
+Eli Schwartz <eschwartz[at]archlinux.org> <@eschwartz>
+Ell <ell_se[at]yahoo.com> <@ell> <#Ell>
+Elle Stone <ellestone[at]ninedegreesbelow.com> <l.elle.stone[at]gmail.com> <@ellestone> <#Elle-Stone>
+Elton Woo <@jeltonwoo> <#Elton-Woo>
+Emilio Pozuelo Monfort <pochu27[at]gmail.com> <#Emilio-Pozuelo-Monfort>
+Enrico Nicoletto <hiko[at]duck.com> <liverig[at]gmail.com> <#Enrico-Nicoletto>
+Enrico Schröder <enni.schroeder[at]gmail.com> <#Enrico-Schröder>
+Eric Grivel <gimp[at]lumenssolutions.com> <#Eric-Grivel>
+Éric Hoffman <ehoffman[at]videotron.ca> <#Éric-Hoffman>
+Érico Rolim <erico.erc[at]gmail.com> <@ericonr>
+E.S. Quinn <onetruequinn[at]hotmail.com> <#E.S.-Quinn>
+Estecka <estecka[at]galacsys.com> <@Estecka> <#Estecka>
+Étienne Bersac <bersace[at]src.gnome.org> <etienne.bersac[at]corp.nerim.net> <#Étienne-Bersac>
+Evan Langlois <@uudruid741> <#Evan-Langlois>
+Federico Mena Quintero <federico[at]gnome.org> <federico[at]nuclecu.unam.mx> <@federico> <#Federico-Mena-Quintero>
+Felix Schwarz <felix.schwarz[at]oss.schwarz.eu> <@FelixSchwarz>
+Felix Yan <felixonmars[at]archlinux.org> <@felixonmars>
+Florian Klemme <mail[at]florianklemme.de> <#Florian-Klemme>
+Florian Weimer <fweimer[at]redhat.com> <@fweimer>
+Fotis Tsamis <ftsamis[at]gmail.com> <#Fotis-Tsamis>
+François Guerraz <francois[at]orographic.uk> <@kubrick> <#François-Guerraz>
+Frank Teklote <f.teklote[at]laudert.com> <f.teklote[at]laudert.de> <@f.teklote>
+Fredrik Alströmer <roe[at]excu.se> <#Fredrik-Alströmer>
+Fryderyk Dziarmagowski <freetz[at]gmx.net> <#Fryderyk-Dziarmagowski>
+Funda Wang <fwang[at]src.gnome.org> <@fundawang>
+Gábor Kelemen <kelemeng[at]gnome.hu> <kelemeng[at]openscope.org> <#Gabor-Kelemen>
+Gabriel Burt <gabriel.burt[at]gmail.com> <#Gabriel-Burt>
+Gabriele <barbero.gabriele03[at]gmail.com> <@GabryBarbe>
+Gabriel Szabó <@saboka.digitalgraphics> <#Gabriel-Szabó>
+Garry R. Osgood <garo[at]src.gnome.org> <gosgood[at]idt.net> <grosgood[at]rcn.com> <#Garry-R.-Osgood>
+Gary Hodges <@hodges.gw> <#Gary-Hodges>
+Geoff Cox <@GeoffreyB> <#Geoff-Cox>
+Georg Hornung <@GeorgHornung> <#Georg-Hornung>
+Gil Eliyahu <gileli121[at]gmail.com> <#Gil-Eliyahu>
+Gil Forcada <gforcada[at]gnome.org> <#Gil-Forcada>
+Gilles Rochefort <gilles.rochefort[at]gmail.com> <#Gilles-Rochefort>
+Gil Osher <dolfin[at]src.gnome.org> <#Gil-Osher>
+GokhanKabar <gokhankabar[at]hotmail.fr> <@GokhanKabar>
+Göran Uddeborg <goeran[at]uddeborg.se> <#Göran-Uddeborg>
+Gotam Gorabh <gautamy672[at]gmail.com> <@gautham_x>
+Goutham Krishna <gauthamkrishna9991[at]live.com> <@gouthamkrishnakv>
+Guiu Rocafort <neandertalspeople[at]gmail.com> <@guiu-rocafort> <#Guiu-Rocafort>
+Hanabishi <@Hanabishi> <40605-Hanabishi[at]users.noreply.gitlab.gnome.org>
+Hanno Böck <@hanno> <#Hanno-Böck>
+Hans Breuer <hans[at]breuer.org> <hans[at]src.gnome.org> <#Hans-Breuer>
+Hans Lo <hansshulo[at]gmail.com> <#Hans-Lo>
+Hans Petter Jansson <hpj[at]cl.no> <#Hans-Petter-Jansson>
+Harald Korneliussen <vintermann[at]gmail.com> <#Harald-Korneliussen>
+Hari Rana <theevilskeleton[at]riseup.net> <@TheEvilSkeleton>
+Harsh Verma <harshkardam246[at]gmail.com> <@harshverma>
+Hartmut Kuhse <hk_priv[at]gmx.de> <onkelhatti[at]gimp.org> <#Hartmut-Kuhse>
+Heiko Becker <heirecka[at]exherbo.org> <@heirecka>
+Helvetix Victorinox <Helvetix[at]src.gnome.org> <#Helvetix-Victorinox>
+Hendrik Boom <hboom[at]src.gnome.org> <#Hendrik-Boom>
+Hendrik Richter <hendi[at]gnome-de.org> <hendrikr[at]gnome.org> <hendrikr[at]src.gnome.org> <#Hendrik-Richter>
+Henrik Brix Andersen <brix[at]gimp.org> <brix[at]src.gnome.org> <#Henrik-Brix-Andersen>
+Howard Smith <@garstonsmith99> <#Howard-Smith>
+Hubert Figuière <hub[at]figuiere.net|Hubert Figuiere> <hub[at]src.gnome.org|Hubert Figuiere> <@hub>
+Hugo Carvalho <hugokarvalho[at]hotmail.com> <@hugok79>
+Hussam Al-Tayeb <me[at]hussam.eu.org> <@hussam> <#Hussam-Al-Tayeb>
+Ian Munsie <darkstarsword[at]gmail.com> <#Ian-Munsie>
+Idriss Fekir <mcsm224[at]gmail.com> <@user062>
+IFo Hancroft <@ifohancroft> <#IFo-Hancroft>
+infinity <@infinity> <169048-infinity[at]users.noreply.gitlab.gnome.org>
+Integral <integral[at]member.fsf.org> <@Integral>
+Ionutz Borcoman <iborco[at]gmail.com> <#Ionutz-Borcoman>
+Iulian Radu <iulian.radu67[at]gmail.com> <#Iulian-Radu>
+Jacob Boerema <jgboerema[at]gmail.com> <@Wormnest>
+JakobDev <jakobdev[at]gmx.de> <@JakobDev>
+Jakub Friedl <friedl[at]suse.cz> <jfriedl[at]centrum.cz> <jfriedl[at]src.gnome.org> <jfriedl[at]suse.cz> <#Jakub-Friedl>
+Jakub Steiner <jimmac[at]gimp.org> <jimmac[at]gmail.com> <jimmac[at]src.gnome.org> <jimmac[at]ximian.com> <@jimmac> <#Jakub-Steiner>
+James Golden <golden-james[at]att.net> <@GoldenWon>
+James Johnson <@mrjohnson1373> <#James-Johnson>
+James Legg <lankyleggy[at]gmail.com> <#James-Legg>
+Jan Heller <jheller[at]svn.gnome.org> <#Jan-Heller>
+Jan Palus <jpalus[at]fastmail.com> <@jpalus>
+Jan Pernica <@jan.pernik> <#Jan-Pernica>
+Jan Rüegg <rggjan[at]gmail.com> <#Jan-Rüegg>
+Jan Tojnar <jtojnar[at]gmail.com> <@jtojnar> <#Jan-Tojnar>
+Ján Veselý <jan vesely rutgers edu> <jan.vesely[at]rutgers.edu> <jano.vesely[at]gmail.com> <@jvesely> <#Jan-Vesely>
+Jason Gerecke <@jigpu> <#Jason-Gerecke>
+Jason Woofenden <@JasonWoof> <#Jason-Woofenden>
+Jasper den Ouden <@o-jasper> <#Jasper-den-Ouden>
+Jasper Krijgsman <jd.krijgsman[at]gmail.com> <#Jasper-Krijgsman>
+Javier Jardón <javierjc1982[at]gmail.com> <jjardon[at]gnome.org> <@jjardon>
+Jay Cox <jaycox[at]earthlink.net> <jaycox[at]gimp.org> <#Jay-Cox>
+JD Breuer <@didibreuer> <#JD-Breuer>
+Jean-Baptiste Mayer <jean-baptiste.mayer[at]m4x.org> <#Jean-Baptiste-Mayer>
+Jean-Christophe Manciot <@actionmystique> <#Jean-Christophe-Manciot>
+Jeb Eldridge <@jebeld17> <#Jeb-Eldridge>
+Jeffery Small <@cjsmall> <@jefferysmall> <#Jeffery-Small>
+Jeff Knox <jd.knox[at]gmail.com> <#Jeff-Knox>
+Jehan <jehan[at]girinstud.io> <@Jehan> <@Jehan_ZeMarmot> <#Jehan>
+Jens Georg <@jensgeorg> <#Jens-Georg>
+Jeremiah Darais <mail[at]jeremiahdarais.com> <#Jeremiah-Darais>
+Jeremy Bicha <jbicha[at]debian.org|Jeremy Bicha/Jeremy Bícha> <jbicha[at]ubuntu.com> <jeremy.bicha[at]canonical.com|Jeremy Bícha> <@jbicha> <#Jeremy-Bicha>
+Jernej Simončič <jernej[at]ena.si> <jernej> <jernej> <@jernejs> <#Jernej-Simoncic> <#Jernej-Simončič>
+Jernej Simončič <jernej[at]ena.si> <jernej> <jernej>
+Jesse Kay <@giantspeck> <#Jesse-Kay>
+Jim DeLaHunt <@JDLH> <#Jim-DeLaHunt>
+Jiri Eischmann <jiri[at]eischmann.cz> <#Jiri-Eischmann>
+Jiri Grönroos <jiri.gronroos+l10n[at]iki.fi> <jiri.gronroos[at]iki.fi> <#Jiri-Grönroos>
+Jiro Matsuzawa <jmatsuzawa[at]gnome.org> <jmatsuzawa[at]src.gnome.org> <#Jiro-Matsuzawa>
+Joachim Bauch <fancycode[at]debian.org> <@fancycode>
+Joachim P <@jpr> <137221-jpr[at]users.noreply.gitlab.gnome.org|Joachim Priesner>
+Joachim Wagner <@jowagner> <#Joachim-Wagner>
+João S. O. Bueno <gwidion[at]gmail.com> <gwidion[at]mpc.com.br> <#Joao-S.-O.-Bueno>
+Joe Da Silva <digital[at]joescat.com> <@JoesCat>
+Joe Hansen <joedalton2[at]yahoo.dk> <#Joe-Hansen>
+Joey Riches <josephriches[at]gmail.com> <@joebonrichie>
+Johannes Matschke <butesa[at]freenet.de> <#Johannes-Matschke>
+John Marshall <jtm.home[at]gmail.com> <@jtm94> <#John-Marshall>
+John Paul Adrian Glaubitz <glaubitz[at]physik.fu-berlin.de> <@glaubitz> <#John-Paul-Adrian-Glaubitz>
+John Ralls <jralls[at]ceridwen.us> <@jralls> <#John-Ralls>
+John Scott <jscott[at]posteo.net> <@jscott>
+John Smith <@Chaoskwb> <@johnsmith35096> <#John-Smith>
+Jonas Berlin <ggl-518249903[at]xkr47.space> <@xkr47>
+Jonathan D <jdemeyer[at]hotmail.com> <@jona>
+Jonathan Liu <@net147> <#Jonathan-Liu>
+Jonathan Tait <jontait2[at]gmail.com> <#Jonathan-Tait>
+Jon Nordby <jononor[at]gmail.com> <#Jon-Nordby>
+Jordi Mallach <jordi[at]debian.org> <jordi[at]sindominio.net> <jordim[at]src.gnome.org> <@jordi>
+Jordi Mas <jmas[at]softcatala.org|Jordi Mas/Jordi Mas i Hernandez> <jmas[at]src.gnome.org> <@jmas>
+Jorge González <jorgegonz[at]svn.gnome.org> <#Jorge-Gonzalez>
+Josef Ridky <jridky[at]redhat.com> <@jridky> <#Josef-Ridky>
+Jose Riha <jose1711[at]gmail.com> <@jose1711>
+Juan Palacios <jpalaciosdev[at]gmail.com> <#Juan-Palacios>
+Julia Johannesen <julia[at]insertdomain.name> <@K4rakara>
+Julian Hofer <julianhofer[at]gnome.org> <@Hofer-Julian>
+Julien hardelin <jhardlin[at]orange.fr> <jhardlin[at]wanadoo.fr> <jm.hard {at} wanadoo.fr> <jm.hard[at]wanadoo.fr> <#julien-hardelin>
+Julien Hardlin <jhardlin[at]src.gnome.org> <@jhardlin>
+Julien Nabet <serval2412[at]yahoo.fr> <@serval2412>
+Justus Rajan <@justusr846> <#Justus-Rajan>
+Kalev Lember <kalevlember[at]gmail.com> <klember[at]redhat.com> <#Kalev-Lember>
+Kamil Burda <@kamilburda> <123164-kamilburda[at]users.noreply.gitlab.gnome.org>
+Karine Delvare <edhel[at]gimp.org> <kdelvare[at]cvs.gimp.org> <kdelvare[at]nerim.net> <#Karine-Delvare>
+Kelly Martin <kelly[at]src.gnome.org> <kmartin[at]pyrzqxgl.org> <#Kelly-Martin>
+Kelly Price <@STrRedWolf> <#Kelly-Price>
+Ken Moffat <zarniwhoop[at]ntlworld.com> <#Ken-Moffat>
+Kevin Cozens <kcozens[at]cvs.gimp.org> <kcozens[at]cvs.gnome.org> <kcozens[at]pc.localdomain> <kcozens[at]src.gnome.org> <kcozens[at]svn.gnome.org> <kcozensATinterlogDOTcom> <kevin[at]cvs.gnome.org> <kevin[at]ve3syb.ca> <@kcozens> <#Kevin-Cozens>
+Kevin Ilphrin Pellet <@Illphrin> <#Kevin-Ilphrin-Pellet>
+Kevin Payne <paynekj[at]hotmail.com> <@paynekj> <#Kevin-Payne>
+Kevin Sookocheff <sookokev[at]src.gnome.org> <#Kevin-Sookocheff>
+Kevin Stoffler <kevin.stoff[at]hotmail.com> <@Firego>
+Kevin Turner <acapnotic[at]src.gnome.org> <acapnotic[at]users.sourceforge.net> <#Kevin-Turner>
+Khaled Hosny <khaled[at]aliftype.com> <khaledhosny[at]eglug.org> <@khaledhosny> <#Khaled-Hosny>
+Kiyotaka NISHIBORI <ml.nishibori.kiyotaka[at]gmail.com> <#Kiyotaka-NISHIBORI>
+Kjartan Maraas <kjartan.maraas[at]gmail.com> <kmaraas[at]gnome.org> <kmaraas[at]gnu.org> <kmaraas[at]online.no> <kmaraas[at]src.gnome.org> <#Kjartan-Maraas>
+Klaus Staedtler <staedtler-przyborski[at]web.de> <#Klaus-Staedtler>
+Kolbjørn Stuestøl <kolbjoern[at]src.gnome.org> <kolbjoern[at]stuestoel.no> <kolbjoern[at]git.gnome.org> <@kolbjoern> <#Kolbjørn-Stuestøl>
+Kővágó, Zoltán <DirtY.iCE.hu[at]gmail.com> <#Kővágó,-Zoltán>
+Krasnaya Ploshchad’ <@KrasnayaPloshchad> <#Krasnaya-Ploshchad’>
+Kristian Rietveld <kris[at]gtk.org> <kris[at]loopnest.org> <#Kristian-Rietveld>
+Kristjan ESPERANTO <kristjan.schmidt[at]googlemail.com> <@kristjan.esperanto> <35647502+KristjanESPERANTO[at]users.noreply.github.com>
+ktoyle <ktoyle[at]students.kennesaw.edu> <@ktoyle>
+Kurt Fitzner <@VA1DER> <#Kurt-Fitzner>
+Kyungjoon Lee <kjoonlee[at]gmail.com> <@kjoonlee>
+L amander <lamander111[at]gmail.com> <@L-amander>
+Larry Ewing <lewing[at]discord.isc.tamu.edu> <lewing[at]isc.tamu.edu> <lewing[at]src.gnome.org> <lewing[at]ximian.com> <#Larry-Ewing>
+Lars-Peter Clausen <lars[at]metafoo.de> <larsc[at]src.gnome.org> <#Lars-Peter-Clausen>
+Laurence Parry <@GreenReaper> <#Laurence-Parry>
+Liam Quin <liam[at]fromoldbooks.org> <@barefootliam> <liam[at]w3.org> <#Liam-Quin>
+lidistat67 <antonyplayz75[at]gmail.com> <@antonistatmich>
+lillolollo <bax_70[at]hotmail.com> <@lillolollo> <4179-lillolollo[at]users.noreply.gitlab.gnome.org>
+LinuxUser GD <hugegameartgd[at]gmail.com> <@LinuxUserGD>
+Lionel N. <lionel[at]libreart.info> <#Lionel-N.>
+Lloyd Konneker <bootch[at]nc.rr.com> <konnekerl[at]gmail.com|Lloyd Konneker/bootchk/lloyd konneker> <@bootchk> <#lloyd-konneker|lloyd konneker>
+Loren Dias <@lorendias> <#Loren-Dias>
+Loren Merritt <pengvado[at]akuvian.org> <#Loren-Merritt>
+Louis Benazet <louisbenaze[at]gmail.com> <#Louis-Benazet>
+Luca Bacci <luca.bacci982[at]gmail.com> <luca.bacci[at]outlook.com> <@lb90>
+Ludovic Rousseau <ludovic.rousseau[at]gmail.com> <#Ludovic-Rousseau>
+Luis A. Florit <@luisflorit> <#Luis-A.-Florit>
+Lukas Oberhuber <lukas.oberhuber[at]simplybusiness.co.uk> <lukas[at]hiphops.io> <lukaso[at]gmail.com> <@lukaso>
+lumingzh <lumingzh[at]qq.com|Luming Zh/luming zh/lumingzh> <@flywater>
+Luna Jernberg <droidbittin[at]gmail.com> <@droidbittin>
+luzpaz <kunda[at]scribus.net> <luzpaz[at]pm.me> <@luzpaz> <luzpaz[at]users.noreply.github.com|luz paz/luz.paz/luzpaz>
+Manish Singh <yosh[at]gimp.org> <yosh[at]src.gnome.org> <#Manish-Singh>
+Marcelo Hernandez <marcelohdez.inq[at]gmail.com> <@marcelohdez>
+Marc Espie <espie[at]openbsd.org> <@marc.espie.openbsd> <@marcespie>
+Marc Lehmann <pcg[at]src.gnome.org> <#Marc-Lehmann>
+Marco Ciampa <ciampix[at]libero.it> <ciampix[at]posteo.net> <marcoc[at]src.gnome.org> <@ciampix> <#Marco-Ciampa>
+Marco Spiess <marco.spiess[at]andrena.de> <@mspiess>
+Marc Wachter <@Cram0815> <#Marc-Wachter>
+Marek Černocký <marek[at]manet.cz> <marek_cernocky[at]conel.cz> <#Marek-Černocký>
+Marie-P <mpbwelle[at]gmail.com> <@Marie-P>
+Marinus Schraal <mschraal[at]gnome.org> <@mschraal> <#Marinus-Schraal>
+Mario Blättermann <mario.blaettermann[at]gmail.com> <mariobl[at]gnome.org> <@mariobl>
+Mario Daniel Ruiz Saavedra <desiderantes93[at]gmail.com> <@desiderantes>
+Mario Mey <@MarioMey> <#Mario-Mey>
+Mario Valle <@siliconvalley58> <#Mario-Valle>
+Marius Andreiana <mandreiana[at]src.gnome.org> <#Marius-Andreiana>
+Mark Schmitz <renegat.nospam[at]gmail.com> <#Mark-Schmitz>
+Mark Sweeney <mr.mark.sweeney[at]gmail.com> <@pixelmixer>
+Markus Hentschel <citysem24[at]gmail.com> <@citysem24>
+Markus Volk <f_l_k[at]t-online.de> <@flk>
+Martin Baulig <martin[at]home-of-linux.org> <martin[at]src.gnome.org> <#Martin-Baulig>
+Martin Blanchard <tchaik[at]gmx.com> <@tchaik> <#Martin-Blanchard>
+Martin Husemann <martin[at]NetBSD.ORG> <martin[at]netbsd.org> <#Martin-Husemann>
+Martin Lorenz <@hmplorenz> <#martin.lorenz>
+Martin Nordholts <enselic[at]gmail.com> <martin[at]svn.gnome.org> <martinn[at]src.gnome.org> <martinn[at]svn.gnome.org> <#Martin-Nordholts>
+Martin Owens <@doctormo> <#Martin-Owens>
+Martin Pelikán <mpel[at]google.com> <#Martin-Pelikán>
+Martin Renold <martinxyz[at]gmx.ch> <#Martin-Renold>
+Martin Thoma <@themoosemind> <#Martin-Thoma>
+Massimo Valentini <mvalentini335[at]gmail.com> <mvalentini[at]src.gnome.org> <sixtysix[at]inwind.it> <@Massimo>
+Matt C <@gnomeo> <#Matt-C>
+Matt Giuca <mgiuca[at]chromium.org> <#Matt-Giuca>
+Matthew Leach <thoughtfulmonkey[at]gmail.com> <@mleach>
+Matthias Clasen <@matthiasc> <#Matthias-Clasen>
+Matthias Junker-Petschick <razzle[at]razzle.de> <#Matthias-Junker-Petschick>
+Matthias Wenzel <gimp[at]mazzoo.de> <#Matthias-Wenzel>
+Matthijs Wensveen <@mrwensveen> <#Matthijs-Wensveen>
+Matt Kraai <kraai[at]ftbfs.org> <#Matt-Kraai>
+Matt Wilson <msw[at]gimp.org> <msw[at]redhat.com> <msw[at]src.gnome.org> <#Matt-Wilson>
+Maurits Rijk <lpeek.mrijk[at]consunet.nl> <m.rijk[at]chello.nl> <maurits[at]src.gnome.org> <#Maurits-Rijk>
+Mayank Suman <mayanksuman[at]live.com> <@mayanksuman>
+Mel Boyce <syngin[at]gimp.org> <syngin[at]src.gnome.org> <#Mel-Boyce>
+Michael Alexsander <michaelalexsander[at]protonmail.com> <@Yeldham>
+Michael Bauer <fios[at]akerbeltz.org> <#Michael-Bauer>
+Michael Catanzaro <mcatanzaro[at]gnome.org> <@mcatanzaro> <#Michael-Catanzaro>
+Michael Drake <michael.drake[at]codethink.co.uk> <@tlsa>
+Michael Grosberg <grosberg.michael[at]gmail.com> <michael.grosberg[at]gmail.com> <#michael-grosberg>
+Michael Hans <@michael.hmich> <#michael.hans>
+Michael Morris <@mmorris> <#Michael-Morris>
+Michael Muré <batolettre[at]gmail.com> <mure.michael[at]gmail.com> <#Michael-Muré>
+Michael Natterer <misch[at]gimp.org> <mitch[at]convergence.de> <mitch[at]gimp-org> <mitch[at]gimp.org> <mitch[at]gimpmp.org> <mitch[at]imendio.com> <mitch[at]src.gnome.org> <mitschel[at]cs.tu-berlin.de> <@mitch> <#Michael-Natterer>
+Michael Schumacher <schumaml[at]cvs.gnome.org> <schumaml[at]gmx.de> <schumaml[at]gmx.net> <schumaml[at]scootaloo.s13msc.local> <schumaml[at]src.gnome.org> <@schumaml> <#Michael-Schumacher>
+Michal Vašut <michal.vasut[at]firma.seznam.cz> <michal.vasut[at]gmail.com> <@michal.vasut> <#Michal-Vašut>
+Mihail Zenkov <mihail.zenkov[at]gmail.com> <#Mihail-Zenkov>
+Mikael Magnusson <mikachu[at]gmail.com> <mikachu[at]src.gnome.org> <#Mikael-Magnusson>
+Mike Brown <@evosimeon> <#mike-brown>
+Mike Gran <spk121[at]yahoo.com> <#Mike-Gran>
+Mike Küster <@Xantiva> <#Mike-Küster>
+Mike R <@mikes.home1> <#Mike-R>
+Miloslav Trmac <mitr[at]src.gnome.org> <mitr[at]volny.cz> <#Miloslav-Trmac>
+Miloš Popović <mpopovic[at]src.gnome.org> <@gpopac>
+Mingye Wang <arthur200126[at]gmail.com> <arthur2e5[at]aosc.io> <arthur2e5[at]aosc.xyz> <@Artoria2e5>
+Mircea Purdea <someone_else[at]exhalus.net> <#Mircea-Purdea>
+Miroslav Talasek <miroslav.talasek[at]seznam.cz> <#Miroslav-Talasek>
+Morgane Glidic <sardemff7+git[at]sardemff7.net> <@sardemff7>
+Mr. Beedell, Roke Julian Lockhart (RJLB) <suybnd6r[at]rokejulianlockhart.addy.io> <@RokeJulianLockhart>
+mr.fantastic <mrfantastic[at]firemail.cc> <@mr.fantastic>
+M-Rick <@M-Rick> <#M-Rick>
+Muhammet Kara <muhammet.k[at]gmail.com> <muhammetk[at]gmail.com> <@muhammetk>
+Mukund Sivaraman <muks[at]banu.com> <muks[at]mukund.org> <muks[at]src.gnome.org> <#Mukund-Sivaraman>
+Murray Cumming <murrayc[at]murrayc.com> <#Murray-Cumming>
+Nanley Chery <nanleychery[at]gmail.com> <nchery17[at]gmail.com> <#Nanley-Chery>
+Natanael Copa <ncopa[at]alpinelinux.org> <@ncopa>
+Nate Graham <@Pointedstick> <#Nate-Graham>
+Nathan Follens <nathan[at]anche.no> <nfollens[at]gnome.org> <@nfollens> <48570-nfollens[at]users.noreply.gitlab.gnome.org>
+Nathan Summers <rock[at]gimp.org> <#Nathan-Summers>
+Nathan Willis <@n8willis> <#Nathan-Willis>
+nb1 <nb1dev[at]free.fr> <@nb1>
+Nelson A. de Oliveira <naoliv[at]debian.org> <#Nelson-A.-de-Oliveira>
+N Ferreira <nuno360[at]gmail.com> <#N-Ferreira>
+Nguyễn Vũ Hưng <vuhung16plus[at]gmail.com> <#Nguyen-Vu-Hung>
+Nicholas La Roux <larouxn[at]gmail.com> <@larouxn>
+Nicholas Spies <@spiesn> <#Nicholas-Spies>
+nick758 <nick758[at]yandex.ru> <@nick758>
+nick black <nick.black[at]sprezzatech.com> <#nick-black>
+Nick Levinson <@Nick_Levinson> <#Nick-Levinson>
+Nickolay V. Shmyrev <nshmyrev[at]src.gnome.org> <nshmyrev[at]yandex.ru> <#Nickolay-V.-Shmyrev>
+Nick Payne <@NickJP> <#Nick-Payne>
+Nicolas Robidoux <nicolas.robidoux[at]gmail.com> <nrobidoux[at]git.gnome.org> <#Nicolas-Robidoux>
+Niels De Graef <ndegraef[at]redhat.com> <niels.degraef[at]barco.com> <nielsdegraef[at]gmail.com> <@nielsdg> <#Niels-De-Graef>
+Nikc <nikc.gimp[at]gmail.com|Nikc M/NikcDC> <nikcdc[at]gmail.com|Nikc/Nikc M> <@NikcDc> <#Nikc-M.|Nikc M.>
+Niklas Edmundsson <@Nikke> <#Niklas-Edmundsson>
+Niklas Mattisson <scizzo[at]src.gnome.org> <#Niklas-Mattisson>
+Niklas Rosenqvist <@nsrosenqvist> <#Niklas-Rosenqvist>
+Nikodim Dash <pdash.bu[at]gmail.com> <@pdash.bu>
+Nikolaus Baumgarten <@nikolaus.baumgarten> <#nikolaus.baumgarten>
+Nils Philippsen <nils[at]redhat.com> <nils[at]tiptoe.de> <nphilipp[at]redhat.com> <nphilipp[at]src.gnome.org> <@nphilipp> <#Nils-Philippsen>
+Nine-H <@nineh> <#nine-h>
+Niranjan Fartare <me[at]niranjan.co> <@niranjan>
+nmat <@nmat> <15926-nmat[at]users.noreply.gitlab.gnome.org> <nmat[at]users.noreply.github.com>
+Norbert Sievers <@Siegbert7> <#Norbert-Sievers>
+Norm Murray <norm[at]outsidethenorm.com> <@outsidethenorm> <#Norm-Murray>
+Olav Vitters <ovitters[at]src.gnome.org> <#Olav-Vitters>
+Oleg Kapitonov <kapitonov1987[at]gmail.com> <@olegkapitonov>
+Ole Laursen <olau[at]hardworking.dk> <olau[at]src.gnome.org> <#Ole-Laursen>
+Olivier Lecarme <@olecarme> <#Olivier-Lecarme>
+Olivier Pons <@olivier.pons> <#Olivier-Pons>
+Omari Stephens <xsdg[at]xsdg.org> <#Omari-Stephens>
+Ondřej Míchal <harrymichal[at]seznam.cz> <@martymichal>
+ONO Yoshio <ohtsuka.yoshio[at]gmail.com> <@yoshio>
+Oona Räisänen <@windytan> <#Oona-Räisänen>
+Orgad Shaneh <orgad.shaneh[at]audiocodes.com> <@orgads>
+Othmar Marti <@OthmarMarti> <#Othmar-Marti>
+Owen Taylor <otaylor[at]gtk.org> <otaylor[at]redhat.com> <otaylor[at]src.gnome.org> <owt1[at]cornell.edu> <#Owen-Taylor>
+Øyvind "pippin" Kolås <ok[at]src.gnome.org|Øyvind Kolås> <pippin[at]gimp.org|Oyvind Kolas/Øyvind "pippin" Kolås/Øyvind Kolås> <pippin[at]oq-po.com|Øyvind Kolås> <@ok> <#Øyvind-Kolås|Øyvind Kolås> <#Øyvind-Kolås-(pippin)|Øyvind Kolås (pippin)>
+Ozan Caglayan <ozan[at]pardus.org.tr> <#Ozan-Caglayan>
+Pablo Gonzalo del Campo <pablodc[at]bigfoot.com> <#Pablo-Gonzalo-del-Campo>
+Pascal Lachat <@pascallachat> <#Pascal-Lachat>
+Pascal Massimino <pascal.massimino[at]gmail.com> <#pascal.massimino>
+Pascal Terjan <pterjan[at]mageia.org> <@pterjan>
+Pat David <pat[at]patdavid.net> <patdavid[at]gmail.com> <patdavid[at]src.gnome.org> <@patdavid> <#Pat-David>
+Patrick Horgan <phorgan1[at]gmail.com> <#Patrick-Horgan>
+Paul  Figueiredo <@Adderbo76> <#Paul-Figueiredo>
+Paul Firkin <@pfirkin> <#Paul-Firkin>
+Paul Menzel <@pmenzel> <#Paul-Menzel>
+Pavol Klačanský <pavol[at]klacansky.com> <#Pavol-Klačanský>
+Pedro Gimeno <bugzilla.gnome[at]personal.formauri.es> <pggimeno[at]wanadoo.es> <usr352[at]wanadoo.es> <#Pedro-Gimeno>
+Pei JIA <jp4work[at]gmail.com> <@jiapei100>
+Peter Hutterer <@whot> <#Peter-Hutterer>
+Peter Kaczorowski <piotr.kaczorowski[at]gmail.com> <@peterkaczorowski>
+Peter Mráz <etkinator[at]gmail.com> <#Peter-Mráz>
+Peter Oliver <git[at]mavit.org.uk> <#Peter-Oliver>
+Peter O'Regan <peteroregan[at]gmail.com> <#Peter-O'Regan>
+Petr Diblík <@petrdiblik> <#Petr-Diblík>
+Petr Kubizňák <kubiznak.petr[at]gmail.com> <#Petr-Kubizňák>
+Petr Ovtchenkov <abominable-snowman[at]yandex.ru> <#Petr-Ovtchenkov>
+Petr Vorel <petr.vorel[at]gmail.com> <@petr.vorel> <#Petr-Vorel>
+Philip Bazin <@pxbazin> <@pxblogin> <#Philip-Bazin>
+Philippe Teuwen <phil[at]teuwen.org> <#Philippe-Teuwen>
+Philipp Kiemle <l10n[at]prly.mozmail.com> <philipp.kiemle[at]gmail.com> <@daPhipz>
+Philip Withnall <philip[at]tecnocode.co.uk> <pwithnall[at]svn.gnome.org> <@pwithnall>
+Phil Smith <@cushioncritter5757> <#Phil-Smith>
+Pierre Slamich <@pierre.slamich> <#Pierre-Slamich>
+Pieter van Oostrum <pieter[at]vanoostrum.org> <@pietervo>
+Pino Toscano <toscano.pino[at]tiscali.it> <#Pino-Toscano>
+Piotr Drąg <piotrdrag[at]gmail.com> <@piotrdrag> <#Piotr-Drąg>
+postscript-dev <postscript-dev[at]outlook.com> <@postscript-dev>
+Povilas Kanapickas <povilas[at]radix.lt> <@p12tic>
+programmer_ceds <programmer_ceds[at]yahoo.co.uk|Richard McLean/programmer-ceds/programmer_ceds> <@programmer_ceds> <#programmer_ceds>
+Q. Mulative <@QMulative> <#Q.-Mulative>
+Quentin Pradet <quentin.pradet[at]gmail.com> <#Quentin-Pradet>
+Rafael Fontenelle <rafaelff[at]gnome.org> <rffontenelle[at]gmail.com> <@rafaelff> <#Rafael-Fontenelle>
+Rafał Mikrut <mikrutrafal54[at]gmail.com> <@qarmin>
+Raghav Gururajan <raghavgururajan[at]disroot.org> <@raghavgururajan>
+Raja R Harinath <harinath[at]src.gnome.org> <#Raja-R-Harinath>
+Ralph Corderoy <@RalphCorderoy> <#Ralph-Corderoy>
+Raphaël Quinet <quinet[at]gamers.org|Raphael Quinet/Raphaël Quinet> <raphael[at]gamers.org|Raphael Quinet> <raphael[at]gimp.org|Raphael Quinet> <raphael[at]src.gnome.org> <@raphael> <#Raphaël-Quinet>
+Raymond Ostertag <rayoster[at]src.gnome.org> <#Raymond-Ostertag> <#raymond.ostertag>
+Rebecca Walter <bex[at]gimp.org> <rjp[at]mail.tele.dk> <#Rebecca-Walter>
+Richard Allen <rsaxvc[at]gmail.com> <@rsaxvc>
+Richard B. Kreckel <kreckel[at]in.terlu.de> <@RBK> <#Richard-B.-Kreckel>
+Richard Bowers <rdbowers[at]g.cofc.edu> <#Richard-Bowers>
+Richard Gitschlag <strata_ranger[at]hotmail.com> <@Stratelier>
+Richárd Kramenstetter <richardkramen[at]gmail.com> <@richardkramen>
+Richard Poole <rp[at]guests.deus.net> <@RichardPoole42>
+Richard Szibele <richard[at]szibele.com> <@rszibele>
+Richard Thomas <@kenvant21> <#Richard-Thomas>
+Richard York <@AncientLuddite> <#Richard-York>
+Rick Taubold <@rtaubold> <#Rick-Taubold>
+Rico Tzschichholz <ricotz[at]ubuntu.com> <@ricotz>
+Rob Antonishen <rob.antonishen[at]gmail.com> <#Rob-Antonishen>
+Rob Cosentino <nonsuchpro[at]gmail.com> <@nonsuchpro>
+Robert C. Helling <helling[at]atdotde.de> <#Robert-C.-Helling>
+Robert Korolik <robert-richard.korolik.1[at]ulaval.ca> <@korolik>
+Robert Mader <robert.mader[at]posteo.de> <@rmader>
+Robert McHardy <robert[at]robertmchardy.de> <#Robert-McHardy>
+Robert Prins <@robert.ah.prins> <#Robert-Prins>
+Robin Swift <robinswiftart[at]gmail.com> <@swift>
+Rodolfo Ribeiro Gomes <rodolforg[at]gmail.com> <#Rodolfo-Ribeiro-Gomes>
+Roland Illig <@lmroil> <@rillig> <#Roland-Illig>
+Rolf Eike Beer <eike[at]sf-mail.de> <@DerDakon>
+Roman Horník <@roman.hornik> <#Roman-Horník>
+Róman Joost <rjoost[at]redhat.com> <roman[at]bromeco.de> <roman[at]mooball.com> <roman[at]romanofski.de> <romanjoost[at]gmx.de> <romanofski[at]gimp.org> <romanofski[at]src.gnome.org> <#Róman-Joost>
+Roman Lebedev <lebedev.ri[at]gmail.com> <#Roman-Lebedev>
+Rūdolfs Mazurs <alta.liepa[at]gmail.com> <rudolfs.mazurs[at]gmail.com> <rudolfsm[at]src.gnome.org> <#Rudolfs-Mazurs>
+Rupert Weber <gimp[at]leguanease.org> <r.weberhenschel[at]gmail.com|Rupert/Rupert Weber> <rpwh[at]gmx.de> <@r.weberhenschel> <@rupertwhite6080|Rupert> <#Rupert|Rupert> <#Rupert-Weber>
+Ruthra Kumar <ruthrab[at]gmail.com> <@ruthra-kumar>
+Ryan Danny <ryanaaronphilip[at]gmail.com> <@ryanaaronphilip>
+Ryan S <@smeds> <#Ryan-S>
+Ryan Sims <@ryanjsims> <149375-ryanjsims[at]users.noreply.gitlab.gnome.org>
+Ryo ONODERA <ryo_on[at]yk.rim.or.jp> <#Ryo-ONODERA>
+Sabri Ünal <libreajans[at]gmail.com|Sabri Ünal/sabri ünal> <yakushabb[at]gmail.com|Sabri Ünal/sabri ünal> <@yakushabb> <137977-yakushabb[at]users.noreply.gitlab.gnome.org>
+Sage M <sages.morgillo[at]gmail.com> <@SageTheMage98>
+Sal Pinto <@pinto.sal> <#sal-pinto>
+Salvatore Bonaccorso <@carnil> <#Salvatore-Bonaccorso>
+Sam Gleske <sam.mxracer[at]gmail.com> <@samrocketman> <#Sam-Gleske> <875669+samrocketman[at]users.noreply.github.com>
+Sam Hocevar <samh[at]src.gnome.org> <#Sam-Hocevar>
+Sam James <sam[at]cmpct.info> <sam[at]gentoo.org> <@thesamesam>
+Sam L <samsong32[at]proton.me> <@SamL>
+Samuel Pitoiset <samuel.pitoiset[at]gmail.com> <#Samuel-Pitoiset>
+Samuel Rats <samuel.rats[at]gmail.com> <@srats>
+santouits <@santouits> <santouits[at]users.noreply.github.com>
+scootergrisen <scootergrisen[at]gmail.com> <@scootergrisen> <#scootergrisen>
+Scott Denys <scott[at]scottdenys.com> <@anwosas01>
+Scott Lembcke <lemb0029[at]cvs.gnome.org> <lemb0029[at]gnome.org> <slembcke[at]cvs.gnome.org> <slembcke[at]src.gnome.org> <#Scott-Lembcke>
+Sebastian Pipping <sebastian[at]pipping.org> <#Sebastian-Pipping>
+Sebastian Rasmussen <sebras[at]gmail.com> <@sebras> <#Sebastian-Rasmussen>
+Sébastien Bacher <@seb128> <#Sebastien-Bacher>
+Sebul <sebuls[at]gmail.com|Sangdo Jun/Sebul/sebul> <@sebuls>
+Serge Gavrilov <@sergeG239> <#Serge-Gavrilov>
+Sergey Torokhov <torokhov-s-a[at]yandex.ru> <@band-a-prend>
+Sergio Jiménez Herena <sergio.jimenez.herena[at]gmail.com> <@sinaptica>
+Seth Burgess <sjburges[at]gimp.org> <sjburges[at]src.gnome.org> <#Seth-Burgess>
+Seth Falco <seth[at]falco.fun> <@SethFalco>
+shark0r <b91502038[at]ntu.edu.tw> <@shark0r> <#shark0r>
+Shaylin Chetty <shaylin.chetty[at]protonmail.com> <@Shaylin>
+ShellWen Chen <me[at]shellwen.com> <@ShellWen>
+ShiroYuki_Mot <@ShiroYuki_Mot> <#ShiroYuki_Mot>
+Shivam <shivamshekharsoy[at]gmail.com|Shivam/Shivam Shekhar Soy> <@samisthefbi>
+Shlomi Fish <shlomif[at]iglu.org.il> <shlomif[at]shlomifish.org> <shlomif[at]src.gnome.org> <@shlomif> <#Shlomi-Fish>
+Siarhei Kuchuk <@siarheik> <#Siarhei-Kuchuk>
+SilverWoodchuck47 <silverwoodchuck47[at]yahoo.com> <@silverwoodchuck47>
+Simen Heggestøyl <simenheg[at]gmail.com> <#Simen-Heggestøyl>
+Simon Budig <Simon.Budig[at]unix-ag.org> <simon[at]budig.de> <simon[at]gimp.or> <simon[at]gimp.org|CET 2000  Simon Budig/Simon Budig> <simon[at]src.gnome.org> <@simon> <#Simon-Budig> <#Simon.Budig|Simon.Budig>
+Simon Dedman <@SimonDedman> <#Simon-Dedman>
+Simone Karin Lehmann <sikale[at]web.de> <simone[at]lisanet.de> <#Simone-Karin-Lehmann>
+Simon McVittie <smcv[at]debian.org> <@smcv>
+Simon Müller <@asmodis> <#Simon-Müller>
+Simon Munton <simon.j.munton[at]gmail.com> <@simonmunton> <#Simon-Munton>
+Simos Xenitellis <simos[at]gnome.org> <simos[at]src.gnome.org> <#Simos-Xenitellis>
+Slake76 <fedorauser[at]protonmail.com> <@Slake76>
+sonia habtiche <habtichesonia2000[at]gmail.com> <@sonia>
+Sora Hjort <@SoraHjort> <#Sora-Hjort>
+Stanislav Brabec <sbrabec[at]suse.cz> <utx[at]penguin.cz> <utx[at]src.gnome.org> <#Stanislav-Brabec>
+Stanislav Grinkov <@StanislavGrinkov> <43956-StanislavGrinkov[at]users.noreply.gitlab.gnome.org> <43956-stanislavgrinkov[at]users.noreply.gitlab.gnome.org>
+Stan Janssen <stan[at]finetuned.nl> <@stan-janssen>
+Stéphane Raimbault <stephane.raimbault[at]gmail.com> <stephaner[at]src.gnome.org> <#Stephane-Raimbault>
+Stephan Lenor <s.lenor[at]mailbox.org> <@stephan.lenor>
+Stephen Griffiths <scgmk4[at]hotmail.com> <scgmk5[at]gmail.com> <#Stephen-Griffiths>
+Steve Holden <@steve1> <#Steve-Holden>
+Steve Kelem <@steve.kelem> <#Steve-Kelem>
+Steve Rainwater <@steevithak> <#Steve-Rainwater>
+Stuart Axon <stuaxo2[at]yahoo.com> <@stuaxo> <@stuaxo1> <#Stuart-Axon>
+Suggon <maharjansagun99[at]protonmail.com> <@suggonm>
+su-v <suv-sf[at]users.sf.net> <#su-v>
+Sven Herzberg <herzi[at]gnome-de.org> <#Sven-Herzberg>
+Sven Neumann <neo[at]bender> <neo[at]src.gnome.org> <neo[at]wintermute> <neo[at]wintermute.ochsenblut.de> <neumann[at]jpk.com> <sven[at]gimp.org> <sven[at]sven> <sven[at]sven-sun.berlin.jpk.com> <ven[at]gimp.org> <#Sven-Neumann>
+Sylvie Alexandre <@samj> <#sylvie.alexandre>
+Takeshi Matsuyama <tksmashiw[at]gmail.com> <#Takeshi-Matsuyama>
+Tal Regev <tal.regev[at]gmail.com> <@tal.regev>
+Tamburrino Roberto <@TRoberto> <#Tamburrino-Roberto>
+Tamius Han <@tamius_han> <#tamius.han>
+Tas_Mania <@Tas_Mania> <#Tas_Mania>
+T Collins <slicer4ever06[at]aim.com> <@slicer4ever>
+Téo Mazars <teo.mazars[at]ensimag.fr> <teomazars[at]gmail.com> <#Téo-Mazars>
+Thierry Vignaud <@tvignaud> <#Thierry-Vignaud>
+Thomas Güttler <@guettli> <@guettli76> <#Thomas-Güttler>
+Thomas Klausner <wiz[at]gatalith.at> <@_wiz_> <#Thomas-Klausner>
+Thomas Manni <thomas.manni[at]free.fr> <@tmanni> <#Thomas-Manni>
+Thorsten Vollmer <thorsten[at]thvo.de> <#Thorsten-Vollmer>
+Tim Janik <timj[at]gimp.org> <timj[at]gtk.org> <timj[at]src.gnome.org> <#Tim-Janik>
+Timm Bäder <mail[at]baedert.org> <@baedert> <#Timm-Bäder>
+Timofei Shatrov <@timofei.shatrov> <#Timofei-Shatrov>
+Tim Sabsch <tim[at]sabsch.com> <@tsabsch>
+Ting-Wei Lan <lantw[at]src.gnome.org> <@lantw> <#Ting-Wei-Lan>
+Tobias Mueller <tobiasmue[at]gnome.org> <tobiasmue[at]src.gnome.org> <#Tobias-Mueller>
+Tobias Stoeckmann <tobias[at]stoeckmann.org> <#Tobias-Stoeckmann>
+toineenzo <hi[at]toine.zip> <@toineenzo>
+Tomáš Kebert <@tomaskeb> <#Tomáš-Kebert>
+Tomasz Goliński <tomaszg[at]math.uwb.edu.pl> <@tomaszg7> <#Tomasz-Goliński>
+Tomasz Kłoczko <kloczek[at]src.gnome.org> <@kloczek>
+Tom Gooding <panther_ventures[at]telus.net> <@TG009>
+tones111 <@tones111> <#tones111>
+Tony Green <@beermad> <#Tony-Green>
+Tony Houghton <@realh69> <#Tony-Houghton>
+Tor Lillqvist <tml[at]iki.fi> <tml[at]novell.com> <tml[at]sgic.fi> <tml[at]src.gnome.org> <#Tor-Lillqvist>
+Trần Ngọc Quân <vnwildman[at]gmail.com> <@tnquan>
+Tristan Bailey <@tristanlbailey> <#Tristan-Bailey>
+Tron Thomas <@tron_thomas> <#tron.thomas>
+Tuomas Kuosmanen <tigert[at]src.gnome.org> <@tigert> <#Tuomas-Kuosmanen>
+Ulf-D. Ehlert <ulfehlert[at]src.gnome.org> <ulfehlert[at]svn.gnome.org> <#Ulf-D.-Ehlert>
+Ulf Martin Prill <cataurusfynn[at]yahoo.de> <@Cataurus>
+Ulices <hasecilu[at]tuta.io> <@hasecilu>
+Ulrich Windl <@windl> <#Ulrich.Windl>
+v4vansh <vaannnsssshhhhh[at]gmail.com> <@v4vansh>
+Vadim Rutkovsky <vrutkovs[at]redhat.com> <#Vadim-Rutkovsky>
+Vagner Souza <@vagnervideo> <#Vagner-Souza>
+Valerio Messina <@efa> <#Valerio-Messina>
+Varun Samaga B L <varunsamagabl[at]gmail.com> <@varunSamaga>
+Veerasamy Sevagen <sevagenv[at]gmail.com> <@Sevagen>
+Venkatesh <venkatesprasad512[at]gmail.com> <@venkatesh2090>
+Victor Ananjevsky <ananasik[at]gmail.com> <#Victor-Ananjevsky>
+Victor Oliveira <victormatheus[at]gmail.com> <#Victor-Oliveira>
+Ville Pätsi <drc[at]gimp.org> <drc[at]src.gnome.org> <@drc> <#Ville-Pätsi>
+Ville Skyttä <ville.skytta[at]iki.fi> <#Ville-Skyttä>
+Ville Sokk <embassyhill[at]gmail.com> <ville.sokk[at]gmail.com> <#Ville-Sokk>
+Vilson Vieira <vilson[at]void.cc> <#Vilson-Vieira>
+Vincent Untz <vuntz[at]gnome.org> <#Vincent-Untz>
+Vint Prox <vintprox[at]envs.net> <@vintprox>
+Vladimir Savić <@vladimir.firefly.savic> <#Vladimir-Savic>
+Voya Thomison <voyaxthomison[at]gmail.com> <@nuppington>
+William Ferguson <wpferguson[at]gmail.com> <@wpferguson>
+William Jon McCann <@william.jon.mccann> <#William-Jon-McCann>
+William J Smyth <devopsmyth[at]gmail.com> <@devopsmyth>
+Win H <me[at]wrhol.com> <@winzlebee>
+woob <thetoastcaper[at]gmail.com|thetoastcaper/woob> <@thetoastcaper>
+Woynert <woynertgamer[at]gmail.com|woynert> <@woynertgamer>
+Xavier Brochard <xavier[at]alternatif.org> <@zeroheure>
+Xavier Claessens <xavier.claessens[at]collabora.com> <xclaesse[at]gmail.com> <@xclaesse>
+Xi Ruoyao <xry111[at]xry111.site> <@xry111>
+Yaakov Selkowitz <yselkowitz[at]users.sourceforge.net> <#Yaakov-Selkowitz>
+Yanko Kaneti <yaneti[at]declera.com> <#Yanko-Kaneti>
+Yash Pal Goyal <yashpalgoyal1304[at]gmail.com> <@yashpalgoyal1304>
+YOSHIDA Shigeto <shigep640509[at]gmail.com> <@9demaio1964>
+Yoshinori Yamakawa <citrus_juicer[at]live.jp> <yamma-ma[at]users.sourceforge.jp> <@citrus_juicer> <#Yoshinori-Yamakawa>
+Yuri Chornoivan <yurchor[at]ukr.net> <@yurchor>
+Yurii Kolesnykov <root[at]yurikoles.com> <@yurikoles>
+zamfofex <zamfofex[at]twdb.moe> <@zamfofex>
+Zander Brown <zbrown[at]gnome.org> <@ZanderBrown>
+Zbigniew Chyla <Zbigniew.Chyla[at]gmail.com> <cyba[at]gnome.pl> <#Zbigniew-Chyla>
+Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
+Дилян Палаузов <git-dpa[at]aegee.org> <@dilyan.palauzov> <#Дилян-Палаузов>
+Роман Гаврилов <alpha86devil[at]gmail.com> <@alpha86devil>
+積丹尼 Dan Jacobson <jidanni[at]jidanni.org> <@jidanni>
+
+# === very-high (2) ===
+# deterministic gitlab handle ↔ email binding (profile public_email, <id>-<handle>@noreply commit, or commit local-part matching a known handle).
+# Clocks <me[at]doomsdayrs.page> <@Doomsdayrs>
+# Daniele Forsi <dforsi[at]gmail.com> <iu5hkx[at]gmail.com> <@dforsi>
+
+# === high (2) ===
+# same name across sources AND ≥1 identifier appears in ≥2 sources.
+# Jernej Simončič <jernej[at]ena.si|Jernej Simoncic/Jernej Simončič/Jernej Simončič> <jernej|s-cccp[at]eternallybored.org|Jernej Simončič> <jernej|s-gitstuff[at]eternallybored.org|Jernej Simončič>
+# Sven  Neumann <neo[at]bender|MEST 1999  Sven Neumann/MEST 1999 Sven Neumann/Sven  Neumann/Sven Neumann> <s.neumann[at]phase-zero.de|Sven Neumann> <s.neumann[at]raumfeld.com|Sven Neumann>
+
+# === medium (1) ===
+# same name across sources (under loose normalization), no shared identifier.
+# Schwan Carl <schwancarl[at]protonmail.com> <@ognarb>
+
+# === low (395) ===
+# names match only after aggressive normalization (single-letter initials dropped).
+# Aaron <@ay_ay_ron> <#Aaron> <#aaron|aaron>
+# Abby H <@AbbyH> <#abby|abby>
+# Adam <@NoobHackSaw> <@adammaj1> <@ajburley> <#Adam> <#adam|adam>
+# Adam Ł. <@AJusted|Adam W> <@NoobHackSaw|Adam> <@adam.langowicz> <@adammaj1|Adam> <@ajburley|Adam> <#Adam|Adam> <#adam|adam>
+# Administrator <gnome-sysadmin[at]gnome.org|Administrator/GNOME Translation Robot> <@root>
+# Adrian <@adrianpkr> <#Adrian>
+# Adrian R. <@adrian-r> <@adrianpkr|Adrian> <#Adrian|Adrian>
+# agriggio <@agriggio> <#agriggio>
+# Al M <@b71682cc> <#Al|Al>
+# Albert <lakonfrariadelavila[at]gmail.com|Albert/Albert F/Konfrare Albert> <#Albert>
+# Alejandro <@alejandrogs|alejandro> <#Alejandro>
+# Alex <@ShetlandHouse> <@TheBicPen> <@ahaden> <@alexlu130> <@alextarasov362> <@alexzk1> <@newyorkvanity> <@powell77k> <@walterware> <#Alex> <#alex|alex>
+# Alex G. <@ShetlandHouse|Alex> <@TheBicPen|Alex> <@ahaden|Alex> <@alexg> <@alexlu130|Alex> <@alextarasov362|Alex> <@alexzk1|Alex> <@newyorkvanity|Alex> <@powell77k|Alex> <@walterware|Alex> <#Alex|Alex> <#alex|alex>
+# Alexander <@AngryPhantom> <@Procenko> <@sundersb> <#Alexander> <#alexander|alexander>
+# Alexander N. <@AlexanderN> <@AngryPhantom|Alexander> <@Procenko|Alexander> <@sundersb|Alexander> <#Alexander|Alexander> <#alexander|alexander>
+# Alexander Rabtchevich <@bigserpent> <#alexander.v.rabtchevich|alexander.v.rabtchevich>
+# Alexandre G <@MetalMallard|Alexandre> <#Alexandre-G>
+# Alf <@newborn|alf> <#Alf> <#alf|alf>
+# Ali <@luminax|ali> <#Ali>
+# Alina <@alina|alina> <#Alina> <#alina|alina>
+# amano <@jazzkeller> <#amano>
+# Andreas G <@uriesk> <#Andreas|Andreas> <#andreas|andreas>
+# Andrew <@andrew.john.chappell> <#Andrew> <#andrew|andrew>
+# Andrew S. <@andrew.john.chappell|Andrew> <#Andrew|Andrew> <#Andrew-D.|Andrew D.> <#Andrew-S.> <#andrew|andrew>
+# Andy <@SuperSoul> <@amt01|andy> <#Andy> <#andy|andy>
+# Andy H <@SuperSoul|Andy> <@amt01|andy> <#Andy|Andy> <#Andy-H> <#andy|andy>
+# anenasa <anenasaa[at]yahoo.com> <@anenasa>
+# Anna <@Anka714> <@anna|anna> <@annaritaverni> <#Anna> <#anna|anna>
+# Anthony <@Helios747> <#Anthony>
+# antistress <@antistress> <#antistress>
+# Anton <@anetegithub> <#Anton>
+# Antonio <@alurbano> <#Antonio>
+# Antonio E. <@alurbano|Antonio> <#Antonio|Antonio> <#Antonio-E.>
+# ark <@arky> <#ark>
+# Art M.G. <@artmg> <#Art|Art>
+# Asa <asalle.kim[at]gmail.com|Asa/Asalle> <@Asalle>
+# Ashley <@Ashley-Butcher> <@ashikari|ashley> <#Ashley>
+# Ashley T <@Ashley-Butcher|Ashley> <@afthom> <@ashikari|ashley> <#Ashley|Ashley>
+# asr <@asr> <#asr>
+# Attila <@attilah1126> <#attila|attila>
+# Axel <@axx|axel s> <#Axel> <#axel|axel>
+# azetoy <zineddine.berrichi[at]gmail.com> <@azetoy>
+# Barbara Z <@laboiteauxmillimages|Barbara M> <@phling3|Barbara K> <#Barbara|Barbara> <#Barbara-Z>
+# bartoszek <bartoszek.github[at]bartus.33mail.com> <@bartoszek>
+# Bauke <@Bauke> <#bauke|bauke>
+# Ben <@Ben_Martin> <@Ben_Smith> <@adam0509> <@hallo25ween> <#Ben> <#ben|ben>
+# Ben J.M. <@Ben_Martin|Ben> <@Ben_Smith|Ben> <@adam0509|Ben> <@benrcontact|ben .R> <@hallo25ween|Ben> <#Ben|Ben> <#Ben-J.M.> <#Ben-W.|Ben W.> <#ben|ben> <#ben.b|ben.b>
+# Benoit Touchette <draekko.software+gimp[at]gmail.com|Benoit Touchette/draekko> <draekko.software[at]gmail.com|Ben Touchette/draekko> <@draekko|draekko>
+# Bernhard <@bernhard> <#bernhard|bernhard>
+# Bert <@brjhaverkamp> <#Bert> <#bert|bert>
+# Bill <@namvetbill> <@wamerman> <#Bill>
+# Bob <@303|bob .> <@bob131|bob> <#Bob> <#bob|bob>
+# Bob B <@303|bob .> <@bob131|bob> <@tenbob> <#Bob|Bob> <#bob|bob>
+# Brad <@bradleyheer> <@crableybradtree> <#Brad>
+# Bram <@Bram> <#Bram>
+# Brendon <@blhiggins> <@bschu> <#Brendon>
+# Brian M. <@BeeRye|Brian M> <@aklivn49> <@bjb|Brian B> <#Brian|Brian>
+# Bryan <@snakedye> <#Bryan>
+# Bryan P <@bryanpaget> <@snakedye|Bryan> <#Bryan|Bryan>
+# Bugzilla <@bugzilla-migration> <#bugzilla|bugzilla>
+# burnuser <@burnuser> <#burnuser>
+# C Clark <@cclark00033> <#Clark|Clark>
+# C Rogers <@cajhne> <#C.M.Rogers|C.M.Rogers>
+# Carlos <@CF> <@Gabriel7> <@calrib> <#Carlos>
+# Carlos & <@CF|Carlos> <@Gabriel7|Carlos> <@calrib|Carlos> <@capezotte> <#Carlos|Carlos>
+# Carmen <@carmen.sybille> <#Carmen>
+# Charles g <@plus-> <#Charles|Charles>
+# Cheesequake <dev.cheesequake[at]gmail.com|Cheesequake/cheesequake> <@cheesequake>
+# chenzero <@stzdzyhs> <#chenzero>
+# Chris <@Christoph67> <@lupussilvae|chris> <@otterslide> <@spaceChRiS> <#Chris> <#chris|chris>
+# Chris T <@Christoph67|Chris> <@christopherpthames> <@hare_ware|Chris D> <@lupussilvae|chris> <@otterslide|Chris> <@spaceChRiS|Chris> <#Chris|Chris> <#Chris-K|Chris K> <#chris|chris>
+# Christian <@XTChrys> <#Christian> <#christian|christian>
+# Christian Z. <@Christian_b|Christian B> <@XTChrys|Christian> <@christianz> <#Christian|Christian> <#christian|christian>
+# Christine <@Papillon> <#Christine>
+# Dan <@PembrokeshireDan> <@dgruhn> <@dppistorino> <@zaini_danial> <#Dan> <#dan|dan>
+# Dan B. <@Danh12345|Dan H> <@PembrokeshireDan|Dan> <@dcpagulayan|Dan P> <@dgruhn|Dan> <@dppistorino|Dan> <@gimp23|dan M> <@zaini_danial|Dan> <#Dan|Dan> <#Dan-B.> <#dan|dan>
+# Daniel Mustieles <daniel.mustieles.contractor[at]bbva.com|Daniel/Daniel Mustieles/dmustieles> <@DANBER|Daniel> <@DannyDannyDan|Daniel> <#Daniel|Daniel> <#daniel|daniel>
+# Daniel Mustieles <daniel.mustieles.contractor[at]bbva.com|Daniel/Daniel Mustieles/dmustieles> <@DANBER|Daniel> <@DannyDannyDan|Daniel> <@W_Daniel|Daniel W> <#Daniel|Daniel> <#Daniel-J.|Daniel J.> <#Daniel-N.|Daniel N.> <#V.-Daniel|V. Daniel> <#daniel|daniel>
+# Danny <@dannyken|danny> <#Danny> <#danny|danny>
+# Dave <@DaveM> <@dcbrown73> <@dseeba> <#Dave> <#dave|dave>
+# Dave S <@DaveH|Dave H> <@DaveM|Dave> <@dcbrown73|Dave> <@dpaolicelli|Dave P> <@dseeba|Dave> <#Dave|Dave> <#Dave-B|Dave B> <#Dave-S> <#dave|dave>
+# David <@ShryDvd> <@Snaggletooth> <@astaroth|david> <@davidroth09> <@dmillins> <#David> <#david|david>
+# David A. Russo <david.russo[at]bl.uk|David Russo> <@david-russo>
+# David S. <@ShryDvd|David> <@Snaggletooth|David> <@astaroth|david> <@davidroth09|David> <@dmillins|David> <@unimportantdavidz|David Z> <#David|David> <#David-D|David D> <#David-K|David K> <#David-P.|David P.> <#David-S.> <#david|david>
+# Dev <@Devmursea> <#dev|dev>
+# DF <@duane.feldhacker> <#DF>
+# Diego <@Diegoelzorro> <#diego|diego>
+# Diego F. <@Diegoelzorro|Diego> <@diegobautista100> <#diego|diego>
+# Diogo <@diogob003> <#diogo-S.|diogo S.>
+# Dirk <@dirkvto> <#Dirk> <#dirk|dirk>
+# dlatikay <dlatikay[at]outlook.com> <@dlatikaynen>
+# Dmitry G. Mastrukov <dmitrym[at]src.gnome.org|Dmitry Mastrukov> <#Dmitry-G.-Mastrukov>
+# Dominik J <@Domssson> <#Dominik-F|Dominik F>
+# Doug <@Doug> <@dkreckel|doug> <#Doug> <#doug|doug>
+# Doug B <@Doug|Doug> <@dkreckel|doug> <#Doug|Doug> <#Doug-B> <#doug|doug>
+# Dylan <@dylanaraps|dylan> <#Dylan>
+# E <@Caremdil> <#E> <#e|e>
+# E.S. Quinn <onetruequinn[at]hotmail.com> <@Qbad|Quinn B>
+# Edward E. <develinthedetail[at]gmail.com|Edward E/Edward E.> <#Edward|Edward> <#edward|edward>
+# Enrico <@enrico> <#Enrico>
+# Eric <@Eric123123> <@EricBanker12> <#Eric> <#eric|eric>
+# Eric H <@Eric123123|Eric> <@EricBanker12|Eric> <@Eric_S|Eric_S> <@edj.bronsky|Eric D> <@ephallenbeck> <#Eric|Eric> <#eric|eric> <#eric_s_w|eric_s_w>
+# Erik <@erik.boehland> <#Erik> <#erik|erik>
+# Eugene S <@Pacifist> <@truenetwork.ru|Eugene K> <#Eugene|Eugene> <#eugene-r|eugene-r>
+# Eva T <@PurrfectDoodle> <#Eva|Eva> <#eva|eva>
+# Evan <@brase.evan> <#Evan>
+# Fabio <fabio.coroli.studenti[at]isii.it> <@livingsilver94> <#Fabio>
+# FE <@post> <#fe|fe>
+# Federico R. <@funder7> <#Federico|Federico> <#Federico-L|Federico L>
+# Fernando <@feesgo|fernando> <#Fernando>
+# Fernando <@feesgo|fernando> <#Fernando> <#fernando.o|fernando.o>
+# Filip <@1fxe> <#Filip>
+# Florent V. <@Loenix|Florent H> <#Florent|Florent> <#Florent-V.>
+# Francis <@Fcis> <#Francis>
+# Francis L <@FLEB> <@Fcis|Francis> <#Francis|Francis>
+# Frank <@frankzen> <#Frank>
+# Frank W <@frankzen|Frank> <#Frank|Frank> <#Frank-W> <#frank-u|frank u>
+# Fred M. Sloniker <@FredMSloniker|Fred Sloniker> <#Fred-M.-Sloniker>
+# Fredrik S. <@Frille_n|Fredrik> <#Fredrik-S.>
+# FRS <@schmidlin> <#FRS>
+# Félix <@Cook_Obsession> <@Felix|Felix> <#Felix|Felix>
+# G <@chandleg> <#G> <#g.|g.>
+# G Carter <@genecrt> <#Carter|Carter>
+# Gabriel <@Teraflop_DSN> <#gabriel|gabriel>
+# Gary L <@garyclynch> <#Gary|Gary> <#gary|gary>
+# Gavin <@GDW> <#Gavin> <#gavin|gavin>
+# Gimpuser <@GimpUser|GimpUser> <#Gimpuser>
+# Gonsolo <@gonsolo> <#Gonsolo>
+# Greg S. <@0megaZer0> <#Greg|Greg>
+# Greywolf <@relayer> <#Greywolf>
+# gturri <guillaume+gnomgitlab[at]turri.fr> <@gturri>
+# Hannes <@Hannes> <#hannes|hannes>
+# harry <@harry_harry> <#harry>
+# Hendrik <@HendrikHH75> <#Hendrik>
+# Hugh <@KodeToad> <#Hugh>
+# Ian <@ianforcements> <@ianstrause> <@ianxm> <#Ian> <#ian|ian>
+# Igor <@IgorArnaut> <@marioobama> <#Igor>
+# Igor D. <@IgorArnaut|Igor> <@iglezz|igor l> <@marioobama|Igor> <#Igor|Igor> <#Igor-D.>
+# Ivan <@vanoid> <@xzj8b3> <#Ivan> <#ivan|ivan>
+# J <@J2583> <@Jonny007-MKD> <@Orphan-Crippler> <@bestwhisky1> <@darkbot> <@jessesm> <#J> <#j|j>
+# J Dev <@Devmursea|Dev> <@jdev250> <#dev|dev>
+# Jack <@adrianh.bsc> <#Jack>
+# Jacob <@CancerousOrdo> <@jake9wi> <#Jacob>
+# Jake <@Jakestowe9> <#Jake>
+# jakub <@803843.nc> <#jakub>
+# James <@thx1111> <@wierdling> <#James> <#james|james>
+# James B. <@thx1111|James> <@wierdling|James> <#James|James> <#James-A|James A> <#James-B.> <#James-D|James D> <#james|james>
+# Jan <@JanKanis> <@janh> <#Jan>
+# Jan N. <@JanKanis|Jan> <@janh|Jan> <#Jan|Jan> <#Jan-N.>
+# Jane m <@jmalmberg319> <#Jane|Jane>
+# Jason <@jh1548454> <@just-jason> <#Jason> <#jason|jason>
+# Jason F. <@jh1548454|Jason> <@just-jason|Jason> <#Jason|Jason> <#Jason-F.> <#Jason-J|Jason J> <#jason|jason>
+# Jay <@jaycrav3ns> <#Jay> <#jay|jay>
+# Jay F <@jaycrav3ns|Jay> <#Jay|Jay> <#Jay-F> <#jay|jay>
+# Jeff G. <@jacampora360|Jeff A> <#Jeff|Jeff> <#Jeff-G.> <#jeff|jeff>
+# Jennifer <@LadyS> <@jlwheeler186> <#jennifer|jennifer>
+# Jim <@Goalie33> <#Jim> <#jim|jim>
+# Jim K. <@Goalie33|Jim> <@JimH3|Jim H.> <@N4BFR|Jim R> <#Jim|Jim> <#Jim-K.> <#jim|jim>
+# JJ <@JJR> <@jjisnow> <#JJ>
+# JJ R <@JJR|JJ> <@brobgonal> <@jjisnow|JJ> <#JJ|JJ>
+# Joe <@JosephSnyder> <#Joe> <#joe|joe>
+# Joey <@joeyhub> <#Joey>
+# Johannes <@Johannes81> <#Johannes>
+# John H. Davis <@jsdavis|John Davis> <#John-H.-Davis>
+# John K. Herreshoff <@John_k_h|John Herreshoff> <#John-K.-Herreshoff>
+# John Marshall <jtm.home[at]gmail.com|John/John Marshall> <#John|John> <#john|john>
+# Johnny B <@tortillamexfood> <#Johnny|Johnny>
+# JoJo <@harrisj1j> <#jojo|jojo>
+# Jon <@Retrific> <@jonlac> <#Jon> <#jon|jon>
+# Jon P. <@Jibbyy|Jon p> <@Retrific|Jon> <@jonathan.battle|Jon B> <@jonlac|Jon> <@pitz78> <#Jon|Jon> <#jon|jon>
+# Jonathan D <jdemeyer[at]hotmail.com|Jonathan D/Jonathan Demeyer> <#Jonathan|Jonathan>
+# Jonny <@Jonny> <#Jonny>
+# JonnyRobbie <marcodv[at]seznam.cz> <@JonnyRobbie>
+# Josh C <@josh.chanowitz> <#Josh|Josh> <#josh|josh>
+# Joshua <@ultrasheeplord> <#Joshua>
+# João <@jregatieri|Joao> <#João>
+# João S. O. Bueno <gwidion[at]gmail.com|Joao S O Bueno/Joao S. O. Bueno/Joao S. O. Bueno Calligaris/João S. O. Bueno/João S. O. Bueno Calligaris> <@jsbueno23|João Bueno>
+# JR V <@jrvjrv> <#JR|JR>
+# Jt <@jetcode|JT> <#Jt>
+# Juan <@juandiiaz10> <#Juan>
+# Julien <@weimdall> <#Julien>
+# Julien B. <@weimdall|Julien> <#Julien|Julien> <#Julien-B.>
+# Justin <@jltenery> <#Justin>
+# Justin K <@jltenery|Justin> <#Justin|Justin> <#Justin-C|Justin C> <#Justin-K>
+# Jéssica A <@jess> <#Jessica|Jessica>
+# Karl <@spizzat2> <#Karl> <#karl|karl>
+# Kat <@TopKat> <#Kat> <#kat|kat>
+# Kate <@kateshort2> <#Kate>
+# Kathryn <@jkathryn882> <#Kathryn>
+# Keith <@KeithRoberts> <#Keith> <#keith|keith>
+# Kevin <@kblans> <#Kevin> <#kevin|kevin>
+# Kevin L. C. <@KevDoy|Kevin D> <@UrIcApTEFU|Kevin L> <@kblans|Kevin> <#Kevin|Kevin> <#Kevin-L.-C.> <#Kevin-M.|Kevin M.> <#kevin|kevin>
+# Klaatu <@notklaatu> <#klaatu|klaatu>
+# Klaus <@KlausZehe> <@kbauer> <#Klaus>
+# Kolbjørn Stuestøl <kolbjoern[at]src.gnome.org|kolbjoern> <#Kolbjoern|Kolbjoern>
+# kotvkvante <kot-b-kbahte[at]yandex.ru> <@kotvkvante>
+# Kretynofil <kretynofil[at]gazeta.pl> <#Kretynofil>
+# Kris <@kris> <#Kris>
+# Kruthers <@kruthers> <#Kruthers>
+# Krzysztof <@netvalker> <#Krzysztof>
+# Krzysztof A. <@Krzysztof> <@netvalker|Krzysztof> <#Krzysztof|Krzysztof>
+# Kurt <@t305221> <#Kurt>
+# Lars <@Lars> <#Lars>
+# Lars G <@Lars|Lars> <#Lars|Lars> <#Lars-G>
+# Laudens <@laudens|laudens> <#Laudens>
+# Laur <@lflaurflorin> <#laur|laur>
+# Laurent C. <@laurent.caignard> <#Laurent|Laurent> <#laurent-h|laurent h>
+# Lee <@goldenbouncer.tabbycat> <#lee|lee>
+# Lena <@lrodziewicz> <#Lena>
+# Liam <@liamvanderaa|liam> <#Liam> <#liam|liam>
+# Lionel <lionel[at]pc-27.home> <#Lionel>
+# Lionel N. <lionel[at]libreart.info|Lionel N/Lionel N.> <lionel[at]pc-27.home|Lionel> <#Lionel|Lionel>
+# Lisa <@elliejaysc> <#Lisa> <#lisa|lisa>
+# Lisa C. <@Opfox> <@elliejaysc|Lisa> <#Lisa|Lisa> <#lisa|lisa>
+# littlearcher <@littlearcher> <#littlearcher>
+# LRN <@lrn> <#LRN>
+# Lucas A. W. <@suilno> <#Lucas|Lucas> <#lucas|lucas>
+# Luke J <@heyjay> <#Luke|Luke>
+# Léon <@LeonLenclos> <#Leon|Leon>
+# M-Rick <@m-rick> <#Rick|Rick> <#rick|rick>
+# M. Anders <@mgodehard> <#Anders|Anders> <#anders|anders>
+# M. Larry <@QuantumSpirit> <@tacotarodad|Larry M> <#Larry|Larry>
+# Mac <@MacFellmann> <#Mac>
+# Mac P <@MacFellmann|Mac> <@dpwdfdlam4182> <#Mac|Mac>
+# Magnus <@Traxzorg> <#Magnus>
+# Malte <@Malte> <#Malte>
+# Manfred <@schohmik> <#Manfred>
+# Marc <@Zanam> <@marc.savioz> <#MarC|MarC> <#Marc> <#marc|marc>
+# Marcel <@marrelmaker> <#Marcel>
+# Marco <@marco.to> <#marco|marco>
+# Marco D. <@MFDV> <@marco.to|Marco> <#marco|marco>
+# Marcos C <@chisao> <#marcos|marcos>
+# Marek <@mareg> <#Marek> <#marek|marek>
+# Marie-P <mpbwelle[at]gmail.com> <@Mariemilie|Marie>
+# Mario <@tourinao> <#Mario> <#mario|mario>
+# Mark Sweeney <mr.mark.sweeney[at]gmail.com|Mark/Mark Sweeney> <@spigot|mark> <#Mark|Mark>
+# Mark Sweeney <mr.mark.sweeney[at]gmail.com|Mark/Mark Sweeney> <@MkThUnderwd|Mark U.> <@markh|Mark H> <@spigot|mark> <@themarkpiatt|Mark P> <#Mark|Mark> <#Mark-D|Mark D> <#Mark-L|Mark L>
+# Markus <@markusdd1> <#Markus>
+# Markus O <@markusdd1|Markus> <@skyvarie> <#Markus|Markus>
+# Martin <miles[at]filmsi.net|Martin/Martin Srebotnjak> <@Martin999999999> <@Martjim> <@Rolfthomas-weidner> <#Martin> <#martin|martin>
+# Mary <@mary> <#Mary> <#mary|mary>
+# Massimo Valentini <mvalentini335[at]gmail.com|Massimo/Massimo Valentini> <@massimocard|Massimo> <#Massimo|Massimo>
+# Massimo Valentini <massimo[at]mars.central|massimo v> <mvalentini335[at]gmail.com|Massimo/Massimo Valentini> <@Massimo-B|Massimo-B> <@massimocard|Massimo> <#Massimo|Massimo>
+# Matt G H C <@gnomeo|Matt C> <@knumat|Matt K> <#Matt|Matt> <#Matt-G-H-C> <#Matt-G.|Matt G.> <#Matt-H|Matt H> <#matt|matt>
+# Matthew J. <@puppy2655> <#Matthew|Matthew> <#matthew|matthew>
+# Maurizio <@maurizio.bada> <#Maurizio>
+# Max <@Maxwh2007> <#Max> <#max|max>
+# Max J <@Maxwh2007|Max> <@maxsocial001> <#Max|Max> <#max|max>
+# Maxim <@gnomax> <#Maxim>
+# Mel <@M3l> <#Mel>
+# Michael <@EhmJayBe> <@Michael> <@Michael_Eyinck> <#Michael> <#michael|michael>
+# Michael A Morris <@Collidence> <@mmorris|Michael Morris>
+# Michael D. <@EhmJayBe|Michael> <@Michael|Michael> <@Michael_Eyinck|Michael> <@werfox|Michael Z> <@wrongdoer|Michael S> <#Michael|Michael> <#Michael-B.|Michael B.> <#Michael-C|Michael C> <#Michael-D.> <#michael|michael>
+# Michal <m.powalko[at]gmail.com> <@Mi-Pe> <@deix> <@michaldybczak> <#Michal> <#michal|michal>
+# Michel <@michel971> <#Michel>
+# Michele <michele.gherlone[at]liceoberchet.it> <#Michele> <#michele|michele>
+# Michelle P. <@backlash6709> <#Michelle|Michelle>
+# Mike <@mb1> <@mikezach|mike> <#Mike> <#mike|mike>
+# Mike S <@MikeS> <@mb1|Mike> <@michiel.lemaster|Mike L> <@mikes.home1|Mike R> <@mikezach|mike> <#Mike|Mike> <#Mike-E|Mike E> <#Mike-H|Mike H> <#mike|mike>
+# Mirko <@Mirko> <#Mirko> <#mirko|mirko>
+# MM <@michaelangelo99> <#MM>
+# mottechy <@mottechy> <#mottechy>
+# MP <@groundhog719> <#mp|mp>
+# Mr. A <@JAM666|Mr.J> <@Master_P|Mr P> <@patrec|Mr E.> <#Mr.-A>
+# Nameless <@nameless.sdk> <#Nameless>
+# Nathan <@ndowens1|nathan o> <#Nathan> <#nathan|nathan>
+# Nick <@nicthu> <#Nick> <#nick|nick>
+# Nick S. <@nicthu|Nick> <#Nick|Nick> <#Nick-S.> <#nick|nick>
+# Nico <@NicoHood> <#Nico>
+# Nicola <@nicfab|nicola> <#Nicola>
+# nicolas <@nclm> <#nicolas>
+# Nicole D <@lifehackeraf> <#Nicole|Nicole>
+# Nikita <kotvkvante|nikita> <@mrhaack> <@sandbox>
+# Niko E. <@niko|Niko> <@nniok|niko> <#Niko-E.>
+# Nine-H <@FUAX99|nine> <@nineh|Nine-H/nine-h>
+# Nolan T. <@nolant_3> <#Nolan|Nolan>
+# Norman <@NormanTUD> <#Norman>
+# Ofnuts <@Ofnuts|ofnuts> <#Ofnuts>
+# Oliver H. <@oheibugs> <#Oliver|Oliver> <#Oliver-C.|Oliver C.> <#oliver|oliver>
+# Olivier S. <@olivier.spanhove> <#Olivier|Olivier>
+# Pander <@PanderMusubi> <#Pander>
+# Partha <partha1b[at]gmail.com> <#Partha>
+# Pascal Massimino <pascal.massimino[at]gmail.com|Pascal Massimino/skal> <skal[at]google.com|Skal> <@skal65535|skal>
+# Pat <@MrPat> <#pat|pat>
+# Pat C <@MrPat|Pat> <#Pat-C> <#pat|pat>
+# Patrick <@Adandozan> <@Patrick> <#Patrick>
+# Patrick T. <@Adandozan|Patrick> <@Patrick|Patrick> <#Patrick|Patrick> <#Patrick-T.>
+# Patryk <@patrolez> <#Patryk>
+# Paul <@Doppie> <@global.linux.services> <@paul_sawyer_11> <@paulmcfarland1984|paul> <@paultheweird> <#Paul> <#paul|paul>
+# Pavel <@paroj> <@pavel.petrovic> <#Pavel> <#pavel|pavel>
+# Pedro <@pjbatista> <#Pedro>
+# Pedro C <@pjbatista|Pedro> <#Pedro|Pedro> <#Pedro-C>
+# Perhelion <@Perhelion> <#Perhelion>
+# Pete <@pete|pete> <#Pete> <#pete|pete>
+# Philipp <@Philipp04201> <@Philipp1234> <#Philipp>
+# PhotonQyv <shenstone.porter[at]gmail.com> <@PhotonQyv>
+# Pierre <@PierreA> <@Pitt> <@pieq> <#Pierre> <#pierre|pierre>
+# Pippin <@Pippin> <#Pippin>
+# PM <@Mecki> <@PM> <#pm|pm>
+# pollux <@pollux> <#pollux>
+# psykose <alice[at]ayaya.dev> <@psykose1>
+# Péter <@Peter93197|Peter> <@PeterBenedek> <@peterno3|Peter> <@peto2006|Peter> <@phunsoft|Peter> <#Peter|Peter> <#Peter_|Peter_> <#peter|peter>
+# Ralf D. <@_Alf> <#Ralf|Ralf> <#ralf|ralf>
+# Ralph <@oertli_r> <#Ralph>
+# Ray <@RayTheMaymay> <#Ray> <#ray|ray>
+# RC <@Blavatsky> <#rc|rc>
+# Reinhard F. <@renardo> <#Reinhard|Reinhard>
+# rezso <@rezso> <#rezso>
+# Rich <@etech0> <#Rich> <#rich|rich>
+# Rich <@etech0> <#Rich> <#rich|rich> <#rich-s|rich-s>
+# Richard <@Artim> <@Richard123> <@rhagemeyer> <#Richard> <#richard|richard>
+# Richard B. Kreckel <kreckel[at]ginac.de|Richard Kreckel> <kreckel[at]in.terlu.de|Richard B. Kreckel/Richard Kreckel>
+# Rob <@robbogio> <#Rob> <#rob|rob>
+# Rob C <@Rob> <@hexthevex> <@robbogio|Rob> <#Rob|Rob> <#rob|rob> <#rob-d|rob d>
+# Robert <@robertf> <#Robert> <#robert|robert>
+# Roger <@Darraby> <#Roger> <#roger|roger>
+# Roger B <@Darraby|Roger> <@rboxman> <#Roger|Roger> <#roger|roger>
+# Ruben <@Begalov|RUben> <#Ruben>
+# Ryan <@RyanH25> <#Ryan>
+# Ryan S <@RyanH25|Ryan> <@RyanM|Ryan M> <@smeds> <#Ryan|Ryan>
+# Róman Joost <rjoost[at]redhat.com|Roman Joost/roman> <#Roman|Roman>
+# Róman Joost <rjoost[at]redhat.com|Roman Joost/roman> <@romanr417|Roman R> <@romiras|Roman M.> <#Roman|Roman>
+# S <@alex2275> <@pees> <#s|s>
+# Salamandar <felix[at]piedallu.me|Félix Piédallu/Salamandar> <@Salamandar> <#Salamandar>
+# Sam <@chachi> <@samboi_1989> <#Sam> <#sam|sam>
+# Sam. R. <samsong32[at]proton.me|Sam L/Sam Lester> <@chachi|Sam> <@samboi_1989|Sam> <@samrpandian> <#Sam|Sam> <#sam|sam>
+# Sara <@sarettadevil92> <#Sara>
+# Sarah <993273596[at]qq.com|sarah> <@skull> <#Sarah>
+# Sarah <993273596[at]qq.com|sarah> <@SarahZ|sarah z> <@skull> <#Sarah>
+# SBP <vorstar[at]mac.com> <#SBP>
+# Scott <scott|scott> <#Scott>
+# Scott R <scott|scott> <@ScottK|Scott K> <@ScottQ> <#Scott|Scott>
+# sean <@CalcotAndJones> <#sean>
+# Sean S. <@CalcotAndJones|sean> <@ProfElectric> <#Sean-M.|Sean M.> <#sean|sean>
+# Sebastien <bonaime[at]ipgp.fr> <@sbonaime>
+# SenlinOS <@SenlinOS> <#SenlinOS>
+# Senya <senya[at]riseup.net> <@cmrd-senya> <#senya|senya>
+# Sergio c <@sirspeedygraphics> <#Sergio|Sergio>
+# ShadowKyogre <shadowkyogre.public[at]gmail.com> <#ShadowKyogre>
+# Shlomo D <@sternsh|Shlomo> <#Shlomo-D>
+# SimaMoto,RyōTa <liangtai.s16[at]gmail.com> <liangtai.s4[at]gmail.com|SimaMoto,RyôTa/SimaMoto,RyōTa> <rsimamoto[at]gnome.org> <rsimamoto[at]src.gnome.org> <#SimaMoto,RyōTa>
+# Simon <@Fenouilll> <@Nikkinoodl> <@simon.sgr> <@st599> <@stw1974> <#Simon> <#simon|simon>
+# Simon H <@Fenouilll|Simon> <@Nikkinoodl|Simon> <@simon.sgr|Simon> <@st599|Simon> <@stw1974|Simon> <#Simon|Simon> <#Simon-H> <#simon|simon>
+# skierpage <info[at]skierpage.com> <@skierpage>
+# Snow W <@snoww> <#snow|snow>
+# Srihari <ssvz[at]visishta.net> <#srihari|srihari>
+# Stayd <dylanbell3d[at]gmail.com> <@Stayd>
+# Stefan <@SVeenhuis> <#Stefan> <#stefan|stefan>
+# Stephanie <@Flacostick> <#Stephanie> <#stephanie|stephanie>
+# Steve <@steve.d01> <@stevegodun> <#Steve> <#steve|steve>
+# Steve L. <@Stevo_K|Steve K> <@steve.d01|Steve> <@stevegodun|Steve> <#Steve|Steve> <#Steve-L.> <#steve|steve>
+# Steven P. Ulrick <@StevenPUlrick|Steven Ulrick> <#Steven-P.-Ulrick>
+# Sven <@SvenS> <@shoeper> <#Sven> <#sven|sven>
+# Sven S. <@SvenS|Sven> <@shoeper|Sven> <#Sven|Sven> <#Sven-J.|Sven J.> <#Sven-S.> <#sven|sven>
+# Terry <@Terry> <#Terry>
+# Terry P <@Terry|Terry> <@TerryP> <#Terry|Terry>
+# Tester <@Testing> <#Tester>
+# Th <@TH_1> <#th|th>
+# Thilo <@tpki> <#Thilo>
+# Thomas <@flipp3003> <@greenknight9000> <#THOMAS|THOMAS> <#Thomas> <#thomas|thomas>
+# Thomas F. <@flipp3003|Thomas> <@greenknight9000|Thomas> <#THOMAS|THOMAS> <#Thomas|Thomas> <#Thomas-F.> <#Thomas-W|Thomas W> <#thomas|thomas>
+# Thorsten K <@sputnikchen2|Thorsten H> <#Thorsten|Thorsten> <#Thorsten-K>
+# Tilo <@tilo|tilo> <#Tilo>
+# Tim <@enlowtainment> <@pkhits> <#Tim> <#tim|tim>
+# Tim M <@enlowtainment|Tim> <@pkhits|Tim> <#Tim|Tim> <#Tim-H|Tim H> <#Tim-M> <#tim|tim>
+# Timo <@toger5> <#Timo>
+# Timothy <@TeaMouse> <#Timothy>
+# TKZV <@tkzv|tkzv> <#TKZV>
+# Tobias <tobias.jakobs[at]gmail.com> <@Tobias> <@houz> <#Tobias> <#tobias|tobias>
+# Tobias H <tobias.jakobs[at]gmail.com|Tobias> <@Phoenix_IV> <@Tobias|Tobias> <@houz|Tobias> <#Tobias|Tobias> <#tobias|tobias>
+# Toby <@tobymerritt> <#Toby>
+# Toby G <@tobygraham> <@tobymerritt|Toby> <#Toby|Toby> <#toby_k|toby_k>
+# Tom <@redshift> <@tstevelt> <#Tom> <#tom|tom>
+# Tom P <@I-Tom-I|I-Tom-I> <@redshift|Tom> <@tstevelt|Tom> <#Tom|Tom> <#Tom-C|Tom C> <#Tom-H|Tom H> <#Tom-P> <#tom|tom>
+# Tommy <@twt> <#Tommy> <#tommy|tommy>
+# Tony <@Tony44> <@mackant1> <#tony|tony>
+# Troll <@Troll> <#troll|troll>
+# TRR <@TRR> <#TRR>
+# Tyler C <@Tacman215> <#Tyler|Tyler>
+# Urek <shlover.v[at]gmail.com|urek> <@urek>
+# Uta L. <@baumkuchen42> <#uta|uta>
+# vaifrax <@vaifrax> <#vaifrax>
+# Victor <@vks1238961> <#Victor> <#victor|victor>
+# Vitaly K. <@vitalkanev> <#Vitaly|Vitaly>
+# Víctor S <@victormsolanog> <@vks1238961|Victor> <#Victor|Victor> <#victor|victor>
+# W A Mason <@WAMason> <#Mason|Mason>
+# Wes R <@wkussmaul|Wes> <#Wes-R>
+# Will F. <@willstott101|Will S> <#Will|Will> <#Will-F.> <#will|will>
+# Xavier <@CDRXavier> <#Xavier>
+# Yiries A Saad <@saadmauraarquitecto|Yiries Saad> <@yiriesprl|Yiries Saad> <#Yiries-A-Saad>
+# Yuri <@yuretto> <#Yuri>
+# Zach <@ZThing222> <#Zach>
+# Zero <@zero_fire|zero> <@zeroaladreta|zero> <#Zero>
+# Zhouyang <jiazhouyang09[at]gmail.com> <#Zhouyang>
+# 張俊芝 <zjz[at]zjz.name> <@Zhang-Junzhi>

@@ -1,0 +1,9 @@
+host: gitlab.gnome.org
+project: projects/Teams%2FGIMP%2FDesign%2Fgimp-ux
+skip_mrs: true
+bug_labels: []
+exclude_users:
+  - bugzilla-migration
+bug_category: bug-reporting
+fallback_category: improvement-suggestion
+closed_mr_category: coding-other

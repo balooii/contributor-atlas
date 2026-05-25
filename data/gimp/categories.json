@@ -1,0 +1,11 @@
+{
+  "coding-feature": "#1d4ed8",
+  "coding-bugfix": "#60a5fa",
+  "coding-other": "#bae6fd",
+  "translation": "#f5c842",
+  "bug-reporting": "#e11d48",
+  "improvement-suggestion": "#fda4af",
+  "triaging": "#f97316",
+  "communication": "#14b8a6",
+  "documentation": "#8ecf8e"
+}

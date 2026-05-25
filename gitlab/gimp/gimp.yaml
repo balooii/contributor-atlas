@@ -1,0 +1,13 @@
+host: gitlab.gnome.org
+project: projects/GNOME%2Fgimp
+bug_labels:
+  - 0. Critical
+  - 1. Crash
+  - 1. Bug
+  - 1. Regression
+  - 1. Security
+exclude_users:
+  - bugzilla-migration
+bug_category: bug-reporting
+fallback_category: improvement-suggestion
+closed_mr_category: coding-other

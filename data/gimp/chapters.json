@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Ancient History",
+    "start": null,
+    "end": "1998-06-06",
+    "image_url": "/data/gimp/chapter_images/gimp_oldest_logo.png",
+    "text": "The early years of GIMP, from its first public release in 1996 until the magical 1.0 release. Unfortunately, we don't have much data for that period to show you.",
+    "link_url": "https://www.gimp.org/about/ancient_history.html"
+  },
+  {
+    "name": "Building GIMP 2.10",
+    "start": "2012-05-04",
+    "end": "2018-04-27",
+    "image_url": "/data/gimp/chapter_images/gimp-2-10-splash.png",
+    "link_url": "https://www.gimp.org/news/2018/04/27/gimp-2-10-0-released/"
+  },
+  {
+    "name": "Road to GIMP 3",
+    "start": "2018-04-28",
+    "end": "2025-03-16",
+    "image_url": "/data/gimp/chapter_images/gimp-3-0-splash.jpg",
+    "link_url": "https://www.gimp.org/news/2025/03/16/gimp-3-0-released/"
+  }
+]

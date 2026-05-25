@@ -1,0 +1,363 @@
+// createRipples.js - experimental "gravity well" layout
+//   * Every contributor is a dot (no top-N split, no ring)
+//   * Radial distance from centre is inversely proportional to contribution count
+//     (more contributions ⇒ closer to centre)
+//   * Angular position: random (scatter)
+//   * Dot colour = dominant category
+//   * Tooltip mirrors the cornerstones look
+
+const createRipples = (container) => {
+  const PI = Math.PI;
+  const TAU = PI * 2;
+
+  const cos = Math.cos;
+  const sin = Math.sin;
+  const sqrt = Math.sqrt;
+
+  // -- State ------------------------------------------------
+  let nodes = [];
+  let center_node = null;
+  let delaunay;
+  let raw_contributions_all;
+  let catToGroup = {};
+  let RANGE_START = null;
+  let RANGE_END = null;
+  let FULL_MIN, FULL_MAX;
+  let ACTIVE_CATEGORIES = null;
+  let _lastCategoryStats = [];
+  let PROJECT_NAME;
+  let _logoImage = null;
+
+  // -- Colours / fonts --------------------------------------
+  let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIB;
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement);
+    COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
+    COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
+    COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();
+  }
+  readColors();
+  const FONT_FAMILY = "Encode Sans";
+
+  let scale_category_color = d3.scaleOrdinal();
+  const categoryColor = (cat) => scale_category_color(cat);
+
+  // -- Canvases ---------------------------------------------
+  const layers = ChartBase.createCanvasLayers(container, COLOR_BACKGROUND);
+  const canvas = layers.base,
+    canvas_hover = layers.hover;
+  const context = layers.baseCtx,
+    context_hover = layers.hoverCtx;
+
+  const loadingOverlay = ChartBase.createLoadingOverlay(container);
+
+  let _activeTick = null;
+
+  const tooltip = createTooltip(container, { zIndex: 22 });
+
+  const interaction = ChartBase.wireInteraction(canvas_hover, {
+    context_hover,
+    canvas,
+    tooltip,
+    getSize: () => ({ WIDTH, HEIGHT }),
+    findNode,
+    drawHoverState,
+    showTooltip: showContributorTooltip,
+  });
+
+  // -- Sizes ------------------------------------------------
+  const DEFAULT_SIZE = 1500;
+  let WIDTH = DEFAULT_SIZE,
+    HEIGHT = DEFAULT_SIZE;
+  let width = DEFAULT_SIZE,
+    height = DEFAULT_SIZE;
+  let SF, PIXEL_RATIO;
+
+  // Logical layout extents (centred coordinate space, units before SF)
+  const LAYOUT_OUTER = 700; // outermost target radius (1-contribution contributors live here)
+  const LAYOUT_INNER = 55; // innermost target radius (the very-largest contributors)
+  const CENTER_RADIUS = 40; // logical radius of the central project node
+
+  // Dot size scale (sqrt - contribution counts are heavy-tailed)
+  const scale_dot_radius = d3.scaleSqrt().range([2, 28]);
+  // Radial-position scale (log - counts span orders of magnitude). Inverted: big count -> small radius.
+  const scale_target_radius = d3
+    .scaleLog()
+    .range([LAYOUT_OUTER, LAYOUT_INNER])
+    .clamp(true);
+
+  // -- Entry ------------------------------------------------
+  function chart(values) {
+    const parsed = ChartBase.parseChartValues(values);
+    raw_contributions_all = parsed.contributions;
+    catToGroup = parsed.catToGroup;
+    FULL_MIN = parsed.FULL_MIN;
+    FULL_MAX = parsed.FULL_MAX;
+    scale_category_color = parsed.scale_category_color;
+    rerun();
+  }
+
+  // -- Pipeline ---------------------------------------------
+  function rerun() {
+    ({ nodes: nodes, categoryStats: _lastCategoryStats } =
+      ChartBase.runPipeline(
+        raw_contributions_all,
+        RANGE_START,
+        RANGE_END,
+        ACTIVE_CATEGORIES,
+        catToGroup,
+      ));
+
+    const { catMap: centerCatMap, total: centerTotal } =
+      ChartBase.buildCentralData(nodes);
+    center_node = {
+      type: "project",
+      x: 0,
+      y: 0,
+      r: CENTER_RADIUS,
+      color: COLOR_PROJECT,
+      data: {
+        contributor_name: PROJECT_NAME,
+        total_contribution_count: centerTotal,
+        contribution_count_by_category: centerCatMap,
+        contributor_count: nodes.length,
+      },
+    };
+
+    if (nodes.length === 0) {
+      chart.resize();
+      if (chart.onRerun) chart.onRerun(_lastCategoryStats);
+      return;
+    }
+
+    // Scale domains
+    const maxCount = d3.max(nodes, (n) => n.count);
+    scale_dot_radius.domain([1, maxCount]);
+    scale_target_radius.domain([1, maxCount]);
+
+    nodes.forEach((n) => {
+      n.r = scale_dot_radius(n.count);
+      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIB;
+      const tRad = scale_target_radius(n.count);
+      const angle = Math.random() * TAU;
+      n.target_x = tRad * cos(angle);
+      n.target_y = tRad * sin(angle);
+      n.x = n.target_x + (Math.random() - 0.5) * 4;
+      n.y = n.target_y + (Math.random() - 0.5) * 4;
+    });
+
+    // Force simulation - pull toward target, push apart with collision
+    const sim = d3
+      .forceSimulation(nodes)
+      .force("x", d3.forceX((d) => d.target_x).strength(0.25))
+      .force("y", d3.forceY((d) => d.target_y).strength(0.25))
+      .force("collide", d3.forceCollide((d) => d.r + 1.5).strength(0.9))
+      .stop();
+
+    if (_activeTick) _activeTick.cancel();
+    loadingOverlay.style.display = "flex";
+    _activeTick = ChartBase.tickAsync(sim, 180, 20, () => {
+      _activeTick = null;
+      loadingOverlay.style.display = "none";
+      interaction.reset();
+      chart.resize();
+      if (chart.onRerun) chart.onRerun(_lastCategoryStats);
+    });
+  }
+
+  // -- Drawing ----------------------------------------------
+  function drawRings() {
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
+    context.save();
+    context.translate(WIDTH / 2, HEIGHT / 2);
+    context.strokeStyle = isLight
+      ? "rgba(0,0,0,0.16)"
+      : "rgba(255,255,255,0.24)";
+    context.lineWidth = 0.7 * SF;
+
+    // 5 rings log-spaced from outermost boundary down to just outside center node
+    const N = 5;
+    const logOuter = Math.log(LAYOUT_OUTER);
+    const logInnerBound = Math.log(CENTER_RADIUS * 2);
+    for (let i = 0; i < N; i++) {
+      const t = i / (N - 1);
+      const r = Math.exp(logOuter + t * (logInnerBound - logOuter)) * SF;
+      context.beginPath();
+      context.arc(0, 0, r, 0, TAU);
+      context.stroke();
+    }
+
+    context.restore();
+  }
+
+  function draw() {
+    context.fillStyle = COLOR_BACKGROUND;
+    context.fillRect(0, 0, WIDTH, HEIGHT);
+
+    drawRings();
+
+    context.save();
+    context.translate(WIDTH / 2, HEIGHT / 2);
+
+    nodes.forEach((n) => drawContributorNode(context, n));
+    drawCenterNode(context);
+
+    context.restore();
+  }
+
+  // The logo only appears when the center node itself is hovered.
+  function drawCenterNode(ctx, hovered = false) {
+    const r = CENTER_RADIUS * SF;
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, TAU);
+    ctx.fillStyle = COLOR_PROJECT;
+    ctx.fill();
+
+    ChartBase.drawProjectNodeContent(ctx, {
+      cx: 0,
+      cy: 0,
+      r,
+      name: PROJECT_NAME,
+      logoImage: hovered ? _logoImage : null,
+      COLOR_TEXT: COLOR_BACKGROUND,
+      FONT_FAMILY,
+      fontSize: 13 * SF,
+      letterSpacing: 2 * SF,
+    });
+  }
+
+  function drawContributorNode(ctx, n) {
+    ctx.fillStyle = n.color;
+    ctx.beginPath();
+    ctx.arc(n.x * SF, n.y * SF, n.r * SF, 0, TAU);
+    ctx.fill();
+  }
+
+  const drawNodeHighlight = (ctx, n) =>
+    ChartBase.drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND });
+
+  // -- Resize -----------------------------------------------
+  chart.resize = () => {
+    ({ PIXEL_RATIO, WIDTH, HEIGHT } = ChartBase.sizeCanvasLayers(
+      layers,
+      width,
+      height,
+    ));
+
+    // Scale logical space so the outer ring fits with margin for tooltips
+    SF = Math.min(WIDTH, HEIGHT) / (2 * LAYOUT_OUTER * 1.08);
+
+    if (nodes.length > 0) {
+      delaunay = d3.Delaunay.from(nodes.map((n) => [n.x, n.y]));
+    }
+
+    draw();
+  };
+
+  function drawHoverState(ctx, d) {
+    ChartBase.drawClusterHoverState(ctx, d, {
+      WIDTH,
+      HEIGHT,
+      isCenterNode: (n) => n.type === "project",
+      drawCenter: drawCenterNode,
+      drawHighlight: drawNodeHighlight,
+    });
+  }
+
+  // -- Hit detection ----------------------------------------
+  function findNode(mx, my) {
+    mx = (mx * PIXEL_RATIO - WIDTH / 2) / SF;
+    my = (my * PIXEL_RATIO - HEIGHT / 2) / SF;
+
+    if (center_node && sqrt(mx * mx + my * my) < CENTER_RADIUS + 8) {
+      return [center_node, true];
+    }
+
+    if (!delaunay || nodes.length === 0) return [null, false];
+    const i = delaunay.find(mx, my);
+    const d = nodes[i];
+    if (!d) return [null, false];
+    const dist = sqrt((d.x - mx) ** 2 + (d.y - my) ** 2);
+    const FOUND = dist < d.r + 8;
+    return [d, FOUND];
+  }
+
+  function showContributorTooltip(d) {
+    const isProject = d.type === "project";
+    const html = ChartBase.buildContributorTooltipHTML(d, {
+      tooltip,
+      categoryColor,
+      accent: isProject ? COLOR_PROJECT : COLOR_CONTRIB,
+      isProject,
+    });
+    ChartBase.showAnchoredTooltip(tooltip, html, d, {
+      width,
+      height,
+      SF,
+      pixelRatio: PIXEL_RATIO,
+    });
+  }
+
+  const setFont = (ctx, size, weight, style = "normal") =>
+    ChartBase.setFont(ctx, FONT_FAMILY, size, weight, style);
+  const renderText = ChartBase.renderText;
+
+  // -- Accessors --------------------------------------------
+  chart.width = function (v) {
+    if (!arguments.length) return width;
+    width = v;
+    return chart;
+  };
+  chart.height = function (v) {
+    if (!arguments.length) return height;
+    height = v;
+    return chart;
+  };
+  chart.project = function (data) {
+    if (!arguments.length) return PROJECT_NAME;
+    if (!data || !data.name) throw new Error("project.json must define a name");
+    PROJECT_NAME = data.name;
+    if (data.logo) {
+      ChartBase.loadProjectImage(data.logo, (img) => {
+        _logoImage = img;
+        draw();
+      });
+    }
+    return chart;
+  };
+
+  chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
+  chart.setRange = (s, e) => {
+    const newStart = s == null ? null : s;
+    const newEnd = e == null ? null : e;
+    if (newStart === RANGE_START && newEnd === RANGE_END) return;
+    RANGE_START = newStart;
+    RANGE_END = newEnd;
+    if (raw_contributions_all) rerun();
+  };
+  chart.reset = () => {
+    RANGE_START = null;
+    RANGE_END = null;
+    ACTIVE_CATEGORIES = null;
+    rerun();
+  };
+  chart.allCategories = () => scale_category_color.domain().slice();
+  chart.getCategoryStats = () => _lastCategoryStats;
+  chart.setCategories = (cats) => {
+    ACTIVE_CATEGORIES =
+      !cats || (Array.isArray(cats) && !cats.length) ? null : new Set(cats);
+    rerun();
+  };
+  chart.getActiveCategories = () => ACTIVE_CATEGORIES;
+  chart.categoryColor = categoryColor;
+  chart.onRerun = null;
+
+  window.addEventListener("themechange", () => {
+    readColors();
+    container.style.backgroundColor = COLOR_BACKGROUND;
+    rerun();
+  });
+
+  return chart;
+};
