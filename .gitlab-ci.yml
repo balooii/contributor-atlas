@@ -2,13 +2,15 @@ pages:
   stage: deploy
   image: alpine:latest
   script:
-    - apk add --no-cache curl
+    - apk add --no-cache curl brotli
     - mkdir -p public/data/gimp
     - cp *.html *.js public/
     - cp -r css fonts lib public/
     - cp -r data/gimp public/data/
     - curl -L -f -o public/data/gimp/contributions.csv
         "https://gitlab.gnome.org/-/project/39188/uploads/d396b1908ea74ceb677b2a398407b665/contributions.csv"
+    - find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.csv" \) -exec gzip -k "{}" \;
+    - find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.csv" \) -exec brotli --keep "{}" \;
   artifacts:
     paths:
       - public
