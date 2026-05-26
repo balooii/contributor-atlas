@@ -92,10 +92,7 @@ const createTrails = (container) => {
   scroller.appendChild(spacer);
   container.appendChild(scroller);
 
-  const tooltip = createTooltip(container, {
-    font: `11px ${FONT}`,
-    color: COLOR_TEXT,
-  });
+  const tooltip = createTooltip(container);
 
   const ctxH = headerCanvas.getContext("2d");
   const ctxL = labelsCanvas.getContext("2d");

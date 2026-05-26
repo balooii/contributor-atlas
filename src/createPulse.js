@@ -25,10 +25,7 @@ const createPulse = (container) => {
   const ctx = canvas.getContext("2d");
   container.appendChild(canvas);
 
-  const tooltip = createTooltip(container, {
-    font: `11px ${FONT}`,
-    color: COLOR_TEXT,
-  });
+  const tooltip = createTooltip(container);
 
   let _draw = null; // { data, interval, xScale, cW, cH, visibleHighlights } - for hover hit-testing
   let _hoveredBucket = null; // currently hovered data row, dims all other bars
