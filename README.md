@@ -6,10 +6,6 @@ Interactive visualizations for exploring contributor activity in open-source pro
 
 This project was built to visualize contributions to [GIMP](https://www.gimp.org/) and its ecosystem, but the graphs themselves are generic — if your project has contribution data, you should be able to plug it in without too much effort. Unfortunately I don't have the time to do this for other projects myself, but I'd love to see it used elsewhere.
 
-Built on work by Nadieh Bremer ([VisualCinnamon.com](https://www.visualcinnamon.com/)) and the [ORCA repository](https://github.com/nbremer/ORCA).
-
-**License:** MIT. The "Cornerstones" visualization is based on code from ORCA, which is licensed under the Mozilla Public License 2.0.
-
 ---
 
 ## Visualizations
@@ -135,3 +131,13 @@ If you have multiple data sources you probably need to merge some data so contri
 Also the scripts to fetch data from GNOME's GitLab instance and git repositories may or may not work for your sources.
 
 Check out [GIMP.md](data/gimp/GIMP.md) and the `data`, `pipeline/gitlab`, `pipeline/bugzilla`, and `pipeline/git` directories for further details.
+
+---
+
+## Attributions
+
+**License:** [MIT](LICENSES/MIT.txt).
+
+- **[Nadieh Bremer](https://www.visualcinnamon.com/)** — the Cornerstones visualization is adapted from her [ORCA repository](https://github.com/nbremer/ORCA), licensed under the [Mozilla Public License 2.0](LICENSES/MPL-2.0.txt).
+- **[D3.js](https://d3js.org/)** by Mike Bostock and D3.js contributors — bundled in `static/lib/`, licensed under the [ISC License](LICENSES/ISC.txt).
+- **[Encode Sans](https://fonts.google.com/specimen/Encode+Sans)** by The Encode Project Authors — bundled in `static/fonts/`, licensed under the [SIL Open Font License 1.1](LICENSES/OFL-1.1.txt).

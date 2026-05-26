@@ -1,6 +1,0 @@
-In general: MIT.
-* The "Cornerstones" visualization is based on code from ORCA, which is licensed under the Mozilla Public License 2.0.
-* The project also contains d3.js library. You can find its license at ./lib/d3.v7.js.license
-* The project uses the font "Encode Sans". You can find its license at ./fonts/EncodeSans-VariableFont_wdth,wght.license
-
-License texts for MIT and MPL are available at ./LICENSES/
