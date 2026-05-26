@@ -14,13 +14,14 @@ Built on work by Nadieh Bremer ([VisualCinnamon.com](https://www.visualcinnamon.
 
 ## Visualizations
 
-There are five views. All rendering uses HTML5 Canvas. There is no build step so you can just start a webserver and open your browser:
-Download contributions.csv from https://gitlab.gnome.org/balooii/contributor-atlas/-/work_items/1 and put it in `data/gimp/`.
+There are five views. There is no build step, so to run locally just:
 
-```sh
-python3 -m http.server
-# then open http://localhost:8000
-```
+1. Download `contributions.csv` from https://gitlab.gnome.org/balooii/contributor-atlas/-/work_items/1 and put it in `data/gimp/`.
+2. Start a webserver from the repository root:
+   ```sh
+   python3 -m http.server
+   ```
+3. Open http://localhost:8000 in your browser.
 
 Alternatively, the current GIMP dataset is also deployed at **https://contributor-atlas-4dab97.pages.gitlab.gnome.org** if you just want to explore it without running anything locally.
 
@@ -77,20 +78,6 @@ Maps each category name to a hex color used in the visualizations.
 }
 ```
 
-### `category_groups.json` (optional)
-
-Maps each category to a broader group name. Create this file when your categories are subdivided into groups (e.g. `coding-feature` and `coding-bugfix` both belonging to `coding`).
-
-```json
-{
-  "coding-feature": "coding",
-  "coding-bugfix": "coding",
-  "coding-other": "coding",
-  "bug-reporting": "issues",
-  "documentation": "writing"
-}
-```
-
 ### `chapters.json` (optional)
 
 Named time ranges shown in the timeline control. Useful for marking important eras of the project.
@@ -125,12 +112,12 @@ v2.0 release,2004-03-23
 v2.10 release,2018-04-27
 ```
 
-### `project.json` (required)
+### `project.json` (required for Gathering, Ripples, Cornerstones)
 
-Identifies the project shown at the center node of Cornerstones, Gathering, and Ripples.
+Identifies the project shown at the center node of Gathering, Ripples, and Cornerstones. Pulse and Trails have no center node and don't load this file.
 
 ```json
-{ "name": "GIMP", "logo": "data/myproject/logo.png" }
+{ "name": "GIMP", "logo": "/data/myproject/logo.png" }
 ```
 
 `name` is the required display label. `logo` is an optional path to an image; when set, the center node shows the project name as text by default and reveals the logo on hover.
@@ -141,7 +128,7 @@ Identifies the project shown at the center node of Cornerstones, Gathering, and 
 
 1. Create a directory under `data/` for your project (e.g. `data/myproject/`).
 2. Populate the required data files above.
-3. In each HTML file, update the `path:` entries in the `bootstrapPage({ files: [...] })` call to point at your data directory
+3. Point each of the five HTML files at your data directory by updating the `path:` entries in its `bootstrapPage({ files: [...] })` call. The lists differ per view — e.g. `pulse.html` also loads `highlights.csv`, while `pulse.html` and `trails.html` omit `project.json` — so edit them individually.
 
 If you have multiple data sources you probably need to merge some data so contributions get attributed to the right people. You may find it helpful to read `merge.py` and the semi-automatic aliasing logic in `make_alias_draft.py` and `contributor-aliases.txt` (written for GIMP's sources).
 
