@@ -141,4 +141,4 @@ If you have multiple data sources you probably need to merge some data so contri
 
 Also the scripts to fetch data from GNOME's GitLab instance and git repositories may or may not work for your sources.
 
-Check out [GIMP.md](GIMP.md) and the `data`, `gitlab`, `bugzilla`, and `git` directories for further details.
+Check out [GIMP.md](data/gimp/GIMP.md) and the `data`, `pipeline/gitlab`, `pipeline/bugzilla`, and `pipeline/git` directories for further details.

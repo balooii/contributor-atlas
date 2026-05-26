@@ -35,6 +35,7 @@ from collections import defaultdict
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
+RAW_DIR = SCRIPT_DIR / "raw"
 
 _ANGLE_RE = re.compile(r"<([^>]+)>")
 _SECTION_RE = re.compile(r"^\s*#\s*===\s+")
@@ -434,8 +435,8 @@ def main():
     # identifier → set of contributor_name strings observed across all rows.
     id_names: dict[str, set] = defaultdict(set)
 
-    for fname, source_type in discover_files(SCRIPT_DIR):
-        path = SCRIPT_DIR / fname
+    for fname, source_type in discover_files(RAW_DIR):
+        path = RAW_DIR / fname
         if not path.exists():
             continue
         with open(path, newline="") as f:
@@ -458,7 +459,7 @@ def main():
 
     # === very-high: deterministic gitlab handle bindings ===
     very_high = []
-    for display_name, emails, handle in extract_auto_bindings(SCRIPT_DIR):
+    for display_name, emails, handle in extract_auto_bindings(RAW_DIR):
         result = _build_auto_candidate(display_name, emails, handle, by_id, id_names)
         if result is not None:
             very_high.append(result)

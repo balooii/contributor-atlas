@@ -32,7 +32,7 @@ _KNOWN_SOURCES = {"git", "gitlab", "bugzilla", "handcrafted"}
 def discover_files(dir_path):
     """Return (filename, source_type) for every _contributions_*.csv with a recognised source type."""
     results = []
-    for path in sorted(dir_path.glob("_contributions_*.csv")):
+    for path in sorted((dir_path / "raw").glob("_contributions_*.csv")):
         inner = path.stem[len("_contributions_"):]
         _, _, source_part = inner.partition("_")
         source_type = source_part.split(".")[0]
@@ -130,7 +130,7 @@ def read_rows(name, source_type):
     use 'contributor_id'; only gitlab carries 'contributor_public_email'. This
     function maps them to a single uniform dict shape for downstream code.
     """
-    path = SCRIPT_DIR / name
+    path = SCRIPT_DIR / "raw" / name
     id_column = "contributor_email" if source_type == "git" else "contributor_id"
     with open(path, newline="") as f:
         reader = csv.DictReader(f)

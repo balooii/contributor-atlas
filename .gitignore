@@ -4,7 +4,7 @@ __pycache__/
 *.cache.json
 *.git/
 *.tmp
-data/*/_contributions_*_bugzilla.csv
-data/*/_contributions_*_gitlab.csv
-data/*/_contributions_*_git.csv
+data/*/raw/_contributions_*_bugzilla.csv
+data/*/raw/_contributions_*_gitlab.csv
+data/*/raw/_contributions_*_git.csv
 contributions.csv

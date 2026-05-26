@@ -112,7 +112,7 @@ Contributions are classified into the following categories:
 | improvement-suggestion | issues      |
 | triaging               | triaging    |
 
-Git commit categories are assigned by a local LLM using the profiles in `git/gimp/`. GitLab and Bugzilla contributions are classified by the type of activity (issue, MR, comment, etc.).
+Git commit categories are assigned by a local LLM using the profiles in `pipeline/git/gimp/`. GitLab and Bugzilla contributions are classified by the type of activity (issue, MR, comment, etc.).
 
 Colors for each category within the same group should have the same hue. The distinction between categories within a group - like feature implementation vs. bugfix - is often
 not much more than a guess, especially on older data.
@@ -137,7 +137,7 @@ For each mentioned subproject you will find a YAML profile with project-specific
 **GitLab** (created issues and comments on issues and MRs):
 
 ```sh
-cd gitlab
+cd pipeline/gitlab
 python3 fetch_gitlab.py --profile gimp/<project>.yaml
 # e.g. --profile gimp/gimp.yaml, gimp/babl.yaml, ...
 # or use gimp/run.sh to run all profiles
@@ -171,7 +171,7 @@ CUDA_VISIBLE_DEVICES=0 ./llama-server \
 Now that the endpoint is available you can run the git commit classifier script
 
 ```sh
-cd git
+cd pipeline/git
 python3 classify_commits.py --profile gimp/<project>.yaml
 # or
 bash gimp/run.sh
@@ -185,7 +185,7 @@ Note that this will clone the static GNOME Bugzilla pages which will need roughl
 on your hard drive (download is way less as it's highly compressible)
 
 ```sh
-cd bugzilla
+cd pipeline/bugzilla
 python3 fetch_gnome_bugzilla_static.py --profile gimp/<project>.yaml
 # or
 bash gimp/run.sh
