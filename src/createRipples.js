@@ -1,11 +1,3 @@
-// createRipples.js - experimental "gravity well" layout
-//   * Every contributor is a dot (no top-N split, no ring)
-//   * Radial distance from centre is inversely proportional to contribution count
-//     (more contributions ⇒ closer to centre)
-//   * Angular position: random (scatter)
-//   * Dot colour = dominant category
-//   * Tooltip mirrors the cornerstones look
-
 const createRipples = (container) => {
   const PI = Math.PI;
   const TAU = PI * 2;
@@ -49,10 +41,6 @@ const createRipples = (container) => {
   const context = layers.baseCtx,
     context_hover = layers.hoverCtx;
 
-  const loadingOverlay = ChartBase.createLoadingOverlay(container);
-
-  let _activeTick = null;
-
   const tooltip = createTooltip(container, { zIndex: 22 });
 
   const interaction = ChartBase.wireInteraction(canvas_hover, {
@@ -77,6 +65,7 @@ const createRipples = (container) => {
   const LAYOUT_OUTER = 700; // outermost target radius (1-contribution contributors live here)
   const LAYOUT_INNER = 55; // innermost target radius (the very-largest contributors)
   const CENTER_RADIUS = 40; // logical radius of the central project node
+  let _layoutMaxR = LAYOUT_OUTER; // actual outermost node edge after layout
 
   // Dot size scale (sqrt - contribution counts are heavy-tailed)
   const scale_dot_radius = d3.scaleSqrt().range([2, 28]);
@@ -95,6 +84,47 @@ const createRipples = (container) => {
     FULL_MAX = parsed.FULL_MAX;
     scale_category_color = parsed.scale_category_color;
     rerun();
+  }
+
+  // -- Layout -----------------------------------------------
+  // Groups nodes by exact contribution count (same count => same natural_r and
+  // node_r). Processes groups innermost-first. Fills concentric sub-rings,
+  // spreading each ring's nodes evenly around the full circle and stepping out
+  // by 2*node_r + gap when a ring is full, expanding outward indefinitely.
+  // Returns the actual max radius (outermost node edge) for dynamic SF scaling.
+  function placeNodes(allNodes) {
+    const gap = 1.5;
+    let maxR = LAYOUT_INNER;
+
+    const countGroups = d3.group(allNodes, (d) => d.count);
+    const sortedCounts = Array.from(countGroups.keys()).sort((a, b) => b - a);
+
+    for (const count of sortedCounts) {
+      const group = countGroups.get(count);
+      const node_r = group[0].r;
+      const step = 2 * node_r + gap;
+
+      let current_r = scale_target_radius(count);
+      let idx = 0;
+
+      while (idx < group.length) {
+        const cap = Math.max(1, Math.floor((TAU * current_r) / step));
+        const ringCount = Math.min(cap, group.length - idx);
+        const angle_offset = Math.random() * TAU;
+
+        for (let k = 0; k < ringCount; k++) {
+          const angle = angle_offset + (k / ringCount) * TAU;
+          const n = group[idx++];
+          n.x = current_r * cos(angle);
+          n.y = current_r * sin(angle);
+        }
+
+        if (current_r + node_r > maxR) maxR = current_r + node_r;
+        current_r += step;
+      }
+    }
+
+    return maxR;
   }
 
   // -- Pipeline ---------------------------------------------
@@ -125,12 +155,12 @@ const createRipples = (container) => {
     };
 
     if (nodes.length === 0) {
+      _layoutMaxR = LAYOUT_OUTER;
       chart.resize();
       if (chart.onRerun) chart.onRerun(_lastCategoryStats);
       return;
     }
 
-    // Scale domains
     const maxCount = d3.max(nodes, (n) => n.count);
     scale_dot_radius.domain([1, maxCount]);
     scale_target_radius.domain([1, maxCount]);
@@ -138,31 +168,13 @@ const createRipples = (container) => {
     nodes.forEach((n) => {
       n.r = scale_dot_radius(n.count);
       n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIB;
-      const tRad = scale_target_radius(n.count);
-      const angle = Math.random() * TAU;
-      n.target_x = tRad * cos(angle);
-      n.target_y = tRad * sin(angle);
-      n.x = n.target_x + (Math.random() - 0.5) * 4;
-      n.y = n.target_y + (Math.random() - 0.5) * 4;
     });
 
-    // Force simulation - pull toward target, push apart with collision
-    const sim = d3
-      .forceSimulation(nodes)
-      .force("x", d3.forceX((d) => d.target_x).strength(0.25))
-      .force("y", d3.forceY((d) => d.target_y).strength(0.25))
-      .force("collide", d3.forceCollide((d) => d.r + 1.5).strength(0.9))
-      .stop();
+    _layoutMaxR = placeNodes(nodes);
 
-    if (_activeTick) _activeTick.cancel();
-    loadingOverlay.style.display = "flex";
-    _activeTick = ChartBase.tickAsync(sim, 180, 20, () => {
-      _activeTick = null;
-      loadingOverlay.style.display = "none";
-      interaction.reset();
-      chart.resize();
-      if (chart.onRerun) chart.onRerun(_lastCategoryStats);
-    });
+    interaction.reset();
+    chart.resize();
+    if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }
 
   // -- Drawing ----------------------------------------------
@@ -178,7 +190,7 @@ const createRipples = (container) => {
 
     // 5 rings log-spaced from outermost boundary down to just outside center node
     const N = 5;
-    const logOuter = Math.log(LAYOUT_OUTER);
+    const logOuter = Math.log(_layoutMaxR);
     const logInnerBound = Math.log(CENTER_RADIUS * 2);
     for (let i = 0; i < N; i++) {
       const t = i / (N - 1);
@@ -245,8 +257,8 @@ const createRipples = (container) => {
       height,
     ));
 
-    // Scale logical space so the outer ring fits with margin for tooltips
-    SF = Math.min(WIDTH, HEIGHT) / (2 * LAYOUT_OUTER * 1.08);
+    // Scale so the actual outermost node fits with margin for tooltips
+    SF = Math.min(WIDTH, HEIGHT) / (2 * _layoutMaxR * 1.08);
 
     if (nodes.length > 0) {
       delaunay = d3.Delaunay.from(nodes.map((n) => [n.x, n.y]));
@@ -298,10 +310,6 @@ const createRipples = (container) => {
       pixelRatio: PIXEL_RATIO,
     });
   }
-
-  const setFont = (ctx, size, weight, style = "normal") =>
-    ChartBase.setFont(ctx, FONT_FAMILY, size, weight, style);
-  const renderText = ChartBase.renderText;
 
   // -- Accessors --------------------------------------------
   chart.width = function (v) {
