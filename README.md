@@ -43,14 +43,14 @@ things like colors or data for chapter tooltips.
 
 The main data file. One row per contribution event.
 
-| Column             | Type    | Description                                                                              |
-| ------------------ | ------- | ---------------------------------------------------------------------------------------- |
-| `contribution_id`  | string  | Unique ID for this contribution (e.g. `commit-gimp-abc123`)                              |
-| `category`         | string  | Contribution type (must match a key in `categories.json`)                                |
-| `category_group`   | string  | Broader group for this category (must match a value in `category_groups.json`)           |
-| `contributor_name` | string  | Display name                                                                             |
-| `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                               |
-| `timestamp`        | integer | Unix timestamp (seconds, but time can be truncated. Day-precision is enough for the viz) |
+| Column             | Type    | Description                                                                                                                                                                                        |
+| ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contribution_id`  | string  | Unique ID for this contribution (e.g. `commit-gimp-abc123`)                                                                                                                                        |
+| `category`         | string  | Contribution type (must match a key in `categories.json`)                                                                                                                                          |
+| `category_group`   | string  | Broader group for this category. If your categories are not subdivided (e.g. a single `coding` category rather than `coding-feature` / `coding-bugfix`), set this to the same value as `category`. |
+| `contributor_name` | string  | Display name                                                                                                                                                                                       |
+| `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                                                                                                                                         |
+| `timestamp`        | integer | Unix timestamp (seconds, but time can be truncated. Day-precision is enough for the viz)                                                                                                           |
 
 **Minimal example:**
 
@@ -77,9 +77,9 @@ Maps each category name to a hex color used in the visualizations.
 }
 ```
 
-### `category_groups.json` (pipeline input)
+### `category_groups.json` (optional)
 
-Maps each category to a broader group name.
+Maps each category to a broader group name. Create this file when your categories are subdivided into groups (e.g. `coding-feature` and `coding-bugfix` both belonging to `coding`).
 
 ```json
 {
@@ -118,6 +118,12 @@ Named time ranges shown in the timeline control. Useful for marking important er
 ### `highlights.csv` (optional)
 
 Project milestones shown in Pulse. Two columns: `name` and `timestamp` (`YYYY-MM-DD` string). For example, release dates.
+
+```csv
+name,timestamp
+v2.0 release,2004-03-23
+v2.10 release,2018-04-27
+```
 
 ### `project.json` (required)
 
