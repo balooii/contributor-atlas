@@ -8,3 +8,4 @@ data/*/raw/_contributions_*_bugzilla.csv
 data/*/raw/_contributions_*_gitlab.csv
 data/*/raw/_contributions_*_git.csv
 contributions.csv
+first_names.pkl.gz

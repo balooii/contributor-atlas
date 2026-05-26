@@ -2,13 +2,25 @@
 """Append draft alias suggestions to contributor-aliases.txt; see that file's header for the workflow."""
 
 import csv
+import gzip
+import hashlib
+import os
+import pickle
 import re
+import tempfile
 import unicodedata
+import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 RAW_DIR = SCRIPT_DIR / "raw"
+NAME_DATASET_PKL = SCRIPT_DIR / "first_names.pkl.gz"
+# Pinned to a moving branch (the upstream repo has no tags), so the sha256 is
+# the integrity gate: the file is unpickled, which executes arbitrary code, and
+# must not be trusted unless it matches this known-good digest.
+_NAME_DATASET_URL = "https://github.com/philipperemy/name-dataset/raw/refs/heads/master/names_dataset/v3/first_names.pkl.gz"
+_NAME_DATASET_SHA256 = "a2076494420babe3a110f25d54c89bdacb94c60cf304d0e8cfec65504e3de449"
 
 _ANGLE_RE = re.compile(r"<([^>]+)>")
 _SECTION_RE = re.compile(r"^\s*#\s*===\s+")
@@ -70,7 +82,7 @@ def normalize_name(s):
 def normalize_name_aggressive(s):
     """Drops single-letter tokens (initials) on top of normalize_name().
 
-    Bridges "Adam D Moss" ↔ "Adam Moss" and "J B Mayer" ↔ "Jean Baptiste
+    Bridges "Adam D Moss" <> "Adam Moss" and "J B Mayer" <> "Jean Baptiste
     Mayer". False-positive prone, so output should go to the low-confidence
     tier in the draft.
     """
@@ -189,7 +201,7 @@ def _clean_annotations(line):
 
 
 def extract_auto_bindings(dir_path):
-    """Build deterministic @handle ↔ email bindings from gitlab signals.
+    """Build deterministic @handle <> email bindings from gitlab signals.
 
     Three signals contribute, all keyed by gitlab handle:
       1. gitlab CSVs: contributor_public_email column — the email the user
@@ -198,7 +210,7 @@ def extract_auto_bindings(dir_path):
          (or the older <handle>@... form). The local-part encodes the handle
          directly, so the binding is unambiguous.
       3. git CSVs: commit emails whose local-part exactly matches a known
-         gitlab handle (e.g. "khaledhosny@eglug.org" ↔ "@khaledhosny"). Many
+         gitlab handle (e.g. "khaledhosny@eglug.org" <> "@khaledhosny"). Many
          contributors use their gitlab handle as the local part of their
          personal email. Gated by name agreement (normalize_name) between the
          commit author and at least one gitlab row for that handle, so a
@@ -363,12 +375,71 @@ def _fmt_id(i, display, cnames):
     return f"<{obf}|{'/'.join(sorted(names))}>"
 
 
+def _sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _download_name_dataset():
+    """Fetch the dataset to NAME_DATASET_PKL, verifying its sha256.
+
+    Downloads to a temp file in the same directory and atomically renames it
+    into place only after the checksum matches, so an interrupted or tampered
+    download never leaves a bad file at the cache path.
+    """
+    print(f"Downloading name dataset to {NAME_DATASET_PKL} ...")
+    fd, tmp_name = tempfile.mkstemp(dir=SCRIPT_DIR, suffix=".tmp")
+    os.close(fd)
+    tmp = Path(tmp_name)
+    try:
+        urllib.request.urlretrieve(_NAME_DATASET_URL, tmp)
+        digest = _sha256(tmp)
+        if digest != _NAME_DATASET_SHA256:
+            raise RuntimeError(
+                f"name dataset checksum mismatch: expected {_NAME_DATASET_SHA256}, got {digest}"
+            )
+        os.replace(tmp, NAME_DATASET_PKL)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+def load_common_first_names():
+    """Build a set of normalized first-name tokens from the name dataset.
+
+    Downloads first_names.pkl.gz from _NAME_DATASET_URL on first run and caches
+    it at NAME_DATASET_PKL. A missing or checksum-mismatched cache is (re)fetched
+    before the file is unpickled. Returns a frozenset of normalized tokens.
+    """
+    if not NAME_DATASET_PKL.exists() or _sha256(NAME_DATASET_PKL) != _NAME_DATASET_SHA256:
+        _download_name_dataset()
+    with gzip.open(NAME_DATASET_PKL, "rb") as f:
+        data = pickle.load(f)
+    names = set()
+    for raw_name in data:
+        for token in normalize_name(raw_name).split():
+            # Drop single-letter tokens: many keys are "A Abdiel" form where the
+            # leading initial is noise, not a given name.
+            if len(token) > 1 and token.isalpha():
+                names.add(token)
+    return frozenset(names)
+
+
+def is_common_first_name(normalized_name, common_names):
+    return normalized_name in common_names
+
+
 _TIER_DESCRIPTIONS = {
-    "very-high": "deterministic gitlab handle ↔ email binding (profile public_email, "
+    "very-high": "deterministic gitlab handle - email binding (profile public_email, "
                  "<id>-<handle>@noreply commit, or commit local-part matching a known handle).",
     "high":      "same name across sources AND ≥1 identifier appears in ≥2 sources.",
     "medium":    "same name across sources (under loose normalization), no shared identifier.",
-    "low":       "names match only after aggressive normalization (single-letter initials dropped).",
+    "low":       "names match only after aggressive normalization (initials dropped), or "
+                 "single-word name not found in the common-names dataset (likely a unique handle/nickname).",
+    "very-low":  "single-word common given name (e.g. 'Alex') with no shared identifier - "
+                 "high false-positive risk.",
 }
 
 
@@ -494,7 +565,8 @@ def main():
         sorted_ids = sorted(canon_srcs.keys(), key=id_sort_key)
         return (display, sorted_ids, has_overlap, canon_names)
 
-    high, medium, low = [], [], []
+    common_names = load_common_first_names()
+    high, medium, low, very_low = [], [], [], []
 
     for nm, names in basic_groups.items():
         result = _process(names)
@@ -512,13 +584,16 @@ def main():
             # The overlap doesn't involve the bare name itself, so cap at medium.
             medium.append((display, ids, cnames))
         else:
-            # Bare first name, no id overlap — weakest signal, demote to low.
-            low.append((display, ids, cnames))
+            # Bare first name, no id overlap — weakest signal.
+            if is_common_first_name(nm, common_names):
+                very_low.append((display, ids, cnames))
+            else:
+                low.append((display, ids, cnames))
 
     # Aggressive-only matches: emit when an aggressive group bridges ≥2 basic
     # groups (i.e. aggressive normalization established a link that basic
     # didn't). Dedup against existing high/medium/low by id-set equality.
-    seen_id_sets = {frozenset(ids) for _, ids, _ in high} | {frozenset(ids) for _, ids, _ in medium} | {frozenset(ids) for _, ids, _ in low}
+    seen_id_sets = {frozenset(ids) for _, ids, _ in high} | {frozenset(ids) for _, ids, _ in medium} | {frozenset(ids) for _, ids, _ in low} | {frozenset(ids) for _, ids, _ in very_low}
     for am, names in agg_groups.items():
         if len({normalize_name(n) for n in names}) <= 1:
             continue
@@ -530,12 +605,15 @@ def main():
         if key in seen_id_sets:
             continue
         seen_id_sets.add(key)
-        low.append((display, ids, cnames))
+        if is_common_first_name(am, common_names):
+            very_low.append((display, ids, cnames))
+        else:
+            low.append((display, ids, cnames))
 
     # Merge: a very-high candidate that shares any id with a high/medium/low
     # candidate is really one person — fold the lower-tier ids into the
     # very-high entry and drop the lower one.
-    very_high = _merge_into_very_high(very_high, high, medium, low)
+    very_high = _merge_into_very_high(very_high, high, medium, low, very_low)
 
     # Active block: existing entries plus any drafts the user accepted, merged,
     # de-duplicated, and sorted alphabetically so accepted suggestions land in
@@ -557,10 +635,12 @@ def main():
         _emit_section(f, "high", high)
         _emit_section(f, "medium", medium)
         _emit_section(f, "low", low)
+        _emit_section(f, "very-low", very_low)
 
     print(
         f"Wrote {len(very_high)} very-high + {len(high)} high + "
-        f"{len(medium)} medium + {len(low)} low draft entries to {aliases_path}"
+        f"{len(medium)} medium + {len(low)} low + {len(very_low)} very-low "
+        f"draft entries to {aliases_path}"
     )
     if accepted_lines:
         print(f"Merged {len(accepted_lines)} accepted draft line(s) into the sorted active block.")
