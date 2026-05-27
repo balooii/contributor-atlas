@@ -9,6 +9,17 @@ pages:
     - cp -r data/gimp public/data/
     - curl -L -f -o public/data/gimp/contributions.csv
         "https://gitlab.gnome.org/-/project/39188/uploads/d396b1908ea74ceb677b2a398407b665/contributions.csv"
+    - |
+      find public -type f \( -name "*.js" -o -name "*.css" -o -name "*.csv" -o -name "*.json" -o -name "*.png" \) | while read f; do
+        hash=$(md5sum "$f" | cut -c1-12)
+        dir=$(dirname "$f")
+        base=$(basename "$f")
+        ext="${base##*.}"
+        name="${base%.*}"
+        newname="${name}.${hash}.${ext}"
+        mv "$f" "${dir}/${newname}"
+        find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.json" \) -exec sed -i "s|${base}|${newname}|g" {} \;
+      done
     - find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.csv" \) -exec gzip -k "{}" \;
     - find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.csv" \) -exec brotli --keep "{}" \;
   artifacts:
