@@ -584,6 +584,35 @@ createTimelineControl.buildButtonGroup = function (
   return wrap;
 };
 
+createTimelineControl.buildZoomHint = function (visual) {
+  const wrapper = document.createElement("span");
+  wrapper.style.alignSelf = "flex-end";
+
+  const hint = document.createElement("span");
+  hint.className = "tc-hint";
+  const isMacOS = /Mac/.test(navigator.platform);
+  const modifierKey = isMacOS ? "Cmd" : "Ctrl";
+  hint.textContent = `${modifierKey}+scroll to zoom`;
+  wrapper.appendChild(hint);
+
+  if (visual) {
+    const btn = document.createElement("button");
+    btn.className = "tc-btn";
+    btn.textContent = "reset zoom";
+    btn.style.display = "none";
+    wrapper.appendChild(btn);
+
+    btn.addEventListener("click", () => visual.resetZoom());
+
+    visual.onZoomChange = (isZoomed) => {
+      hint.style.display = isZoomed ? "none" : "";
+      btn.style.display = isZoomed ? "" : "none";
+    };
+  }
+
+  return wrapper;
+};
+
 createTimelineControl.loadRange = function () {
   try {
     return JSON.parse(localStorage.getItem("range"));

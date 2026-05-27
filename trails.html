@@ -55,7 +55,7 @@
           );
           createTimelineControl(document.getElementById("controls"))
             .chapters(chapters || [])
-            .extras(sortControl)
+            .extras([sortControl, createTimelineControl.buildZoomHint(Visual)])
             .attach(Visual);
           Visual.resize();
         },

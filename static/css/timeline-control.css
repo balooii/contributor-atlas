@@ -298,3 +298,15 @@
   opacity: 0.55;
   letter-spacing: 0.04em;
 }
+
+
+/* -- Zoom hint --------------------------------------------------- */
+
+.tc-hint {
+  font-size: 10px;
+  color: var(--tc-label);
+  opacity: 0.55;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  align-self: flex-end;
+}

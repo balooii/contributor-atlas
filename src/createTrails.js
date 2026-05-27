@@ -47,6 +47,7 @@ const createTrails = (container) => {
   let _hover = null;
   let zoomLevel = 0;
   let minZoom = 0.001;
+  let isZoomed = false;
   let sortBy = "count"; // "count" | "first" | "career"
   let RANGE_START = null;
   let RANGE_END = null;
@@ -627,7 +628,9 @@ const createTrails = (container) => {
 
       scroller.scrollLeft = xScale(dateAtCursor) - mx;
       scrollLeft = scroller.scrollLeft;
+      isZoomed = zoomLevel > minZoom;
       drawAll();
+      chart.onZoomChange(isZoomed);
     },
     { passive: false },
   );
@@ -743,7 +746,9 @@ const createTrails = (container) => {
     scrollTop = 0;
     _hover = null;
     tooltip.hide();
+    isZoomed = false;
     drawAll();
+    chart.onZoomChange(false);
   }
 
   // -- Public API ------------------------------------------------------
@@ -787,7 +792,9 @@ const createTrails = (container) => {
     _hover = null;
     scroller.scrollTop = 0;
     scrollTop = 0;
+    isZoomed = zoomLevel > minZoom;
     drawAll();
+    chart.onZoomChange(isZoomed);
     return chart;
   };
 
@@ -806,7 +813,21 @@ const createTrails = (container) => {
     setupScales();
     scrollLeft = scroller.scrollLeft;
     scrollTop = scroller.scrollTop;
+    isZoomed = zoomLevel > minZoom;
     drawAll();
+    chart.onZoomChange(isZoomed);
+    return chart;
+  };
+  chart.onZoomChange = () => {};
+  chart.resetZoom = () => {
+    if (!isZoomed) return chart;
+    zoomLevel = 0;
+    setupScales();
+    scroller.scrollLeft = 0;
+    scrollLeft = 0;
+    isZoomed = false;
+    drawAll();
+    chart.onZoomChange(false);
     return chart;
   };
 
