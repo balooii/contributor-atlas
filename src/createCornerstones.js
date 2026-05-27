@@ -676,6 +676,15 @@ const createCornerstones = (container) => {
   // -- Hover ------------------------------------------------
   // Setup the hover on the top canvas, get the mouse position and call the drawing functions
   function setupHover() {
+    let clearHoverTimer = null;
+
+    function clearHoverState() {
+      context_hover.clearRect(0, 0, WIDTH, HEIGHT);
+      tooltip.hide();
+      HOVER_ACTIVE = false;
+      canvas.style.opacity = "1";
+    }
+
     d3.select("#canvas-hover").on("mousemove", function (event) {
       // Get the position of the mouse on the canvas
       let [mx, my] = d3.pointer(event, this);
@@ -683,6 +692,11 @@ const createCornerstones = (container) => {
 
       // Draw the hover state on the top canvas
       if (FOUND) {
+        // Cancel any pending clear
+        if (clearHoverTimer !== null) {
+          clearTimeout(clearHoverTimer);
+          clearHoverTimer = null;
+        }
         HOVER_ACTIVE = true;
 
         // Fade out the main canvas, using CSS - only when hovering a top
@@ -695,19 +709,23 @@ const createCornerstones = (container) => {
         drawHoverState(context_hover, d);
         showContributorTooltip(d);
       } else {
-        context_hover.clearRect(0, 0, WIDTH, HEIGHT);
-        tooltip.hide();
-        HOVER_ACTIVE = false;
-
-        canvas.style.opacity = "1";
+        // Debounce the clear so that crossing (likely) small gaps between
+        // nodes does not flash the hover state off momentarily.
+        if (clearHoverTimer === null) {
+          clearHoverTimer = setTimeout(() => {
+            clearHoverTimer = null;
+            clearHoverState();
+          }, 80);
+        }
       }
     }); // on mousemove
 
     d3.select("#canvas-hover").on("mouseleave", function () {
-      context_hover.clearRect(0, 0, WIDTH, HEIGHT);
-      HOVER_ACTIVE = false;
-      canvas.style.opacity = "1";
-      tooltip.hide();
+      if (clearHoverTimer !== null) {
+        clearTimeout(clearHoverTimer);
+        clearHoverTimer = null;
+      }
+      clearHoverState();
     });
   }
 
