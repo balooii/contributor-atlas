@@ -85,7 +85,13 @@ const createCornerstones = (container) => {
 
   const loadingOverlay = ChartBase.createLoadingOverlay(container);
 
-  let _activeTick = null;
+  // Remaining-contributor scatter state. The scatter is re-run whenever the
+  // canvas changes size so it always fills the current bounds.
+  let REMAINING_PLACED = false;
+  let lastPlacedWidth = null,
+    lastPlacedHeight = null;
+  let _replaceTimer = null;
+  const REPLACE_DEBOUNCE_MS = 160;
 
   const tooltip = createTooltip(container, { zIndex: 22 });
 
@@ -161,23 +167,19 @@ const createCornerstones = (container) => {
       d3.max(links, (d) => d.contribution_count),
     ]);
 
-    if (_activeTick) {
-      _activeTick.cancel();
-      _activeTick = null;
+    if (_replaceTimer) {
+      clearTimeout(_replaceTimer);
+      _replaceTimer = null;
     }
-    if (REMAINING_PRESENT) {
-      loadingOverlay.style.display = "flex";
-      remainingContributorSimulation(() => {
-        loadingOverlay.style.display = "none";
-        setupHover();
-        chart.resize();
-        if (chart.onRerun) chart.onRerun(_lastCategoryStats);
-      });
-    } else {
-      setupHover();
-      chart.resize();
-      if (chart.onRerun) chart.onRerun(_lastCategoryStats);
-    }
+    REMAINING_PLACED = false;
+
+    setupHover();
+    // resize() sizes the canvas and, if there are remaining contributors,
+    // schedules their placement. Routing placement through resize means it
+    // always runs against the final canvas size (the page lays out #controls
+    // after first paint, so the very first dimensions are not yet correct).
+    chart.resize();
+    if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }
 
   // -- Draw -------------------------------------------------
@@ -192,7 +194,7 @@ const createCornerstones = (container) => {
     context.translate(WIDTH / 2, HEIGHT / 2);
 
     // Draw the remaining contributors as small circles outside the contributor ring
-    if (REMAINING_PRESENT) {
+    if (REMAINING_PRESENT && REMAINING_PLACED) {
       context.fillStyle = COLOR_CONTRIBUTOR;
       context.globalAlpha = 0.4;
       remainingContributors.forEach((d) => {
@@ -220,28 +222,48 @@ const createCornerstones = (container) => {
   }
 
   // -- Resize -----------------------------------------------
-  chart.resize = () => {
+
+  // Size the canvases and compute the scale factor. The 1.5 leaves margin for
+  // the contributor labels that radiate outside the ring.
+  function applyLayout() {
     ({ PIXEL_RATIO, WIDTH, HEIGHT } = ChartBase.sizeCanvasLayers(
       layers,
       width,
       height,
     ));
-
-    // Set the scale factor - scale to ring size with margin for labels outside the ring
-    let OUTER_RING = RADIUS_CONTRIBUTOR + (RING_WIDTH / 2) * 2;
+    const OUTER_RING = RADIUS_CONTRIBUTOR + (RING_WIDTH / 2) * 2;
     SF = Math.min(WIDTH, HEIGHT) / (2 * OUTER_RING * 1.5);
+  }
+
+  chart.resize = () => {
+    applyLayout();
+
+    // A resize changes the canvas bounds, so the remaining-node scatter no
+    // longer fits. Re-run the placement for the new dimensions, debounced so a
+    // drag-resize doesn't thrash the simulation on every event.
+    if (
+      REMAINING_PRESENT &&
+      (!REMAINING_PLACED ||
+        WIDTH !== lastPlacedWidth ||
+        HEIGHT !== lastPlacedHeight)
+    ) {
+      // Until the first full placement is ready, keep the spinner up so we never
+      // flash a partial graph (top contributors only, no remaining nodes).
+      if (!REMAINING_PLACED) loadingOverlay.style.display = "flex";
+      scheduleReplace();
+    }
 
     // Reset the delaunay for the mouse events
     nodes_delaunay = nodes;
     delaunay = d3.Delaunay.from(nodes_delaunay.map((d) => [d.x, d.y]));
-    if (REMAINING_PRESENT)
+    if (REMAINING_PRESENT && REMAINING_PLACED)
       delaunay_remaining = d3.Delaunay.from(
         remainingContributors.map((d) => [d.x, d.y]),
       );
 
     // Draw the visual
     draw();
-  }; //function resize
+  };
 
   // -- Data preparation -------------------------------------
 
@@ -409,53 +431,170 @@ const createCornerstones = (container) => {
       }); // forEach
   }
 
-  // -- Force simulation -------------------------------------
-  // Run a force simulation to place the remaining contributors somewhere outside the contributor ring
-  function remainingContributorSimulation(onDone) {
-    let LW = RING_WIDTH;
-    let R = RADIUS_CONTRIBUTOR + LW * 2;
+  // -- Remaining-contributor placement ----------------------
+  // The region the remaining contributors are scattered into: outside the
+  // inner contributor ring and inside the canvas rectangle.
+  function remainingBounds() {
+    return {
+      halfW: WIDTH / (2 * SF),
+      halfH: HEIGHT / (2 * SF),
+      innerR: RADIUS_CONTRIBUTOR + RING_WIDTH,
+    };
+  }
 
-    // Initial random position, but outside of the contributor ring
+  // Robert Bridson's Fast Poisson Disc sampling used to find spots for remaining
+  // contributors.
+  const POISSON_K = 30;
+
+  function poissonDisc(b, minDist, exclude, margin) {
+    const cell = minDist / Math.SQRT2;
+    const x0 = -b.halfW,
+      y0 = -b.halfH;
+    const gw = Math.ceil((2 * b.halfW) / cell),
+      gh = Math.ceil((2 * b.halfH) / cell);
+    const grid = new Array(gw * gh).fill(-1);
+    const samples = [];
+    const active = [];
+    const minDistSquared = minDist * minDist;
+    // Reject points inside the ring, but with a random outward margin rather
+    // than a hard cutoff at "exclude". A hard cutoff lets points pack into a
+    // clean concentric shell against the curved boundary.
+    // This would create a visible dense ring so we apply jittering to the
+    // threshold to make it look random.
+    // "exclude" stays the hard floor, jitter only pushes points farther out.
+    // So dots never overlap the ring.
+    const ringJitter = minDist * 0.6;
+    const mx = max(0, b.halfW - margin),
+      my = max(0, b.halfH - margin);
+
+    const gx = (x) => Math.floor((x - x0) / cell);
+    const gy = (y) => Math.floor((y - y0) / cell);
+
+    function accepts(x, y) {
+      const need = exclude + Math.random() * ringJitter;
+      if (x * x + y * y < need * need) return false; // inside the (jittered) ring
+      const cx = gx(x), cy = gy(y);
+      for (let yy = max(0, cy - 2); yy <= min(gh - 1, cy + 2); yy++) {
+        for (let xx = max(0, cx - 2); xx <= min(gw - 1, cx + 2); xx++) {
+          const si = grid[yy * gw + xx];
+          if (si >= 0) {
+            const s = samples[si];
+            const dx = x - s[0],
+              dy = y - s[1];
+            if (dx * dx + dy * dy < minDistSquared) return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    function emit(x, y) {
+      const idx = samples.length;
+      samples.push([x, y]);
+      active.push(idx);
+      grid[gy(y) * gw + gx(x)] = idx;
+    }
+
+    // Seed with a few random points
+    for (let t = 0, placed = 0; t < 400 && placed < 5; t++) {
+      const x = (Math.random() * 2 - 1) * mx,
+        y = (Math.random() * 2 - 1) * my;
+      if (accepts(x, y)) {
+        emit(x, y);
+        placed++;
+      }
+    }
+
+    // Finally, let's do the sampling
+    while (active.length) {
+      const ai = (Math.random() * active.length) | 0;
+      const s = samples[active[ai]];
+      let placed = false;
+      for (let i = 0; i < POISSON_K; i++) {
+        const a = Math.random() * TAU;
+        const rad = minDist * (1 + Math.random()); // annulus [minDist, 2*minDist)
+        const x = s[0] + cos(a) * rad,
+          y = s[1] + sin(a) * rad;
+        if (x < -mx || x > mx || y < -my || y > my) continue;
+        if (accepts(x, y)) {
+          emit(x, y);
+          placed = true;
+          break;
+        }
+      }
+      if (!placed) {
+        active[ai] = active[active.length - 1];
+        active.pop();
+      }
+    }
+    return samples;
+  }
+
+  // Place remaining contributor nodes using Fast Poisson Disc Sampling ala Bridson
+  function placeRemaining(onDone) {
+    applyLayout(); // ensure SF/WIDTH/HEIGHT reflect the current canvas size
+    const b = remainingBounds();
+
     remainingContributors.forEach((d) => {
-      let angle = Math.random() * TAU;
-      d.x = (R + Math.random() * 50) * cos(angle);
-      d.y = (R + Math.random() * 50) * sin(angle);
-
       d.r = scale_remaining_contributor_radius(d.data.total_contribution_count);
-    }); // forEach
-
-    let simulation = d3
-      .forceSimulation()
-      .force(
-        "collide",
-        d3
-          .forceCollide()
-          .radius((d) => d.r + Math.random() * 20 + 10)
-          .strength(1),
-      )
-      .force("x", d3.forceX().x(0).strength(0.01)) //0.1
-      .force("y", d3.forceY().y(0).strength(0.01)); //0.1
-
-    // Add a dummy node to the dataset that is fixed in the center that is as big as the contributor circle
-    remainingContributors.push({
-      x: 0,
-      y: 0,
-      fx: 0,
-      fy: 0,
-      r: RADIUS_CONTRIBUTOR + LW * 0.75,
-      id: "dummy",
     });
 
-    // Perform the simulation
-    simulation.nodes(remainingContributors).stop();
+    const n = remainingContributors.length;
+    const maxDotR = d3.max(remainingContributors, (d) => d.r) || 0;
+    const exclude = b.innerR + maxDotR; // keep dot bodies clear of the ring
 
-    if (_activeTick) _activeTick.cancel();
-    _activeTick = ChartBase.tickAsync(simulation, 30, 10, () => {
-      _activeTick = null;
-      // Remove the dummy node from the dataset again
-      remainingContributors.pop();
-      if (onDone) onDone();
+    const areaCanvas = 4 * (b.halfW - maxDotR) * (b.halfH - maxDotR);
+    const areaInnerRing = PI * (b.innerR + maxDotR) * (b.innerR + maxDotR);
+    const area = areaCanvas - areaInnerRing;
+
+    // We choose minDist so that we get at least n points. When there are many
+    // nodes on the canvas poissonDisk will likely not be able to find points for
+    // all so we iteratively reduce minDist until we have place for every node.
+    // I noticed that a scaling factor of just below 0.8 makes poissonDisc succeed
+    // for practically all number of nodes and canvas sizes I tested. I cannot explain
+    // why but it does the trick.
+    // This will introduce overlap but seems to be the better alternative then scaling
+    // down the radii even further which would make 1-contributor nodes very hard
+    // to see and interact (hover) with.
+    let minDist = 0.79 * sqrt(max(area, 1) / max(n, 1));
+
+    let pts = poissonDisc(b, minDist, exclude, maxDotR);
+    while (pts.length < n) {
+      minDist *= 0.8;
+      pts = poissonDisc(b, minDist, exclude, maxDotR);
+    }
+
+    // Shuffle so the n kept are an even spatial subset rather than Bridson's
+    // expansion order (which radiates out from the seeds).
+    for (let i = pts.length - 1; i > 0; i--) {
+      const j = (Math.random() * (i + 1)) | 0;
+      const tmp = pts[i];
+      pts[i] = pts[j];
+      pts[j] = tmp;
+    }
+
+    remainingContributors.forEach((d, i) => {
+      d.x = pts[i][0];
+      d.y = pts[i][1];
     });
+
+    lastPlacedWidth = WIDTH;
+    lastPlacedHeight = HEIGHT;
+    REMAINING_PLACED = true;
+    loadingOverlay.style.display = "none";
+    if (onDone) onDone();
+  }
+
+  // Re-place the remaining contributors after the canvas settles at a new size.
+  function scheduleReplace() {
+    if (_replaceTimer) clearTimeout(_replaceTimer);
+    _replaceTimer = setTimeout(() => {
+      _replaceTimer = null;
+      placeRemaining(() => {
+        setupHover();
+        chart.resize();
+      });
+    }, REPLACE_DEBOUNCE_MS);
   }
 
   // -- Background -------------------------------------------
@@ -818,7 +957,7 @@ const createCornerstones = (container) => {
     let FOUND = dist < d.r + 50;
 
     // Check if the mouse is close enough to one of the remaining contributors of FOUND is false
-    if (!FOUND && REMAINING_PRESENT) {
+    if (!FOUND && REMAINING_PRESENT && REMAINING_PLACED) {
       point = delaunay_remaining.find(mx, my);
       d = remainingContributors[point];
       dist = sqrt((d.x - mx) ** 2 + (d.y - my) ** 2);

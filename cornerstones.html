@@ -43,6 +43,7 @@
         ],
         onReady: ([contributions, categories, chapters, project]) => {
           Visual.project(project);
+
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
           Visual([contributions, categories]);
