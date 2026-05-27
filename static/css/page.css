@@ -20,6 +20,7 @@
   --c-grid: #1e1e1e;
   --c-row-alt: #161616;
   --c-row-hover: #222222;
+  --c-row-active: #222222;
   --c-highlight: var(--accent);
   --c-project: #a09080;
   --c-contributor: #8099bb;
@@ -75,6 +76,7 @@
     --c-grid: #ececec;
     --c-row-alt: #fbfbfb;
     --c-row-hover: #ebebeb;
+    --c-row-active: #d4d4d4;
     --c-project: #504030;
     --c-contributor: #334155;
     --c-contrib: #8030a8;
@@ -126,6 +128,7 @@
   --c-grid: #ececec;
   --c-row-alt: #fbfbfb;
   --c-row-hover: #ebebeb;
+  --c-row-active: #d4d4d4;
   --c-project: #504030;
   --c-contributor: #334155;
   --c-contrib: #8030a8;
@@ -439,4 +442,127 @@ nav a:hover {
 .theme-menu-icon {
   font-size: 14px;
   width: 16px;
+}
+
+/* -- Contributor search ---------------------------------------------------- */
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.search-input {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--c-nav-text);
+  font:
+    12px "Encode Sans",
+    sans-serif;
+  padding: 2px 22px 2px 7px;
+  width: 160px;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    opacity 0.15s;
+  opacity: 0.6;
+}
+.search-input:focus,
+.search-input:not(:placeholder-shown) {
+  border-color: var(--c-border);
+  background: var(--c-row-hover);
+  opacity: 1;
+}
+.search-wrapper.has-selection .search-input {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+/* Remove the browser-native clear button on search inputs */
+.search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-clear {
+  position: absolute;
+  right: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--c-nav-text);
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 2px;
+  opacity: 0.45;
+  display: none;
+}
+.search-clear:hover {
+  opacity: 1;
+}
+
+.search-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px;
+  background: var(--c-nav-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  width: 260px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+.search-dropdown.is-open {
+  display: flex;
+}
+
+.search-dropdown-item {
+  width: 100%;
+  flex-shrink: 0;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--c-nav-text);
+  font:
+    13px "Encode Sans",
+    sans-serif;
+  padding: 5px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.75;
+  transition:
+    background 0.1s,
+    opacity 0.1s;
+}
+.search-dropdown-item:hover,
+.search-dropdown-item.is-selected {
+  background: var(--c-row-hover);
+  opacity: 1;
+}
+.search-dropdown-item.is-active {
+  background: var(--c-row-active);
+  opacity: 1;
+}
+.search-dropdown-item mark {
+  background: none;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.search-no-results {
+  font:
+    12px "Encode Sans",
+    sans-serif;
+  color: var(--c-nav-text);
+  opacity: 0.4;
+  padding: 5px 8px;
 }

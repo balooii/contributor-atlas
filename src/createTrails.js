@@ -4,7 +4,8 @@ const createTrails = (container) => {
     COLOR_LINK,
     COLOR_GRID,
     COLOR_ROW_ALT,
-    COLOR_ROW_HOVER;
+    COLOR_ROW_HOVER,
+    COLOR_ACCENT;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
@@ -13,6 +14,7 @@ const createTrails = (container) => {
     COLOR_GRID = cs.getPropertyValue("--c-grid").trim();
     COLOR_ROW_ALT = cs.getPropertyValue("--c-row-alt").trim();
     COLOR_ROW_HOVER = cs.getPropertyValue("--c-row-hover").trim();
+    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
   }
   readColors();
   const FONT = `"Encode Sans", sans-serif`;
@@ -51,6 +53,9 @@ const createTrails = (container) => {
   let sortBy = "count"; // "count" | "first" | "career"
   let RANGE_START = null;
   let RANGE_END = null;
+  let _selectedId = null;
+  let _animFrame = null;
+  const ANIM_CYCLE = 1600;
 
   // -- DOM -------------------------------------------------------------
   container.innerHTML = "";
@@ -296,6 +301,25 @@ const createTrails = (container) => {
     return merged;
   }
 
+  // -- Selection animation ---------------------------------------------
+  function startAnim() {
+    if (_animFrame !== null) return;
+    function frame() {
+      _animFrame = null;
+      if (!_selectedId) return;
+      drawLabels();
+      _animFrame = requestAnimationFrame(frame);
+    }
+    _animFrame = requestAnimationFrame(frame);
+  }
+
+  function stopAnim() {
+    if (_animFrame !== null) {
+      cancelAnimationFrame(_animFrame);
+      _animFrame = null;
+    }
+  }
+
   // -- Drawing ---------------------------------------------------------
   function drawHeader() {
     ctxH.save();
@@ -381,12 +405,30 @@ const createTrails = (container) => {
       );
     }
 
+    // Selected row highlight (pulsing)
+    if (_selectedId) {
+      const selIdx = contributors.findIndex((c) => c.id === _selectedId);
+      if (selIdx >= 0) {
+        const t = (performance.now() % ANIM_CYCLE) / ANIM_CYCLE;
+        const ry = selIdx * ROW_HEIGHT - scrollTop;
+        if (ry + ROW_HEIGHT > 0 && ry < viewportH) {
+          ctxL.fillStyle = COLOR_ACCENT;
+          ctxL.globalAlpha = 0.12 + (1 - t) * 0.12;
+          ctxL.fillRect(0, ry, LABEL_WIDTH, ROW_HEIGHT);
+          ctxL.globalAlpha = 0.85;
+          ctxL.fillRect(0, ry, 3, ROW_HEIGHT);
+          ctxL.globalAlpha = 1;
+        }
+      }
+    }
+
     ctxL.font = `11px ${FONT}`;
     ctxL.textBaseline = "middle";
     for (let i = startRow; i <= endRow; i++) {
       const c = contributors[i];
       const y = i * ROW_HEIGHT - scrollTop + ROW_HEIGHT / 2;
       const isHovered = _hover && _hover.row === i;
+      const isSelected = _selectedId != null && c.id === _selectedId;
 
       // Color dot
       ctxL.fillStyle = categoryColor(c.dominantCat);
@@ -396,9 +438,9 @@ const createTrails = (container) => {
       ctxL.fill();
 
       // Name (right aligned, truncated)
-      ctxL.fillStyle = COLOR_TEXT;
-      ctxL.globalAlpha = 0.85;
-      ctxL.font = `${isHovered ? "bold " : ""}11px ${FONT}`;
+      ctxL.fillStyle = isSelected ? COLOR_ACCENT : COLOR_TEXT;
+      ctxL.globalAlpha = isSelected ? 1 : 0.85;
+      ctxL.font = `${isHovered || isSelected ? "bold " : ""}11px ${FONT}`;
       ctxL.textAlign = "right";
       const rawLabel =
         sortBy === "career"
@@ -473,6 +515,22 @@ const createTrails = (container) => {
         viewportW,
         ROW_HEIGHT,
       );
+    }
+
+    // Selected row bg
+    if (_selectedId) {
+      const selIdx = contributors.findIndex((c) => c.id === _selectedId);
+      if (selIdx >= startRow && selIdx <= endRow) {
+        ctxM.fillStyle = COLOR_ACCENT;
+        ctxM.globalAlpha = 0.07;
+        ctxM.fillRect(
+          0,
+          selIdx * ROW_HEIGHT - scrollTop,
+          viewportW,
+          ROW_HEIGHT,
+        );
+        ctxM.globalAlpha = 1;
+      }
     }
 
     // Year gridlines
@@ -795,6 +853,38 @@ const createTrails = (container) => {
     isZoomed = zoomLevel > minZoom;
     drawAll();
     chart.onZoomChange(isZoomed);
+    return chart;
+  };
+
+  chart.selectContributor = (id) => {
+    _selectedId = id || null;
+    stopAnim();
+    if (!_selectedId) {
+      drawAll();
+      return chart;
+    }
+
+    // Reset zoom if applied
+    if (zoomLevel > minZoom) {
+      zoomLevel = 0;
+      setupScales();
+      scroller.scrollLeft = 0;
+      scrollLeft = 0;
+    }
+
+    // Scroll selected row into view
+    const rowIdx = contributors.findIndex((c) => c.id === _selectedId);
+    if (rowIdx >= 0) {
+      const targetTop = Math.max(
+        0,
+        rowIdx * ROW_HEIGHT - Math.floor((viewportH - ROW_HEIGHT) / 2),
+      );
+      scroller.scrollTop = targetTop;
+      scrollTop = scroller.scrollTop;
+    }
+
+    drawAll();
+    startAnim();
     return chart;
   };
 

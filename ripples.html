@@ -16,6 +16,7 @@
     <script src="src/createRipples.js"></script>
     <script src="src/createTimelineControl.js"></script>
     <script src="src/pageBootstrap.js"></script>
+    <script src="src/createContributorSearch.js"></script>
   </head>
   <body>
     <nav>
@@ -51,6 +52,12 @@
             .chapters(chapters || [])
             .categories(true)
             .attach(Visual);
+
+          createContributorSearch(
+            document.querySelector("nav"),
+            Visual,
+            contributions,
+          );
 
           Visual.width(container.offsetWidth)
             .height(container.offsetHeight)

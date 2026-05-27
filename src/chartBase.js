@@ -512,6 +512,99 @@ window.ChartBase = (() => {
     }
   }
 
+  // Factory for the pulsing selection highlight drawn on the click canvas.
+  // Returns { draw, cancel, restart }.
+  //   draw()    - start animation if not already running (idempotent)
+  //   cancel()  - stop any running animation frame
+  //   restart() - cancel then draw (use after a node change or forced redraw)
+  //
+  // Required options:
+  //   context_click - the click-layer 2d context
+  //   getState()    - returns { WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }
+  //   getNode()     - returns the currently selected node, or null
+  //
+  // Optional (Overrides to handle Cornerstone's top-contributor ring highlights):
+  //   getBaseR(node, SF)       - outer radius to ring around
+  //   getPulseReach(baseR, SF) - how far the pulse expands
+  function makeSelectionHighlight({
+    context_click,
+    getState,
+    getNode,
+    getBaseR,
+    getPulseReach,
+  }) {
+    const CYCLE = 1600;
+    let _frame = null;
+
+    const _baseR =
+      getBaseR ||
+      function (n, SF) {
+        return n.r * SF;
+      };
+    const _reach =
+      getPulseReach ||
+      function (baseR) {
+        return Math.max(50, baseR * 1.5);
+      };
+
+    function draw() {
+      if (_frame !== null) return;
+      const { WIDTH, HEIGHT } = getState();
+      context_click.clearRect(0, 0, WIDTH, HEIGHT);
+      if (!getNode()) return;
+
+      function frame(ts) {
+        _frame = null;
+        const { WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU } = getState();
+        const n = getNode();
+        if (!n) {
+          context_click.clearRect(0, 0, WIDTH, HEIGHT);
+          return;
+        }
+        const t = (ts % CYCLE) / CYCLE;
+        const BASE_R = _baseR(n, SF);
+        const PULSE_REACH = _reach(BASE_R, SF);
+
+        context_click.clearRect(0, 0, WIDTH, HEIGHT);
+        context_click.save();
+        context_click.translate(WIDTH / 2, HEIGHT / 2);
+
+        context_click.strokeStyle = COLOR_ACCENT;
+        context_click.lineWidth = Math.max(2, 2 * SF);
+        context_click.beginPath();
+        context_click.arc(n.x * SF, n.y * SF, BASE_R + 3 * SF, 0, TAU);
+        context_click.stroke();
+
+        context_click.globalAlpha = (1 - t) * 0.7;
+        context_click.strokeStyle = COLOR_ACCENT;
+        context_click.lineWidth = 3;
+        context_click.beginPath();
+        context_click.arc(n.x * SF, n.y * SF, BASE_R + PULSE_REACH * t, 0, TAU);
+        context_click.stroke();
+        context_click.globalAlpha = 1;
+
+        context_click.restore();
+        _frame = requestAnimationFrame(frame);
+      }
+
+      _frame = requestAnimationFrame(frame);
+    }
+
+    function cancel() {
+      if (_frame !== null) {
+        cancelAnimationFrame(_frame);
+        _frame = null;
+      }
+    }
+
+    function restart() {
+      cancel();
+      draw();
+    }
+
+    return { draw, cancel, restart };
+  }
+
   function tickAsync(sim, totalTicks, chunkSize, onDone) {
     let done = 0;
     let cancelled = false;
@@ -566,5 +659,6 @@ window.ChartBase = (() => {
     tickAsync,
     loadProjectImage,
     drawProjectNodeContent,
+    makeSelectionHighlight,
   };
 })();

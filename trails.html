@@ -14,6 +14,7 @@
     <script src="src/createTooltip.js"></script>
     <script src="src/chartBase.js"></script>
     <script src="src/createTrails.js"></script>
+    <script src="src/createContributorSearch.js"></script>
     <script src="src/createTimelineControl.js"></script>
     <script src="src/pageBootstrap.js"></script>
   </head>
@@ -43,6 +44,11 @@
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
           Visual([contributions, categories]);
+          createContributorSearch(
+            document.querySelector("nav"),
+            Visual,
+            contributions,
+          );
           const sortControl = createTimelineControl.buildButtonGroup(
             "sort",
             [

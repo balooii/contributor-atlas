@@ -48,7 +48,8 @@ const createCornerstones = (container) => {
     COLOR_PROJECT,
     COLOR_CONTRIBUTOR,
     COLOR_LINK,
-    COLOR_TEXT;
+    COLOR_TEXT,
+    COLOR_ACCENT;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
@@ -57,6 +58,7 @@ const createCornerstones = (container) => {
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
+    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
   }
   readColors();
 
@@ -77,10 +79,14 @@ const createCornerstones = (container) => {
     return scale_category_color(cat);
   }
 
+  let SELECTED_ID = null;
+  let SELECTED_NODE = null;
+
   const layers = ChartBase.createCanvasLayers(container, COLOR_BACKGROUND);
   const canvas = layers.base,
     canvas_hover = layers.hover;
   const context = layers.baseCtx,
+    context_click = layers.clickCtx,
     context_hover = layers.hoverCtx;
 
   const loadingOverlay = ChartBase.createLoadingOverlay(container);
@@ -92,6 +98,17 @@ const createCornerstones = (container) => {
     lastPlacedHeight = null;
   let _replaceTimer = null;
   const REPLACE_DEBOUNCE_MS = 160;
+
+  const selectionHighlight = ChartBase.makeSelectionHighlight({
+    context_click,
+    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),
+    getNode: () => SELECTED_NODE,
+    getBaseR: (n, SF) =>
+      n.remaining_contributor
+        ? n.r * SF + 4
+        : (n.r + CATEGORY_RING_GAP + CATEGORY_RING_THICKNESS) * SF,
+    getPulseReach: (baseR, SF) => Math.max(20 * SF, baseR * 0.5),
+  });
 
   const tooltip = createTooltip(container, { zIndex: 22 });
 
@@ -152,6 +169,8 @@ const createCornerstones = (container) => {
     project_node.y = project_node.fy = 0;
 
     positionContributorNodes();
+
+    selectionHighlight.cancel();
 
     // Build contributor -> project links (with node objects) after nodes are fully constructed
     links = nodes
@@ -235,6 +254,18 @@ const createCornerstones = (container) => {
     SF = Math.min(WIDTH, HEIGHT) / (2 * OUTER_RING * 1.5);
   }
 
+  function findContributorNode(id) {
+    return (
+      nodes.find(
+        (n) => n.type === "contributor" && n.data.contributor_id === id,
+      ) ||
+      remainingContributors.find(
+        (n) => n.data && n.data.contributor_id === id,
+      ) ||
+      null
+    );
+  }
+
   chart.resize = () => {
     applyLayout();
 
@@ -261,8 +292,16 @@ const createCornerstones = (container) => {
         remainingContributors.map((d) => [d.x, d.y]),
       );
 
+    // rerun() rebuilds the node arrays, so if a contributor is selected
+    // SELECTED_NODE is now a stale reference into the old arrays. So we have
+    // to re-find it.
+    if (SELECTED_ID) {
+      SELECTED_NODE = findContributorNode(SELECTED_ID);
+    }
+
     // Draw the visual
     draw();
+    selectionHighlight.restart();
   };
 
   // -- Data preparation -------------------------------------
@@ -473,7 +512,8 @@ const createCornerstones = (container) => {
     function accepts(x, y) {
       const need = exclude + Math.random() * ringJitter;
       if (x * x + y * y < need * need) return false; // inside the (jittered) ring
-      const cx = gx(x), cy = gy(y);
+      const cx = gx(x),
+        cy = gy(y);
       for (let yy = max(0, cy - 2); yy <= min(gh - 1, cy + 2); yy++) {
         for (let xx = max(0, cx - 2); xx <= min(gw - 1, cx + 2); xx++) {
           const si = grid[yy * gw + xx];
@@ -1162,6 +1202,13 @@ const createCornerstones = (container) => {
     RANGE_START = start;
     RANGE_END = end;
     if (raw_contributions_all) rerun();
+  };
+
+  chart.selectContributor = function (id) {
+    SELECTED_ID = id || null;
+    SELECTED_NODE = id ? findContributorNode(id) : null;
+    selectionHighlight.restart();
+    return chart;
   };
 
   chart.onRerun = null;

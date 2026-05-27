@@ -21,12 +21,13 @@ const createRipples = (container) => {
   let _logoImage = null;
 
   // -- Colours / fonts --------------------------------------
-  let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIB;
+  let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIB, COLOR_ACCENT;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
     COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();
+    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
   }
   readColors();
   const FONT_FAMILY = "Encode Sans";
@@ -34,14 +35,25 @@ const createRipples = (container) => {
   let scale_category_color = d3.scaleOrdinal();
   const categoryColor = (cat) => scale_category_color(cat);
 
+  // -- Selection state --------------------------------------
+  let SELECTED_ID = null;
+  let SELECTED_NODE = null;
+
   // -- Canvases ---------------------------------------------
   const layers = ChartBase.createCanvasLayers(container, COLOR_BACKGROUND);
   const canvas = layers.base,
     canvas_hover = layers.hover;
   const context = layers.baseCtx,
+    context_click = layers.clickCtx,
     context_hover = layers.hoverCtx;
 
   const tooltip = createTooltip(container, { zIndex: 22 });
+
+  const selectionHighlight = ChartBase.makeSelectionHighlight({
+    context_click,
+    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),
+    getNode: () => SELECTED_NODE,
+  });
 
   const interaction = ChartBase.wireInteraction(canvas_hover, {
     context_hover,
@@ -181,6 +193,11 @@ const createRipples = (container) => {
 
     _layoutMaxR = placeNodes(nodes);
 
+    if (SELECTED_ID) {
+      SELECTED_NODE = findContributorNode(SELECTED_ID);
+    }
+    selectionHighlight.cancel();
+
     interaction.reset();
     chart.resize();
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
@@ -277,6 +294,10 @@ const createRipples = (container) => {
     ChartBase.drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND });
 
   // -- Resize -----------------------------------------------
+  function findContributorNode(id) {
+    return nodes.find((n) => n.data.contributor_id === id) || null;
+  }
+
   chart.resize = () => {
     ({ PIXEL_RATIO, WIDTH, HEIGHT } = ChartBase.sizeCanvasLayers(
       layers,
@@ -292,6 +313,7 @@ const createRipples = (container) => {
     }
 
     draw();
+    selectionHighlight.draw();
   };
 
   function drawHoverState(ctx, d) {
@@ -359,6 +381,13 @@ const createRipples = (container) => {
         draw();
       });
     }
+    return chart;
+  };
+
+  chart.selectContributor = function (id) {
+    SELECTED_ID = id || null;
+    SELECTED_NODE = id ? findContributorNode(id) : null;
+    selectionHighlight.restart();
     return chart;
   };
 

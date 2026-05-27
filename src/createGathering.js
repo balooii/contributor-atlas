@@ -25,18 +25,21 @@ const createGathering = (container) => {
   let ACTIVE_CATEGORIES = null;
   let _lastCategoryStats = [];
   let LAYOUT_MODE = "random"; // "sorted" | "random"
+  let SELECTED_ID = null;
+  let SELECTED_NODE = null;
 
   let PROJECT_NAME;
   let _logoImage = null;
 
   // -- Colours / fonts --------------------------------------
-  let COLOR_BACKGROUND, COLOR_TEXT, COLOR_PROJECT, COLOR_CONTRIB;
+  let COLOR_BACKGROUND, COLOR_TEXT, COLOR_PROJECT, COLOR_CONTRIB, COLOR_ACCENT;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-bg").trim();
     COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();
+    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
   }
   readColors();
   const FONT_FAMILY = "Encode Sans";
@@ -49,9 +52,16 @@ const createGathering = (container) => {
   const canvas = layers.base,
     canvas_hover = layers.hover;
   const context = layers.baseCtx,
+    context_click = layers.clickCtx,
     context_hover = layers.hoverCtx;
 
   const loadingOverlay = ChartBase.createLoadingOverlay(container);
+
+  const selectionHighlight = ChartBase.makeSelectionHighlight({
+    context_click,
+    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),
+    getNode: () => SELECTED_NODE,
+  });
 
   let _activeTick = null;
 
@@ -181,6 +191,8 @@ const createGathering = (container) => {
     LAYOUT_EXTENT =
       d3.max(nodes, (n) => Math.sqrt(n.x * n.x + n.y * n.y) + n.r) || 700;
 
+    SELECTED_NODE = SELECTED_ID ? findContributorNode(SELECTED_ID) : null;
+
     interaction.reset();
     chart.resize();
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
@@ -235,6 +247,14 @@ const createGathering = (container) => {
     ChartBase.drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND });
 
   // -- Resize -----------------------------------------------
+  function findContributorNode(id) {
+    return (
+      nodes.find(
+        (n) => n.type === "contributor" && n.data.contributor_id === id,
+      ) || null
+    );
+  }
+
   chart.resize = () => {
     ({ PIXEL_RATIO, WIDTH, HEIGHT } = ChartBase.sizeCanvasLayers(
       layers,
@@ -250,6 +270,7 @@ const createGathering = (container) => {
     }
 
     draw();
+    selectionHighlight.draw();
   };
 
   function drawHoverState(ctx, d) {
@@ -351,6 +372,13 @@ const createGathering = (container) => {
     if (raw_contributions_all) rerun();
     return chart;
   };
+  chart.selectContributor = function (id) {
+    SELECTED_ID = id || null;
+    SELECTED_NODE = id ? findContributorNode(id) : null;
+    selectionHighlight.restart();
+    return chart;
+  };
+
   chart.onRerun = null;
 
   window.addEventListener("themechange", () => {
