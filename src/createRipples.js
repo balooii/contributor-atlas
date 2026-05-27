@@ -108,7 +108,10 @@ const createRipples = (container) => {
       const node_r = group[0].r;
       const step = 2 * node_r + gap;
 
-      let current_r = Math.min(scale_target_radius(count), lastOuterEdge + MAX_RING_GAP);
+      let current_r = Math.min(
+        scale_target_radius(count),
+        lastOuterEdge + MAX_RING_GAP,
+      );
       let idx = 0;
 
       while (idx < group.length) {
@@ -189,18 +192,36 @@ const createRipples = (container) => {
       document.documentElement.getAttribute("data-theme") === "light";
     context.save();
     context.translate(WIDTH / 2, HEIGHT / 2);
+
+    const N = 8;
+    const logOuter = Math.log(_layoutMaxR);
+    const logInnerBound = Math.log(CENTER_RADIUS * 2);
+    const radii = [];
+    for (let i = 0; i < N; i++) {
+      const t = i / (N - 1);
+      radii.push(Math.exp(logOuter + t * (logInnerBound - logOuter)) * SF);
+    }
+
+    // alternating filled bands between adjacent rings
+    const fillEven = isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.04)";
+    const fillOdd = isLight ? "rgba(0,0,0,0.02)" : "rgba(255,255,255,0.02)";
+    for (let i = 0; i < radii.length - 1; i++) {
+      const rOuter = radii[i];
+      const rInner = radii[i + 1];
+      context.beginPath();
+      context.arc(0, 0, rOuter, 0, TAU);
+      context.arc(0, 0, rInner, 0, TAU, true);
+      context.closePath();
+      context.fillStyle = i % 2 === 0 ? fillEven : fillOdd;
+      context.fill();
+    }
+
+    // ring strokes on top
     context.strokeStyle = isLight
       ? "rgba(0,0,0,0.16)"
       : "rgba(255,255,255,0.24)";
     context.lineWidth = 0.7 * SF;
-
-    // 5 rings log-spaced from outermost boundary down to just outside center node
-    const N = 5;
-    const logOuter = Math.log(_layoutMaxR);
-    const logInnerBound = Math.log(CENTER_RADIUS * 2);
-    for (let i = 0; i < N; i++) {
-      const t = i / (N - 1);
-      const r = Math.exp(logOuter + t * (logInnerBound - logOuter)) * SF;
+    for (const r of radii) {
       context.beginPath();
       context.arc(0, 0, r, 0, TAU);
       context.stroke();
