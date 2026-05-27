@@ -782,7 +782,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 積丹尼 Dan Jacobson <jidanni[at]jidanni.org> <@jidanni>
 
 # === very-high (0) ===
-# deterministic gitlab handle ↔ email binding (profile public_email, <id>-<handle>@noreply commit, or commit local-part matching a known handle).
+# deterministic gitlab handle - email binding (profile public_email, <id>-<handle>@noreply commit, or commit local-part matching a known handle).
 
 # === high (2) ===
 # same name across sources AND ≥1 identifier appears in ≥2 sources.
