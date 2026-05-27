@@ -62,10 +62,10 @@ const createRipples = (container) => {
   let SF, PIXEL_RATIO;
 
   // Logical layout extents (centred coordinate space, units before SF)
-  const LAYOUT_OUTER = 700; // outermost target radius (1-contribution contributors live here)
-  const LAYOUT_INNER = 55; // innermost target radius (the very-largest contributors)
+  const LAYOUT_OUTER = 600; // log scale upper anchor; not necessarily outermost ring as value gets capped
+  const LAYOUT_INNER = 55; // log scale lower anchor; innermost ring starts here
   const CENTER_RADIUS = 40; // logical radius of the central project node
-  let _layoutMaxR = LAYOUT_OUTER; // actual outermost node edge after layout
+  let _layoutMaxR = LAYOUT_OUTER; // actual outermost node edge after layout (fallback before first rerun)
 
   // Dot size scale (sqrt - contribution counts are heavy-tailed)
   const scale_dot_radius = d3.scaleSqrt().range([2, 28]);
@@ -94,7 +94,11 @@ const createRipples = (container) => {
   // Returns the actual max radius (outermost node edge) for dynamic SF scaling.
   function placeNodes(allNodes) {
     const gap = 1.5;
+    // Log scale produces large radial gaps at the outer edge (count=1,2,3).
+    // Cap how far each group can stray from the previous group's outer edge.
+    const MAX_RING_GAP = 10;
     let maxR = LAYOUT_INNER;
+    let lastOuterEdge = LAYOUT_INNER;
 
     const countGroups = d3.group(allNodes, (d) => d.count);
     const sortedCounts = Array.from(countGroups.keys()).sort((a, b) => b - a);
@@ -104,7 +108,7 @@ const createRipples = (container) => {
       const node_r = group[0].r;
       const step = 2 * node_r + gap;
 
-      let current_r = scale_target_radius(count);
+      let current_r = Math.min(scale_target_radius(count), lastOuterEdge + MAX_RING_GAP);
       let idx = 0;
 
       while (idx < group.length) {
@@ -122,6 +126,8 @@ const createRipples = (container) => {
         if (current_r + node_r > maxR) maxR = current_r + node_r;
         current_r += step;
       }
+
+      lastOuterEdge = current_r - step + node_r;
     }
 
     return maxR;
@@ -258,7 +264,7 @@ const createRipples = (container) => {
     ));
 
     // Scale so the actual outermost node fits with margin for tooltips
-    SF = Math.min(WIDTH, HEIGHT) / (2 * _layoutMaxR * 1.08);
+    SF = Math.min(WIDTH, HEIGHT) / (2 * _layoutMaxR * 1.05);
 
     if (nodes.length > 0) {
       delaunay = d3.Delaunay.from(nodes.map((n) => [n.x, n.y]));
