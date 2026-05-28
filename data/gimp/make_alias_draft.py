@@ -16,9 +16,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent
 RAW_DIR = SCRIPT_DIR / "raw"
 NAME_DATASET_PKL = SCRIPT_DIR / "first_names.pkl.gz"
-# Pinned to a moving branch (the upstream repo has no tags), so the sha256 is
-# the integrity gate: the file is unpickled, which executes arbitrary code, and
-# must not be trusted unless it matches this known-good digest.
+# Pinned to a main branch as the upstream repo has no tags
 _NAME_DATASET_URL = "https://github.com/philipperemy/name-dataset/raw/refs/heads/master/names_dataset/v3/first_names.pkl.gz"
 _NAME_DATASET_SHA256 = "a2076494420babe3a110f25d54c89bdacb94c60cf304d0e8cfec65504e3de449"
 
@@ -35,8 +33,7 @@ _GITLAB_NOREPLY_RE = re.compile(
 )
 
 # Non-decomposing Latin letters folded to a base form for collation, so e.g.
-# "Øyvind" sorts under 'o' and "Kłoczko" under 'l' rather than after 'z'.
-# NFKD handles the rest (accented vowels etc.); these have no decomposition.
+# "Øyvind" sorts under 'o'. NFKD handles the rest (accented vowels etc.)
 _SORT_SPECIAL = str.maketrans({
     'ø': 'o', 'Ø': 'o', 'ł': 'l', 'Ł': 'l', 'đ': 'd', 'Đ': 'd',
     'æ': 'ae', 'Æ': 'ae', 'œ': 'oe', 'Œ': 'oe', 'ß': 'ss',
@@ -65,9 +62,7 @@ def normalize_name(s):
     """Loose name normalization for cross-source matching.
 
     NFKD-decomposes, strips combining marks (diacritics), lowercases, treats
-    '-_.' as spaces, collapses whitespace. Two names that normalize to the
-    same string are *probably* the same person — pair with a shared-identifier
-    gate before auto-merging.
+    '-_.' as spaces, collapses whitespace.
     """
     if not s:
         return ""
@@ -83,8 +78,7 @@ def normalize_name_aggressive(s):
     """Drops single-letter tokens (initials) on top of normalize_name().
 
     Bridges "Adam D Moss" <> "Adam Moss" and "J B Mayer" <> "Jean Baptiste
-    Mayer". False-positive prone, so output should go to the low-confidence
-    tier in the draft.
+    Mayer".
     """
     parts = [p for p in normalize_name(s).split(" ") if len(p) > 1]
     return " ".join(parts)
@@ -137,26 +131,13 @@ def _parse_alias_line(line, by_id):
 def parse_aliases_file(path):
     """Read contributor-aliases.txt.
 
-    Splits the file at the first "# === " section marker:
-      - Before the marker is the *active section*: a leading comment block
-        (the header) followed by one uncommented entry line per contributor.
-      - From the marker on are the *draft sections*, regenerated every run.
-        Uncommented lines here are suggestions the user accepted in place.
+    Splits at the first "# === " marker: before is the active section (header
+    comment block + uncommented entries); after are draft sections whose
+    uncommented lines are accepted drafts.
 
-    Returns (header_text, active_entries, accepted_lines, by_id):
-      header_text    — the active section's leading comment/blank block,
-                       preserved verbatim and re-emitted at the top. Any blank
-                       lines or stray comments between entries are dropped; the
-                       entry block is rebuilt sorted.
-      active_entries — the uncommented entry lines already in the active
-                       section, verbatim (their |Name annotations are kept).
-      accepted_lines — uncommented entries found *after* the first section
-                       marker: drafts the user accepted. Cleaned of |Name
-                       annotations so they read as plain mailmap syntax. These
-                       are merged with active_entries and sorted on rewrite.
-      by_id          — mailmap parsed from every uncommented line anywhere in
-                       the file, so uncommenting inside a draft takes effect
-                       immediately.
+    Returns (header_text, active_entries, accepted_lines, by_id).
+    active_entries keeps |Name annotations; accepted_lines strips them.
+    by_id maps lower(id) to (name, key_id) for every uncommented line.
     """
     if not path.exists():
         return ("", [], [], {})
@@ -181,9 +162,7 @@ def parse_aliases_file(path):
                 elif not seen_entry:
                     # Leading comment/blank block is the header.
                     header.append(raw.rstrip("\n"))
-                # Blank lines and stray comments once entries have begun (old
-                # "lifted from a draft" markers, visual gaps) are dropped — the
-                # entry block is rebuilt from active_entries, sorted.
+                # Blank lines and stray comments once entries have begun are dropped.
             elif is_entry:
                 _parse_alias_line(stripped, by_id)
                 accepted_lines.append(_clean_annotations(raw.rstrip("\n")))
@@ -201,25 +180,17 @@ def _clean_annotations(line):
 
 
 def extract_auto_bindings(dir_path):
-    """Build deterministic @handle <> email bindings from gitlab signals.
-
-    Three signals contribute, all keyed by gitlab handle:
-      1. gitlab CSVs: contributor_public_email column — the email the user
-         explicitly published on their gitlab profile.
-      2. git CSVs: commit emails matching <id>-<handle>@users.noreply.gitlab.gnome.org
-         (or the older <handle>@... form). The local-part encodes the handle
-         directly, so the binding is unambiguous.
+    """Build @handle <=> email bindings from three gitlab signals (keyed by handle):
+      1. gitlab CSVs: contributor_public_email field
+         (email explicitly published by user on their gitlab profile).
+      2. git CSVs: noreply commit emails (<id>-<handle>@users.noreply.gitlab.gnome.org).
       3. git CSVs: commit emails whose local-part exactly matches a known
          gitlab handle (e.g. "khaledhosny@eglug.org" <> "@khaledhosny"). Many
          contributors use their gitlab handle as the local part of their
          personal email. Gated by name agreement (normalize_name) between the
          commit author and at least one gitlab row for that handle, so a
          coincidental local-part collision doesn't merge two people.
-
-    Per handle we collect every distinct email seen from any signal.
-    Display name is taken from the gitlab CSV when available (the platform
-    profile name is canonical), falling back to the git commit author name.
-
+    Display name is from gitlab profile if available, else git commit author.
     Returns list of (display_name, sorted [emails], "@handle"), sorted by name.
     """
     by_handle = {}  # lower(handle) -> {"name", "emails": set, "handle"}
@@ -409,9 +380,8 @@ def _download_name_dataset():
 def load_common_first_names():
     """Build a set of normalized first-name tokens from the name dataset.
 
-    Downloads first_names.pkl.gz from _NAME_DATASET_URL on first run and caches
-    it at NAME_DATASET_PKL. A missing or checksum-mismatched cache is (re)fetched
-    before the file is unpickled. Returns a frozenset of normalized tokens.
+    Downloads the dataset on first run and caches it at NAME_DATASET_PKL.
+    Returns a frozenset of normalized tokens.
     """
     if not NAME_DATASET_PKL.exists() or _sha256(NAME_DATASET_PKL) != _NAME_DATASET_SHA256:
         _download_name_dataset()
@@ -432,14 +402,22 @@ def is_common_first_name(normalized_name, common_names):
 
 
 _TIER_DESCRIPTIONS = {
-    "very-high": "deterministic gitlab handle - email binding (profile public_email, "
-                 "<id>-<handle>@noreply commit, or commit local-part matching a known handle).",
-    "high":      "same name across sources AND ≥1 identifier appears in ≥2 sources.",
-    "medium":    "same name across sources (under loose normalization), no shared identifier.",
-    "low":       "names match only after aggressive normalization (initials dropped), or "
-                 "single-word name not found in the common-names dataset (likely a unique handle/nickname).",
-    "very-low":  "single-word common given name (e.g. 'Alex') with no shared identifier - "
-                 "high false-positive risk.",
+    "very-high": "deterministic gitlab handle - email binding: "
+                 "profile public_email (e.g. @user has user@x.com on profile), "
+                 "noreply commit (e.g. 123-user@users.noreply.gitlab.gnome.org), "
+                 "or commit local-part = handle (e.g. user@domain.com for @user).",
+    "high":      "same name across sources AND BOTH a specific name (multi-word or "
+                 "containing a digit, e.g. 'Jane Smith') AND >=1 identifier in >=2 "
+                 "sources (e.g. jane@x.com in both).",
+    "medium":    "same name across sources AND "
+                 "(specific name (e.g. 'Jane Smith' with different emails per source) "
+                 "OR >=1 identifier in >=2 sources (e.g. 'Bruno' with same email in git and gitlab)), but not both.",
+    "low":       "NOT in common-names dataset AND "
+                 "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Xantiva' in git and gitlab with different IDs), "
+                 "OR match only under aggressive normalization (e.g. 'Adam D Moss' <=> 'Adam Moss')).",
+    "very-low":  "in common-names dataset AND "
+                 "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), "
+                 "OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk.",
 }
 
 
@@ -524,22 +502,15 @@ def main():
         ))
 
     def _process(raw_names):
-        """Return one (display, sorted_ids, has_id_overlap, canon_names) for the group, or None.
+        """Return (display, sorted_ids, has_id_overlap, canon_names) or None.
 
-        Combines all identifiers across the given raw_names and canonicalizes
-        via by_id. A candidate is only produced when ≥2 distinct canonical IDs
-        remain and they span ≥2 source types. has_id_overlap is True when a
-        single canonical ID is contributed by ≥2 sources — the strongest
-        cross-source signal.
+        Needs ≥2 canonical IDs spanning ≥2 source types; has_id_overlap is True
+        when one canonical ID appears in ≥2 sources. canon_names maps each
+        canonical id to observed contributor_name strings (for draft annotations).
 
-        canon_names maps each canonical id to the set of contributor_name strings
-        it was observed under across all source rows — used for draft annotations.
-
-        canonicalize() returns the input name unchanged when no alias matches,
-        so passing varying names from the group would split the same canonical
-        ID into separate name buckets. Use one representative throughout, and
-        only adopt an alias-supplied name (which IS authoritative) when one is
-        offered for some ID in the group.
+        One representative name is used throughout — varying names would split
+        the same canonical ID into separate buckets. Alias-supplied names are
+        adopted when available.
         """
         representative = _display_name(raw_names, next(iter(raw_names)))
         canon_srcs: dict[str, set] = defaultdict(set)
@@ -579,9 +550,8 @@ def main():
         elif is_specific:
             medium.append((display, ids, cnames))
         elif has_overlap:
-            # id overlap exists but the shared name is a bare first name (e.g.
-            # "#bruno" dragged in because the email overlaps across sources).
-            # The overlap doesn't involve the bare name itself, so cap at medium.
+            # Bare first name with id overlap - overlap is via identifier, not
+            # the name, so cap at medium rather than high.
             medium.append((display, ids, cnames))
         else:
             # Bare first name, no id overlap — weakest signal.
@@ -637,11 +607,12 @@ def main():
         _emit_section(f, "low", low)
         _emit_section(f, "very-low", very_low)
 
-    print(
-        f"Wrote {len(very_high)} very-high + {len(high)} high + "
-        f"{len(medium)} medium + {len(low)} low + {len(very_low)} very-low "
-        f"draft entries to {aliases_path}"
-    )
+    print(f"Wrote draft entires into {aliases_path}:")
+    print(f"    very-high: {len(very_high)}")
+    print(f"    high:      {len(high)}")
+    print(f"    medium:    {len(medium)}")
+    print(f"    low:       {len(low)}")
+    print(f"    very-low:  {len(very_low)}")
     if accepted_lines:
         print(f"Merged {len(accepted_lines)} accepted draft line(s) into the sorted active block.")
 

@@ -150,7 +150,6 @@ Brian Stafford <contact[at]brianstafford.info> <@briancs>
 Bruce Cowan <bcowan[at]fastmail.co.uk> <bruce[at]bcowan.me.uk> <@suborbitalpigeon> <#Bruce-Cowan>
 Bruce Guenter <@bruceg> <#Bruce-Guenter>
 Bruno <brunolopesdsilv[at]outlook.com|Bruno/Bruno Lopes> <brunvonlope[at]outlook.com|Bruno/Bruno Lopes> <@brunvonlope>
-Bruno <brunolopesdsilv[at]outlook.com> <#Bruno> <#bruno>
 Bruno Duyé <@brunetton> <#Bruno-Duyé>
 Bruno Postle <@brunopostle> <#Bruno-Postle>
 burnuser <@burnuser> <#burnuser>
@@ -782,18 +781,19 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 積丹尼 Dan Jacobson <jidanni[at]jidanni.org> <@jidanni>
 
 # === very-high (0) ===
-# deterministic gitlab handle - email binding (profile public_email, <id>-<handle>@noreply commit, or commit local-part matching a known handle).
+# deterministic gitlab handle - email binding: profile public_email (e.g. @user has user@x.com on profile), noreply commit (e.g. 123-user@users.noreply.gitlab.gnome.org), or commit local-part = handle (e.g. user@domain.com for @user).
 
 # === high (2) ===
-# same name across sources AND ≥1 identifier appears in ≥2 sources.
+# same name across sources AND BOTH a specific name (multi-word or containing a digit, e.g. 'Jane Smith') AND >=1 identifier in >=2 sources (e.g. jane@x.com in both).
 # Jernej Simončič <jernej[at]ena.si|Jernej Simoncic/Jernej Simončič/Jernej Simončič> <jernej|s-cccp[at]eternallybored.org|Jernej Simončič> <jernej|s-gitstuff[at]eternallybored.org|Jernej Simončič>
 # Sven  Neumann <neo[at]bender|MEST 1999  Sven Neumann/MEST 1999 Sven Neumann/Sven  Neumann/Sven Neumann> <s.neumann[at]phase-zero.de|Sven Neumann> <s.neumann[at]raumfeld.com|Sven Neumann>
 
-# === medium (0) ===
-# same name across sources (under loose normalization), no shared identifier.
+# === medium (1) ===
+# same name across sources AND (specific name (e.g. 'Jane Smith' with different emails per source) OR >=1 identifier in >=2 sources (e.g. 'Bruno' with same email in git and gitlab)), but not both.
+# Bruno <brunolopesdsilv[at]outlook.com|Bruno/Bruno Lopes> <#Bruno> <#bruno|bruno>
 
 # === low (10) ===
-# names match only after aggressive normalization (initials dropped), or single-word name not found in the common-names dataset (likely a unique handle/nickname).
+# NOT in common-names dataset AND (not-specific name AND 0 identifiers in >=2 sources (e.g. 'Xantiva' in git and gitlab with different IDs), OR match only under aggressive normalization (e.g. 'Adam D Moss' <=> 'Adam Moss')).
 # Administrator <gnome-sysadmin[at]gnome.org|Administrator/GNOME Translation Robot> <@root>
 # Alexander Rabtchevich <@bigserpent> <#alexander.v.rabtchevich|alexander.v.rabtchevich>
 # Bugzilla <@bugzilla-migration> <#bugzilla|bugzilla>
@@ -806,7 +806,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # S <@alex2275> <@pees> <#s|s>
 
 # === very-low (333) ===
-# single-word common given name (e.g. 'Alex') with no shared identifier - high false-positive risk.
+# in common-names dataset AND (not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk.
 # Aaron <@ay_ay_ron> <#Aaron> <#aaron|aaron>
 # Abby H <@AbbyH> <#abby|abby>
 # Adam <@NoobHackSaw> <@adammaj1> <@ajburley> <#Adam> <#adam|adam>
