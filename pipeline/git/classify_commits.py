@@ -200,7 +200,7 @@ def classify_commit(
         "stream": False,
     }
 
-    response = requests.post(llama_url, json=payload, timeout=60)
+    response = requests.post(llama_url, json=payload, timeout=120)
     response.raise_for_status()
     data = response.json()
     raw = data["choices"][0]["message"]["content"].strip()
@@ -228,8 +228,7 @@ def cache_path(profile_path: str) -> Path:
 
 
 def load_cache(profile_path: str) -> dict:
-    """Returns a dict of hash -> {category, fingerprint}. Errors with a
-    pointer to migrate_cache.py if it finds an older cache format on disk."""
+    """Returns a dict of hash -> {category, fingerprint}."""
     p = cache_path(profile_path)
     if not p.exists():
         return {}
@@ -237,17 +236,6 @@ def load_cache(profile_path: str) -> dict:
         data = json.load(f)
     if not isinstance(data, dict):
         raise SystemExit(f"Cache at {p} has an unexpected shape (expected an object).")
-    if "fingerprint" in data and "entries" in data:
-        raise SystemExit(
-            f"Cache at {p} uses the old {{fingerprint, entries}} format. "
-            f"Run migrate_cache.py {p} to convert it."
-        )
-    for h, v in data.items():
-        if not isinstance(v, dict) or "category" not in v or "fingerprint" not in v:
-            raise SystemExit(
-                f"Cache at {p} contains a legacy entry for {h}. "
-                f"Run migrate_cache.py {p} to convert it."
-            )
     return data
 
 
@@ -267,7 +255,6 @@ def main():
     parser.add_argument("--end", metavar="HASH", help="End at this commit hash (inclusive)")
     parser.add_argument("--profile", metavar="FILE", required=True, help="Path to YAML profile file (repository, categories, prompt)")
     parser.add_argument("--output", metavar="FILE", default=None, help="Path to output CSV file (default: _contributions_<profile-stem>_git.csv)")
-    parser.add_argument("--stat", action=argparse.BooleanOptionalAction, default=True, help="Include git --stat (changed files) for better accuracy (default: on)")
     parser.add_argument("--llama-url", default=DEFAULT_LLAMA_URL, help=f"llama-server chat completions URL (default: {DEFAULT_LLAMA_URL})")
     parser.add_argument("--debug", action="store_true", help="Print the raw LLM response for each classified commit")
     args = parser.parse_args()
@@ -298,8 +285,7 @@ def main():
 
     cached_count = sum(1 for c in commits if c["hash"] in cache)
     new_count = len(commits) - cached_count
-    stat_label = "stat=on" if args.stat else "stat=off"
-    print(f"Got {len(commits)} commits: {cached_count} cached, {new_count} to classify ({stat_label}).", file=sys.stderr)
+    print(f"Got {len(commits)} commits: {cached_count} cached, {new_count} to classify.", file=sys.stderr)
 
     CSV_FIELDS = ["contribution_id", "category", "contributor_email", "contributor_name", "timestamp", "target_id", "is_self_comment"]
 
@@ -324,7 +310,7 @@ def main():
                         category = check_shortcuts(files, shortcuts, shortcuts_ignore)
                     if category is None:
                         via = "llm"
-                        stat = get_stat(repo, h) if args.stat else ""
+                        stat = get_stat(repo, h)
                         matched, raw = classify_commit(commit["subject"], commit["body"], categories, prompt_text, args.llama_url, stat)
                         if args.debug:
                             print(f"  [DEBUG] {h} LLM raw response:\n{raw}", file=sys.stderr)
@@ -338,6 +324,7 @@ def main():
                     if time.monotonic() - last_save >= CACHE_SAVE_INTERVAL_SECONDS:
                         save_cache(args.profile, cache)
                         last_save = time.monotonic()
+                    print(f"  [{i:3}/{len(commits)}] {h} -> {category:20s} | via {via} | {commit['subject'][:60]}", file=sys.stderr)
 
                 row = {
                     "contribution_id": f"commit-{profile_stem}-{h}",
@@ -350,10 +337,9 @@ def main():
                 }
                 out_writer.writerow(row)
 
-                print(f"  [{i:3}/{len(commits)}] {h} -> {category:20s} | via {via} | {commit['subject'][:60]}", file=sys.stderr)
 
         os.replace(tmp_output, args.output)
-        print(f"Output → {args.output}", file=sys.stderr)
+        print(f"Written to {args.output}", file=sys.stderr)
     finally:
         save_cache(args.profile, cache)
 
