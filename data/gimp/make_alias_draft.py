@@ -23,7 +23,11 @@ _NAME_DATASET_SHA256 = "a2076494420babe3a110f25d54c89bdacb94c60cf304d0e8cfec6550
 _ANGLE_RE = re.compile(r"<([^>]+)>")
 _SECTION_RE = re.compile(r"^\s*#\s*===\s+")
 
-_KNOWN_SOURCES = {"git", "gitlab", "bugzilla", "handcrafted"}
+# Timezone-and-year prefixes seemingly introduced by some automatic system,
+# e.g. "PDT 1998 Adrian Likine <adrian@gimp.org>". The negative lookahead
+# avoids eating into an immediately following <...> identifier in case someone
+# actually uses a name like "PDT 2000".
+_TZ_DATE_PREFIX_RE = re.compile(r"^[A-Z]+T (?:199\d|200\d) +(?!<)")
 
 # Matches gitlab.gnome.org noreply commit emails. Group 1 is the handle, with
 # the optional leading "<numeric-id>-" stripped. Handle case is preserved.
@@ -31,6 +35,8 @@ _GITLAB_NOREPLY_RE = re.compile(
     r"^(?:\d+-)?([^@]+)@users\.noreply\.gitlab\.gnome\.org$",
     re.IGNORECASE,
 )
+
+_KNOWN_SOURCES = {"git", "gitlab", "bugzilla", "handcrafted"}
 
 # Non-decomposing Latin letters folded to a base form for collation, so e.g.
 # "Øyvind" sorts under 'o'. NFKD handles the rest (accented vowels etc.)
@@ -73,14 +79,27 @@ def alias_sort_key(line):
     return (folded, name.lower())
 
 
+def _strip_name_noise(s):
+    """Strip a timezone-and-year prefix ("GMT 1999 Andy Thomas") and a '/suffix'
+    annotation ("Olof S Kylander/GIMP").
+    There could be false-positives like "AC/DC fan" but couldn't such cases in the
+    dataset.
+    """
+    s = _TZ_DATE_PREFIX_RE.sub("", s)
+    s = s.split("/", 1)[0]
+    return s.strip()
+
+
 def normalize_name(s):
     """Loose name normalization for cross-source matching.
 
     NFKD-decomposes, strips combining marks (diacritics), lowercases, treats
-    '-_.' as spaces, collapses whitespace.
+    '-_.' as spaces, collapses whitespace, strips, '<timezone abbreviation> YYYY'
+    prefixes and '/suffix' suffixes.
     """
     if not s:
         return ""
+    s = _strip_name_noise(s)
     s = unicodedata.normalize("NFKD", s)
     s = "".join(c for c in s if not unicodedata.combining(c))
     s = s.lower()
@@ -534,6 +553,9 @@ def main():
     def _display_name(raw_names, fallback):
         """Pick the most informative raw casing as display.
 
+        Candidates are first cleaned of the timezone-prefix/'/suffix' noise so a
+        clean "Andy Thomas" is preferred over "GMT 1999 Andy Thomas".
+
         Tie-break order:
           1. more diacritics (the platform-canonical form usually has them)
           2. starts with uppercase (prefer "Bruno" over "bruno")
@@ -543,8 +565,9 @@ def main():
         """
         if not raw_names:
             return fallback
+        candidates = {_strip_name_noise(n) or n for n in raw_names}
         return max(
-            raw_names,
+            candidates,
             key=lambda n: (
                 sum(1 for c in n if ord(c) > 127),
                 bool(n and n[0].isupper()),
