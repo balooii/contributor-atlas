@@ -26,7 +26,7 @@ def discover_files(dir_path):
     """Return (filename, source_type) for every _contributions_*.csv with a recognised source type."""
     results = []
     for path in sorted((dir_path / "raw").glob("_contributions_*.csv")):
-        inner = path.stem[len("_contributions_"):]
+        inner = path.stem[len("_contributions_") :]
         _, _, source_part = inner.partition("_")
         source_type = source_part.split(".")[0]
         if source_type in _KNOWN_SOURCES:
@@ -35,13 +35,23 @@ def discover_files(dir_path):
 
 
 def parse_args():
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     p.add_argument("--out", default=str(SCRIPT_DIR / "contributions.csv"), metavar="FILE")
-    p.add_argument("--aliases", default=str(SCRIPT_DIR / "contributor-aliases.txt"), metavar="FILE",
-                   help="file created by make_alias_draft.py used to canonicalize author names/emails/handles")
-    p.add_argument("--groups", default=str(SCRIPT_DIR / "category_groups.json"), metavar="FILE",
-                   help="JSON file containing category groups for the category_group column. "
-                        "If not provided, category will be used as category_group.")
+    p.add_argument(
+        "--aliases",
+        default=str(SCRIPT_DIR / "contributor-aliases.txt"),
+        metavar="FILE",
+        help="file created by make_alias_draft.py used to canonicalize author names/emails/handles",
+    )
+    p.add_argument(
+        "--groups",
+        default=str(SCRIPT_DIR / "category_groups.json"),
+        metavar="FILE",
+        help="JSON file containing category groups for the category_group column. "
+        "If not provided, category will be used as category_group.",
+    )
     return p.parse_args()
 
 
@@ -58,18 +68,18 @@ def parse_groups(path):
 def _strip_name_annotation(content):
     """Strip the |observed-name suffix that make_alias_draft.py adds to draft
     entries for review readability."""
-    pipe = content.find('|')
+    pipe = content.find("|")
     return content[:pipe] if pipe != -1 else content
 
 
 def _deobfuscate_id(content):
     """Undo [at] obfuscation used in contributor-aliases.txt to deter scrapers."""
-    return content.replace('[at]', '@')
+    return content.replace("[at]", "@")
 
 
 def _obfuscate_id(content):
     """Apply [at] obfuscation to deter scrapers in output files."""
-    return content.replace('@', '[at]')
+    return content.replace("@", "[at]")
 
 
 def parse_aliases(path):
@@ -88,17 +98,20 @@ def parse_aliases(path):
     with open(path) as f:
         for raw in f:
             line = raw.strip()
-            if not line or line.startswith('#'):
+            if not line or line.startswith("#"):
                 continue
             brackets = list(_ANGLE_RE.finditer(line))
             if not brackets:
                 continue
-            name = line[:brackets[0].start()].strip()
+            name = line[: brackets[0].start()].strip()
             if not name:
                 continue
             key_id = _deobfuscate_id(_strip_name_annotation(brackets[0].group(1).strip()).lower())
             for b in brackets:
-                by_id[_deobfuscate_id(_strip_name_annotation(b.group(1).strip()).lower())] = (name, key_id)
+                by_id[_deobfuscate_id(_strip_name_annotation(b.group(1).strip()).lower())] = (
+                    name,
+                    key_id,
+                )
     return by_id
 
 
@@ -129,11 +142,14 @@ def read_rows(name, source_type):
                 "category": row["category"],
                 "contributor_id": row[id_column],
                 "contributor_name": row["contributor_name"],
-                "contributor_public_email": row["contributor_public_email"] if source_type == "gitlab" else "",
+                "contributor_public_email": row["contributor_public_email"]
+                if source_type == "gitlab"
+                else "",
                 "timestamp": row["timestamp"],
                 "target_id": row["target_id"],
                 "is_self_comment": row["is_self_comment"],
             }
+
 
 def _filter_triaging_self_comments(rows):
     dropped_self = 0
@@ -144,6 +160,7 @@ def _filter_triaging_self_comments(rows):
             continue
         filtered_rows.append(row)
     return dropped_self, filtered_rows
+
 
 def _filter_triaging_earliest_only(rows):
     best = {}  # (target_id, contributor_name) -> (row, ts)
@@ -170,6 +187,7 @@ def _filter_triaging_earliest_only(rows):
             dropped_non_earliest += 1
     filtered_rows.extend(r for r, _ in best.values())
     return dropped_non_earliest, filtered_rows
+
 
 def main():
     args = parse_args()
@@ -212,7 +230,16 @@ def main():
 
     with open(out_path, "w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
-        writer.writerow(["contribution_id", "category", "category_group", "contributor_name", "contributor_id", "timestamp"])
+        writer.writerow(
+            [
+                "contribution_id",
+                "category",
+                "category_group",
+                "contributor_name",
+                "contributor_id",
+                "timestamp",
+            ]
+        )
         for row, new_name, contributor_id in canon_rows:
             category = row["category"]
             category_group = groups.get(category, category)
@@ -224,20 +251,34 @@ def main():
                 ts = (ts // 86400) * 86400 + 43200
             except (ValueError, TypeError):
                 ts = row["timestamp"]
-            writer.writerow([row["contribution_id"], category, category_group, new_name, _obfuscate_id(contributor_id), ts])
+            writer.writerow(
+                [
+                    row["contribution_id"],
+                    category,
+                    category_group,
+                    new_name,
+                    _obfuscate_id(contributor_id),
+                    ts,
+                ]
+            )
 
     total_out = len(all_rows)
     print(f"Wrote {total_out} rows to {out_path}.", file=sys.stderr)
     print(f"  non-triage:     {len(non_triage)}", file=sys.stderr)
-    print(f"  triage:         {len(kept_triage)}  "
-          f"(in: {len(triage)}, dropped self: {dropped_self}, dropped non-earliest: {dropped_non_earliest})",
-          file=sys.stderr)
+    print(
+        f"  triage:         {len(kept_triage)}  "
+        f"(in: {len(triage)}, dropped self: {dropped_self}, dropped non-earliest: {dropped_non_earliest})",
+        file=sys.stderr,
+    )
     if aliases_path.exists():
-        print(f"  aliases:        {aliases_path}  "
-              f"({alias_entries} aliases across {alias_individuals} individuals, {remapped} rows remapped)", file=sys.stderr)
+        print(
+            f"  aliases:        {aliases_path}  "
+            f"({alias_entries} aliases across {alias_individuals} individuals, {remapped} rows remapped)",
+            file=sys.stderr,
+        )
     else:
         print(f"  aliases:        {aliases_path} (not found, no remapping)", file=sys.stderr)
-    print(f"  groups found:   {"Yes" if groups_path.exists() else "No"}", file=sys.stderr)
+    print(f"  groups found:   {'Yes' if groups_path.exists() else 'No'}", file=sys.stderr)
 
 
 if __name__ == "__main__":

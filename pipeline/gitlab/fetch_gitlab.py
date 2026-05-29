@@ -27,7 +27,11 @@ def http_session():
     if _SESSION is None:
         token = os.environ.get("GITLAB_TOKEN")
         if not token:
-            print("GITLAB_TOKEN env var required (personal access token with 'read_api', 'read_user' and 'read_repository' scope)", file=sys.stderr)
+            print(
+                "GITLAB_TOKEN env var required "
+                + "(personal access token with 'read_api', 'read_user' and 'read_repository' scope)",
+                file=sys.stderr,
+            )
             sys.exit(1)
         _SESSION = requests.Session()
         _SESSION.headers["PRIVATE-TOKEN"] = token
@@ -50,6 +54,7 @@ def next_link(link_header):
                 return url
     return None
 
+
 Kind = namedtuple("Kind", "api cache_key label sigil")
 ISSUES = Kind("issues", "issues", "issue", "#")
 MRS = Kind("merge_requests", "mrs", "MR", "!")
@@ -66,8 +71,12 @@ def parse_args():
         metavar="FILE",
         help="Profile YAML with host, project, bug_labels, and exclude_users (default: gimp/gimp.yaml next to this script)",
     )
-    parser.add_argument("--out", metavar="FILE", default=None,
-                        help="Output CSV (default: _contributions_<profile-stem>_gitlab.csv in cwd)")
+    parser.add_argument(
+        "--out",
+        metavar="FILE",
+        default=None,
+        help="Output CSV (default: _contributions_<profile-stem>_gitlab.csv in cwd)",
+    )
     args = parser.parse_args()
     if args.out is None:
         args.out = f"_contributions_{Path(args.profile).stem}_gitlab.csv"
@@ -136,21 +145,27 @@ def fetch_user(host, user_id):
             if attempt == HTTP_MAX_ATTEMPTS - 1:
                 print(f"\n  timeout fetching user {user_id}, giving up", file=sys.stderr)
                 return None
-            delay = 2 ** attempt
-            print(f"\n  timeout fetching user {user_id}, retrying in {delay}s (attempt {attempt + 1}/{HTTP_MAX_ATTEMPTS})...", file=sys.stderr)
+            delay = 2**attempt
+            print(
+                f"\n  timeout fetching user {user_id}, retrying in {delay}s (attempt {attempt + 1}/{HTTP_MAX_ATTEMPTS})...",
+                file=sys.stderr,
+            )
             time.sleep(delay)
             continue
         except requests.RequestException as e:
             if attempt == HTTP_MAX_ATTEMPTS - 1:
                 print(f"\n  request failed for user {user_id}: {e}", file=sys.stderr)
                 return None
-            time.sleep(2 ** attempt)
+            time.sleep(2**attempt)
             continue
         if resp.status_code == 429 or resp.status_code >= 500:
             if attempt == HTTP_MAX_ATTEMPTS - 1:
                 return None
-            delay = int(resp.headers.get("Retry-After", 2 ** attempt))
-            print(f"\n  HTTP {resp.status_code} for user {user_id}, retrying in {delay}s (attempt {attempt + 1}/{HTTP_MAX_ATTEMPTS})...", file=sys.stderr)
+            delay = int(resp.headers.get("Retry-After", 2**attempt))
+            print(
+                f"\n  HTTP {resp.status_code} for user {user_id}, retrying in {delay}s (attempt {attempt + 1}/{HTTP_MAX_ATTEMPTS})...",
+                file=sys.stderr,
+            )
             time.sleep(delay)
             continue
         break
@@ -229,14 +244,17 @@ def fetch_paged(host, path):
                 if attempt == HTTP_MAX_ATTEMPTS - 1:
                     print(f"GitLab request failed for {url}: {e}", file=sys.stderr)
                     sys.exit(1)
-                time.sleep(2 ** attempt)
+                time.sleep(2**attempt)
                 continue
             if resp.status_code == 429 or resp.status_code >= 500:
                 if attempt == HTTP_MAX_ATTEMPTS - 1:
-                    print(f"GitLab returned {resp.status_code} for {url}: {resp.text[:200]}", file=sys.stderr)
+                    print(
+                        f"GitLab returned {resp.status_code} for {url}: {resp.text[:200]}",
+                        file=sys.stderr,
+                    )
                     sys.exit(1)
                 # Retry-After is seconds (per GitLab docs); fall back to exponential backoff.
-                delay = int(resp.headers.get("Retry-After", 2 ** attempt))
+                delay = int(resp.headers.get("Retry-After", 2**attempt))
                 time.sleep(delay)
                 continue
             break
@@ -267,8 +285,19 @@ def classify_issue(labels, bug_labels, bug_category, fallback_category):
     return fallback_category
 
 
-def make_row(contribution_id, category, author, ts, public_email="", target_id="", is_self_comment=""):
-    return [contribution_id, category, f"@{author['username']}", author["name"], public_email, ts, target_id, is_self_comment]
+def make_row(
+    contribution_id, category, author, ts, public_email="", target_id="", is_self_comment=""
+):
+    return [
+        contribution_id,
+        category,
+        f"@{author['username']}",
+        author["name"],
+        public_email,
+        ts,
+        target_id,
+        is_self_comment,
+    ]
 
 
 def needs_notes_fetch(entry):
@@ -310,7 +339,12 @@ def fetch_updated_list(host, project, kind, since):
 def update_kind(cache, host, project, profile_path, kind, save_state):
     max_key = f"{kind.cache_key}_max_updated_at"
     since = cache.get(max_key)
-    print(f"Fetching {kind.label} list{' since ' + since if since else ''}...", end=" ", flush=True, file=sys.stderr)
+    print(
+        f"Fetching {kind.label} list{' since ' + since if since else ''}...",
+        end=" ",
+        flush=True,
+        file=sys.stderr,
+    )
     items = fetch_updated_list(host, project, kind.api, since)
     print(f"{len(items)} updated {kind.label}(s).", file=sys.stderr)
     for item in items:
@@ -326,10 +360,17 @@ def update_kind(cache, host, project, profile_path, kind, save_state):
     # the persistence path.
     to_fetch = [(iid, e) for iid, e in cache[kind.cache_key].items() if needs_notes_fetch(e)]
     tty = sys.stderr.isatty()
-    print(f"Fetching notes for {len(to_fetch)}/{len(cache[kind.cache_key])} {kind.label}(s) with updates...", file=sys.stderr)
+    print(
+        f"Fetching notes for {len(to_fetch)}/{len(cache[kind.cache_key])} {kind.label}(s) with updates...",
+        file=sys.stderr,
+    )
     for i, (iid, entry) in enumerate(to_fetch, 1):
         if tty:
-            print(f"  {kind.label} {i}/{len(to_fetch)} ({kind.sigil}{iid})...\033[K", end="\r", file=sys.stderr)
+            print(
+                f"  {kind.label} {i}/{len(to_fetch)} ({kind.sigil}{iid})...\033[K",
+                end="\r",
+                file=sys.stderr,
+            )
         elif i % 100 == 0 or i == len(to_fetch):
             print(f"  {kind.label} {i}/{len(to_fetch)}", file=sys.stderr)
         entry["notes"] = fetch_paged(host, f"{project}/{kind.api}/{iid}/notes?per_page=100")
@@ -357,7 +398,18 @@ def write_output(cache, profile, args, users_cache):
 
     with open(args.out, "w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
-        writer.writerow(["contribution_id", "category", "contributor_id", "contributor_name", "contributor_public_email", "timestamp", "target_id", "is_self_comment"])
+        writer.writerow(
+            [
+                "contribution_id",
+                "category",
+                "contributor_id",
+                "contributor_name",
+                "contributor_public_email",
+                "timestamp",
+                "target_id",
+                "is_self_comment",
+            ]
+        )
 
         wrote = 0
         for iid, entry in cache["issues"].items():
@@ -365,9 +417,15 @@ def write_output(cache, profile, args, users_cache):
             if issue["author"]["username"] in exclude_users:
                 continue
             ts = parse_ts(issue["created_at"])
-            category = classify_issue(issue.get("labels", []), bug_labels, bug_category, fallback_category)
+            category = classify_issue(
+                issue.get("labels", []), bug_labels, bug_category, fallback_category
+            )
             email = get_public_email(users_cache, host, issue["author"])
-            writer.writerow(make_row(f"issue-{profile_stem}-{iid}-created", category, issue["author"], ts, email))
+            writer.writerow(
+                make_row(
+                    f"issue-{profile_stem}-{iid}-created", category, issue["author"], ts, email
+                )
+            )
             wrote += 1
         print(f"Wrote {wrote} issue row(s).", file=sys.stderr)
 
@@ -384,10 +442,17 @@ def write_output(cache, profile, args, users_cache):
                 ts = parse_ts(note["created_at"])
                 is_self = "1" if note["author"]["username"] == filer_username else "0"
                 email = get_public_email(users_cache, host, note["author"])
-                writer.writerow(make_row(
-                    f"issue-{profile_stem}-{iid}-note-{note['id']}", "triaging", note["author"], ts,
-                    email, target_id, is_self,
-                ))
+                writer.writerow(
+                    make_row(
+                        f"issue-{profile_stem}-{iid}-note-{note['id']}",
+                        "triaging",
+                        note["author"],
+                        ts,
+                        email,
+                        target_id,
+                        is_self,
+                    )
+                )
                 wrote += 1
         print(f"Wrote {wrote} issue note row(s).", file=sys.stderr)
 
@@ -404,10 +469,17 @@ def write_output(cache, profile, args, users_cache):
                 ts = parse_ts(note["created_at"])
                 is_self = "1" if note["author"]["username"] == filer_username else "0"
                 email = get_public_email(users_cache, host, note["author"])
-                writer.writerow(make_row(
-                    f"mr-{profile_stem}-{iid}-note-{note['id']}", "triaging", note["author"], ts,
-                    email, target_id, is_self,
-                ))
+                writer.writerow(
+                    make_row(
+                        f"mr-{profile_stem}-{iid}-note-{note['id']}",
+                        "triaging",
+                        note["author"],
+                        ts,
+                        email,
+                        target_id,
+                        is_self,
+                    )
+                )
                 wrote += 1
         print(f"Wrote {wrote} MR note row(s).", file=sys.stderr)
 
@@ -420,7 +492,11 @@ def write_output(cache, profile, args, users_cache):
                 continue
             ts = parse_ts(mr["created_at"])
             email = get_public_email(users_cache, host, mr["author"])
-            writer.writerow(make_row(f"mr-{profile_stem}-{iid}-created", closed_mr_category, mr["author"], ts, email))
+            writer.writerow(
+                make_row(
+                    f"mr-{profile_stem}-{iid}-created", closed_mr_category, mr["author"], ts, email
+                )
+            )
             wrote += 1
         print(f"Wrote {wrote} open/closed-unmerged MR row(s).", file=sys.stderr)
 

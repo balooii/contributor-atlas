@@ -34,11 +34,26 @@ _GITLAB_NOREPLY_RE = re.compile(
 
 # Non-decomposing Latin letters folded to a base form for collation, so e.g.
 # "Øyvind" sorts under 'o'. NFKD handles the rest (accented vowels etc.)
-_SORT_SPECIAL = str.maketrans({
-    'ø': 'o', 'Ø': 'o', 'ł': 'l', 'Ł': 'l', 'đ': 'd', 'Đ': 'd',
-    'æ': 'ae', 'Æ': 'ae', 'œ': 'oe', 'Œ': 'oe', 'ß': 'ss',
-    'ı': 'i', 'ð': 'd', 'Ð': 'd', 'þ': 'th', 'Þ': 'th',
-})
+_SORT_SPECIAL = str.maketrans(
+    {
+        "ø": "o",
+        "Ø": "o",
+        "ł": "l",
+        "Ł": "l",
+        "đ": "d",
+        "Đ": "d",
+        "æ": "ae",
+        "Æ": "ae",
+        "œ": "oe",
+        "Œ": "oe",
+        "ß": "ss",
+        "ı": "i",
+        "ð": "d",
+        "Ð": "d",
+        "þ": "th",
+        "Þ": "th",
+    }
+)
 
 
 def alias_sort_key(line):
@@ -88,7 +103,7 @@ def discover_files(dir_path):
     """Return (filename, source_type) for every _contributions_*.csv in dir_path."""
     results = []
     for path in sorted(dir_path.glob("_contributions_*.csv")):
-        inner = path.stem[len("_contributions_"):]
+        inner = path.stem[len("_contributions_") :]
         _, _, source_part = inner.partition("_")
         source_type = source_part.split(".")[0]
         if source_type not in _KNOWN_SOURCES:
@@ -99,20 +114,20 @@ def discover_files(dir_path):
 
 def _strip_name_annotation(content):
     """Strip the |observed-name suffix added by draft formatting."""
-    pipe = content.find('|')
+    pipe = content.find("|")
     return content[:pipe] if pipe != -1 else content
 
 
 def _deobfuscate_id(content):
     """Undo [at] obfuscation used in the file to deter scrapers."""
-    return content.replace('[at]', '@')
+    return content.replace("[at]", "@")
 
 
 def _obfuscate_id(id_):
     """Replace @ with [at] in email IDs; leave @gitlab and #bugzilla IDs alone."""
-    if id_.startswith('@') or id_.startswith('#'):
+    if id_.startswith("@") or id_.startswith("#"):
         return id_
-    return id_.replace('@', '[at]')
+    return id_.replace("@", "[at]")
 
 
 def _parse_alias_line(line, by_id):
@@ -120,7 +135,7 @@ def _parse_alias_line(line, by_id):
     brackets = list(_ANGLE_RE.finditer(line))
     if not brackets:
         return
-    name = line[:brackets[0].start()].strip()
+    name = line[: brackets[0].start()].strip()
     if not name:
         return
     key_id = _deobfuscate_id(_strip_name_annotation(brackets[0].group(1).strip()).lower())
@@ -174,8 +189,10 @@ def parse_aliases_file(path):
 
 def _clean_annotations(line):
     """Remove |Name annotations from inside <...> tokens."""
+
     def repl(m):
         return "<" + _strip_name_annotation(m.group(1)).strip() + ">"
+
     return _ANGLE_RE.sub(repl, line)
 
 
@@ -207,7 +224,8 @@ def extract_auto_bindings(dir_path):
                     continue
                 handle = handle_at[1:]
                 entry = by_handle.setdefault(
-                    handle.lower(), {"name": row["contributor_name"], "emails": set(), "handle": handle}
+                    handle.lower(),
+                    {"name": row["contributor_name"], "emails": set(), "handle": handle},
                 )
                 if row["contributor_public_email"]:
                     entry["emails"].add(row["contributor_public_email"])
@@ -225,7 +243,8 @@ def extract_auto_bindings(dir_path):
                     continue
                 handle = m.group(1)
                 entry = by_handle.setdefault(
-                    handle.lower(), {"name": row["contributor_name"], "emails": set(), "handle": handle}
+                    handle.lower(),
+                    {"name": row["contributor_name"], "emails": set(), "handle": handle},
                 )
                 entry["emails"].add(row["contributor_email"])
 
@@ -402,22 +421,32 @@ def is_common_first_name(normalized_name, common_names):
 
 
 _TIER_DESCRIPTIONS = {
-    "very-high": "deterministic gitlab handle - email binding: "
-                 "profile public_email (e.g. @user has user@x.com on profile), "
-                 "noreply commit (e.g. 123-user@users.noreply.gitlab.gnome.org), "
-                 "or commit local-part = handle (e.g. user@domain.com for @user).",
-    "high":      "same name across sources AND BOTH a specific name (multi-word or "
-                 "containing a digit, e.g. 'Jane Smith') AND >=1 identifier in >=2 "
-                 "sources (e.g. jane@x.com in both).",
-    "medium":    "same name across sources AND "
-                 "(specific name (e.g. 'Jane Smith' with different emails per source) "
-                 "OR >=1 identifier in >=2 sources (e.g. 'Bruno' with same email in git and gitlab)), but not both.",
-    "low":       "NOT in common-names dataset AND "
-                 "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Xantiva' in git and gitlab with different IDs), "
-                 "OR match only under aggressive normalization (e.g. 'Adam D Moss' <=> 'Adam Moss')).",
-    "very-low":  "in common-names dataset AND "
-                 "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), "
-                 "OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk.",
+    "very-high": (
+        "deterministic gitlab handle - email binding: "
+        "profile public_email (e.g. @user has user@x.com on profile), "
+        "noreply commit (e.g. 123-user@users.noreply.gitlab.gnome.org), "
+        "or commit local-part = handle (e.g. user@domain.com for @user)."
+    ),
+    "high": (
+        "same name across sources AND BOTH a specific name (multi-word or "
+        "containing a digit, e.g. 'Jane Smith') AND >=1 identifier in >=2 "
+        "sources (e.g. jane@x.com in both)."
+    ),
+    "medium": (
+        "same name across sources AND "
+        "(specific name (e.g. 'Jane Smith' with different emails per source) "
+        "OR >=1 identifier in >=2 sources (e.g. 'Bruno' with same email in git and gitlab)), but not both."
+    ),
+    "low": (
+        "NOT in common-names dataset AND "
+        "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Xantiva' in git and gitlab with different IDs), "
+        "OR match only under aggressive normalization (e.g. 'Adam D Moss' <=> 'Adam Moss'))."
+    ),
+    "very-low": (
+        "in common-names dataset AND "
+        "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), "
+        "OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk."
+    ),
 }
 
 
@@ -493,13 +522,16 @@ def main():
         """
         if not raw_names:
             return fallback
-        return max(raw_names, key=lambda n: (
-            sum(1 for c in n if ord(c) > 127),
-            bool(n and n[0].isupper()),
-            sum(1 for c in n if c == " "),
-            len(n),
-            n,
-        ))
+        return max(
+            raw_names,
+            key=lambda n: (
+                sum(1 for c in n if ord(c) > 127),
+                bool(n and n[0].isupper()),
+                sum(1 for c in n if c == " "),
+                len(n),
+                n,
+            ),
+        )
 
     def _process(raw_names):
         """Return (display, sorted_ids, has_id_overlap, canon_names) or None.
@@ -563,7 +595,12 @@ def main():
     # Aggressive-only matches: emit when an aggressive group bridges ≥2 basic
     # groups (i.e. aggressive normalization established a link that basic
     # didn't). Dedup against existing high/medium/low by id-set equality.
-    seen_id_sets = {frozenset(ids) for _, ids, _ in high} | {frozenset(ids) for _, ids, _ in medium} | {frozenset(ids) for _, ids, _ in low} | {frozenset(ids) for _, ids, _ in very_low}
+    seen_id_sets = (
+        {frozenset(ids) for _, ids, _ in high}
+        | {frozenset(ids) for _, ids, _ in medium}
+        | {frozenset(ids) for _, ids, _ in low}
+        | {frozenset(ids) for _, ids, _ in very_low}
+    )
     for am, names in agg_groups.items():
         if len({normalize_name(n) for n in names}) <= 1:
             continue

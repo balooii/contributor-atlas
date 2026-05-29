@@ -21,6 +21,7 @@ MAX_BODY_CHARS = 500
 MAX_STAT_CHARS = 4000
 CACHE_SAVE_INTERVAL_SECONDS = 120
 
+
 def load_profile(path: str) -> dict:
     with open(Path(path).expanduser(), "r") as f:
         profile = yaml.safe_load(f)
@@ -65,13 +66,16 @@ def ensure_repo(profile_path: str, profile: dict) -> str:
 def profile_fingerprint(profile: dict) -> str:
     """Short hash of fields that affect classification verdicts. Used to detect
     when a cache was computed against a different version of the profile."""
-    payload = json.dumps({
-        "categories": profile["categories"],
-        "prompt": profile["prompt"],
-        "shortcuts": profile["shortcuts"],
-        "shortcuts_ignore": profile["shortcuts_ignore"],
-        "fallback": profile["fallback"],
-    }, sort_keys=True)
+    payload = json.dumps(
+        {
+            "categories": profile["categories"],
+            "prompt": profile["prompt"],
+            "shortcuts": profile["shortcuts"],
+            "shortcuts_ignore": profile["shortcuts_ignore"],
+            "fallback": profile["fallback"],
+        },
+        sort_keys=True,
+    )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
 
 
@@ -121,14 +125,16 @@ def get_commits(
         subject = parts[4].strip()
         body = parts[5].strip() if len(parts) > 5 else ""
         if commit_hash and subject:
-            commits.append({
-                "hash": commit_hash,
-                "contributor_email": contributor_email,
-                "contributor_name": contributor_name,
-                "timestamp": timestamp,
-                "subject": subject,
-                "body": body,
-            })
+            commits.append(
+                {
+                    "hash": commit_hash,
+                    "contributor_email": contributor_email,
+                    "contributor_name": contributor_name,
+                    "timestamp": timestamp,
+                    "subject": subject,
+                    "body": body,
+                }
+            )
     return commits
 
 
@@ -145,7 +151,9 @@ def get_changed_files(repo_path: str, commit_hash: str) -> list[str]:
     return [l.strip() for l in result.stdout.splitlines() if l.strip()]
 
 
-def check_shortcuts(files: list[str], shortcuts: dict[str, str], ignore: list[str] | None = None) -> str | None:
+def check_shortcuts(
+    files: list[str], shortcuts: dict[str, str], ignore: list[str] | None = None
+) -> str | None:
     # fnmatch uses shell-glob semantics where '*' also matches '/', so a pattern
     # like 'docs/*' already matches files in nested subdirectories — '**' has no
     # special meaning here.
@@ -186,10 +194,14 @@ def classify_commit(
     a fallback (and warns) when no category matched."""
     message = f"Subject: {subject}"
     if body:
-        body_truncated = body[:MAX_BODY_CHARS] + "\n[truncated]" if len(body) > MAX_BODY_CHARS else body
+        body_truncated = (
+            body[:MAX_BODY_CHARS] + "\n[truncated]" if len(body) > MAX_BODY_CHARS else body
+        )
         message += f"\n\nBody:\n{body_truncated}"
     if stat:
-        stat_truncated = stat[:MAX_STAT_CHARS] + "\n[truncated]" if len(stat) > MAX_STAT_CHARS else stat
+        stat_truncated = (
+            stat[:MAX_STAT_CHARS] + "\n[truncated]" if len(stat) > MAX_STAT_CHARS else stat
+        )
         message += f"\n\nChanged files:\n{stat_truncated}"
 
     payload = {
@@ -249,14 +261,34 @@ def save_cache(profile_path: str, entries: dict):
 
 def main():
     parser = argparse.ArgumentParser(description="Classify git commits using llama-server")
-    parser.add_argument("-n", "--count", type=int, default=None, help="Number of commits to classify (default: all)")
-    parser.add_argument("--skip", type=int, default=0, help="Number of commits to skip (default: 0)")
+    parser.add_argument(
+        "-n", "--count", type=int, default=None, help="Number of commits to classify (default: all)"
+    )
+    parser.add_argument(
+        "--skip", type=int, default=0, help="Number of commits to skip (default: 0)"
+    )
     parser.add_argument("--start", metavar="HASH", help="Start at this commit hash (inclusive)")
     parser.add_argument("--end", metavar="HASH", help="End at this commit hash (inclusive)")
-    parser.add_argument("--profile", metavar="FILE", required=True, help="Path to YAML profile file (repository, categories, prompt)")
-    parser.add_argument("--output", metavar="FILE", default=None, help="Path to output CSV file (default: _contributions_<profile-stem>_git.csv)")
-    parser.add_argument("--llama-url", default=DEFAULT_LLAMA_URL, help=f"llama-server chat completions URL (default: {DEFAULT_LLAMA_URL})")
-    parser.add_argument("--debug", action="store_true", help="Print the raw LLM response for each classified commit")
+    parser.add_argument(
+        "--profile",
+        metavar="FILE",
+        required=True,
+        help="Path to YAML profile file (repository, categories, prompt)",
+    )
+    parser.add_argument(
+        "--output",
+        metavar="FILE",
+        default=None,
+        help="Path to output CSV file (default: _contributions_<profile-stem>_git.csv)",
+    )
+    parser.add_argument(
+        "--llama-url",
+        default=DEFAULT_LLAMA_URL,
+        help=f"llama-server chat completions URL (default: {DEFAULT_LLAMA_URL})",
+    )
+    parser.add_argument(
+        "--debug", action="store_true", help="Print the raw LLM response for each classified commit"
+    )
     args = parser.parse_args()
 
     profile_stem = Path(args.profile).stem
@@ -277,7 +309,10 @@ def main():
     stale_total = sum(1 for v in cache.values() if v["fingerprint"] != current_fp)
     if stale_total:
         cp = cache_path(args.profile)
-        print(f"[WARN] {stale_total} of {len(cache)} cache entries in {cp} have a stale fingerprint (current: {current_fp}); their verdicts will still be reused. Delete those entries to force re-classification.", file=sys.stderr)
+        print(
+            f"[WARN] {stale_total} of {len(cache)} cache entries in {cp} have a stale fingerprint (current: {current_fp}); their verdicts will still be reused. Delete those entries to force re-classification.",
+            file=sys.stderr,
+        )
 
     count_label = str(args.count) if args.count is not None else "all"
     print(f"Reading {count_label} commits from {repo}...", file=sys.stderr)
@@ -285,9 +320,20 @@ def main():
 
     cached_count = sum(1 for c in commits if c["hash"] in cache)
     new_count = len(commits) - cached_count
-    print(f"Got {len(commits)} commits: {cached_count} cached, {new_count} to classify.", file=sys.stderr)
+    print(
+        f"Got {len(commits)} commits: {cached_count} cached, {new_count} to classify.",
+        file=sys.stderr,
+    )
 
-    CSV_FIELDS = ["contribution_id", "category", "contributor_email", "contributor_name", "timestamp", "target_id", "is_self_comment"]
+    CSV_FIELDS = [
+        "contribution_id",
+        "category",
+        "contributor_email",
+        "contributor_name",
+        "timestamp",
+        "target_id",
+        "is_self_comment",
+    ]
 
     tmp_output = args.output + ".tmp"
     last_save = time.monotonic()
@@ -311,12 +357,22 @@ def main():
                     if category is None:
                         via = "llm"
                         stat = get_stat(repo, h)
-                        matched, raw = classify_commit(commit["subject"], commit["body"], categories, prompt_text, args.llama_url, stat)
+                        matched, raw = classify_commit(
+                            commit["subject"],
+                            commit["body"],
+                            categories,
+                            prompt_text,
+                            args.llama_url,
+                            stat,
+                        )
                         if args.debug:
                             print(f"  [DEBUG] {h} LLM raw response:\n{raw}", file=sys.stderr)
                         if matched is None:
                             snippet = raw.replace("\n", " ")[:100]
-                            print(f"  [WARN] {h}: LLM response matched no category ({snippet!r}); using fallback '{fallback}'", file=sys.stderr)
+                            print(
+                                f"  [WARN] {h}: LLM response matched no category ({snippet!r}); using fallback '{fallback}'",
+                                file=sys.stderr,
+                            )
                             category = fallback
                         else:
                             category = matched
@@ -324,7 +380,10 @@ def main():
                     if time.monotonic() - last_save >= CACHE_SAVE_INTERVAL_SECONDS:
                         save_cache(args.profile, cache)
                         last_save = time.monotonic()
-                    print(f"  [{i:3}/{len(commits)}] {h} -> {category:20s} | via {via} | {commit['subject'][:60]}", file=sys.stderr)
+                    print(
+                        f"  [{i:3}/{len(commits)}] {h} -> {category:20s} | via {via} | {commit['subject'][:60]}",
+                        file=sys.stderr,
+                    )
 
                 row = {
                     "contribution_id": f"commit-{profile_stem}-{h}",
@@ -336,7 +395,6 @@ def main():
                     "is_self_comment": "",
                 }
                 out_writer.writerow(row)
-
 
         os.replace(tmp_output, args.output)
         print(f"Written to {args.output}", file=sys.stderr)

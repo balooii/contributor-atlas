@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 
 # Cloning via HTTPS doesn't work as it fails with HTTP 503: fatal: expected 'packfile'
 # The problem seems to be the huuuge commit size. Cloning via SSH though, works.
-#BUGZILLA_STATIC_URL = "https://gitlab.gnome.org/Infrastructure/bugzilla-static.git"
+# BUGZILLA_STATIC_URL = "https://gitlab.gnome.org/Infrastructure/bugzilla-static.git"
 BUGZILLA_STATIC_URL = "git@ssh.gitlab.gnome.org:Infrastructure/bugzilla-static.git"
 BUGZILLA_STATIC_BRANCH = "master"
 
@@ -32,9 +32,19 @@ def ensure_repo(script_dir: Path) -> Path:
     """Clone or update the bugzilla-static repo. Returns the local path."""
     local_path = script_dir / "bugzilla-static.git"
     if not local_path.exists():
-        print(f"Cloning {BUGZILLA_STATIC_URL} (branch {BUGZILLA_STATIC_BRANCH}) into {local_path} ...", file=sys.stderr)
+        print(
+            f"Cloning {BUGZILLA_STATIC_URL} (branch {BUGZILLA_STATIC_BRANCH}) into {local_path} ...",
+            file=sys.stderr,
+        )
         subprocess.run(
-            ["git", "clone", "--branch", BUGZILLA_STATIC_BRANCH, BUGZILLA_STATIC_URL, str(local_path)],
+            [
+                "git",
+                "clone",
+                "--branch",
+                BUGZILLA_STATIC_BRANCH,
+                BUGZILLA_STATIC_URL,
+                str(local_path),
+            ],
             check=True,
         )
     # No need to fetch origin if we already cloned it. This repo is frozen.
@@ -48,7 +58,12 @@ def parse_args():
     )
     parser.add_argument("--profile", default=str(script_dir / "gimp" / "gimp.yaml"), metavar="FILE")
     parser.add_argument("--workers", type=int, default=multiprocessing.cpu_count())
-    parser.add_argument("--out", metavar="FILE", default=None, help="Output CSV (default: _contributions_<profile-stem>_bugzilla.csv)")
+    parser.add_argument(
+        "--out",
+        metavar="FILE",
+        default=None,
+        help="Output CSV (default: _contributions_<profile-stem>_bugzilla.csv)",
+    )
     return parser.parse_args()
 
 
@@ -110,7 +125,9 @@ def parse_bug_file(args):
             td = th.find_next_sibling("td")
             if td:
                 # "2000-10-12 10:30 UTC by Austin Donnelly" — grab just the date/time part
-                m = re.match(r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}(?::\d{2})? UTC)", td.get_text(strip=True))
+                m = re.match(
+                    r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}(?::\d{2})? UTC)", td.get_text(strip=True)
+                )
                 if m:
                     candidate = parse_utc_timestamp(m.group(1))
                     if candidate >= MIN_PLAUSIBLE_REPORTED_TS:
@@ -159,29 +176,33 @@ def parse_bug_file(args):
         # The only thing we have is the author name as there is no id/email
         # contained in the static page dump. So there is nothing we can do if
         # multiple users had the same name...
-        contributor_id = f"#{re.sub(r"\s+", '-', contributor_name)}"
+        contributor_id = f"#{re.sub(r'\s+', '-', contributor_name)}"
 
         if comment_num == 0:
-            issue_rows.append([
-                f"bugzilla-{profile_stem}-{bug_id}",
-                bug_category,
-                contributor_id,
-                contributor_name,
-                reported_ts if reported_ts is not None else ts,
-                "",  # target_id
-                "",  # is_self_comment
-            ])
+            issue_rows.append(
+                [
+                    f"bugzilla-{profile_stem}-{bug_id}",
+                    bug_category,
+                    contributor_id,
+                    contributor_name,
+                    reported_ts if reported_ts is not None else ts,
+                    "",  # target_id
+                    "",  # is_self_comment
+                ]
+            )
         else:
             is_self = "1" if (filer_name is not None and contributor_name == filer_name) else "0"
-            comment_rows.append([
-                f"bugzilla-{profile_stem}-{bug_id}-c{comment_num}",
-                "triaging",
-                contributor_id,
-                contributor_name,
-                ts,
-                f"bugzilla-{profile_stem}-{bug_id}",
-                is_self,
-            ])
+            comment_rows.append(
+                [
+                    f"bugzilla-{profile_stem}-{bug_id}-c{comment_num}",
+                    "triaging",
+                    contributor_id,
+                    contributor_name,
+                    ts,
+                    f"bugzilla-{profile_stem}-{bug_id}",
+                    is_self,
+                ]
+            )
 
     return issue_rows, comment_rows
 
@@ -202,7 +223,15 @@ def main():
     paths = sorted(bugs_dir.iterdir(), key=lambda p: int(p.name) if p.name.isdigit() else 0)
     total = len(paths)
 
-    header = ["contribution_id", "category", "contributor_id", "contributor_name", "timestamp", "target_id", "is_self_comment"]
+    header = [
+        "contribution_id",
+        "category",
+        "contributor_id",
+        "contributor_name",
+        "timestamp",
+        "target_id",
+        "is_self_comment",
+    ]
 
     with open(args.out, "w", newline="") as f_out:
         writer = csv.writer(f_out, lineterminator="\n")
@@ -225,7 +254,7 @@ def main():
 
                 if done % 1000 == 0 or done == total:
                     print(
-                        f"\r{done}/{total} ({100*done/total:.1f}%) | "
+                        f"\r{done}/{total} ({100 * done / total:.1f}%) | "
                         f"matched bugs: {matched_bugs} | contributions: {contributions}   ",
                         end="",
                         file=sys.stderr,
