@@ -42,7 +42,7 @@
         onReady: ([contributions, project]) => {
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([contributions, project.categories]);
+          Visual([contributions, project.categories, project.category_groups]);
           createContributorSearch(
             document.querySelector("nav"),
             Visual,

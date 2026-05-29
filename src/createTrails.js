@@ -811,11 +811,12 @@ const createTrails = (container) => {
 
   // -- Public API ------------------------------------------------------
   const chart = (values) => {
+    const catToGroup = values[2] || {};
     raw_contributions = values[0]
       .map((d) => ({
         ts: +d.timestamp,
         cat: d.category,
-        group: d.category_group || d.category,
+        group: catToGroup[d.category] ?? d.category,
         contributor: d.contributor_id,
         contributorName: d.contributor_name,
       }))

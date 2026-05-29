@@ -39,24 +39,23 @@ The visualizations read from a single CSV file containing all contributions, plu
 
 The main data file. One row per contribution event.
 
-| Column             | Type    | Description                                                                                                                                                                                        |
-| ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `contribution_id`  | string  | Unique ID for this contribution (e.g. `commit-gimp-abc123`)                                                                                                                                        |
-| `category`         | string  | Contribution type (must match a key in `project.json` `categories`)                                                                                                                                |
-| `category_group`   | string  | Broader group for this category. If your categories are not subdivided (e.g. a single `coding` category rather than `coding-feature` / `coding-bugfix`), set this to the same value as `category`. |
-| `contributor_name` | string  | Display name                                                                                                                                                                                       |
-| `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                                                                                                                                         |
-| `timestamp`        | integer | Unix timestamp (seconds, but time can be truncated. Day-precision is enough for the viz)                                                                                                           |
+| Column             | Type    | Description                                                                              |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------- |
+| `contribution_id`  | string  | Unique ID for this contribution (e.g. `commit-gimp-abc123`)                              |
+| `category`         | string  | Contribution type (must match a key in `project.json` `categories`)                      |
+| `contributor_name` | string  | Display name                                                                             |
+| `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                               |
+| `timestamp`        | integer | Unix timestamp (seconds, but time can be truncated. Day-precision is enough for the viz) |
 
 **Minimal example:**
 
 ```csv
-contribution_id,category,category_group,contributor_name,contributor_id,timestamp
-commit-myproject-001,coding-feature,coding,Alice,alice@example.com,1704067200
-commit-myproject-002,coding-bugfix,coding,Bob,bob@example.com,1704153600
-issue-myproject-003,bug-reporting,issues,Carol,carol@example.com,1704240000
-issue-myproject-004,documentation,writing,Alice,alice@example.com,1704326400
-issue-myproject-005,coding-feature,coding,Dave,dave@example.com,1704412800
+contribution_id,category,contributor_name,contributor_id,timestamp
+commit-myproject-001,coding-feature,Alice,alice@example.com,1704067200
+commit-myproject-002,coding-bugfix,Bob,bob@example.com,1704153600
+issue-myproject-003,bug-reporting,Carol,carol@example.com,1704240000
+issue-myproject-004,documentation,Alice,alice@example.com,1704326400
+issue-myproject-005,coding-feature,Dave,dave@example.com,1704412800
 ```
 
 ### `project.json` (required)

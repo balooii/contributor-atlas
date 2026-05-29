@@ -114,9 +114,7 @@ Contributions are classified into the following categories:
 
 Git commit categories are assigned by a local LLM using the profiles in `pipeline/git/gimp/`. GitLab and Bugzilla contributions are classified by the type of activity (issue, MR, comment, etc.).
 
-This category-to-group mapping lives in the `category_groups` key of `data/gimp/project.json`. `merge.py` reads it to fill the `category_group` column of `contributions.csv`.
-
-Colors for each category within the same group should have the same hue. The distinction between categories within a group - like feature implementation vs. bugfix - is often
+Colors for each category within the same group have the same hue. The distinction between categories within a group - like feature implementation vs. bugfix - is often
 not much more than a guess, especially on older data.
 
 ---

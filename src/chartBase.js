@@ -168,10 +168,7 @@ window.ChartBase = (() => {
 
   function parseChartValues(values) {
     const contributions = values[0];
-    const catToGroup = {};
-    contributions.forEach((d) => {
-      if (d.category_group) catToGroup[d.category] = d.category_group;
-    });
+    const catToGroup = values[2] || {};
     const FULL_MIN = d3.min(contributions, (d) => +d.timestamp);
     const FULL_MAX = d3.max(contributions, (d) => +d.timestamp);
     const cats = values[1];

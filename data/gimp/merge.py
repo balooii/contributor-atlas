@@ -7,12 +7,11 @@ Filters applied to triage rows (category == "triaging"):
 - Keep earliest per (target_id, contributor_name)
 
 Output schema:
-  contribution_id, category, category_group, contributor_name, contributor_id, timestamp
+  contribution_id, category, contributor_name, contributor_id, timestamp
 """
 
 import argparse
 import csv
-import json
 import re
 import sys
 from pathlib import Path
@@ -45,23 +44,10 @@ def parse_args():
         metavar="FILE",
         help="file created by make_alias_draft.py used to canonicalize author names/emails/handles",
     )
-    p.add_argument(
-        "--groups",
-        default=str(SCRIPT_DIR / "project.json"),
-        metavar="FILE",
-        help="project.json file; the category_groups key is used for the category_group column",
-    )
     return p.parse_args()
 
 
 _ANGLE_RE = re.compile(r"<([^>]+)>")
-
-
-def parse_groups(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f).get("category_groups", {})
 
 
 def _strip_name_annotation(content):
@@ -201,9 +187,6 @@ def main():
     alias_individuals = len({key_id for _, key_id in by_id.values()})
     remapped = 0
 
-    groups_path = Path(args.groups)
-    groups = parse_groups(groups_path)
-
     all_rows = non_triage + kept_triage
     canon_rows = []
     for row in all_rows:
@@ -232,7 +215,6 @@ def main():
             [
                 "contribution_id",
                 "category",
-                "category_group",
                 "contributor_name",
                 "contributor_id",
                 "timestamp",
@@ -240,7 +222,6 @@ def main():
         )
         for row, new_name, contributor_id in canon_rows:
             category = row["category"]
-            category_group = groups.get(category, category)
             try:
                 ts = int(row["timestamp"])
                 # Truncate to noon UTC: day precision is enough for the viz, and
@@ -253,7 +234,6 @@ def main():
                 [
                     row["contribution_id"],
                     category,
-                    category_group,
                     new_name,
                     str(numeric_ids[contributor_id]),
                     ts,
@@ -276,7 +256,6 @@ def main():
         )
     else:
         print(f"  aliases:        {aliases_path} (not found, no remapping)", file=sys.stderr)
-    print(f"  groups found:   {'Yes' if groups_path.exists() else 'No'}", file=sys.stderr)
 
 
 if __name__ == "__main__":
