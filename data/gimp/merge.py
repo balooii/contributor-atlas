@@ -77,11 +77,6 @@ def _deobfuscate_id(content):
     return content.replace("[at]", "@")
 
 
-def _obfuscate_id(content):
-    """Apply [at] obfuscation to deter scrapers in output files."""
-    return content.replace("@", "[at]")
-
-
 def parse_aliases(path):
     """Parse contributor-aliases.txt.
 
@@ -228,6 +223,14 @@ def main():
             remapped += 1
         canon_rows.append((row, new_name, contributor_id))
 
+    # Replace the real contributor_id (email/handle) with an opaque enumerated
+    # number for privacy. The frontend only uses contributor_id as a grouping
+    # key, so any stable-per-person unique value works. Not stable across runs of merge.py.
+    numeric_ids = {}
+    for _, _, contributor_id in canon_rows:
+        if contributor_id not in numeric_ids:
+            numeric_ids[contributor_id] = len(numeric_ids) + 1
+
     with open(out_path, "w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
         writer.writerow(
@@ -257,7 +260,7 @@ def main():
                     category,
                     category_group,
                     new_name,
-                    _obfuscate_id(contributor_id),
+                    str(numeric_ids[contributor_id]),
                     ts,
                 ]
             )
