@@ -460,9 +460,30 @@ def _emit_section(f, label, entries):
         f.write(f"# {display} " + " ".join(parts) + "\n")
 
 
+def _check_duplicate_names(active_entries):
+    """Print a warning for any canonical name that appears on more than one active line."""
+    name_to_lines: dict[str, list[str]] = defaultdict(list)
+    for line in active_entries:
+        i = line.find("<")
+        name = (line[:i] if i != -1 else line).strip()
+        if name:
+            name_to_lines[name].append(line)
+    dups = {name: lines for name, lines in name_to_lines.items() if len(lines) > 1}
+    if dups:
+        print(
+            "WARNING: duplicate canonical names in the active block (merge them in contributor-aliases.txt):"
+        )
+        for name, lines in sorted(dups.items()):
+            print(f"  {name}:")
+            for line in lines:
+                print(f"    {line}")
+
+
 def main():
     aliases_path = SCRIPT_DIR / "contributor-aliases.txt"
     header_text, active_entries, accepted_lines, by_id = parse_aliases_file(aliases_path)
+
+    _check_duplicate_names(active_entries)
 
     # Build raw[name][source_type] and id_names — shared by both detectors.
     # raw_name → source_type → set of raw identifiers (alias-file form).
