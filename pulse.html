@@ -46,7 +46,7 @@
         onReady: ([contributions, highlights, project]) => {
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([contributions, highlights, project.categories]);
+          Visual([contributions, highlights, project.category_colors]);
           createTimelineControl(document.getElementById("controls"))
             .chapters(project.chapters || [])
             .attach(Visual);

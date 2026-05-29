@@ -1,7 +1,7 @@
 {
   "name": "GIMP",
   "logo": "/data/gimp/logo.png",
-  "categories": {
+  "category_colors": {
     "coding-feature": "#1d4ed8",
     "coding-bugfix": "#60a5fa",
     "coding-other": "#bae6fd",

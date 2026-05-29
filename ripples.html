@@ -44,7 +44,11 @@
           Visual.project(project);
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([contributions, project.categories, project.category_groups]);
+          Visual([
+            contributions,
+            project.category_colors,
+            project.category_groups,
+          ]);
 
           createTimelineControl(document.getElementById("controls"))
             .chapters(project.chapters || [])
