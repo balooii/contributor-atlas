@@ -39,6 +39,11 @@ def parse_args():
     )
     p.add_argument("--out", default=str(SCRIPT_DIR / "contributions.csv"), metavar="FILE")
     p.add_argument(
+        "--debug",
+        action="store_true",
+        help="include contribution_id column and skip numeric-id anonymisation",
+    )
+    p.add_argument(
         "--aliases",
         default=str(SCRIPT_DIR / "contributor-aliases.txt"),
         metavar="FILE",
@@ -114,6 +119,7 @@ def read_rows(name, source_type):
         reader = csv.DictReader(f)
         for row in reader:
             yield {
+                "contribution_id": row["contribution_id"],
                 "category": row["category"],
                 "contributor_id": row[id_column],
                 "contributor_name": row["contributor_name"],
@@ -204,20 +210,18 @@ def main():
     # number for privacy. The frontend only uses contributor_id as a grouping
     # key, so any stable-per-person unique value works. Not stable across runs of merge.py.
     numeric_ids = {}
-    for _, _, contributor_id in canon_rows:
-        if contributor_id not in numeric_ids:
-            numeric_ids[contributor_id] = len(numeric_ids) + 1
+    if not args.debug:
+        for _, _, contributor_id in canon_rows:
+            if contributor_id not in numeric_ids:
+                numeric_ids[contributor_id] = len(numeric_ids) + 1
+
+    header = ["category", "contributor_name", "contributor_id", "timestamp"]
+    if args.debug:
+        header = ["contribution_id"] + header
 
     with open(out_path, "w", newline="") as f:
         writer = csv.writer(f, lineterminator="\n")
-        writer.writerow(
-            [
-                "category",
-                "contributor_name",
-                "contributor_id",
-                "timestamp",
-            ]
-        )
+        writer.writerow(header)
         for row, new_name, contributor_id in canon_rows:
             category = row["category"]
             try:
@@ -228,14 +232,11 @@ def main():
                 ts = (ts // 86400) * 86400 + 43200
             except (ValueError, TypeError):
                 ts = row["timestamp"]
-            writer.writerow(
-                [
-                    category,
-                    new_name,
-                    str(numeric_ids[contributor_id]),
-                    ts,
-                ]
-            )
+            out_id = contributor_id if args.debug else str(numeric_ids[contributor_id])
+            data_row = [category, new_name, out_id, ts]
+            if args.debug:
+                data_row = [row["contribution_id"]] + data_row
+            writer.writerow(data_row)
 
     total_out = len(all_rows)
     print(f"Wrote {total_out} rows to {out_path}.", file=sys.stderr)
