@@ -47,10 +47,9 @@ def parse_args():
     )
     p.add_argument(
         "--groups",
-        default=str(SCRIPT_DIR / "category_groups.json"),
+        default=str(SCRIPT_DIR / "project.json"),
         metavar="FILE",
-        help="JSON file containing category groups for the category_group column. "
-        "If not provided, category will be used as category_group.",
+        help="project.json file; the category_groups key is used for the category_group column",
     )
     return p.parse_args()
 
@@ -62,7 +61,7 @@ def parse_groups(path):
     if not path.exists():
         return {}
     with open(path) as f:
-        return json.load(f)
+        return json.load(f).get("category_groups", {})
 
 
 def _strip_name_annotation(content):

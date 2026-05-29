@@ -33,8 +33,7 @@ Alternatively, the current GIMP dataset is also deployed at **https://contributo
 
 ## Data format
 
-The visualizations are built from the same data read from a single CSV file containing all contributions. There are a few additional, tiny JSON files to configure
-things like colors or data for chapter tooltips.
+The visualizations read from a single CSV file containing all contributions, plus one JSON file with project metadata.
 
 ### `contributions.csv` (required)
 
@@ -43,7 +42,7 @@ The main data file. One row per contribution event.
 | Column             | Type    | Description                                                                                                                                                                                        |
 | ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `contribution_id`  | string  | Unique ID for this contribution (e.g. `commit-gimp-abc123`)                                                                                                                                        |
-| `category`         | string  | Contribution type (must match a key in `categories.json`)                                                                                                                                          |
+| `category`         | string  | Contribution type (must match a key in `project.json` `categories`)                                                                                                                                |
 | `category_group`   | string  | Broader group for this category. If your categories are not subdivided (e.g. a single `coding` category rather than `coding-feature` / `coding-bugfix`), set this to the same value as `category`. |
 | `contributor_name` | string  | Display name                                                                                                                                                                                       |
 | `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                                                                                                                                         |
@@ -60,43 +59,51 @@ issue-myproject-004,documentation,writing,Alice,alice@example.com,1704326400
 issue-myproject-005,coding-feature,coding,Dave,dave@example.com,1704412800
 ```
 
-### `categories.json` (required)
+### `project.json` (required)
 
-Maps each category name to a hex color used in the visualizations.
+All project metadata in one file.
 
 ```json
 {
-  "coding-feature": "#1d4ed8",
-  "coding-bugfix": "#60a5fa",
-  "coding-other": "#bae6fd",
-  "bug-reporting": "#e11d48",
-  "documentation": "#8ecf8e"
+  "name": "My Project",
+  "logo": "/data/myproject/logo.png",
+  "categories": {
+    "coding-feature": "#1d4ed8",
+    "coding-bugfix": "#60a5fa",
+    "coding-other": "#bae6fd",
+    "bug-reporting": "#e11d48",
+    "documentation": "#8ecf8e"
+  },
+  "category_groups": {
+    "coding-feature": "coding",
+    "coding-bugfix": "coding",
+    "coding-other": "coding",
+    "bug-reporting": "issues",
+    "documentation": "writing"
+  },
+  "chapters": [
+    {
+      "name": "Early days",
+      "start": null,
+      "end": "2015-01-01"
+    },
+    {
+      "name": "Version 2.0",
+      "start": "2015-01-02",
+      "end": "2020-06-30",
+      "text": "The 2.0 era — a short description shown alongside the chapter in the timeline control.",
+      "image_url": "/data/myproject/v2-splash.png",
+      "link_url": "https://myproject.example.com/news/v2-released"
+    }
+  ]
 }
 ```
 
-### `chapters.json` (optional)
-
-Named time ranges shown in the timeline control. Useful for marking important eras of the project.
-
-```json
-[
-  {
-    "name": "Early days",
-    "start": null,
-    "end": "2015-01-01"
-  },
-  {
-    "name": "Version 2.0",
-    "start": "2015-01-02",
-    "end": "2020-06-30",
-    "text": "The 2.0 era — a short description shown alongside the chapter in the timeline control.",
-    "image_url": "/data/myproject/v2-splash.png",
-    "link_url": "https://myproject.example.com/news/v2-released"
-  }
-]
-```
-
-`start` and `end` are ISO 8601 date strings or `null`. `text`, `image_url`, and `link_url` are optional.
+- `name` — (required) display label for the project center node
+- `logo` — (optional) image path; the center node shows text by default and reveals the logo on hover
+- `categories` — (required) maps each category name to a hex color used in the visualizations
+- `category_groups` — (optional) maps each category to a broader group
+- `chapters` — (optional) named time ranges shown in the timeline control; `start`/`end` are ISO 8601 date strings or `null`; `text`, `image_url`, and `link_url` are optional
 
 ### `highlights.csv` (optional)
 
@@ -108,23 +115,13 @@ v2.0 release,2004-03-23
 v2.10 release,2018-04-27
 ```
 
-### `project.json` (required for Gathering, Ripples, Cornerstones)
-
-Identifies the project shown at the center node of Gathering, Ripples, and Cornerstones. Pulse and Trails have no center node and don't load this file.
-
-```json
-{ "name": "GIMP", "logo": "/data/myproject/logo.png" }
-```
-
-`name` is the required display label. `logo` is an optional path to an image; when set, the center node shows the project name as text by default and reveals the logo on hover.
-
 ---
 
 ## Adapting for your project
 
 1. Create a directory under `data/` for your project (e.g. `data/myproject/`).
 2. Populate the required data files above.
-3. Point each of the five HTML files at your data directory by updating the `path:` entries in its `bootstrapPage({ files: [...] })` call. The lists differ per view — e.g. `pulse.html` also loads `highlights.csv`, while `pulse.html` and `trails.html` omit `project.json` — so edit them individually.
+3. Point each of the five HTML files at your data directory by updating the `path:` entries in its `bootstrapPage({ files: [...] })` call. All views load `project.json`; `pulse.html` additionally loads `highlights.csv`.
 
 If you have multiple data sources you probably need to merge some data so contributions get attributed to the right people. You may find it helpful to read `merge.py` and the semi-automatic aliasing logic in `make_alias_draft.py` and `contributor-aliases.txt` (written for GIMP's sources).
 

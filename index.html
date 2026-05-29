@@ -38,15 +38,13 @@
       bootstrapPage({
         files: [
           { path: "data/gimp/contributions.csv", type: "csv" },
-          { path: "data/gimp/categories.json" },
-          { path: "data/gimp/chapters.json", optional: true },
           { path: "data/gimp/project.json" },
         ],
-        onReady: ([contributions, categories, chapters, project]) => {
+        onReady: ([contributions, project]) => {
           Visual.project(project);
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([contributions, categories]);
+          Visual([contributions, project.categories]);
 
           const layoutControl = createTimelineControl.buildButtonGroup(
             "layout",
@@ -58,7 +56,7 @@
             (v) => Visual.layout(v),
           );
           createTimelineControl(document.getElementById("controls"))
-            .chapters(chapters || [])
+            .chapters(project.chapters || [])
             .categories(true)
             .extras(layoutControl)
             .attach(Visual);

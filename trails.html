@@ -37,13 +37,12 @@
       bootstrapPage({
         files: [
           { path: "data/gimp/contributions.csv", type: "csv" },
-          { path: "data/gimp/categories.json" },
-          { path: "data/gimp/chapters.json", optional: true },
+          { path: "data/gimp/project.json" },
         ],
-        onReady: ([contributions, categories, chapters]) => {
+        onReady: ([contributions, project]) => {
           const stored = createTimelineControl.loadRange();
           if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([contributions, categories]);
+          Visual([contributions, project.categories]);
           createContributorSearch(
             document.querySelector("nav"),
             Visual,
@@ -60,7 +59,7 @@
             (v) => Visual.setSortBy(v),
           );
           createTimelineControl(document.getElementById("controls"))
-            .chapters(chapters || [])
+            .chapters(project.chapters || [])
             .extras([sortControl, createTimelineControl.buildZoomHint(Visual)])
             .attach(Visual);
           Visual.resize();

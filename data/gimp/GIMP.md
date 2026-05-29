@@ -114,7 +114,7 @@ Contributions are classified into the following categories:
 
 Git commit categories are assigned by a local LLM using the profiles in `pipeline/git/gimp/`. GitLab and Bugzilla contributions are classified by the type of activity (issue, MR, comment, etc.).
 
-This category-to-group mapping lives in `data/gimp/category_groups.json`. `merge.py` reads it to fill the `category_group` column of `contributions.csv`; when the file is absent, `category_group` defaults to the category.
+This category-to-group mapping lives in the `category_groups` key of `data/gimp/project.json`. `merge.py` reads it to fill the `category_group` column of `contributions.csv`.
 
 Colors for each category within the same group should have the same hue. The distinction between categories within a group - like feature implementation vs. bugfix - is often
 not much more than a guess, especially on older data.
@@ -123,7 +123,7 @@ not much more than a guess, especially on older data.
 
 ## Chapters
 
-I added some chapters to `data/gimp/chapters.json` (3.0 release cycle, 2.10 release cycle, and pre-1.0). But suggestions, text/images/links, other dates welcome.
+I added some chapters to the `chapters` key in `data/gimp/project.json` (3.0 release cycle, 2.10 release cycle, and pre-1.0). But suggestions, text/images/links, other dates welcome.
 
 For the pre-1.0 era we have a nice page on the website. Unfortunately there is nothing like it for the next decades so I linked to the release announcement news articles.
 
