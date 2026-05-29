@@ -110,13 +110,9 @@ def parse_aliases(path):
     return by_id
 
 
-def canonicalize(name, email, by_id):
-    """Return (person_name, person_key) for a contributor row.
-
-    person_key is the same for all IDs belonging to one alias line, so rows
-    from the same person share a key even when their emails/handles differ.
-    """
-    return by_id.get(email.lower(), (name, email))
+def canonicalize(raw_name, raw_id, by_id):
+    """Return canonical contributor tuple (contributor_name, contributor_id) tuple"""
+    return by_id.get(raw_id.lower(), (raw_name, raw_id))
 
 
 def read_rows(name, source_type):

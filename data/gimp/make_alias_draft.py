@@ -466,6 +466,12 @@ _TIER_DESCRIPTIONS = {
         "(not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), "
         "OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk."
     ),
+    "single-source": (
+        "same name with >=2 distinct IDs all within ONE source (e.g. 'Andy "
+        "Thomas' committing as both alt@gimp.org and alt@picnic.demon.co.uk) - "
+        "no cross-source corroboration, so for gitlab and bugzilla these are likely false-positives. "
+        "May be useful for mails."
+    ),
 }
 
 
@@ -578,15 +584,11 @@ def main():
         )
 
     def _process(raw_names):
-        """Return (display, sorted_ids, has_id_overlap, canon_names) or None.
+        """Return (display, sorted_ids, has_id_overlap, canon_names, single_source) or None.
 
-        Needs ≥2 canonical IDs spanning ≥2 source types; has_id_overlap is True
-        when one canonical ID appears in ≥2 sources. canon_names maps each
-        canonical id to observed contributor_name strings (for draft annotations).
-
-        One representative name is used throughout — varying names would split
-        the same canonical ID into separate buckets. Alias-supplied names are
-        adopted when available.
+        single_source is True when they all come from one source type
+        has_id_overlap is True when one ID appears in >= 2 sources
+        canon_names maps each canonical id to observed contributor_name strings
         """
         representative = _display_name(raw_names, next(iter(raw_names)))
         canon_srcs: dict[str, set] = defaultdict(set)
@@ -602,24 +604,25 @@ def main():
                         alias_names.append(cname)
         if len(canon_srcs) <= 1:
             return None
-        all_sources = set()
-        for srcs in canon_srcs.values():
-            all_sources |= srcs
-        if len(all_sources) < 2:
-            return None
         has_overlap = any(len(s) >= 2 for s in canon_srcs.values())
+        single_source = len({s for srcs in canon_srcs.values() for s in srcs}) < 2
         display = alias_names[0] if alias_names else representative
         sorted_ids = sorted(canon_srcs.keys(), key=id_sort_key)
-        return (display, sorted_ids, has_overlap, canon_names)
+        return (display, sorted_ids, has_overlap, canon_names, single_source)
 
     common_names = load_common_first_names()
-    high, medium, low, very_low = [], [], [], []
+    high, medium, low, very_low, single_source = [], [], [], [], []
 
     for nm, names in basic_groups.items():
         result = _process(names)
         if result is None:
             continue
-        display, ids, has_overlap, cnames = result
+        display, ids, has_overlap, cnames, is_single_source = result
+        if is_single_source:
+            # All IDs from one source - no cross-source corroboration; keep
+            # these out of the cross-source tiers.
+            single_source.append((display, ids, cnames))
+            continue
         is_specific = len(nm.split()) >= 2 or any(c.isdigit() for c in nm)
         if has_overlap and is_specific:
             high.append((display, ids, cnames))
@@ -644,6 +647,7 @@ def main():
         | {frozenset(ids) for _, ids, _ in medium}
         | {frozenset(ids) for _, ids, _ in low}
         | {frozenset(ids) for _, ids, _ in very_low}
+        | {frozenset(ids) for _, ids, _ in single_source}
     )
     for am, names in agg_groups.items():
         if len({normalize_name(n) for n in names}) <= 1:
@@ -651,12 +655,14 @@ def main():
         result = _process(names)
         if result is None:
             continue
-        display, ids, _has, cnames = result
+        display, ids, _has, cnames, is_single_source = result
         key = frozenset(ids)
         if key in seen_id_sets:
             continue
         seen_id_sets.add(key)
-        if is_common_first_name(am, common_names):
+        if is_single_source:
+            single_source.append((display, ids, cnames))
+        elif is_common_first_name(am, common_names):
             very_low.append((display, ids, cnames))
         else:
             low.append((display, ids, cnames))
@@ -664,7 +670,7 @@ def main():
     # Merge: a very-high candidate that shares any id with a high/medium/low
     # candidate is really one person — fold the lower-tier ids into the
     # very-high entry and drop the lower one.
-    very_high = _merge_into_very_high(very_high, high, medium, low, very_low)
+    very_high = _merge_into_very_high(very_high, high, medium, low, very_low, single_source)
 
     # Active block: existing entries plus any drafts the user accepted, merged,
     # de-duplicated, and sorted alphabetically so accepted suggestions land in
@@ -687,13 +693,15 @@ def main():
         _emit_section(f, "medium", medium)
         _emit_section(f, "low", low)
         _emit_section(f, "very-low", very_low)
+        _emit_section(f, "single-source", single_source)
 
     print(f"Wrote draft entires into {aliases_path}:")
-    print(f"    very-high: {len(very_high)}")
-    print(f"    high:      {len(high)}")
-    print(f"    medium:    {len(medium)}")
-    print(f"    low:       {len(low)}")
-    print(f"    very-low:  {len(very_low)}")
+    print(f"    very-high:     {len(very_high)}")
+    print(f"    high:          {len(high)}")
+    print(f"    medium:        {len(medium)}")
+    print(f"    low:           {len(low)}")
+    print(f"    very-low:      {len(very_low)}")
+    print(f"    single-source: {len(single_source)}")
     if accepted_lines:
         print(f"Merged {len(accepted_lines)} accepted draft line(s) into the sorted active block.")
 
