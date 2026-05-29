@@ -41,7 +41,6 @@ The main data file. One row per contribution event.
 
 | Column             | Type    | Description                                                                              |
 | ------------------ | ------- | ---------------------------------------------------------------------------------------- |
-| `contribution_id`  | string  | Unique ID for this contribution (e.g. `commit-gimp-abc123`)                              |
 | `category`         | string  | Contribution type (must match a key in `project.json` `categories`)                      |
 | `contributor_name` | string  | Display name                                                                             |
 | `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                               |
@@ -50,12 +49,12 @@ The main data file. One row per contribution event.
 **Minimal example:**
 
 ```csv
-contribution_id,category,contributor_name,contributor_id,timestamp
-commit-myproject-001,coding-feature,Alice,alice@example.com,1704067200
-commit-myproject-002,coding-bugfix,Bob,bob@example.com,1704153600
-issue-myproject-003,bug-reporting,Carol,carol@example.com,1704240000
-issue-myproject-004,documentation,Alice,alice@example.com,1704326400
-issue-myproject-005,coding-feature,Dave,dave@example.com,1704412800
+category,contributor_name,contributor_id,timestamp
+coding-feature,Alice,alice@example.com,1704067200
+coding-bugfix,Bob,bob@example.com,1704153600
+bug-reporting,Carol,carol@example.com,1704240000
+documentation,Alice,alice@example.com,1704326400
+coding-feature,Dave,dave@example.com,1704412800
 ```
 
 ### `project.json` (required)

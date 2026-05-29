@@ -8,7 +8,7 @@ pages:
     - cp -r src static public/
     - cp -r data/gimp public/data/
     - curl -L -f -o public/data/gimp/contributions.csv
-      "https://gitlab.gnome.org/-/project/39188/uploads/2a536c0d59257cbe145579041ea8d0b2/contributions.csv"
+      "https://gitlab.gnome.org/-/project/39188/uploads/56061c7c55eb5dca7e657d08ef355da0/contributions.csv"
     - |
       find public -type f \( -name "*.js" -o -name "*.css" -o -name "*.csv" -o -name "*.json" -o -name "*.png" \) | while read f; do
         hash=$(md5sum "$f" | cut -c1-12)

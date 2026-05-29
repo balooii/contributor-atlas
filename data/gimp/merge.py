@@ -7,7 +7,7 @@ Filters applied to triage rows (category == "triaging"):
 - Keep earliest per (target_id, contributor_name)
 
 Output schema:
-  contribution_id, category, contributor_name, contributor_id, timestamp
+  category, contributor_name, contributor_id, timestamp
 """
 
 import argparse
@@ -114,7 +114,6 @@ def read_rows(name, source_type):
         reader = csv.DictReader(f)
         for row in reader:
             yield {
-                "contribution_id": row["contribution_id"],
                 "category": row["category"],
                 "contributor_id": row[id_column],
                 "contributor_name": row["contributor_name"],
@@ -213,7 +212,6 @@ def main():
         writer = csv.writer(f, lineterminator="\n")
         writer.writerow(
             [
-                "contribution_id",
                 "category",
                 "contributor_name",
                 "contributor_id",
@@ -232,7 +230,6 @@ def main():
                 ts = row["timestamp"]
             writer.writerow(
                 [
-                    row["contribution_id"],
                     category,
                     new_name,
                     str(numeric_ids[contributor_id]),
