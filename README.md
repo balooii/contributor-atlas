@@ -134,6 +134,17 @@ Check out [GIMP.md](data/gimp/GIMP.md) and the `data`, `pipeline/gitlab`, `pipel
 
 ---
 
+## Contributing
+
+When contributing code please run formatters first
+
+```sh
+npx prettier -w .
+uvx ruff format
+```
+
+---
+
 ## Attributions
 
 **License:** [MIT](LICENSES/MIT.txt).
