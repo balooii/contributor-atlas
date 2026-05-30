@@ -9,14 +9,13 @@
     <title>Gathering</title>
     <link rel="stylesheet" href="static/css/page.css" />
     <link rel="stylesheet" href="static/css/timeline-control.css" />
-    <script src="src/pageTheme.js"></script>
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme") || "system";
+        if (t !== "system") document.documentElement.dataset.theme = t;
+      })();
+    </script>
     <script src="static/lib/d3.v7.js"></script>
-    <script src="src/createTooltip.js"></script>
-    <script src="src/chartBase.js"></script>
-    <script src="src/createGathering.js"></script>
-    <script src="src/createTimelineControl.js"></script>
-    <script src="src/pageBootstrap.js"></script>
-    <script src="src/createContributorSearch.js"></script>
   </head>
   <body>
     <nav>
@@ -29,7 +28,13 @@
     <div id="chart-container"></div>
     <div id="controls"></div>
 
-    <script>
+    <script type="module">
+      import "./src/theme.js";
+      import { createGathering } from "./src/createGathering.js";
+      import { bootstrapPage } from "./src/pageBootstrap.js";
+      import { createTimelineControl } from "./src/createTimelineControl.js";
+      import { createContributorSearch } from "./src/createContributorSearch.js";
+
       const container = document.getElementById("chart-container");
       const Visual = createGathering(container)
         .width(container.offsetWidth)

@@ -1,4 +1,7 @@
-const createCornerstones = (container) => {
+import { createTooltip } from "./createTooltip.js";
+import * as ChartBase from "./chartBase.js";
+
+export function createCornerstones(container) {
   // -- Constants & variables --------------------------------
 
   const PI = Math.PI;
@@ -1241,4 +1244,4 @@ const createCornerstones = (container) => {
   });
 
   return chart;
-}; // function createCornerstones
+} // function createCornerstones

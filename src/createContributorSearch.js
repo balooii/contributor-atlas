@@ -1,6 +1,6 @@
 // Injects a search input + dropdown into the <nav> to select a contributor.
 
-function createContributorSearch(nav, Visual, rawContributions) {
+export function createContributorSearch(nav, Visual, rawContributions) {
   // Build deduplicated contributor index from all raw contributions
   const seen = new Map();
   rawContributions.forEach(function (row) {

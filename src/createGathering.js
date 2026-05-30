@@ -6,7 +6,10 @@
 //   * Dot colour = dominant category
 //   * Tooltip mirrors the cornerstones look
 
-const createGathering = (container) => {
+import { createTooltip } from "./createTooltip.js";
+import * as ChartBase from "./chartBase.js";
+
+export function createGathering(container) {
   const PI = Math.PI;
   const TAU = PI * 2;
 
@@ -388,4 +391,4 @@ const createGathering = (container) => {
   });
 
   return chart;
-};
+}

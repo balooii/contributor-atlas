@@ -1,4 +1,7 @@
-const createTrails = (container) => {
+import { createTooltip } from "./createTooltip.js";
+import * as ChartBase from "./chartBase.js";
+
+export function createTrails(container) {
   let COLOR_BACKGROUND,
     COLOR_TEXT,
     COLOR_LINK,
@@ -933,4 +936,4 @@ const createTrails = (container) => {
   });
 
   return chart;
-};
+}

@@ -1,4 +1,4 @@
-function createTimelineControl(container) {
+export function createTimelineControl(container) {
   let CHAPTERS = [];
   let CATEGORIES_ENABLED = false;
   let EXTRAS = [];

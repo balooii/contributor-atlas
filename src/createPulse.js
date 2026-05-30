@@ -1,4 +1,7 @@
-const createPulse = (container) => {
+import { createTooltip } from "./createTooltip.js";
+import * as ChartBase from "./chartBase.js";
+
+export function createPulse(container) {
   let COLOR_BACKGROUND, COLOR_LINK, COLOR_TEXT, COLOR_HIGHLIGHT;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
@@ -387,4 +390,4 @@ const createPulse = (container) => {
   });
 
   return chart;
-};
+}

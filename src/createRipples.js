@@ -1,4 +1,7 @@
-const createRipples = (container) => {
+import { createTooltip } from "./createTooltip.js";
+import * as ChartBase from "./chartBase.js";
+
+export function createRipples(container) {
   const PI = Math.PI;
   const TAU = PI * 2;
 
@@ -424,4 +427,4 @@ const createRipples = (container) => {
   });
 
   return chart;
-};
+}

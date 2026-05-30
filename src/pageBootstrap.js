@@ -8,12 +8,9 @@
 // Each page still owns its chart factory construction, timeline-control wiring,
 // and any page-specific toggles - this just removes the boilerplate they all share.
 
-window.bootstrapPage = function bootstrapPage({
-  files,
-  onReady,
-  onResize,
-  resizeDelay = 300,
-}) {
+import * as ChartBase from "./chartBase.js";
+
+export function bootstrapPage({ files, onReady, onResize, resizeDelay = 300 }) {
   const FF = "Encode Sans";
   [
     `normal 400 10px "${FF}"`,
@@ -21,15 +18,6 @@ window.bootstrapPage = function bootstrapPage({
     `normal 700 10px "${FF}"`,
     `italic 700 10px "${FF}"`,
   ].forEach((spec) => document.fonts.load(spec));
-
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-      if ((localStorage.getItem("theme") || "system") === "system")
-        window.dispatchEvent(
-          new CustomEvent("themechange", { detail: "system" }),
-        );
-    });
 
   document.fonts.ready.then(() => {
     const loads = files.map((f) => {
@@ -70,4 +58,4 @@ window.bootstrapPage = function bootstrapPage({
       );
     });
   });
-};
+}

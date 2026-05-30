@@ -1,4 +1,4 @@
-window.createTooltip = function createTooltip(container, options = {}) {
+export function createTooltip(container, options = {}) {
   const OX = options.offsetX ?? 14;
   const OY = options.offsetY ?? 14;
 
@@ -110,4 +110,4 @@ window.createTooltip = function createTooltip(container, options = {}) {
     categoryRows,
     pluralize,
   };
-};
+}
