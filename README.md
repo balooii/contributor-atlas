@@ -1,39 +1,34 @@
 # Contributor Atlas
 
-> **Work in progress.** The GIMP dataset is still being built out, and larger structural changes or clean-ups may follow. I'd recommend waiting until the GIMP work has settled before adopting this for other projects.
+> [!NOTE]
+> **Work in progress.** The GIMP dataset is still being built out, and larger structural changes or clean-ups may follow.
+> I'd recommend waiting until the GIMP work has settled before adopting this for other projects.
 
 Interactive visualizations for exploring contributor activity in open-source projects over time.
 
 This project was built to visualize contributions to [GIMP](https://www.gimp.org/) and its ecosystem, but the graphs themselves are generic — if your project has contribution data, you should be able to plug it in without too much effort. Unfortunately I don't have the time to do this for other projects myself, but I'd love to see it used elsewhere.
 
+The current GIMP dataset is deployed at **https://contributor-atlas-4dab97.pages.gitlab.gnome.org** if you just want to explore it without running anything locally.
+
 ---
 
 ## Visualizations
 
-There are five views. There is no build step, so to run locally just:
+There are five views. Each one is a self-contained Canvas visualization that can either be used through its ready-made HTML page or embedded as a function into your own page (see [Using the visualizations](#using-the-visualizations)).
 
-1. Download `contributions.csv` from https://gitlab.gnome.org/balooii/contributor-atlas/-/work_items/1 and put it in `data/gimp/`.
-2. Start a webserver from the repository root:
-   ```sh
-   python3 -m http.server
-   ```
-3. Open http://localhost:8000 in your browser.
-
-Alternatively, the current GIMP dataset is also deployed at **https://contributor-atlas-4dab97.pages.gitlab.gnome.org** if you just want to explore it without running anything locally.
-
-| File                | Description                                                                                                                         |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `index.html`        | **Gathering** — all contributors packed in a circle with the project in the center                                                  |
-| `pulse.html`        | **Pulse** — project activity over time measured in number of contributions as bar chart                                             |
-| `trails.html`       | **Trails** — contributor arcs across the timeline                                                                                   |
-| `ripples.html`      | **Ripples** — all contributors shown as concentric circles around the project, sorted by number of contributions                    |
-| `cornerstones.html` | **Cornerstones** — a ring of top contributors around the project, surrounded by everyone else that contributed randomly distributed |
+| View             | Description                                                                                                      |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Gathering**    | All contributors packed in a circle with the project in the center                                               |
+| **Pulse**        | Project activity over time, measured as number of contributions, as a bar chart                                  |
+| **Trails**       | Contributor arcs across the timeline                                                                             |
+| **Ripples**      | All contributors shown as concentric circles around the project, sorted by number of contributions               |
+| **Cornerstones** | A ring of top contributors around the project, surrounded by everyone else who contributed, randomly distributed |
 
 ---
 
 ## Data format
 
-The visualizations read from a single CSV file containing all contributions, plus one JSON file with project metadata.
+Every view reads from a single CSV file containing all contributions, plus one JSON file with project metadata. The same files are used whether you run the standalone pages or embed a view.
 
 ### `contributions.csv` (required)
 
@@ -41,7 +36,7 @@ The main data file. One row per contribution event.
 
 | Column             | Type    | Description                                                                              |
 | ------------------ | ------- | ---------------------------------------------------------------------------------------- |
-| `category`         | string  | Contribution type (must match a key in `project.json` `categories`)                      |
+| `category`         | string  | Contribution type (must match a key in `project.json` `category_colors`)                 |
 | `contributor_name` | string  | Display name                                                                             |
 | `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                               |
 | `timestamp`        | integer | Unix timestamp (seconds, but time can be truncated. Day-precision is enough for the viz) |
@@ -65,7 +60,7 @@ All project metadata in one file.
 {
   "name": "My Project",
   "logo": "/data/myproject/logo.png",
-  "categories": {
+  "category_colors": {
     "coding-feature": "#1d4ed8",
     "coding-bugfix": "#60a5fa",
     "coding-other": "#bae6fd",
@@ -99,8 +94,8 @@ All project metadata in one file.
 
 - `name` — (required) display label for the project center node
 - `logo` — (optional) image path; the center node shows text by default and reveals the logo on hover
-- `categories` — (required) maps each category name to a hex color used in the visualizations
-- `category_groups` — (optional) maps each category to a broader group
+- `category_colors` — (required) maps each category name to a hex color used in the visualizations
+- `category_groups` — (optional) maps each category to a broader display group
 - `chapters` — (optional) named time ranges shown in the timeline control; `start`/`end` are ISO 8601 date strings or `null`; `text`, `image_url`, and `link_url` are optional
 
 ### `highlights.csv` (optional)
@@ -115,23 +110,165 @@ v2.10 release,2018-04-27
 
 ---
 
-## Adapting for your project
+## Using the visualizations
 
-1. Create a directory under `data/` for your project (e.g. `data/myproject/`).
-2. Populate the required data files above.
-3. Point each of the five HTML files at your data directory by updating the `path:` entries in its `bootstrapPage({ files: [...] })` call. All views load `project.json`; `pulse.html` additionally loads `highlights.csv`.
+> [!NOTE]
+> There hasn't been a release yet so the described files in this section are not available for download at this point.
+> Until then you have to build these yourself. See [Building the release bundle](#building-the-release-bundle) for how to produce these files.
 
-If you have multiple data sources you probably need to merge some data so contributions get attributed to the right people. You may find it helpful to read `merge.py` and the semi-automatic aliasing logic in `make_alias_draft.py` and `contributor-aliases.txt` (written for GIMP's sources).
+There are two ways to put these views on a page:
 
-Also the scripts to fetch data from GNOME's GitLab instance and git repositories may or may not work for your sources.
+- **[Standalone pages](#standalone-pages)** — open the bundled `*.html` pages as-is. Each is a full-screen view with navigation between them. Best if you just want the whole thing running.
+- **[Embedding a single view](#embedding-a-single-view)** — drop one view into a page you already have, via the JS/CSS bundle. Best if you only want, say, Cornerstones inside an existing site.
 
-Check out [GIMP.md](data/gimp/GIMP.md) and the `data`, `pipeline/gitlab`, `pipeline/bugzilla`, and `pipeline/git` directories for further details.
+### Standalone pages
+
+The release bundle ships the five views as ready-to-serve pages — `index.html` (Gathering), `pulse.html`, `trails.html`, `ripples.html`, and `cornerstones.html`.
+Serve the bundle directory and open any page; each is a full-screen view with navigation between the five.
+
+To point the pages at **your own** data, edit the `contributions` / `project` paths in the `<script type="module">` block near the bottom of each HTML file:
+
+```html
+<script type="module">
+  import { gathering } from "./contributor-atlas.js";
+
+  gathering(document.getElementById("chart-container"), {
+    contributions: "data/myproject/contributions.csv",
+    project: "data/myproject/project.json",
+  });
+</script>
+```
+
+All views load `project.json`; `pulse.html` additionally accepts a `highlights` path.
+
+### Embedding a single view
+
+To use just one (or a few) views inside another page, ship the release bundle rather than the whole repo. Two bundle formats are produced, so you can pick the one that fits your page:
+
+| File                          | What it is                                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------------------------- |
+| `contributor-atlas.js`        | ESM bundle — `import { gathering } from "./contributor-atlas.js"`                           |
+| `contributor-atlas.global.js` | IIFE bundle — `<script src>` that exposes a `ContributorAtlas` global, for non-module pages |
+| `contributor-atlas.css`       | the stylesheet                                                                              |
+| `static/`                     | the bundled font (Encode Sans)                                                              |
+
+The JS bundles are self-contained — there are no other runtime dependencies to load. See [Building the release bundle](#building-the-release-bundle) for how to produce these files; published releases will ship them directly.
+
+`src/contributorAtlas.js` is the public API: one function per view, `view(container, options)`. The functions are `gathering`, `pulse`, `trails`, `ripples`, and `cornerstones`.
+
+```html
+<link rel="stylesheet" href="contributor-atlas.css" />
+<div id="chart" style="width: 100%; height: 100%"></div>
+<script src="contributor-atlas.global.js"></script>
+<script>
+  ContributorAtlas.ripples(document.getElementById("chart"), {
+    contributions: "my-data.csv",
+    project: "my-project.json",
+  });
+</script>
+```
+
+Or, on a page that already uses ES modules:
+
+```js
+import { ripples } from "./contributor-atlas.js";
+
+ripples(document.getElementById("chart"), {
+  contributions: "my-data.csv",
+  project: "my-project.json",
+});
+```
+
+**Options:**
+
+| Option          | Description                                                                                                                                             |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contributions` | (required) path/URL to `contributions.csv`                                                                                                              |
+| `project`       | (required) path/URL to `project.json`                                                                                                                   |
+| `highlights`    | (Pulse only, optional) path/URL to `highlights.csv`                                                                                                     |
+| `controls`      | element or CSS selector for the timeline/category filter container. Defaults to `#controls` if present, otherwise a `<div>` is created after the chart. |
+| `nav`           | element or CSS selector for the `<nav>` that hosts contributor search. Defaults to the page `<nav>`; pass `null` to opt out (search is then skipped).   |
+
+---
+
+## Customizing colors, fonts, and theme
+
+**Category colors** are set in `project.json` under `category_colors` (see [Data format](#projectjson-required)).
+
+Everything else is driven by CSS custom properties defined in `src/styles.css` (shipped as `contributor-atlas.css`). The JS reads the color and font tokens via `getComputedStyle` at render time, so overriding a variable in your own stylesheet — loaded **after** `contributor-atlas.css` — is enough; no rebuild needed.
+
+```css
+:root {
+  /* Use your own font */
+  --font-family: "Inter", sans-serif;
+
+  /* Accent / highlight color */
+  --accent: #e8820f;
+
+  /* A few of the canvas color tokens */
+  --c-bg: #0b0b0b;
+  --c-text: #d8d4dc;
+  --c-project: #a09080;
+}
+```
+
+The token groups you're most likely to touch if you're not happy with the defaults:
+
+- `--font-family` — the typeface used in the page shell and in canvas-rendered text
+- `--accent` / `--c-highlight` — the highlight color
+- `--c-*` — canvas and page-shell colors (`--c-bg`, `--c-text`, `--c-border`, `--c-project`, `--c-contributor`, …)
+- `--tc-*` — the timeline/category control widget
+
+The theme system ships a **dark** default and a **light** variant (under the system `prefers-color-scheme` and a `[data-theme="light"]` override). When the theme changes, each view re-reads its tokens and redraws, so your overrides apply in both modes if you scope them accordingly.
+
+---
+
+## Adapting the data
+
+The visualizations only read `contributions.csv` and `project.json`, so adapting Contributor Atlas to your project is mostly a data problem: produce those files for your sources.
+
+If you pull from multiple sources, you'll likely need to merge data so contributions are attributed to the right people. The GIMP setup does this with:
+
+- `data/gimp/merge.py` — combines the per-source CSVs, deduplicates, and canonicalizes contributor names via `contributor-aliases.txt`
+- `make_alias_draft.py` + `contributor-aliases.txt` — semi-automatic aliasing to collapse the same person's many identities
+
+The per-source CSVs themselves are produced by the fetchers under `pipeline/` (GitLab issues/MRs, GNOME Bugzilla HTML snapshots, and git-commit classification). These were written for GIMP's sources and GNOME's GitLab instance, so they may or may not work for yours out of the box.
+
+See [GIMP.md](data/gimp/GIMP.md) and the `data`, `pipeline/gitlab`, `pipeline/bugzilla`, and `pipeline/git` directories for the full pipeline.
+
+---
+
+## Building the release bundle
+
+You don't need to build for local development. A build is only required to produce the distributable bundle described in [Using the visualizations](#using-the-visualizations).
+
+```sh
+npm install
+npm run build:release  # creates files in dist/
+```
+
+`scripts/build-release.mjs` (esbuild) emits into `dist/`:
+
+- `contributor-atlas.js` — ESM bundle
+- `contributor-atlas.global.js` — IIFE bundle exposing the `ContributorAtlas` global
+- `contributor-atlas.css` — the stylesheet, with the font in `static/` beside it
+- the five HTML pages, repointed at the bundle
+- `data/gimp/` — runtime data, using GIMP as an example dataset so there is something to show
 
 ---
 
 ## Contributing
 
-When contributing code please run formatters first
+To run locally:
+
+1. Download `contributions.csv` from https://gitlab.gnome.org/balooii/contributor-atlas/-/work_items/1 and put it in `data/gimp/` (or generate your own — see [Adapting the data](#adapting-the-data)).
+2. Serve the repository root over HTTP (feel free to use another (local) web server):
+   ```sh
+   python3 -m http.server
+   ```
+3. Open http://localhost:8000 in your browser.
+
+When contributing code please run the formatters first:
 
 ```sh
 npx prettier -w .
@@ -145,5 +282,5 @@ uvx ruff format
 **License:** [MIT](LICENSES/MIT.txt).
 
 - **[Nadieh Bremer](https://www.visualcinnamon.com/)** — the Cornerstones visualization is adapted from her [ORCA repository](https://github.com/nbremer/ORCA), licensed under the [Mozilla Public License 2.0](LICENSES/MPL-2.0.txt).
-- **[D3.js](https://d3js.org/)** by Mike Bostock and D3.js contributors — vendored as an ES module in `static/d3.v7.esm.js`, licensed under the [ISC License](LICENSES/ISC.txt).
-- **[Encode Sans](https://fonts.google.com/specimen/Encode+Sans)** by The Encode Project Authors — bundled in `static/fonts/`, licensed under the [SIL Open Font License 1.1](LICENSES/OFL-1.1.txt).
+- **[D3.js](https://d3js.org/)** by Mike Bostock and D3.js contributors — vendored as an ES module in `static/`, licensed under the [ISC License](LICENSES/ISC.txt).
+- **[Encode Sans](https://fonts.google.com/specimen/Encode+Sans)** by The Encode Project Authors — vendored in `static/`, licensed under the [SIL Open Font License 1.1](LICENSES/OFL-1.1.txt).
