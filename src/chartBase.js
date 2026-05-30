@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 // Shared primitives used by the round-cluster chart factories (Cornerstones,
 // Ripples, Gathering) and - for a couple of helpers - Trails. None of these own
 // state; each chart factory threads its own state through.

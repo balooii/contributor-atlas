@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
 

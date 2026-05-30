@@ -2,12 +2,12 @@
 //
 // Local development is build-free. This produces bundled artifacts to make it
 // easier to distribute and use elsewhere without having to copy all src files.
-// When running npm run build it will create these files in the dist/ folder:
+// When running npm run build:release it will create these files in the dist/ folder:
 //
 //   contributor-atlas.js         ESM bundle  - import { gathering } from ...
 //   contributor-atlas.global.js  IIFE bundle - <script src> + ContributorAtlas.*
 //   contributor-atlas.css        stylesheet
-//   static/                      font file and D3.js (global file, not a module)
+//   static/                      font file only (d3 gets bundled in)
 //   *.html                       the five views
 //   data/gimp/                   example dataset so the built site has something to show
 //
@@ -60,6 +60,9 @@ async function main() {
 
   await cp("src/styles.css", path.join(DIST, "contributor-atlas.css"));
   await cp("static", path.join(DIST, "static"), { recursive: true });
+  // d3 is bundled into the release artifacts, so the local/dev-only vendored copy
+  // is not needed alongside them.
+  await rm(path.join(DIST, "static", "d3.v7.esm.js"), { force: true });
 
   for (const page of PAGES) {
     const html = (await readFile(page, "utf8"))
@@ -67,6 +70,9 @@ async function main() {
         /\s*<link rel="stylesheet" href="src\/styles\.css" \/>/,
         '\n    <link rel="stylesheet" href="contributor-atlas.css" />',
       )
+      // The bundle has d3 inlined, so the bare "d3" specifier the import map
+      // resolves no longer appears, so we can drop it.
+      .replace(/\s*<script type="importmap">[\s\S]*?<\/script>/, "")
       .replace(
         'from "./src/contributorAtlas.js"',
         'from "./contributor-atlas.js"',

@@ -145,5 +145,5 @@ uvx ruff format
 **License:** [MIT](LICENSES/MIT.txt).
 
 - **[Nadieh Bremer](https://www.visualcinnamon.com/)** — the Cornerstones visualization is adapted from her [ORCA repository](https://github.com/nbremer/ORCA), licensed under the [Mozilla Public License 2.0](LICENSES/MPL-2.0.txt).
-- **[D3.js](https://d3js.org/)** by Mike Bostock and D3.js contributors — bundled in `static/lib/`, licensed under the [ISC License](LICENSES/ISC.txt).
+- **[D3.js](https://d3js.org/)** by Mike Bostock and D3.js contributors — vendored as an ES module in `static/d3.v7.esm.js`, licensed under the [ISC License](LICENSES/ISC.txt).
 - **[Encode Sans](https://fonts.google.com/specimen/Encode+Sans)** by The Encode Project Authors — bundled in `static/fonts/`, licensed under the [SIL Open Font License 1.1](LICENSES/OFL-1.1.txt).

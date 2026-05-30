@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 // createGathering.js - random packing around a labelled central node
 //   * One central project circle at the origin (fixed)
 //   * Every contributor is a dot; bigger contributors get pulled toward the

@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 export function createTimelineControl(container) {
   let CHAPTERS = [];
   let CATEGORIES_ENABLED = false;

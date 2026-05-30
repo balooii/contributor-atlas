@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 // Shared page boilerplate for every visualization page:
 //   * Eagerly request Encode Sans variants so canvas text doesn't fall
 //     back to a system font on first paint.
