@@ -1,2 +1,4 @@
 static/
 *.cache.json
+dist/
+node_modules/

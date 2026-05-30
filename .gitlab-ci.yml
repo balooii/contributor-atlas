@@ -1,15 +1,24 @@
 pages:
   stage: deploy
-  image: alpine:latest
+  image: node:22-alpine
   script:
     - apk add --no-cache curl brotli
-    - mkdir -p public/data/gimp
-    - cp *.html public/
-    - cp -r src static public/
-    - cp -r data/gimp public/data/
+    - npm ci
+    - npm run build
+    - mv dist public
     - curl -L -f -o public/data/gimp/contributions.csv
       "https://gitlab.gnome.org/-/project/39188/uploads/56061c7c55eb5dca7e657d08ef355da0/contributions.csv"
-    # TODO: re-introduce cache-busting
+    - |
+      find public -type f \( -name "*.js" -o -name "*.css" -o -name "*.csv" -o -name "*.json" -o -name "*.png" \) | while read f; do
+        hash=$(md5sum "$f" | cut -c1-12)
+        dir=$(dirname "$f")
+        base=$(basename "$f")
+        ext="${base##*.}"
+        name="${base%.*}"
+        newname="${name}.${hash}.${ext}"
+        mv "$f" "${dir}/${newname}"
+        find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.json" \) -exec sed -i "s|${base}|${newname}|g" {} \;
+      done
     - find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.csv" \) -exec gzip -k "{}" \;
     - find public -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" -o -name "*.csv" \) -exec brotli --keep "{}" \;
   artifacts:

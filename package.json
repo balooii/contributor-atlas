@@ -1,0 +1,13 @@
+{
+  "name": "contributor-atlas",
+  "version": "0.1.0",
+  "description": "Canvas visualizations of a project's contribution history.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

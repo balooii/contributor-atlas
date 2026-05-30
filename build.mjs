@@ -1,0 +1,91 @@
+// Release build script
+//
+// Local development is build-free. This produces bundled artifacts to make it
+// easier to distribute and use elsewhere without having to copy all src files.
+// When running npm run build it will create these files in the dist/ folder:
+//
+//   contributor-atlas.js         ESM bundle  - import { gathering } from ...
+//   contributor-atlas.global.js  IIFE bundle - <script src> + ContributorAtlas.*
+//   contributor-atlas.css        stylesheet
+//   static/                      font file and D3.js (global file, not a module)
+//   *.html                       the five views
+//   data/gimp/                   example dataset so the built site has something to show
+//
+
+import { build } from "esbuild";
+import { readFile, writeFile, rm, mkdir, cp } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import path from "node:path";
+
+const DIST = "dist";
+
+const PAGES = [
+  "index.html",
+  "pulse.html",
+  "trails.html",
+  "ripples.html",
+  "cornerstones.html",
+];
+
+const RUNTIME_DATA = [
+  "project.json",
+  "highlights.csv",
+  "logo.png",
+  "chapter_images",
+  "contributions.csv",
+];
+
+async function main() {
+  await rm(DIST, { recursive: true, force: true });
+  await mkdir(DIST, { recursive: true });
+
+  const common = {
+    entryPoints: ["src/contributorAtlas.js"],
+    bundle: true,
+    minify: true,
+    legalComments: "none",
+  };
+
+  await build({
+    ...common,
+    format: "esm",
+    outfile: path.join(DIST, "contributor-atlas.js"),
+  });
+  await build({
+    ...common,
+    format: "iife",
+    globalName: "ContributorAtlas",
+    outfile: path.join(DIST, "contributor-atlas.global.js"),
+  });
+
+  await cp("src/styles.css", path.join(DIST, "contributor-atlas.css"));
+  await cp("static", path.join(DIST, "static"), { recursive: true });
+
+  for (const page of PAGES) {
+    const html = (await readFile(page, "utf8"))
+      .replace(
+        /\s*<link rel="stylesheet" href="src\/styles\.css" \/>/,
+        '\n    <link rel="stylesheet" href="contributor-atlas.css" />',
+      )
+      .replace(
+        'from "./src/contributorAtlas.js"',
+        'from "./contributor-atlas.js"',
+      );
+    await writeFile(path.join(DIST, page), html);
+  }
+
+  const dataDir = path.join(DIST, "data", "gimp");
+  await mkdir(dataDir, { recursive: true });
+  for (const f of RUNTIME_DATA) {
+    const src = path.join("data", "gimp", f);
+    if (existsSync(src))
+      await cp(src, path.join(dataDir, f), { recursive: true });
+  }
+
+  console.log("Built " + DIST + "/");
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
