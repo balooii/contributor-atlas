@@ -25,56 +25,15 @@
       <a href="ripples.html">Ripples</a>
       <a href="cornerstones.html">Cornerstones</a>
     </nav>
-
     <div id="chart-container"></div>
     <div id="controls"></div>
 
     <script type="module">
-      import "./src/theme.js";
-      import { createTrails } from "./src/createTrails.js";
-      import { bootstrapPage } from "./src/pageBootstrap.js";
-      import { createTimelineControl } from "./src/createTimelineControl.js";
-      import { createContributorSearch } from "./src/createContributorSearch.js";
+      import { trails } from "./src/contributorAtlas.js";
 
-      const container = document.getElementById("chart-container");
-      const Visual = createTrails(container);
-
-      bootstrapPage({
-        files: [
-          { path: "data/gimp/contributions.csv", type: "csv" },
-          { path: "data/gimp/project.json" },
-        ],
-        onReady: ([contributions, project]) => {
-          const stored = createTimelineControl.loadRange();
-          if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([
-            contributions,
-            project.category_colors,
-            project.category_groups,
-          ]);
-          createContributorSearch(
-            document.querySelector("nav"),
-            Visual,
-            contributions,
-          );
-          const sortControl = createTimelineControl.buildButtonGroup(
-            "sort",
-            [
-              { label: "contributions", value: "count" },
-              { label: "first seen", value: "first" },
-              { label: "longest career 🌳", value: "career" },
-            ],
-            "count",
-            (v) => Visual.setSortBy(v),
-          );
-          createTimelineControl(document.getElementById("controls"))
-            .chapters(project.chapters || [])
-            .extras([sortControl, createTimelineControl.buildZoomHint(Visual)])
-            .attach(Visual);
-          Visual.resize();
-        },
-        onResize: () => Visual.resize(),
-        resizeDelay: 200,
+      trails(document.getElementById("chart-container"), {
+        contributions: "data/gimp/contributions.csv",
+        project: "data/gimp/project.json",
       });
     </script>
   </body>

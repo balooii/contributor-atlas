@@ -29,61 +29,11 @@
     <div id="controls"></div>
 
     <script type="module">
-      import "./src/theme.js";
-      import { createGathering } from "./src/createGathering.js";
-      import { bootstrapPage } from "./src/pageBootstrap.js";
-      import { createTimelineControl } from "./src/createTimelineControl.js";
-      import { createContributorSearch } from "./src/createContributorSearch.js";
+      import { gathering } from "./src/contributorAtlas.js";
 
-      const container = document.getElementById("chart-container");
-      const Visual = createGathering(container)
-        .width(container.offsetWidth)
-        .height(container.offsetHeight);
-
-      bootstrapPage({
-        files: [
-          { path: "data/gimp/contributions.csv", type: "csv" },
-          { path: "data/gimp/project.json" },
-        ],
-        onReady: ([contributions, project]) => {
-          Visual.project(project);
-          const stored = createTimelineControl.loadRange();
-          if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([
-            contributions,
-            project.category_colors,
-            project.category_groups,
-          ]);
-
-          const layoutControl = createTimelineControl.buildButtonGroup(
-            "layout",
-            [
-              { label: "random", value: "random" },
-              { label: "sorted", value: "sorted" },
-            ],
-            Visual.layout(),
-            (v) => Visual.layout(v),
-          );
-          createTimelineControl(document.getElementById("controls"))
-            .chapters(project.chapters || [])
-            .categories(true)
-            .extras(layoutControl)
-            .attach(Visual);
-
-          createContributorSearch(
-            document.querySelector("nav"),
-            Visual,
-            contributions,
-          );
-
-          Visual.width(container.offsetWidth)
-            .height(container.offsetHeight)
-            .resize();
-        },
-        onResize: () =>
-          Visual.width(container.offsetWidth)
-            .height(container.offsetHeight)
-            .resize(),
+      gathering(document.getElementById("chart-container"), {
+        contributions: "data/gimp/contributions.csv",
+        project: "data/gimp/project.json",
       });
     </script>
   </body>

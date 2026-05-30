@@ -10,7 +10,13 @@
 
 import * as ChartBase from "./chartBase.js";
 
-export function bootstrapPage({ files, onReady, onResize, resizeDelay = 300 }) {
+export function bootstrapPage({
+  container,
+  files,
+  onReady,
+  onResize,
+  resizeDelay = 300,
+}) {
   const FF = "Encode Sans";
   [
     `normal 400 10px "${FF}"`,
@@ -21,6 +27,10 @@ export function bootstrapPage({ files, onReady, onResize, resizeDelay = 300 }) {
 
   document.fonts.ready.then(() => {
     const loads = files.map((f) => {
+      if (!f.path)
+        return f.optional
+          ? Promise.resolve([])
+          : Promise.reject(new Error(`bootstrapPage: missing path for ${f}`));
       const p = (f.type === "csv" ? d3.csv : d3.json)(f.path);
       return f.optional ? p.catch(() => []) : p;
     });
@@ -28,7 +38,8 @@ export function bootstrapPage({ files, onReady, onResize, resizeDelay = 300 }) {
       // Show a spinner, then defer the heavy computation to the next event loop
       // turn after a paint - this lets the browser render the spinner before
       // the synchronous force simulation ticks block the main thread.
-      const chartContainer = document.getElementById("chart-container");
+      const chartContainer =
+        container || document.getElementById("chart-container");
       const overlay =
         chartContainer && ChartBase.createLoadingOverlay(chartContainer);
       if (overlay) overlay.style.display = "flex";

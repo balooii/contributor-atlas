@@ -25,39 +25,16 @@
       <a href="ripples.html">Ripples</a>
       <a href="cornerstones.html">Cornerstones</a>
     </nav>
-
     <div id="chart-container"></div>
     <div id="controls"></div>
 
     <script type="module">
-      import "./src/theme.js";
-      import { createPulse } from "./src/createPulse.js";
-      import { bootstrapPage } from "./src/pageBootstrap.js";
-      import { createTimelineControl } from "./src/createTimelineControl.js";
+      import { pulse } from "./src/contributorAtlas.js";
 
-      const container = document.getElementById("chart-container");
-      const Visual = createPulse(container);
-
-      bootstrapPage({
-        files: [
-          { path: "data/gimp/contributions.csv", type: "csv" },
-          {
-            path: "data/gimp/highlights.csv",
-            type: "csv",
-            optional: true,
-          },
-          { path: "data/gimp/project.json" },
-        ],
-        onReady: ([contributions, highlights, project]) => {
-          const stored = createTimelineControl.loadRange();
-          if (stored) Visual.setRange(stored.start, stored.end);
-          Visual([contributions, highlights, project.category_colors]);
-          createTimelineControl(document.getElementById("controls"))
-            .chapters(project.chapters || [])
-            .attach(Visual);
-          Visual.resize();
-        },
-        onResize: () => Visual.resize(),
+      pulse(document.getElementById("chart-container"), {
+        contributions: "data/gimp/contributions.csv",
+        highlights: "data/gimp/highlights.csv",
+        project: "data/gimp/project.json",
       });
     </script>
   </body>
