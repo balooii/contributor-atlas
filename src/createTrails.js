@@ -10,6 +10,7 @@ export function createTrails(container) {
     COLOR_ROW_ALT,
     COLOR_ROW_HOVER,
     COLOR_ACCENT;
+  let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
@@ -19,9 +20,9 @@ export function createTrails(container) {
     COLOR_ROW_ALT = cs.getPropertyValue("--c-row-alt").trim();
     COLOR_ROW_HOVER = cs.getPropertyValue("--c-row-hover").trim();
     COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
-  const FONT = `"Encode Sans", sans-serif`;
 
   const HEADER_HEIGHT = 32;
   const LABEL_WIDTH_DEFAULT = 200;
@@ -347,7 +348,7 @@ export function createTrails(container) {
       const x = xScale(t);
       if (x < scrollLeft - 50 || x > scrollLeft + viewportW + 50) return;
       const isYear = t.getMonth() === 0 && t.getDate() === 1;
-      ctxH.font = isYear ? `bold 10px ${FONT}` : `10px ${FONT}`;
+      ctxH.font = isYear ? `bold 10px ${FONT_FAMILY}` : `10px ${FONT_FAMILY}`;
       ctxH.fillText(fmt(t), x, HEADER_HEIGHT / 2 - 1);
 
       ctxH.globalAlpha = 0.35;
@@ -426,7 +427,7 @@ export function createTrails(container) {
       }
     }
 
-    ctxL.font = `11px ${FONT}`;
+    ctxL.font = `11px ${FONT_FAMILY}`;
     ctxL.textBaseline = "middle";
     for (let i = startRow; i <= endRow; i++) {
       const c = contributors[i];
@@ -444,7 +445,7 @@ export function createTrails(container) {
       // Name (right aligned, truncated)
       ctxL.fillStyle = isSelected ? COLOR_ACCENT : COLOR_TEXT;
       ctxL.globalAlpha = isSelected ? 1 : 0.85;
-      ctxL.font = `${isHovered || isSelected ? "bold " : ""}11px ${FONT}`;
+      ctxL.font = `${isHovered || isSelected ? "bold " : ""}11px ${FONT_FAMILY}`;
       ctxL.textAlign = "right";
       const rawLabel =
         sortBy === "career"
@@ -454,7 +455,7 @@ export function createTrails(container) {
       ctxL.fillText(name, LABEL_WIDTH - 20, y);
 
       // Total commits (small, dim, far left)
-      ctxL.font = `10px ${FONT}`;
+      ctxL.font = `10px ${FONT_FAMILY}`;
       ctxL.fillStyle = COLOR_TEXT;
       ctxL.globalAlpha = 0.45;
       ctxL.textAlign = "left";

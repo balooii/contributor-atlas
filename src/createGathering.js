@@ -38,6 +38,7 @@ export function createGathering(container) {
 
   // -- Colours / fonts --------------------------------------
   let COLOR_BACKGROUND, COLOR_TEXT, COLOR_PROJECT, COLOR_CONTRIB, COLOR_ACCENT;
+  let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
@@ -45,9 +46,9 @@ export function createGathering(container) {
     COLOR_PROJECT = cs.getPropertyValue("--c-bg").trim();
     COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();
     COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
-  const FONT_FAMILY = "Encode Sans";
 
   let scale_category_color = d3.scaleOrdinal();
   const categoryColor = (cat) => scale_category_color(cat);

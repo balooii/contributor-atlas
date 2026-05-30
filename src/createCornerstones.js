@@ -54,6 +54,7 @@ export function createCornerstones(container) {
     COLOR_LINK,
     COLOR_TEXT,
     COLOR_ACCENT;
+  let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
@@ -63,10 +64,9 @@ export function createCornerstones(container) {
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
-
-  const FONT_FAMILY = "Encode Sans";
 
   // -- Category arc ring ------------------------------------
 

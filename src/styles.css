@@ -13,6 +13,9 @@
 :root {
   --accent: #a682e8;
 
+  /* Font family - read by JS via getComputedStyle */
+  --font-family: "Encode Sans", sans-serif;
+
   /* canvas colors - read by JS via getComputedStyle */
   --c-bg: #111111;
   --c-text: #c4c0c8;
@@ -180,9 +183,7 @@
   border: 1px solid var(--c-tooltip-border);
   border-radius: 4px;
   padding: 8px 10px;
-  font:
-    11px "Encode Sans",
-    sans-serif;
+  font: 11px var(--font-family);
   color: var(--c-tooltip-text);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   z-index: 20;
@@ -335,7 +336,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  font-family: "Encode Sans", sans-serif;
+  font-family: var(--font-family);
 }
 
 #chart-container {
@@ -458,9 +459,7 @@ nav a:hover {
   border: 1px solid transparent;
   border-radius: 4px;
   color: var(--c-nav-text);
-  font:
-    12px "Encode Sans",
-    sans-serif;
+  font: 12px var(--font-family);
   padding: 2px 22px 2px 7px;
   width: 160px;
   outline: none;
@@ -530,9 +529,7 @@ nav a:hover {
   border: none;
   cursor: pointer;
   color: var(--c-nav-text);
-  font:
-    13px "Encode Sans",
-    sans-serif;
+  font: 13px var(--font-family);
   padding: 5px 8px;
   border-radius: 4px;
   white-space: nowrap;
@@ -559,9 +556,7 @@ nav a:hover {
 }
 
 .search-no-results {
-  font:
-    12px "Encode Sans",
-    sans-serif;
+  font: 12px var(--font-family);
   color: var(--c-nav-text);
   opacity: 0.4;
   padding: 5px 8px;

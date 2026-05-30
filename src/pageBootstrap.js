@@ -1,8 +1,8 @@
 import * as d3 from "d3";
 
 // Shared page boilerplate for every visualization page:
-//   * Eagerly request Encode Sans variants so canvas text doesn't fall
-//     back to a system font on first paint.
+//   * Eagerly request the configured font (--font-family) variants so canvas
+//     text doesn't fall back to a system font on first paint.
 //   * Wait for document.fonts.ready, then Promise.all the requested data files.
 //   * Hand the loaded values to onReady, then wire a debounced window-resize
 //     listener that calls onResize only when the viewport actually changed.
@@ -19,12 +19,14 @@ export function bootstrapPage({
   onResize,
   resizeDelay = 300,
 }) {
-  const FF = "Encode Sans";
+  const FF = getComputedStyle(document.documentElement)
+    .getPropertyValue("--font-family")
+    .trim();
   [
-    `normal 400 10px "${FF}"`,
-    `italic 400 10px "${FF}"`,
-    `normal 700 10px "${FF}"`,
-    `italic 700 10px "${FF}"`,
+    `normal 400 10px ${FF}`,
+    `italic 400 10px ${FF}`,
+    `normal 700 10px ${FF}`,
+    `italic 700 10px ${FF}`,
   ].forEach((spec) => document.fonts.load(spec));
 
   document.fonts.ready.then(() => {

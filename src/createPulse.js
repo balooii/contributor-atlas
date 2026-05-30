@@ -4,15 +4,16 @@ import * as ChartBase from "./chartBase.js";
 
 export function createPulse(container) {
   let COLOR_BACKGROUND, COLOR_LINK, COLOR_TEXT, COLOR_HIGHLIGHT;
+  let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(document.documentElement);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
+    FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
-  const FONT = `"Encode Sans", sans-serif`;
   const MARGIN = { top: 30, right: 30, bottom: 52, left: 68 };
 
   let categoryColor = d3.scaleOrdinal();
@@ -111,7 +112,7 @@ export function createPulse(container) {
       .nice();
 
     // Y gridlines + labels
-    ctx.font = `11px ${FONT}`;
+    ctx.font = `11px ${FONT_FAMILY}`;
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
     yScale.ticks(6).forEach((t) => {
@@ -130,7 +131,7 @@ export function createPulse(container) {
 
     // X axis ticks + labels
     const tickCount = cW > 900 ? 10 : cW > 600 ? 7 : 5;
-    ctx.font = `10px ${FONT}`;
+    ctx.font = `10px ${FONT_FAMILY}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
     const fmt = xScale.tickFormat(tickCount);
@@ -236,7 +237,7 @@ export function createPulse(container) {
           ctx.rotate(-Math.PI / 2);
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          ctx.font = `9px ${FONT}`;
+          ctx.font = `9px ${FONT_FAMILY}`;
           ctx.fillStyle = COLOR_HIGHLIGHT;
           ctx.globalAlpha = hovered ? 1 : 0.6;
           ctx.fillText(h.name, 0, 0);
