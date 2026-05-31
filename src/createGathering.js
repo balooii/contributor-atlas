@@ -16,7 +16,6 @@ export function createGathering(container) {
 
   const cos = Math.cos;
   const sin = Math.sin;
-  const sqrt = Math.sqrt;
 
   // -- State ------------------------------------------------
   let nodes = [];
@@ -267,7 +266,7 @@ export function createGathering(container) {
     SF = Math.min(WIDTH, HEIGHT) / (2 * LAYOUT_EXTENT * 1.1);
 
     if (nodes.length > 0) {
-      delaunay = d3.Delaunay.from(nodes.map((n) => [n.x, n.y]));
+      delaunay = ChartBase.buildHitIndex(nodes);
     }
 
     draw();
@@ -286,16 +285,13 @@ export function createGathering(container) {
 
   // -- Hit detection ----------------------------------------
   function findNode(mx, my) {
-    if (!delaunay || nodes.length === 0) return [null, false];
-    mx = (mx * PIXEL_RATIO - WIDTH / 2) / SF;
-    my = (my * PIXEL_RATIO - HEIGHT / 2) / SF;
-
-    const i = delaunay.find(mx, my);
-    const d = nodes[i];
-    if (!d) return [null, false];
-    const dist = sqrt((d.x - mx) ** 2 + (d.y - my) ** 2);
-    const FOUND = dist < d.r + 8;
-    return [d, FOUND];
+    const [lx, ly] = ChartBase.toLogical(mx, my, {
+      PIXEL_RATIO,
+      WIDTH,
+      HEIGHT,
+      SF,
+    });
+    return ChartBase.pickNode(delaunay, nodes, lx, ly, 8);
   }
 
   function showContributorTooltip(d) {

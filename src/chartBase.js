@@ -378,6 +378,29 @@ export function wireInteraction(
   };
 }
 
+// -- Delaunay hit detection ----------------------------------
+// Build a Delaunay index over node centers, used to find the nearest node to
+// the mouse.
+export const buildHitIndex = (nodes) =>
+  d3.Delaunay.from(nodes.map((n) => [n.x, n.y]));
+
+// Convert screen coords (CSS pixels) into the chart's logical space.
+// WIDTH/HEIGHT are device pixels, SF the scale factor.
+export const toLogical = (mx, my, { PIXEL_RATIO, WIDTH, HEIGHT, SF }) => [
+  (mx * PIXEL_RATIO - WIDTH / 2) / SF,
+  (my * PIXEL_RATIO - HEIGHT / 2) / SF,
+];
+
+// Nearest-node lookup in logical space. Returns [node, FOUND]
+// FOUND is true when the cursor is within the node's radius plus pad.
+export function pickNode(delaunay, nodes, lx, ly, pad) {
+  if (!delaunay || nodes.length === 0) return [null, false];
+  const d = nodes[delaunay.find(lx, ly)];
+  if (!d) return [null, false];
+  const dist = Math.hypot(d.x - lx, d.y - ly);
+  return [d, dist < d.r + pad];
+}
+
 // Run the shared filter -> aggregate -> build-nodes pipeline used by all
 // round-cluster charts. categoryStats is computed on the range-filtered rows
 // (before the category filter) so pill counts reflect the full time window.

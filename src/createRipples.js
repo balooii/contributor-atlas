@@ -313,7 +313,7 @@ export function createRipples(container) {
     SF = Math.min(WIDTH, HEIGHT) / (2 * _layoutMaxR * 1.05);
 
     if (nodes.length > 0) {
-      delaunay = d3.Delaunay.from(nodes.map((n) => [n.x, n.y]));
+      delaunay = ChartBase.buildHitIndex(nodes);
     }
 
     draw();
@@ -332,20 +332,18 @@ export function createRipples(container) {
 
   // -- Hit detection ----------------------------------------
   function findNode(mx, my) {
-    mx = (mx * PIXEL_RATIO - WIDTH / 2) / SF;
-    my = (my * PIXEL_RATIO - HEIGHT / 2) / SF;
+    const [lx, ly] = ChartBase.toLogical(mx, my, {
+      PIXEL_RATIO,
+      WIDTH,
+      HEIGHT,
+      SF,
+    });
 
-    if (center_node && sqrt(mx * mx + my * my) < CENTER_RADIUS + 8) {
+    if (center_node && sqrt(lx * lx + ly * ly) < CENTER_RADIUS + 8) {
       return [center_node, true];
     }
 
-    if (!delaunay || nodes.length === 0) return [null, false];
-    const i = delaunay.find(mx, my);
-    const d = nodes[i];
-    if (!d) return [null, false];
-    const dist = sqrt((d.x - mx) ** 2 + (d.y - my) ** 2);
-    const FOUND = dist < d.r + 8;
-    return [d, FOUND];
+    return ChartBase.pickNode(delaunay, nodes, lx, ly, 8);
   }
 
   function showContributorTooltip(d) {

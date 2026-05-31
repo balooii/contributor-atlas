@@ -290,11 +290,9 @@ export function createCornerstones(container) {
 
     // Reset the delaunay for the mouse events
     nodes_delaunay = nodes;
-    delaunay = d3.Delaunay.from(nodes_delaunay.map((d) => [d.x, d.y]));
+    delaunay = ChartBase.buildHitIndex(nodes_delaunay);
     if (REMAINING_PRESENT && REMAINING_PLACED)
-      delaunay_remaining = d3.Delaunay.from(
-        remainingContributors.map((d) => [d.x, d.y]),
-      );
+      delaunay_remaining = ChartBase.buildHitIndex(remainingContributors);
 
     // rerun() rebuilds the node arrays, so if a contributor is selected
     // SELECTED_NODE is now a stale reference into the old arrays. So we have
@@ -985,24 +983,25 @@ export function createCornerstones(container) {
 
   // Turn the mouse position into a canvas x and y location and see if it's close enough to a node
   function findNode(mx, my) {
-    mx = (mx * PIXEL_RATIO - WIDTH / 2) / SF;
-    my = (my * PIXEL_RATIO - HEIGHT / 2) / SF;
+    const [lx, ly] = ChartBase.toLogical(mx, my, {
+      PIXEL_RATIO,
+      WIDTH,
+      HEIGHT,
+      SF,
+    });
 
-    //Get the closest hovered node
-    let point = delaunay.find(mx, my);
-    let d = nodes_delaunay[point];
+    // Get the closest top-contributor node
+    let [d, FOUND] = ChartBase.pickNode(delaunay, nodes_delaunay, lx, ly, 50);
 
-    // Get the distance from the mouse to the node
-    let dist = sqrt((d.x - mx) ** 2 + (d.y - my) ** 2);
-    // If the distance is too big, don't show anything
-    let FOUND = dist < d.r + 50;
-
-    // Check if the mouse is close enough to one of the remaining contributors of FOUND is false
+    // If that missed, fall back to the remaining-contributors index
     if (!FOUND && REMAINING_PRESENT && REMAINING_PLACED) {
-      point = delaunay_remaining.find(mx, my);
-      d = remainingContributors[point];
-      dist = sqrt((d.x - mx) ** 2 + (d.y - my) ** 2);
-      FOUND = dist < d.r + 5;
+      [d, FOUND] = ChartBase.pickNode(
+        delaunay_remaining,
+        remainingContributors,
+        lx,
+        ly,
+        5,
+      );
     }
 
     return [d, FOUND];
