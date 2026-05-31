@@ -598,31 +598,3 @@ export function makeSelectionHighlight({
 
   return { draw, cancel, restart };
 }
-
-export function tickAsync(sim, totalTicks, chunkSize, onDone) {
-  let done = 0;
-  let cancelled = false;
-
-  function step() {
-    if (cancelled) return;
-    const end = Math.min(done + chunkSize, totalTicks);
-    while (done < end) {
-      sim.tick();
-      done++;
-    }
-    if (done < totalTicks) {
-      setTimeout(step, 0);
-    } else {
-      sim.stop();
-      onDone();
-    }
-  }
-
-  setTimeout(step, 0);
-  return {
-    cancel() {
-      cancelled = true;
-      sim.stop();
-    },
-  };
-}

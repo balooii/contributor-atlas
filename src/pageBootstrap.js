@@ -41,7 +41,7 @@ export function bootstrapPage({
     Promise.all(loads).then((values) => {
       // Show a spinner, then defer the heavy computation to the next event loop
       // turn after a paint - this lets the browser render the spinner before
-      // the synchronous force simulation ticks block the main thread.
+      // the synchronous layout/canvas computation blocks the main thread.
       const chartContainer =
         container || document.getElementById("chart-container");
       const overlay =

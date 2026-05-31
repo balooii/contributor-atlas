@@ -169,8 +169,8 @@ export function createCornerstones(container) {
 
     prepareData();
 
-    project_node.x = project_node.fx = 0;
-    project_node.y = project_node.fy = 0;
+    project_node.x = 0;
+    project_node.y = 0;
 
     positionContributorNodes();
 
@@ -275,7 +275,7 @@ export function createCornerstones(container) {
 
     // A resize changes the canvas bounds, so the remaining-node scatter no
     // longer fits. Re-run the placement for the new dimensions, debounced so a
-    // drag-resize doesn't thrash the simulation on every event.
+    // drag-resize doesn't thrash the placement on every event.
     if (
       REMAINING_PRESENT &&
       (!REMAINING_PLACED ||
@@ -461,16 +461,13 @@ export function createCornerstones(container) {
         let contributor_angle = contributor_arc / RADIUS_CONTRIBUTOR / 2;
 
         d.x =
-          project_node.fx +
+          project_node.x +
           RADIUS_CONTRIBUTOR * cos(angle + contributor_angle - PI / 2);
         d.y =
-          project_node.fy +
+          project_node.y +
           RADIUS_CONTRIBUTOR * sin(angle + contributor_angle - PI / 2);
         d.contributor_angle = angle + contributor_angle - PI / 2;
         angle += contributor_angle * 2;
-
-        d.fx = d.x;
-        d.fy = d.y;
       }); // forEach
   }
 

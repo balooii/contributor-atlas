@@ -1,12 +1,11 @@
 import * as d3 from "d3";
 
 // createGathering.js - random packing around a labelled central node
-//   * One central project circle at the origin (fixed)
-//   * Every contributor is a dot; bigger contributors get pulled toward the
-//     centre more strongly, so they settle next to the central node and push
-//     smaller dots outward via collision - no rings, no fixed angles
+//   * One central project circle at the origin
+//   * Every contributor is a dot; d3.packSiblings packs them around the
+//     centre. Bigger dots are biased toward an inner band so they don't extend
+//     past the perceptual rim.
 //   * Dot colour = dominant category
-//   * Tooltip mirrors the cornerstones look
 
 import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
@@ -92,14 +91,12 @@ export function createGathering(container) {
   let SF, PIXEL_RATIO;
 
   // Logical layout extents (centred coordinate space, units before SF). The
-  // actual outer extent is measured from the simulation result every rerun.
+  // actual outer extent is measured from the packing result every rerun.
   let LAYOUT_EXTENT = 700;
   const CENTER_RADIUS = 90; // logical radius of the central node
 
   // Dot size scale (sqrt - contribution counts are heavy-tailed)
   const scale_dot_radius = d3.scaleSqrt().range([2, 55]);
-  // Pull-to-centre strength for the force layout: bigger contributors get yanked toward the origin harder
-  const scale_pull = d3.scaleSqrt().range([0.01, 0.3]);
 
   // -- Entry ------------------------------------------------
   function chart(values) {
@@ -132,7 +129,6 @@ export function createGathering(container) {
     // Scale domains
     const maxCount = d3.max(nodes, (n) => n.count);
     scale_dot_radius.domain([1, maxCount]);
-    scale_pull.domain([1, maxCount]);
 
     nodes.forEach((n) => {
       n.type = "contributor";
