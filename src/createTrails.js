@@ -56,8 +56,7 @@ export function createTrails(container) {
   let minZoom = 0.001;
   let isZoomed = false;
   let sortBy = "count"; // "count" | "first" | "career"
-  let RANGE_START = null;
-  let RANGE_END = null;
+  const range = ChartBase.createRangeFilter();
   let _selectedId = null;
   let _animFrame = null;
   const ANIM_CYCLE = 1600;
@@ -131,8 +130,8 @@ export function createTrails(container) {
   }
 
   function setupScales() {
-    const viewMin = RANGE_START ?? FULL_MIN;
-    const viewMax = RANGE_END ?? FULL_MAX;
+    const viewMin = range.start ?? FULL_MIN;
+    const viewMax = range.end ?? FULL_MAX;
     const days = (viewMax - viewMin) / 86400;
 
     // Set height first so a vertical scrollbar settles before we measure width.
@@ -185,18 +184,9 @@ export function createTrails(container) {
   }
 
   // -- Data prep -------------------------------------------------------
-  function getActiveContributions() {
-    if (!RANGE_START && !RANGE_END) return raw_contributions;
-    return raw_contributions.filter(
-      (d) =>
-        (!RANGE_START || d.ts >= RANGE_START) &&
-        (!RANGE_END || d.ts <= RANGE_END),
-    );
-  }
-
   function processData() {
     const byContributor = d3.group(
-      getActiveContributions(),
+      range.filter(raw_contributions, (d) => d.ts),
       (d) => d.contributor,
     );
     contributors = [];
@@ -921,12 +911,7 @@ export function createTrails(container) {
 
   chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
   chart.setRange = (start, end) => {
-    const newStart = start == null ? null : start;
-    const newEnd = end == null ? null : end;
-    if (newStart === RANGE_START && newEnd === RANGE_END) return chart;
-    RANGE_START = newStart;
-    RANGE_END = newEnd;
-    if (raw_contributions.length) rerun();
+    if (range.set(start, end) && raw_contributions.length) rerun();
     return chart;
   };
   chart.resize = () => {

@@ -16,8 +16,7 @@ export function createRipples(container) {
   let delaunay;
   let raw_contributions_all;
   let catToGroup = {};
-  let RANGE_START = null;
-  let RANGE_END = null;
+  const range = ChartBase.createRangeFilter();
   let FULL_MIN, FULL_MAX;
   let ACTIVE_CATEGORIES = null;
   let _lastCategoryStats = [];
@@ -158,8 +157,8 @@ export function createRipples(container) {
     ({ nodes: nodes, categoryStats: _lastCategoryStats } =
       ChartBase.runPipeline(
         raw_contributions_all,
-        RANGE_START,
-        RANGE_END,
+        range.start,
+        range.end,
         ACTIVE_CATEGORIES,
         catToGroup,
       ));
@@ -398,16 +397,10 @@ export function createRipples(container) {
 
   chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
   chart.setRange = (s, e) => {
-    const newStart = s == null ? null : s;
-    const newEnd = e == null ? null : e;
-    if (newStart === RANGE_START && newEnd === RANGE_END) return;
-    RANGE_START = newStart;
-    RANGE_END = newEnd;
-    if (raw_contributions_all) rerun();
+    if (range.set(s, e) && raw_contributions_all) rerun();
   };
   chart.reset = () => {
-    RANGE_START = null;
-    RANGE_END = null;
+    range.clear();
     ACTIVE_CATEGORIES = null;
     rerun();
   };

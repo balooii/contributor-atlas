@@ -1,9 +1,5 @@
 import * as d3 from "d3";
 
-// Shared primitives used by the round-cluster chart factories (Cornerstones,
-// Ripples, Gathering) and - for a couple of helpers - Trails. None of these own
-// state; each chart factory threads its own state through.
-
 // -- Filters -----------------------------------------------------
 
 export function filterByRange(rows, start, end) {
@@ -14,6 +10,42 @@ export function filterByRange(rows, start, end) {
   });
 }
 
+// The [start, end] timeline-filter state every view shares. `set` returns
+// true only when the range actually changed, so callers can guard their rerun.
+// The default accessor reads `+d.timestamp` (for the raw CSV rows).
+// Trails/Pulse overwrite it for their pre-mapped rows.
+export function createRangeFilter() {
+  let start = null,
+    end = null;
+  return {
+    get start() {
+      return start;
+    },
+    get end() {
+      return end;
+    },
+    set(s, e) {
+      const ns = s == null ? null : s;
+      const ne = e == null ? null : e;
+      if (ns === start && ne === end) return false;
+      start = ns;
+      end = ne;
+      return true;
+    },
+    clear() {
+      start = null;
+      end = null;
+    },
+    filter(rows, ts = (d) => +d.timestamp) {
+      if (start == null && end == null) return rows;
+      return rows.filter((d) => {
+        const t = ts(d);
+        return (start == null || t >= start) && (end == null || t <= end);
+      });
+    },
+  };
+}
+
 export function filterByCategory(rows, activeSet) {
   if (activeSet == null) return rows;
   return rows.filter((d) => activeSet.has(d.category));
@@ -21,7 +53,7 @@ export function filterByCategory(rows, activeSet) {
 
 // -- Aggregation -------------------------------------------------
 
-// Roll up rows of `{contributor_id, contributor_name, category, timestamp, …}` into one record
+// Roll up rows of `{contributor_id, contributor_name, category, timestamp, [...]}` into one record
 // per contributor with totals, per-category breakdown, and first/last timestamp.
 export function aggregateByContributor(rows) {
   const map = new Map();

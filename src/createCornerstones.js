@@ -39,8 +39,7 @@ export function createCornerstones(container) {
 
   // Raw data (preserved across range changes)
   let raw_contributions_all;
-  let RANGE_START = null,
-    RANGE_END = null;
+  const range = ChartBase.createRangeFilter();
   let FULL_MIN, FULL_MAX;
   let ACTIVE_CATEGORIES = null; // null = all; Set<string> = selected only
   let _lastCategoryStats = []; // [{cat, count, pct}] updated every rerun
@@ -150,8 +149,8 @@ export function createCornerstones(container) {
 
     const rangeFiltered = ChartBase.filterByRange(
       raw_contributions_all,
-      RANGE_START,
-      RANGE_END,
+      range.start,
+      range.end,
     );
     const aggregated = ChartBase.aggregateByContributor(
       ChartBase.filterByCategory(rangeFiltered, ACTIVE_CATEGORIES),
@@ -1200,10 +1199,7 @@ export function createCornerstones(container) {
   chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
 
   chart.setRange = (start, end) => {
-    if (start === RANGE_START && end === RANGE_END) return;
-    RANGE_START = start;
-    RANGE_END = end;
-    if (raw_contributions_all) rerun();
+    if (range.set(start, end) && raw_contributions_all) rerun();
   };
 
   chart.selectContributor = function (id) {
@@ -1216,8 +1212,7 @@ export function createCornerstones(container) {
   chart.onRerun = null;
 
   chart.reset = () => {
-    RANGE_START = null;
-    RANGE_END = null;
+    range.clear();
     ACTIVE_CATEGORIES = null;
     rerun();
   };

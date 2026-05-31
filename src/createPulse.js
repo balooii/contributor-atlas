@@ -20,8 +20,7 @@ export function createPulse(container) {
 
   let raw_contributions = [],
     highlights_data = [];
-  let RANGE_START = null,
-    RANGE_END = null;
+  const range = ChartBase.createRangeFilter();
   let FULL_MIN, FULL_MAX;
   let W, H, PR;
 
@@ -42,13 +41,6 @@ export function createPulse(container) {
     W = container.offsetWidth;
     H = container.offsetHeight;
     PR = ChartBase.sizeCanvas(canvas, W, H);
-  }
-
-  function filterContributions() {
-    if (RANGE_START === null) return raw_contributions;
-    return raw_contributions.filter(
-      (d) => d.ts >= RANGE_START && d.ts <= RANGE_END,
-    );
   }
 
   function pickBucket() {
@@ -256,7 +248,7 @@ export function createPulse(container) {
     tooltip.hide();
     _hoveredBucket = null;
     _hoveredHighlight = null;
-    drawChart(aggregateByBucket(filterContributions()));
+    drawChart(aggregateByBucket(range.filter(raw_contributions, (d) => d.ts)));
   }
 
   function findBucket(mouseX, mouseY) {
@@ -374,12 +366,7 @@ export function createPulse(container) {
 
   chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
   chart.setRange = (start, end) => {
-    const newStart = start == null ? null : start;
-    const newEnd = end == null ? null : end;
-    if (newStart === RANGE_START && newEnd === RANGE_END) return chart;
-    RANGE_START = newStart;
-    RANGE_END = newEnd;
-    if (raw_contributions.length) rerun();
+    if (range.set(start, end) && raw_contributions.length) rerun();
     return chart;
   };
   chart.resize = () => {
