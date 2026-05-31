@@ -858,6 +858,26 @@ export function createTrails(container) {
     return chart;
   };
 
+  function scrollSelectedIntoView() {
+    if (!_selectedId) {
+      scroller.scrollTop = 0;
+      scrollTop = 0;
+      return;
+    }
+    const rowIdx = contributors.findIndex((c) => c.id === _selectedId);
+    if (rowIdx >= 0) {
+      const targetTop = Math.max(
+        0,
+        rowIdx * ROW_HEIGHT - Math.floor((viewportH - ROW_HEIGHT) / 2),
+      );
+      scroller.scrollTop = targetTop;
+      scrollTop = scroller.scrollTop;
+    } else {
+      scroller.scrollTop = 0;
+      scrollTop = 0;
+    }
+  }
+
   chart.setSortBy = (v) => {
     if (v === sortBy) return chart;
     sortBy = v;
@@ -869,8 +889,7 @@ export function createTrails(container) {
     sizeCanvases();
     setupScales();
     _hover = null;
-    scroller.scrollTop = 0;
-    scrollTop = 0;
+    scrollSelectedIntoView();
     isZoomed = zoomLevel > minZoom;
     drawAll();
     chart.onZoomChange(isZoomed);
@@ -893,16 +912,7 @@ export function createTrails(container) {
       scrollLeft = 0;
     }
 
-    // Scroll selected row into view
-    const rowIdx = contributors.findIndex((c) => c.id === _selectedId);
-    if (rowIdx >= 0) {
-      const targetTop = Math.max(
-        0,
-        rowIdx * ROW_HEIGHT - Math.floor((viewportH - ROW_HEIGHT) / 2),
-      );
-      scroller.scrollTop = targetTop;
-      scrollTop = scroller.scrollTop;
-    }
+    scrollSelectedIntoView();
 
     drawAll();
     startAnim();
