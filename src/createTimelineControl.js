@@ -307,10 +307,12 @@ export function createTimelineControl(container) {
     }
 
     let hideTimer = null;
+    let shownChapter = null;
     function scheduleHide() {
       clearTimeout(hideTimer);
       hideTimer = setTimeout(() => {
         els.tooltip.style.display = "none";
+        shownChapter = null;
       }, 200);
     }
     function cancelHide() {
@@ -331,16 +333,26 @@ export function createTimelineControl(container) {
     }
 
     function showTooltip(pill, chapter) {
+      // Already showing this chapter (e.g. moving back from the tooltip onto
+      // its pill). Leave it in place instead of rebuilding / flashing.
+      if (shownChapter === chapter && els.tooltip.style.display === "block") {
+        return;
+      }
+      shownChapter = chapter;
       els.tooltip.innerHTML = "";
+      // When we're having an image make it fixed with. Otherwise it would
+      // briefly show the tooltip in the wrong position until the <img> loads
+      // and immediately re-center it
+      els.tooltip.classList.toggle("tc-has-image", !!chapter.image_url);
       if (chapter.image_url) {
         const img = document.createElement("img");
         img.src = chapter.image_url;
         img.alt = "";
         img.onerror = () => {
           img.remove();
+          els.tooltip.classList.remove("tc-has-image");
           positionTooltip(pill);
         };
-        img.onload = () => positionTooltip(pill);
         els.tooltip.appendChild(img);
       }
       const title = document.createElement("div");
@@ -411,8 +423,12 @@ export function createTimelineControl(container) {
       pill.addEventListener("mouseenter", () => {
         cancelHide();
         showTooltip(pill, chapter);
+        labelEl.classList.add("tc-hover");
       });
-      pill.addEventListener("mouseleave", scheduleHide);
+      pill.addEventListener("mouseleave", () => {
+        scheduleHide();
+        labelEl.classList.remove("tc-hover");
+      });
 
       els.chapterTrack.appendChild(pill);
     });
@@ -546,7 +562,10 @@ export function createTimelineControl(container) {
       selectedCategories.size < allCats.length;
     const resetVisible = timeActive || catActive;
     els.resetBtn.classList.toggle("tc-visible", resetVisible);
-    els.separator.classList.toggle("tc-visible", EXTRAS.length > 0 || resetVisible);
+    els.separator.classList.toggle(
+      "tc-visible",
+      EXTRAS.length > 0 || resetVisible,
+    );
   }
 }
 

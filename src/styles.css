@@ -47,11 +47,8 @@
   --tc-handle: #ffffff;
   --tc-label: #ffffff;
   --tc-pill-border: rgba(255, 255, 255, 0.22);
-  --tc-pill-hover-bg: rgba(255, 255, 255, 0.05);
   --tc-pill-hover-border: rgba(255, 255, 255, 0.55);
-  --tc-pill-active-bg: rgba(255, 255, 255, 0.08);
   --tc-pill-active-border: rgba(255, 255, 255, 0.85);
-  --tc-pill-region-bg: rgba(255, 255, 255, 0.035);
   --tc-pill-region-hover-bg: rgba(255, 255, 255, 0.07);
   --tc-pill-region-active-bg: rgba(255, 255, 255, 0.1);
   --tc-pill-label: rgba(255, 255, 255, 0.7);
@@ -99,11 +96,8 @@
     --tc-handle: #555555;
     --tc-label: #444444;
     --tc-pill-border: rgba(0, 0, 0, 0.18);
-    --tc-pill-hover-bg: rgba(0, 0, 0, 0.04);
     --tc-pill-hover-border: rgba(0, 0, 0, 0.4);
-    --tc-pill-active-bg: rgba(0, 0, 0, 0.07);
     --tc-pill-active-border: rgba(0, 0, 0, 0.65);
-    --tc-pill-region-bg: rgba(0, 0, 0, 0.035);
     --tc-pill-region-hover-bg: rgba(0, 0, 0, 0.06);
     --tc-pill-region-active-bg: rgba(0, 0, 0, 0.09);
     --tc-pill-label: rgba(0, 0, 0, 0.6);
@@ -151,11 +145,8 @@
   --tc-handle: #555555;
   --tc-label: #444444;
   --tc-pill-border: rgba(0, 0, 0, 0.18);
-  --tc-pill-hover-bg: rgba(0, 0, 0, 0.04);
   --tc-pill-hover-border: rgba(0, 0, 0, 0.4);
-  --tc-pill-active-bg: rgba(0, 0, 0, 0.07);
   --tc-pill-active-border: rgba(0, 0, 0, 0.65);
-  --tc-pill-region-bg: rgba(0, 0, 0, 0.035);
   --tc-pill-region-hover-bg: rgba(0, 0, 0, 0.06);
   --tc-pill-region-active-bg: rgba(0, 0, 0, 0.09);
   --tc-pill-label: rgba(0, 0, 0, 0.6);
@@ -673,49 +664,37 @@
   inset: 0;
 }
 
-/* Pill = absolute strip positioned by JS (left/width). Internally a flex
-   column: ::before is the head (label area + underline), ::after fills the
-   rest as the translucent body covering the chapter's date range. */
+/* Pill = strip positioned by JS (left/width) that spans the chapters full
+   width. It's both hover/click target. While not clicked/hovered, we show only
+   ticks + labels. */
 .tc-chapter-pill {
   position: absolute;
   top: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
+  height: calc(var(--tc-slider-y) - 2px); /* stop above the slider drag area */
   cursor: pointer;
   pointer-events: all;
 }
 
-.tc-chapter-pill::before {
-  content: "";
-  height: var(--tc-head-h);
-  border-bottom: 2px solid var(--tc-pill-border);
-  transition:
-    border-bottom-color 0.15s,
-    background 0.15s;
-}
-
 .tc-chapter-pill::after {
   content: "";
-  flex: 1;
-  background: var(--tc-pill-region-bg);
-  transition: background 0.15s;
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
-.tc-chapter-pill:hover::before {
-  background: var(--tc-pill-hover-bg);
-  border-bottom-color: var(--tc-pill-hover-border);
-}
 .tc-chapter-pill:hover::after {
   background: var(--tc-pill-region-hover-bg);
+  border-color: var(--tc-pill-hover-border);
 }
 
-.tc-chapter-pill.tc-active::before {
-  background: var(--tc-pill-active-bg);
-  border-bottom-color: var(--tc-pill-active-border);
-}
 .tc-chapter-pill.tc-active::after {
   background: var(--tc-pill-region-active-bg);
+  border-color: var(--tc-pill-active-border);
 }
 
 /* -- Chapter labels (detached from pills, no overflow clipping) -- */
@@ -734,12 +713,21 @@
   font-size: 10px;
   color: var(--tc-pill-label);
   letter-spacing: 0.02em;
-  line-height: 1;
-  transition: color 0.15s;
+  line-height: 1.4;
+  padding-left: 5px;
+  border-left: 2px solid var(--tc-pill-border);
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+.tc-chapter-label.tc-hover {
+  color: var(--tc-pill-label-hover);
+  border-left-color: var(--tc-pill-hover-border);
 }
 .tc-chapter-label.tc-active {
   color: var(--tc-pill-label-hover);
-  font-weight: 700;
+  border-left-color: var(--tc-pill-active-border);
+  font-weight: 500;
 }
 .tc-chapter-labels.tc-two-row .tc-chapter-label.tc-label-row-1 {
   top: calc(var(--tc-row-h) + 2px);
@@ -757,6 +745,26 @@
   font-size: 11px;
   color: var(--tc-tt-text);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+/* Invisible bridge area that extend the tooltip's hover area across the 8px gap
+   to the pill so we prevent tearing down the tooltip too early. */
+.tc-chapter-tooltip::before,
+.tc-chapter-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+.tc-chapter-tooltip::before {
+  bottom: 100%;
+}
+.tc-chapter-tooltip::after {
+  top: 100%;
+}
+/* Pin the width when an image is present (matches max-width) - see showTooltip() */
+.tc-chapter-tooltip.tc-has-image {
+  width: 260px;
 }
 .tc-chapter-tooltip img {
   display: block;
