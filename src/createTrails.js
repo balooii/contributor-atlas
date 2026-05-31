@@ -134,16 +134,29 @@ export function createTrails(container) {
     const viewMin = RANGE_START ?? FULL_MIN;
     const viewMax = RANGE_END ?? FULL_MAX;
     const days = (viewMax - viewMin) / 86400;
+
+    // Set height first so a vertical scrollbar settles before we measure width.
+    virtualH = Math.max(viewportH, contributors.length * ROW_HEIGHT + 16);
+    spacer.style.height = virtualH + "px";
+
+    // clientWidth excludes any vertical scrollbar, so the timeline fits exactly
+    // at min zoom with no stray horizontal scrollbar. Fall back before layout.
+    const availW = scroller.clientWidth || viewportW;
+
     minZoom =
       days > 0
-        ? Math.max(0.001, (viewportW - X_PAD * 2) / (days * TARGET_PX_PER_DAY))
+        ? Math.max(0.001, (availW - X_PAD * 2) / (days * TARGET_PX_PER_DAY))
         : 0.001;
     zoomLevel = Math.max(minZoom, zoomLevel);
-    virtualW = Math.max(
-      viewportW,
-      Math.ceil(days * TARGET_PX_PER_DAY * zoomLevel) + X_PAD * 2,
-    );
-    virtualH = Math.max(viewportH, contributors.length * ROW_HEIGHT + 16);
+    // At min zoom pin to availW exactly - deriving from zoomLevel can overshoot
+    // by a pixel (float rounding) and bring the scrollbar back.
+    virtualW =
+      zoomLevel > minZoom
+        ? Math.max(
+            availW,
+            Math.ceil(days * TARGET_PX_PER_DAY * zoomLevel) + X_PAD * 2,
+          )
+        : availW;
 
     xScale = d3
       .scaleTime()
@@ -151,7 +164,6 @@ export function createTrails(container) {
       .range([X_PAD, virtualW - X_PAD]);
 
     spacer.style.width = virtualW + "px";
-    spacer.style.height = virtualH + "px";
   }
 
   // -- Helpers ---------------------------------------------------------
@@ -908,6 +920,9 @@ export function createTrails(container) {
     return chart;
   };
   chart.resize = () => {
+    // Unless the user zoomed, refit to the new width instead of keeping the old
+    // density (which would leave content pinned narrow with a stray scrollbar).
+    if (!isZoomed) zoomLevel = 0;
     sizeCanvases();
     setupScales();
     scrollLeft = scroller.scrollLeft;
