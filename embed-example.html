@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embedding example</title>
+
+    <link rel="stylesheet" href="src/styles.css" />
+
+    <script type="importmap">
+      { "imports": { "d3": "./static/d3.v7.esm.js" } }
+    </script>
+
+    <style>
+      /* Each view is a plain box with a fixed size */
+      body {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .embed {
+        width: 700px;
+        height: 700px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Gathering</h1>
+    <div id="gathering" class="embed"></div>
+
+    <h1>Pulse</h1>
+    <div id="pulse" class="embed"></div>
+
+    <h1>Trails</h1>
+    <div id="trails" class="embed"></div>
+
+    <h1>Ripples</h1>
+    <div id="ripples" class="embed"></div>
+
+    <h1>Cornerstones</h1>
+    <div id="cornerstones" class="embed"></div>
+
+    <script type="module">
+      import {
+        gathering,
+        pulse,
+        trails,
+        ripples,
+        cornerstones,
+      } from "./src/contributorAtlas.js";
+
+      const data = {
+        contributions: "data/gimp/contributions.csv",
+        project: "data/gimp/project.json",
+        highlights: "data/gimp/highlights.csv",
+        nav: null,
+        timeline: false,
+      };
+
+      gathering(document.getElementById("gathering"), data);
+      pulse(document.getElementById("pulse"), data);
+      trails(document.getElementById("trails"), data);
+      ripples(document.getElementById("ripples"), data);
+      cornerstones(document.getElementById("cornerstones"), data);
+    </script>
+  </body>
+</html>

@@ -9,6 +9,8 @@
 //   contributions  path/URL to contributions.csv (required)
 //   project        path/URL to project.json (required)
 //   highlights     path/URL to the highlights.csv (Pulse only, optional)
+//   timeline       whether to render the timeline/category-filter control.
+//                  Defaults to true.
 //   controls       element or CSS selector for the timeline-control container.
 //                  Defaults to #controls if present, otherwise a <div> is
 //                  created and inserted right after the chart container.
@@ -39,15 +41,19 @@ function resolveEl(ref) {
   return typeof ref === "string" ? document.querySelector(ref) : ref;
 }
 
-// Where the timeline control mounts. Prefers an explicit option (id #controls)
-// or creates a new element right after chart.
+function timelineEnabled(opts) {
+  return opts.timeline !== false;
+}
+
+// Where the timeline control mounts. Prefers an explicit option, then a
+// page-level #controls, otherwise a fresh element inserted right after the
+// chart.
 function resolveControls(opts, chart) {
   const explicit = resolveEl(opts.controls);
   if (explicit) return explicit;
   const byId = document.getElementById("controls");
   if (byId) return byId;
   const el = document.createElement("div");
-  el.id = "controls";
   chart.after(el);
   return el;
 }
@@ -60,7 +66,8 @@ function resolveNav(opts) {
 export function gathering(container, options = {}) {
   const contributionsPath = requireOption(options, "contributions");
   const projectPath = requireOption(options, "project");
-  const controls = resolveControls(options, container);
+  const showTimeline = timelineEnabled(options);
+  const controls = showTimeline ? resolveControls(options, container) : null;
   const nav = resolveNav(options);
 
   const Visual = createGathering(container)
@@ -72,24 +79,28 @@ export function gathering(container, options = {}) {
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
     onReady: ([contributions, project]) => {
       Visual.project(project);
-      const stored = createTimelineControl.loadRange();
-      if (stored) Visual.setRange(stored.start, stored.end);
+      if (showTimeline) {
+        const stored = createTimelineControl.loadRange();
+        if (stored) Visual.setRange(stored.start, stored.end);
+      }
       Visual([contributions, project.category_colors, project.category_groups]);
 
-      const layoutControl = createTimelineControl.buildButtonGroup(
-        "layout",
-        [
-          { label: "random", value: "random" },
-          { label: "sorted", value: "sorted" },
-        ],
-        Visual.layout(),
-        (v) => Visual.layout(v),
-      );
-      createTimelineControl(controls)
-        .chapters(project.chapters || [])
-        .categories(true)
-        .extras(layoutControl)
-        .attach(Visual);
+      if (showTimeline) {
+        const layoutControl = createTimelineControl.buildButtonGroup(
+          "layout",
+          [
+            { label: "random", value: "random" },
+            { label: "sorted", value: "sorted" },
+          ],
+          Visual.layout(),
+          (v) => Visual.layout(v),
+        );
+        createTimelineControl(controls)
+          .chapters(project.chapters || [])
+          .categories(true)
+          .extras(layoutControl)
+          .attach(Visual);
+      }
 
       if (nav) createContributorSearch(nav, Visual, contributions);
 
@@ -109,7 +120,8 @@ export function gathering(container, options = {}) {
 export function pulse(container, options = {}) {
   const contributionsPath = requireOption(options, "contributions");
   const projectPath = requireOption(options, "project");
-  const controls = resolveControls(options, container);
+  const showTimeline = timelineEnabled(options);
+  const controls = showTimeline ? resolveControls(options, container) : null;
 
   const Visual = createPulse(container);
 
@@ -121,12 +133,16 @@ export function pulse(container, options = {}) {
       { path: projectPath },
     ],
     onReady: ([contributions, highlights, project]) => {
-      const stored = createTimelineControl.loadRange();
-      if (stored) Visual.setRange(stored.start, stored.end);
+      if (showTimeline) {
+        const stored = createTimelineControl.loadRange();
+        if (stored) Visual.setRange(stored.start, stored.end);
+      }
       Visual([contributions, highlights, project.category_colors]);
-      createTimelineControl(controls)
-        .chapters(project.chapters || [])
-        .attach(Visual);
+      if (showTimeline) {
+        createTimelineControl(controls)
+          .chapters(project.chapters || [])
+          .attach(Visual);
+      }
       Visual.resize();
     },
     onResize: () => Visual.resize(),
@@ -138,7 +154,8 @@ export function pulse(container, options = {}) {
 export function trails(container, options = {}) {
   const contributionsPath = requireOption(options, "contributions");
   const projectPath = requireOption(options, "project");
-  const controls = resolveControls(options, container);
+  const showTimeline = timelineEnabled(options);
+  const controls = showTimeline ? resolveControls(options, container) : null;
   const nav = resolveNav(options);
 
   const Visual = createTrails(container);
@@ -147,24 +164,28 @@ export function trails(container, options = {}) {
     container,
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
     onReady: ([contributions, project]) => {
-      const stored = createTimelineControl.loadRange();
-      if (stored) Visual.setRange(stored.start, stored.end);
+      if (showTimeline) {
+        const stored = createTimelineControl.loadRange();
+        if (stored) Visual.setRange(stored.start, stored.end);
+      }
       Visual([contributions, project.category_colors, project.category_groups]);
       if (nav) createContributorSearch(nav, Visual, contributions);
-      const sortControl = createTimelineControl.buildButtonGroup(
-        "sort",
-        [
-          { label: "contributions", value: "count" },
-          { label: "first seen", value: "first" },
-          { label: "longest career 🌳", value: "career" },
-        ],
-        "count",
-        (v) => Visual.setSortBy(v),
-      );
-      createTimelineControl(controls)
-        .chapters(project.chapters || [])
-        .extras([sortControl, createTimelineControl.buildZoomHint(Visual)])
-        .attach(Visual);
+      if (showTimeline) {
+        const sortControl = createTimelineControl.buildButtonGroup(
+          "sort",
+          [
+            { label: "contributions", value: "count" },
+            { label: "first seen", value: "first" },
+            { label: "longest career 🌳", value: "career" },
+          ],
+          "count",
+          (v) => Visual.setSortBy(v),
+        );
+        createTimelineControl(controls)
+          .chapters(project.chapters || [])
+          .extras([sortControl, createTimelineControl.buildZoomHint(Visual)])
+          .attach(Visual);
+      }
       Visual.resize();
     },
     onResize: () => Visual.resize(),
@@ -177,7 +198,8 @@ export function trails(container, options = {}) {
 export function ripples(container, options = {}) {
   const contributionsPath = requireOption(options, "contributions");
   const projectPath = requireOption(options, "project");
-  const controls = resolveControls(options, container);
+  const showTimeline = timelineEnabled(options);
+  const controls = showTimeline ? resolveControls(options, container) : null;
   const nav = resolveNav(options);
 
   const Visual = createRipples(container)
@@ -189,13 +211,17 @@ export function ripples(container, options = {}) {
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
     onReady: ([contributions, project]) => {
       Visual.project(project);
-      const stored = createTimelineControl.loadRange();
-      if (stored) Visual.setRange(stored.start, stored.end);
+      if (showTimeline) {
+        const stored = createTimelineControl.loadRange();
+        if (stored) Visual.setRange(stored.start, stored.end);
+      }
       Visual([contributions, project.category_colors, project.category_groups]);
-      createTimelineControl(controls)
-        .chapters(project.chapters || [])
-        .categories(true)
-        .attach(Visual);
+      if (showTimeline) {
+        createTimelineControl(controls)
+          .chapters(project.chapters || [])
+          .categories(true)
+          .attach(Visual);
+      }
       if (nav) createContributorSearch(nav, Visual, contributions);
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
@@ -213,7 +239,8 @@ export function ripples(container, options = {}) {
 export function cornerstones(container, options = {}) {
   const contributionsPath = requireOption(options, "contributions");
   const projectPath = requireOption(options, "project");
-  const controls = resolveControls(options, container);
+  const showTimeline = timelineEnabled(options);
+  const controls = showTimeline ? resolveControls(options, container) : null;
   const nav = resolveNav(options);
 
   const Visual = createCornerstones(container)
@@ -225,13 +252,17 @@ export function cornerstones(container, options = {}) {
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
     onReady: ([contributions, project]) => {
       Visual.project(project);
-      const stored = createTimelineControl.loadRange();
-      if (stored) Visual.setRange(stored.start, stored.end);
+      if (showTimeline) {
+        const stored = createTimelineControl.loadRange();
+        if (stored) Visual.setRange(stored.start, stored.end);
+      }
       Visual([contributions, project.category_colors, project.category_groups]);
-      createTimelineControl(controls)
-        .chapters(project.chapters || [])
-        .categories(true)
-        .attach(Visual);
+      if (showTimeline) {
+        createTimelineControl(controls)
+          .chapters(project.chapters || [])
+          .categories(true)
+          .attach(Visual);
+      }
       if (nav) createContributorSearch(nav, Visual, contributions);
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
