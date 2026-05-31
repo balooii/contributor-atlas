@@ -63,18 +63,12 @@ export function createTrails(container) {
   const ANIM_CYCLE = 1600;
 
   // -- DOM -------------------------------------------------------------
-  container.innerHTML = "";
-  container.style.background = COLOR_BACKGROUND;
-  container.style.overflow = "hidden";
+  container.classList.add("ca-view", "ca-trails");
 
   const corner = document.createElement("div");
   corner.className = "trails-corner";
   corner.style.width = LABEL_WIDTH + "px";
   corner.style.height = HEADER_HEIGHT + "px";
-  corner.style.background = COLOR_BACKGROUND;
-  corner.style.borderRight = `1px solid ${COLOR_LINK}`;
-  corner.style.borderBottom = `1px solid ${COLOR_LINK}`;
-  corner.style.color = COLOR_TEXT;
   container.appendChild(corner);
 
   function updateCornerStats() {
@@ -84,22 +78,31 @@ export function createTrails(container) {
       `<span class="trails-corner-secondary">${totalContribs.toLocaleString()} contributions</span>`;
   }
 
+  // Each layer's presentation is in styles.css; only the geometry that depends
+  // on LABEL_WIDTH / HEADER_HEIGHT is set here (and kept in sync by
+  // applyLabelWidth / setupScales).
   const headerCanvas = document.createElement("canvas");
-  headerCanvas.style.cssText = `position:absolute;top:0;left:${LABEL_WIDTH}px;display:block;pointer-events:none;z-index:2`;
+  headerCanvas.className = "trails-header";
+  headerCanvas.style.left = LABEL_WIDTH + "px";
   container.appendChild(headerCanvas);
 
   const labelsCanvas = document.createElement("canvas");
-  labelsCanvas.style.cssText = `position:absolute;top:${HEADER_HEIGHT}px;left:0;display:block;pointer-events:none;z-index:2`;
+  labelsCanvas.className = "trails-labels";
+  labelsCanvas.style.top = HEADER_HEIGHT + "px";
   container.appendChild(labelsCanvas);
 
   const mainCanvas = document.createElement("canvas");
-  mainCanvas.style.cssText = `position:absolute;top:${HEADER_HEIGHT}px;left:${LABEL_WIDTH}px;display:block;pointer-events:none;z-index:1`;
+  mainCanvas.className = "trails-main";
+  mainCanvas.style.top = HEADER_HEIGHT + "px";
+  mainCanvas.style.left = LABEL_WIDTH + "px";
   container.appendChild(mainCanvas);
 
   const scroller = document.createElement("div");
-  scroller.style.cssText = `position:absolute;top:${HEADER_HEIGHT}px;left:${LABEL_WIDTH}px;right:0;bottom:0;overflow:auto;z-index:4`;
+  scroller.className = "trails-scroller";
+  scroller.style.top = HEADER_HEIGHT + "px";
+  scroller.style.left = LABEL_WIDTH + "px";
   const spacer = document.createElement("div");
-  spacer.style.cssText = `width:1px;height:1px`;
+  spacer.className = "trails-spacer";
   scroller.appendChild(spacer);
   container.appendChild(scroller);
 
@@ -929,11 +932,6 @@ export function createTrails(container) {
 
   window.addEventListener("themechange", () => {
     readColors();
-    container.style.background = COLOR_BACKGROUND;
-    corner.style.background = COLOR_BACKGROUND;
-    corner.style.color = COLOR_TEXT;
-    corner.style.borderRight = `1px solid ${COLOR_LINK}`;
-    corner.style.borderBottom = `1px solid ${COLOR_LINK}`;
     drawAll();
   });
 

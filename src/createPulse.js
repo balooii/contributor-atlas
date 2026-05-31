@@ -25,8 +25,10 @@ export function createPulse(container) {
   let FULL_MIN, FULL_MAX;
   let W, H, PR;
 
+  container.classList.add("ca-view");
+
   const canvas = document.createElement("canvas");
-  canvas.id = "activity-canvas";
+  canvas.className = "ca-activity-canvas";
   const ctx = canvas.getContext("2d");
   container.appendChild(canvas);
 

@@ -1,0 +1,60 @@
+/* Page shell for the standalone visualization pages (index.html, pulse.html,
+   trails.html, ripples.html, cornerstones.html).
+
+   These rules use global selectors (*, html, body, nav) and a full-height
+   flex layout that are appropriate for a page whose whole job is to show one
+   view.
+
+   They are deliberately kept out of the main/embeddable component stylesheet
+   (styles.css / contributor-atlas.css) so that embedding a view into someone
+   else's page never hijacks their body layout.
+
+   Needs styles.css to be loaded as well.
+   */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: var(--c-page-bg);
+  overflow: hidden;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+}
+
+#chart-container {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+nav {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+  padding: 0 16px;
+  background: var(--c-nav-bg);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+nav a {
+  color: var(--c-nav-text);
+  text-decoration: none;
+  margin-left: 14px;
+}
+nav a.active,
+nav a:hover {
+  color: var(--accent);
+}

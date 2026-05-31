@@ -361,19 +361,19 @@ export function runPipeline(raw, rangeStart, rangeEnd, activeCats, catToGroup) {
 // Create the base/click/hover canvas stack used by the round-cluster
 // visualizations. Returns refs to the canvases and their 2d contexts.
 export function createCanvasLayers(container, backgroundColor) {
-  container.style.position = "relative";
+  container.classList.add("ca-view");
   if (backgroundColor) container.style.backgroundColor = backgroundColor;
 
-  const make = (id) => {
+  const make = (className) => {
     const c = document.createElement("canvas");
-    c.id = id;
+    c.className = className;
     container.appendChild(c);
     return c;
   };
 
-  const base = make("canvas");
-  const click = make("canvas-click");
-  const hover = make("canvas-hover");
+  const base = make("ca-canvas");
+  const click = make("ca-canvas-click");
+  const hover = make("ca-canvas-hover");
 
   return {
     base,

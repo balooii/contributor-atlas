@@ -267,16 +267,27 @@
   }
 }
 
-/* -- Canvas layer stack (createCanvasLayers in chartBase.js) --------------- */
+/* -- View container -------------------------------------------------------- */
+/* Every view turns its container into the positioning context for its own
+   absolutely-positioned canvases and tooltip. Set via a class (added by the
+   chart factories) rather than an inline style so it stays in the stylesheet
+   and works the same whether the view is standalone or embedded. */
 
-#canvas,
-#canvas-click,
-#canvas-hover {
+.ca-view {
+  position: relative;
+}
+
+/* -- Canvas layer stack (createCanvasLayers in chartBase.js) --------------- */
+/* Classes (not ids) so several views can be embedded on one page. */
+
+.ca-canvas,
+.ca-canvas-click,
+.ca-canvas-hover {
   display: block;
 }
 
-#canvas,
-#canvas-click {
+.ca-canvas,
+.ca-canvas-click {
   position: absolute;
   top: 0;
   left: 0;
@@ -285,12 +296,47 @@
   transition: opacity 200ms ease-in;
 }
 
-#canvas-hover {
+.ca-canvas-hover {
   position: relative;
   z-index: 1;
 }
 
-/* -- Trails corner cell ---------------------------------------------------- */
+/* -- Trails -------------------------------------------------------------- */
+
+.ca-trails {
+  overflow: hidden;
+  background: var(--c-bg);
+}
+
+.trails-header,
+.trails-labels,
+.trails-main {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+.trails-header {
+  top: 0;
+  z-index: 2;
+}
+.trails-labels {
+  left: 0;
+  z-index: 2;
+}
+.trails-main {
+  z-index: 1;
+}
+.trails-scroller {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: 4;
+}
+.trails-spacer {
+  width: 1px;
+  height: 1px;
+}
 
 .trails-corner {
   position: absolute;
@@ -303,6 +349,10 @@
   padding: 0 10px;
   gap: 1px;
   font-size: 10px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  border-right: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
 }
 .trails-corner > :first-child {
   opacity: 0.8;
@@ -312,61 +362,14 @@
 }
 
 /* Pulse chart canvas */
-#activity-canvas {
+.ca-activity-canvas {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* -- Layout --------------------------------------------------------------- */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html,
-body {
-  width: 100%;
-  height: 100%;
-  background: var(--c-page-bg);
-  overflow: hidden;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-family);
-}
-
-#chart-container {
-  position: relative;
-  width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-}
-
-nav {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 40px;
-  padding: 0 16px;
-  background: var(--c-nav-bg);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-}
-nav a {
-  color: var(--c-nav-text);
-  text-decoration: none;
-  margin-left: 14px;
-}
-nav a.active,
-nav a:hover {
-  color: var(--accent);
-}
+/* -- Theme picker  ---------------------------------------------- */
 
 .theme-wrapper {
   position: relative;

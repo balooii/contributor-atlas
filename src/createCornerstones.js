@@ -868,7 +868,7 @@ export function createCornerstones(container) {
       canvas.style.opacity = "1";
     }
 
-    d3.select("#canvas-hover").on("mousemove", function (event) {
+    d3.select(canvas_hover).on("mousemove", function (event) {
       // Get the position of the mouse on the canvas
       let [mx, my] = d3.pointer(event, this);
       let [d, FOUND] = findNode(mx, my);
@@ -901,9 +901,9 @@ export function createCornerstones(container) {
           }, 80);
         }
       }
-    }); // on mousemove
+    });
 
-    d3.select("#canvas-hover").on("mouseleave", function () {
+    d3.select(canvas_hover).on("mouseleave", function () {
       if (clearHoverTimer !== null) {
         clearTimeout(clearHoverTimer);
         clearHoverTimer = null;
@@ -940,7 +940,7 @@ export function createCornerstones(container) {
     // Draw all the links to this node
     d.neighbor_links.forEach((l) => {
       drawLink(context, SF, l);
-    }); // forEach
+    });
 
     // For remaining contributors (outside the ring), draw a link to the center
     if (d.remaining_contributor) {
@@ -1068,7 +1068,7 @@ export function createCornerstones(container) {
           SF;
 
         renderText(context, l, x, y, 1.25 * SF);
-      }); // forEach
+      });
 
       context.restore();
     } else if (d.type === "project") {
