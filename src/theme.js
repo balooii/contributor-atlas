@@ -6,8 +6,9 @@
 // Two things happen here:
 //   -  OS color-scheme reactivity. Installed automatically when this module
 //      loads.
-//   -  The theme-picker menu. Injected into a host element only
-//      when a caller explicitly asks for it via mountThemePicker()
+//   -  The theme-picker menu. Rendered into a host element only when a caller
+//      explicitly asks for it via mountThemePicker(target). The caller owns the
+//      target element and its placement; we only append our widget into it.
 
 const STORAGE_KEY = "theme";
 const ICONS = { system: "◑", light: "☀", dark: "☾" };
@@ -46,14 +47,10 @@ function watchSystemTheme() {
 }
 watchSystemTheme();
 
-let pickerMounted = false;
-
-export function mountThemePicker(target = "nav") {
-  if (pickerMounted) return;
-  const nav =
+export function mountThemePicker(target) {
+  const mount =
     typeof target === "string" ? document.querySelector(target) : target;
-  if (!nav) return;
-  pickerMounted = true;
+  if (!mount) return;
 
   var wrapper = document.createElement("div");
   wrapper.className = "theme-wrapper";
@@ -130,5 +127,5 @@ export function mountThemePicker(target = "nav") {
 
   wrapper.appendChild(btn);
   wrapper.appendChild(menu);
-  nav.insertBefore(wrapper, nav.firstChild);
+  mount.appendChild(wrapper);
 }

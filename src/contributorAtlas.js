@@ -1,8 +1,8 @@
 // Public API - one function per visualization.
 //
 // Each function renders a view into a container element and wires up data
-// loading, the timeline control, theme reactivity, and (when a <nav> exists)
-// contributor search.
+// loading, the timeline control, theme reactivity, and (when a search element
+// is provided) contributor search.
 //
 // Every view takes (container, options). The options are:
 //
@@ -14,9 +14,9 @@
 //   controls       element or CSS selector for the timeline-control container.
 //                  Defaults to #controls if present, otherwise a <div> is
 //                  created and inserted right after the chart container.
-//   nav            element or CSS selector for the <nav> that hosts contributor
-//                  search. Defaults to the page <nav>; pass null to opt out.
-//                  Search is skipped when no nav is found.
+//   search         element or CSS selector to render contributor search into.
+//                  The caller owns this element and its placement. Omit to skip
+//                  search entirely.
 //
 
 export { mountThemePicker, notifyThemeChange } from "./theme.js";
@@ -58,9 +58,8 @@ function resolveControls(opts, chart) {
   return el;
 }
 
-function resolveNav(opts) {
-  if (opts.nav === null) return null;
-  return resolveEl(opts.nav) || document.querySelector("nav");
+function resolveSearch(opts) {
+  return resolveEl(opts.search);
 }
 
 export function gathering(container, options = {}) {
@@ -68,7 +67,7 @@ export function gathering(container, options = {}) {
   const projectPath = requireOption(options, "project");
   const showTimeline = timelineEnabled(options);
   const controls = showTimeline ? resolveControls(options, container) : null;
-  const nav = resolveNav(options);
+  const search = resolveSearch(options);
 
   const Visual = createGathering(container)
     .width(container.offsetWidth)
@@ -102,7 +101,7 @@ export function gathering(container, options = {}) {
           .attach(Visual);
       }
 
-      if (nav) createContributorSearch(nav, Visual, contributions);
+      if (search) createContributorSearch(search, Visual, contributions);
 
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
@@ -156,7 +155,7 @@ export function trails(container, options = {}) {
   const projectPath = requireOption(options, "project");
   const showTimeline = timelineEnabled(options);
   const controls = showTimeline ? resolveControls(options, container) : null;
-  const nav = resolveNav(options);
+  const search = resolveSearch(options);
 
   const Visual = createTrails(container);
 
@@ -169,7 +168,7 @@ export function trails(container, options = {}) {
         if (stored) Visual.setRange(stored.start, stored.end);
       }
       Visual([contributions, project.category_colors, project.category_groups]);
-      if (nav) createContributorSearch(nav, Visual, contributions);
+      if (search) createContributorSearch(search, Visual, contributions);
       if (showTimeline) {
         const sortControl = createTimelineControl.buildButtonGroup(
           "sort",
@@ -200,7 +199,7 @@ export function ripples(container, options = {}) {
   const projectPath = requireOption(options, "project");
   const showTimeline = timelineEnabled(options);
   const controls = showTimeline ? resolveControls(options, container) : null;
-  const nav = resolveNav(options);
+  const search = resolveSearch(options);
 
   const Visual = createRipples(container)
     .width(container.offsetWidth)
@@ -222,7 +221,7 @@ export function ripples(container, options = {}) {
           .categories(true)
           .attach(Visual);
       }
-      if (nav) createContributorSearch(nav, Visual, contributions);
+      if (search) createContributorSearch(search, Visual, contributions);
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
         .resize();
@@ -241,7 +240,7 @@ export function cornerstones(container, options = {}) {
   const projectPath = requireOption(options, "project");
   const showTimeline = timelineEnabled(options);
   const controls = showTimeline ? resolveControls(options, container) : null;
-  const nav = resolveNav(options);
+  const search = resolveSearch(options);
 
   const Visual = createCornerstones(container)
     .width(container.offsetWidth)
@@ -263,7 +262,7 @@ export function cornerstones(container, options = {}) {
           .categories(true)
           .attach(Visual);
       }
-      if (nav) createContributorSearch(nav, Visual, contributions);
+      if (search) createContributorSearch(search, Visual, contributions);
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
         .resize();

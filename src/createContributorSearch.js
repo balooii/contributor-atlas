@@ -1,6 +1,7 @@
-// Injects a search input + dropdown into the <nav> to select a contributor.
+// Renders a search input + dropdown into the given mount element to select a
+// contributor.
 
-export function createContributorSearch(nav, Visual, rawContributions) {
+export function createContributorSearch(mount, Visual, rawContributions) {
   // Build deduplicated contributor index from all raw contributions
   const seen = new Map();
   rawContributions.forEach(function (row) {
@@ -39,12 +40,7 @@ export function createContributorSearch(nav, Visual, rawContributions) {
   wrapper.appendChild(clearBtn);
   wrapper.appendChild(dropdown);
 
-  var themeWrapper = nav.querySelector(".theme-wrapper");
-  if (themeWrapper && themeWrapper.nextSibling) {
-    nav.insertBefore(wrapper, themeWrapper.nextSibling);
-  } else {
-    nav.insertBefore(wrapper, nav.firstChild);
-  }
+  mount.appendChild(wrapper);
 
   var STORAGE_KEY = "selected-contributor";
 

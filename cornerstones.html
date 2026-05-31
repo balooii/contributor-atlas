@@ -21,6 +21,8 @@
   </head>
   <body>
     <nav>
+      <span id="theme-picker"></span>
+      <span id="contributor-search"></span>
       <a href="index.html">Gathering</a>
       <a href="pulse.html">Pulse</a>
       <a href="trails.html">Trails</a>
@@ -36,11 +38,12 @@
         mountThemePicker,
       } from "./src/contributorAtlas.js";
 
-      mountThemePicker();
+      mountThemePicker(document.getElementById("theme-picker"));
 
       cornerstones(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",
         project: "data/gimp/project.json",
+        search: document.getElementById("contributor-search"),
       });
     </script>
   </body>

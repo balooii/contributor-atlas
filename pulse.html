@@ -21,6 +21,7 @@
   </head>
   <body>
     <nav>
+      <span id="theme-picker"></span>
       <a href="index.html">Gathering</a>
       <a href="pulse.html" class="active">Pulse</a>
       <a href="trails.html">Trails</a>
@@ -33,7 +34,7 @@
     <script type="module">
       import { pulse, mountThemePicker } from "./src/contributorAtlas.js";
 
-      mountThemePicker();
+      mountThemePicker(document.getElementById("theme-picker"));
 
       pulse(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",
