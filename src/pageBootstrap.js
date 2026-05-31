@@ -53,22 +53,20 @@ export function bootstrapPage({
           onReady(values);
           if (overlay) overlay.remove();
 
-          let currentW = window.innerWidth;
-          let currentH = window.innerHeight;
+          let currentW = chartContainer.offsetWidth;
+          let currentH = chartContainer.offsetHeight;
           let timer = null;
-          window.addEventListener("resize", () => {
+          new ResizeObserver(() => {
             clearTimeout(timer);
             timer = setTimeout(() => {
-              if (
-                window.innerWidth === currentW &&
-                window.innerHeight === currentH
-              )
-                return;
-              currentW = window.innerWidth;
-              currentH = window.innerHeight;
+              const w = chartContainer.offsetWidth;
+              const h = chartContainer.offsetHeight;
+              if (w === currentW && h === currentH) return;
+              currentW = w;
+              currentH = h;
               onResize();
             }, resizeDelay);
-          });
+          }).observe(chartContainer);
         }, 0),
       );
     });
