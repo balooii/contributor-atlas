@@ -588,6 +588,17 @@
   gap: 4px;
 }
 
+.tc-separator {
+  width: 1px;
+  align-self: stretch;
+  background: var(--tc-pill-border);
+  visibility: hidden;
+  margin: 2px 0;
+}
+.tc-separator.tc-visible {
+  visibility: visible;
+}
+
 /* -- Timeline slider --------------------------------------------- */
 
 .tc-timeline {

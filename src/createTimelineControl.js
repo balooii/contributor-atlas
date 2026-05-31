@@ -138,6 +138,9 @@ export function createTimelineControl(container) {
     if (hasChapters) els.timeline.classList.add("tc-has-chapters");
     els.controlsRow.appendChild(els.timeline);
 
+    els.separator = div("tc-separator");
+    els.controlsRow.appendChild(els.separator);
+
     els.actions = div("tc-actions");
     els.controlsRow.appendChild(els.actions);
     EXTRAS.forEach((node) => els.actions.appendChild(node));
@@ -541,7 +544,9 @@ export function createTimelineControl(container) {
       CATEGORIES_ENABLED &&
       allCats.length > 0 &&
       selectedCategories.size < allCats.length;
-    els.resetBtn.classList.toggle("tc-visible", timeActive || catActive);
+    const resetVisible = timeActive || catActive;
+    els.resetBtn.classList.toggle("tc-visible", resetVisible);
+    els.separator.classList.toggle("tc-visible", EXTRAS.length > 0 || resetVisible);
   }
 }
 
