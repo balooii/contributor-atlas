@@ -58,8 +58,6 @@ export function createGathering(container) {
     context_click = layers.clickCtx,
     context_hover = layers.hoverCtx;
 
-  const loadingOverlay = ChartBase.createLoadingOverlay(container);
-
   const selectionHighlight = ChartBase.makeSelectionHighlight({
     context_click,
     getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),

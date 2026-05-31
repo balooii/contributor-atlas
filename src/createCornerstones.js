@@ -92,7 +92,17 @@ export function createCornerstones(container) {
     context_click = layers.clickCtx,
     context_hover = layers.hoverCtx;
 
-  const loadingOverlay = ChartBase.createLoadingOverlay(container);
+  // Readiness signal: the scatter is placed on a debounce, so the graph isn't
+  // complete when the first render returns. _ready resolves once it is, so
+  // bootstrapPage can hold its spinner until then.
+  let _markReady;
+  const _ready = new Promise((resolve) => (_markReady = resolve));
+  function markReady() {
+    if (_markReady) {
+      _markReady();
+      _markReady = null;
+    }
+  }
 
   // Remaining-contributor scatter state. The scatter is re-run whenever the
   // canvas changes size so it always fills the current bounds.
@@ -282,9 +292,6 @@ export function createCornerstones(container) {
         WIDTH !== lastPlacedWidth ||
         HEIGHT !== lastPlacedHeight)
     ) {
-      // Until the first full placement is ready, keep the spinner up so we never
-      // flash a partial graph (top contributors only, no remaining nodes).
-      if (!REMAINING_PLACED) loadingOverlay.style.display = "flex";
       scheduleReplace();
     }
 
@@ -301,9 +308,10 @@ export function createCornerstones(container) {
       SELECTED_NODE = findContributorNode(SELECTED_ID);
     }
 
-    // Draw the visual
     draw();
     selectionHighlight.restart();
+
+    if (!REMAINING_PRESENT || REMAINING_PLACED) markReady();
   };
 
   // -- Data preparation -------------------------------------
@@ -620,7 +628,6 @@ export function createCornerstones(container) {
     lastPlacedWidth = WIDTH;
     lastPlacedHeight = HEIGHT;
     REMAINING_PLACED = true;
-    loadingOverlay.style.display = "none";
     if (onDone) onDone();
   }
 
@@ -1209,6 +1216,8 @@ export function createCornerstones(container) {
   };
 
   chart.onRerun = null;
+
+  chart.whenReady = () => _ready;
 
   chart.reset = () => {
     range.clear();

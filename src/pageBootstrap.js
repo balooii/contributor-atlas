@@ -4,17 +4,21 @@ import * as d3 from "d3";
 //   * Eagerly request the configured font (--font-family) variants so canvas
 //     text doesn't fall back to a system font on first paint.
 //   * Wait for document.fonts.ready, then Promise.all the requested data files.
-//   * Hand the loaded values to onReady, then wire a debounced window-resize
+//   * Hand the loaded values to render(), then wire a debounced window-resize
 //     listener that calls onResize only when the viewport actually changed.
 //
 // Each page still owns its chart factory construction, timeline-control wiring,
 // and any page-specific toggles - this just removes the boilerplate they all share.
+//
+// A view with an async first render returns a promise from render(); Once it
+// resolves the spinner goes down an onReady is fired.
 
 import * as ChartBase from "./chartBase.js";
 
 export function bootstrapPage({
   container,
   files,
+  render,
   onReady,
   onResize,
   resizeDelay = 300,
@@ -50,23 +54,27 @@ export function bootstrapPage({
 
       requestAnimationFrame(() =>
         setTimeout(() => {
-          onReady(values);
-          if (overlay) overlay.remove();
+          // render() may return a promise; hold the spinner until it resolves
+          // (sync views return nothing and resolve immediately).
+          Promise.resolve(render(values)).then(() => {
+            if (overlay) overlay.remove();
+            onReady?.();
 
-          let currentW = chartContainer.offsetWidth;
-          let currentH = chartContainer.offsetHeight;
-          let timer = null;
-          new ResizeObserver(() => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-              const w = chartContainer.offsetWidth;
-              const h = chartContainer.offsetHeight;
-              if (w === currentW && h === currentH) return;
-              currentW = w;
-              currentH = h;
-              onResize();
-            }, resizeDelay);
-          }).observe(chartContainer);
+            let currentW = chartContainer.offsetWidth;
+            let currentH = chartContainer.offsetHeight;
+            let timer = null;
+            new ResizeObserver(() => {
+              clearTimeout(timer);
+              timer = setTimeout(() => {
+                const w = chartContainer.offsetWidth;
+                const h = chartContainer.offsetHeight;
+                if (w === currentW && h === currentH) return;
+                currentW = w;
+                currentH = h;
+                onResize();
+              }, resizeDelay);
+            }).observe(chartContainer);
+          });
         }, 0),
       );
     });

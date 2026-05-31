@@ -15,6 +15,8 @@
 //   search         element or CSS selector to render contributor search into.
 //                  The caller owns this element and its placement. Omit to skip
 //                  search entirely.
+//   onReady        optional callback fired with the chart instance once the view
+//                  has rendered and the spinner is gone.
 //
 
 export { mountThemePicker, notifyThemeChange } from "./theme.js";
@@ -67,7 +69,7 @@ export function gathering(container, options = {}) {
   bootstrapPage({
     container,
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
-    onReady: ([contributions, project]) => {
+    render: ([contributions, project]) => {
       Visual.project(project);
       if (showControls) {
         const stored = createTimelineControl.loadRange();
@@ -98,6 +100,7 @@ export function gathering(container, options = {}) {
         .height(container.offsetHeight)
         .resize();
     },
+    onReady: () => options.onReady?.(Visual),
     onResize: () =>
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
@@ -122,7 +125,7 @@ export function pulse(container, options = {}) {
       { path: options.highlights, type: "csv", optional: true },
       { path: projectPath },
     ],
-    onReady: ([contributions, highlights, project]) => {
+    render: ([contributions, highlights, project]) => {
       if (showControls) {
         const stored = createTimelineControl.loadRange();
         if (stored) Visual.setRange(stored.start, stored.end);
@@ -135,6 +138,7 @@ export function pulse(container, options = {}) {
       }
       Visual.resize();
     },
+    onReady: () => options.onReady?.(Visual),
     onResize: () => Visual.resize(),
   });
 
@@ -153,7 +157,7 @@ export function trails(container, options = {}) {
   bootstrapPage({
     container,
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
-    onReady: ([contributions, project]) => {
+    render: ([contributions, project]) => {
       if (showControls) {
         const stored = createTimelineControl.loadRange();
         if (stored) Visual.setRange(stored.start, stored.end);
@@ -178,6 +182,7 @@ export function trails(container, options = {}) {
       }
       Visual.resize();
     },
+    onReady: () => options.onReady?.(Visual),
     onResize: () => Visual.resize(),
     resizeDelay: 200,
   });
@@ -199,7 +204,7 @@ export function ripples(container, options = {}) {
   bootstrapPage({
     container,
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
-    onReady: ([contributions, project]) => {
+    render: ([contributions, project]) => {
       Visual.project(project);
       if (showControls) {
         const stored = createTimelineControl.loadRange();
@@ -217,6 +222,7 @@ export function ripples(container, options = {}) {
         .height(container.offsetHeight)
         .resize();
     },
+    onReady: () => options.onReady?.(Visual),
     onResize: () =>
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
@@ -240,7 +246,7 @@ export function cornerstones(container, options = {}) {
   bootstrapPage({
     container,
     files: [{ path: contributionsPath, type: "csv" }, { path: projectPath }],
-    onReady: ([contributions, project]) => {
+    render: ([contributions, project]) => {
       Visual.project(project);
       if (showControls) {
         const stored = createTimelineControl.loadRange();
@@ -257,7 +263,11 @@ export function cornerstones(container, options = {}) {
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
         .resize();
+      // Cornerstone places remaining scatter nodes asynchronously, communicated
+      // as whenReady()
+      return Visual.whenReady();
     },
+    onReady: () => options.onReady?.(Visual),
     onResize: () =>
       Visual.width(container.offsetWidth)
         .height(container.offsetHeight)
