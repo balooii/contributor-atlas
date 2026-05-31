@@ -199,8 +199,9 @@ export function createCornerstones(container) {
     setupHover();
     // resize() sizes the canvas and, if there are remaining contributors,
     // schedules their placement. Routing placement through resize means it
-    // always runs against the final canvas size (the page lays out #controls
-    // after first paint, so the very first dimensions are not yet correct).
+    // always runs against the final canvas size (the controls container is
+    // laid out after first paint, so the very first dimensions are not yet
+    // correct).
     chart.resize();
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }

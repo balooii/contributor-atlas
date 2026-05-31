@@ -181,13 +181,13 @@ ripples(document.getElementById("chart"), {
 
 **Options:**
 
-| Option          | Description                                                                                                                                                      |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `contributions` | (required) path/URL to `contributions.csv`                                                                                                                       |
-| `project`       | (required) path/URL to `project.json`                                                                                                                            |
-| `highlights`    | (Pulse only, optional) path/URL to `highlights.csv`                                                                                                              |
-| `controls`      | element or CSS selector for the timeline/category filter container. Defaults to `#controls` if present, otherwise a `<div>` is created after the chart.          |
-| `search`        | element or CSS selector to render contributor search into. The view appends the search widget to it; you own the element and its placement. Omit to skip search. |
+| Option           | Description                                                                                                                                                      |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contributions`  | (required) path/URL to `contributions.csv`                                                                                                                       |
+| `project`        | (required) path/URL to `project.json`                                                                                                                            |
+| `highlights`     | (Pulse only, optional) path/URL to `highlights.csv`                                                                                                              |
+| `enableControls` | (default `true`) whether to render the timeline/category filter control just below the chart. Pass `false` to omit it.                                           |
+| `search`         | element or CSS selector to render contributor search into. The view appends the search widget to it; you own the element and its placement. Omit to skip search. |
 
 ---
 
