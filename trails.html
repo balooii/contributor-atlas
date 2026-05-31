@@ -31,7 +31,9 @@
     <div id="controls"></div>
 
     <script type="module">
-      import { trails } from "./src/contributorAtlas.js";
+      import { trails, mountThemePicker } from "./src/contributorAtlas.js";
+
+      mountThemePicker();
 
       trails(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",

@@ -31,7 +31,9 @@
     <div id="controls"></div>
 
     <script type="module">
-      import { gathering } from "./src/contributorAtlas.js";
+      import { gathering, mountThemePicker } from "./src/contributorAtlas.js";
+
+      mountThemePicker();
 
       gathering(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",

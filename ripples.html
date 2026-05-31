@@ -31,7 +31,9 @@
     <div id="controls"></div>
 
     <script type="module">
-      import { ripples } from "./src/contributorAtlas.js";
+      import { ripples, mountThemePicker } from "./src/contributorAtlas.js";
+
+      mountThemePicker();
 
       ripples(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",

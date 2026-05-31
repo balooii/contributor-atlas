@@ -31,7 +31,12 @@
     <div id="controls"></div>
 
     <script type="module">
-      import { cornerstones } from "./src/contributorAtlas.js";
+      import {
+        cornerstones,
+        mountThemePicker,
+      } from "./src/contributorAtlas.js";
+
+      mountThemePicker();
 
       cornerstones(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",

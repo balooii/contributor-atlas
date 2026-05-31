@@ -221,6 +221,14 @@ The token groups you're most likely to touch if you're not happy with the defaul
 
 The theme system ships a **dark** default and a **light** variant (under the system `prefers-color-scheme` and a `[data-theme="light"]` override). When the theme changes, each view re-reads its tokens and redraws, so your overrides apply in both modes if you scope them accordingly.
 
+Views follow the visitor's OS light/dark preference automatically. If your page has its own theme switch, call `notifyThemeChange()` to make the views pick it up:
+
+```js
+import { notifyThemeChange } from "./contributor-atlas.js";
+// after your toggle has updated the page's CSS:
+notifyThemeChange("dark"); // "light" | "dark" | "system"
+```
+
 ---
 
 ## Adapting the data

@@ -1,9 +1,13 @@
 // Theme menu + reactive theme switching.
 //
 // The *initial* theme is applied by a tiny inline script in each page's
-// <head> (before first paint) to avoid a flash of the wrong theme. This
-// module owns everything that happens after load: the theme-picker menu,
-// click-to-switch, and reacting to OS color-scheme changes while in Auto mode.
+// <head> (before first paint) to avoid a flash of the wrong theme.
+//
+// Two things happen here:
+//   -  OS color-scheme reactivity. Installed automatically when this module
+//      loads.
+//   -  The theme-picker menu. Injected into a host element only
+//      when a caller explicitly asks for it via mountThemePicker()
 
 const STORAGE_KEY = "theme";
 const ICONS = { system: "◑", light: "☀", dark: "☾" };
@@ -14,6 +18,11 @@ function getTheme() {
   return localStorage.getItem(STORAGE_KEY) || "system";
 }
 
+// Tell every mounted view the theme changed so they re-read CSS tokens and redraw
+export function notifyThemeChange(theme) {
+  window.dispatchEvent(new CustomEvent("themechange", { detail: theme }));
+}
+
 function applyTheme(theme) {
   if (theme === "system") {
     delete document.documentElement.dataset.theme;
@@ -21,24 +30,30 @@ function applyTheme(theme) {
     document.documentElement.dataset.theme = theme;
   }
   localStorage.setItem(STORAGE_KEY, theme);
-  window.dispatchEvent(new CustomEvent("themechange", { detail: theme }));
+  notifyThemeChange(theme);
 }
 
-// In Auto mode the inline guard leaves data-theme unset, so the page follows
-// prefers-color-scheme. When the OS flips dark<->light the CSS vars change but
-// nothing else fires, so nudge the charts to re-read colors and redraw.
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", () => {
-    if (getTheme() === "system")
-      window.dispatchEvent(
-        new CustomEvent("themechange", { detail: "system" }),
-      );
-  });
+// Follow prefers-color-scheme. Runs on import so no opt-in.
+let watchingSystem = false;
+function watchSystemTheme() {
+  if (watchingSystem || typeof window === "undefined") return;
+  watchingSystem = true;
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", () => {
+      if (getTheme() === "system") notifyThemeChange("system");
+    });
+}
+watchSystemTheme();
 
-document.addEventListener("DOMContentLoaded", function () {
-  var nav = document.querySelector("nav");
+let pickerMounted = false;
+
+export function mountThemePicker(target = "nav") {
+  if (pickerMounted) return;
+  const nav =
+    typeof target === "string" ? document.querySelector(target) : target;
   if (!nav) return;
+  pickerMounted = true;
 
   var wrapper = document.createElement("div");
   wrapper.className = "theme-wrapper";
@@ -116,4 +131,4 @@ document.addEventListener("DOMContentLoaded", function () {
   wrapper.appendChild(btn);
   wrapper.appendChild(menu);
   nav.insertBefore(wrapper, nav.firstChild);
-});
+}

@@ -19,7 +19,7 @@
 //                  Search is skipped when no nav is found.
 //
 
-import "./theme.js";
+export { mountThemePicker, notifyThemeChange } from "./theme.js";
 import { bootstrapPage } from "./pageBootstrap.js";
 import { createTimelineControl } from "./createTimelineControl.js";
 import { createContributorSearch } from "./createContributorSearch.js";

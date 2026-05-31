@@ -31,7 +31,9 @@
     <div id="controls"></div>
 
     <script type="module">
-      import { pulse } from "./src/contributorAtlas.js";
+      import { pulse, mountThemePicker } from "./src/contributorAtlas.js";
+
+      mountThemePicker();
 
       pulse(document.getElementById("chart-container"), {
         contributions: "data/gimp/contributions.csv",
