@@ -35,9 +35,36 @@
       #gathering-wrapper {
         background-color: lightblue;
       }
+
+      /* A partial-width container that clips its overflow.
+	 test to see that dropdown flip side */
+      #widgets {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        width: 500px;
+        height: 300px;
+        padding: 10px;
+        overflow: hidden;
+        background: black;
+      }
+      @media (prefers-color-scheme: light) {
+        :root:not([data-theme="dark"]) #widgets {
+          background: white;
+        }
+      }
+      :root[data-theme="light"] #widgets {
+        background: white;
+      }
     </style>
   </head>
   <body>
+    <h1>Theme picker and Contributor Search</h1>
+    <div id="widgets">
+      <span id="theme-picker-wrapper"></span>
+      <span id="search-wrapper"></span>
+    </div>
+
     <h1>Gathering <small>(container-scoped color overrides)</small></h1>
     <div id="gathering-wrapper">
       <div id="gathering" class="embed"></div>
@@ -62,6 +89,7 @@
         trails,
         ripples,
         cornerstones,
+        mountThemePicker,
       } from "./src/contributorAtlas.js";
 
       const data = {
@@ -71,7 +99,12 @@
         enableControls: false,
       };
 
-      gathering(document.getElementById("gathering"), data);
+      mountThemePicker(document.getElementById("theme-picker-wrapper"));
+
+      gathering(document.getElementById("gathering"), {
+        ...data,
+        search: document.getElementById("search-wrapper"),
+      });
       pulse(document.getElementById("pulse"), data);
       trails(document.getElementById("trails"), data);
       ripples(document.getElementById("ripples"), data);

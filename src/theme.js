@@ -10,6 +10,8 @@
 //      explicitly asks for it via mountThemePicker(target). The caller owns the
 //      target element and its placement; we only append our widget into it.
 
+import { placeDropdown } from "./dropdownPlacement.js";
+
 const STORAGE_KEY = "theme";
 const ICONS = { system: "◑", light: "☀", dark: "☾" };
 const LABELS = { system: "Auto", light: "Light", dark: "Dark" };
@@ -99,6 +101,7 @@ export function mountThemePicker(target) {
 
   function openMenu() {
     menu.classList.add("ca-is-open");
+    placeDropdown(menu);
     btn.setAttribute("aria-expanded", "true");
     document.addEventListener("click", closeMenu);
   }

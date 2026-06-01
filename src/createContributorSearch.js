@@ -1,6 +1,8 @@
 // Renders a search input + dropdown into the given mount element to select a
 // contributor.
 
+import { placeDropdown } from "./dropdownPlacement.js";
+
 export function createContributorSearch(mount, Visual, rawContributions) {
   // Build deduplicated contributor index from all raw contributions
   const seen = new Map();
@@ -99,6 +101,7 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
   function openDropdown() {
     dropdown.classList.add("ca-is-open");
+    placeDropdown(dropdown);
     isOpen = true;
     document.addEventListener("click", onOutsideClick);
   }
