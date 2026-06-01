@@ -1,5 +1,6 @@
-/* Page shell for the standalone visualization pages (index.html, pulse.html,
-   trails.html, ripples.html, cornerstones.html).
+/* Page shell for the landing page (index.html) and the standalone
+   visualization pages (cornerstones.html, pulse.html, trails.html,
+   ripples.html, gathering.html).
 
    These rules use global selectors (*, html, body, nav) and a full-height
    flex layout that are appropriate for a page whose whole job is to show one
@@ -19,7 +20,7 @@
   --accent: #a682e8;
   --font-family: "Encode Sans", sans-serif;
   --c-page-bg: #0d0d0d;
-  --c-nav-bg: #0d0d0d;
+  --c-nav-bg: #1a1a1a;
   --c-nav-text: #ffffff;
 }
 @media (prefers-color-scheme: light) {
@@ -67,7 +68,9 @@ nav {
   align-items: center;
   justify-content: flex-end;
   height: 40px;
-  padding: 0 16px;
+  /* Margins that grow with the viewport so the bar isn't pinned to the
+     extreme edges on wide screens */
+  padding: 0 clamp(16px, 4vw, 48px);
   background: var(--c-nav-bg);
   font-size: 12px;
   letter-spacing: 0.04em;
@@ -75,11 +78,28 @@ nav {
 nav a {
   color: var(--c-nav-text);
   text-decoration: none;
-  margin-left: 14px;
+  margin-left: 18px;
+  transition: color 0.15s;
 }
-/* Theme picker sits at the far left; push search + links via auto margin to the right */
-nav > #ca-theme-picker {
+/* Home link sits at the far left; push the rest to the right
+   via an auto margin */
+nav > .ca-home {
+  margin-left: 0;
   margin-right: auto;
+  font-size: 18px;
+  line-height: 1;
+}
+nav > .ca-home:hover {
+  color: var(--c-nav-text);
+  opacity: 0.7;
+}
+nav > #ca-theme-picker {
+  margin-left: 14px;
+  min-width: calc(
+    15px + 2 * 4px
+  ); /* so nav doesn't shift once async mount picker returns */
+  display: flex;
+  align-items: center;
 }
 nav a.ca-active,
 nav a:hover {

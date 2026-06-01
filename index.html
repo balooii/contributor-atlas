@@ -2,13 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
-    <title>Gathering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contributor Atlas</title>
     <link rel="stylesheet" href="src/styles.css" />
     <link rel="stylesheet" href="src/page.css" />
+    <link rel="stylesheet" href="src/landing.css" />
     <script>
       (function () {
         var t = localStorage.getItem("theme") || "system";
@@ -21,26 +19,109 @@
   </head>
   <body>
     <nav>
-      <span id="ca-theme-picker"></span>
-      <span id="ca-contributor-search"></span>
-      <a href="index.html" class="ca-active">Gathering</a>
+      <a href="index.html" class="ca-home" aria-label="Home" title="Home">⌂</a>
+      <a href="cornerstones.html">Cornerstones</a>
       <a href="pulse.html">Pulse</a>
       <a href="trails.html">Trails</a>
       <a href="ripples.html">Ripples</a>
-      <a href="cornerstones.html">Cornerstones</a>
+      <a href="gathering.html">Gathering</a>
+      <span id="ca-theme-picker"></span>
     </nav>
-    <div id="ca-chart-container"></div>
+
+    <main class="ca-landing">
+      <header class="ca-hero">
+        <div class="ca-eyebrow">Contributor Atlas</div>
+        <h1>The people behind GIMP</h1>
+        <p class="ca-lead">
+          GIMP has been built, debugged, documented and translated by thousands
+          of people over more than 25 years. These interactive views are a way
+          to wander through that history — who showed up, what they worked on,
+          and how the community has shifted over time.
+        </p>
+      </header>
+
+      <h2 class="ca-section-title">Five ways to explore</h2>
+      <div class="ca-views">
+        <a class="ca-card" href="cornerstones.html">
+          <h3>Cornerstones <span class="ca-arrow">→</span></h3>
+          <p>
+            The project's most active contributors — the people who carry the
+            project.
+          </p>
+        </a>
+        <a class="ca-card" href="pulse.html">
+          <h3>Pulse <span class="ca-arrow">→</span></h3>
+          <p>
+            The rhythm of the project over time — the bursts and the lulls,
+            month by month.
+          </p>
+        </a>
+        <a class="ca-card" href="trails.html">
+          <h3>Trails <span class="ca-arrow">→</span></h3>
+          <p>
+            Individual journeys traced across the years, from first contribution
+            to most recent.
+          </p>
+        </a>
+        <a class="ca-card" href="ripples.html">
+          <h3>Ripples <span class="ca-arrow">→</span></h3>
+          <p>
+            Contributors placed by how much they've added — the more
+            contributions, the closer to the center.
+          </p>
+        </a>
+        <a class="ca-card" href="gathering.html">
+          <h3>Gathering <span class="ca-arrow">→</span></h3>
+          <p>
+            Everyone gathered around the project at once — the whole community
+            in one view.
+          </p>
+        </a>
+      </div>
+
+      <section class="ca-contribute">
+        <h2>Want to show up here?</h2>
+        <p>
+          GIMP is free software, built entirely by volunteers, and it is always
+          looking for more hands — code, documentation, translation, design, bug
+          triage, and plenty besides. You don't need to be an expert to start.
+        </p>
+        <a class="ca-btn" href="https://www.gimp.org/develop/" target="_blank"
+          >Get involved with GIMP <span class="ca-arrow">→</span></a
+        >
+      </section>
+
+      <section class="ca-disclaimer">
+        <h2>A note on the data</h2>
+        <p>
+          This is not a leaderboard. The point isn't to rank anyone — it's to
+          appreciate the sheer breadth of effort that goes into a project like
+          this. Please don't read the numbers as a scoreboard.
+        </p>
+        <p>
+          The data is stitched together from git history, issue trackers, and
+          old bug reports — coverage is uneven and categories are approximate.
+          Take it as a rough sketch, not a precise record.
+        </p>
+      </section>
+
+      <section class="ca-colophon">
+        <h2>About this tool</h2>
+        <p>
+          Contributor Atlas is an open-source project of its own, developed
+          openly
+          <a
+            href="https://gitlab.gnome.org/balooii/contributor-atlas"
+            target="_blank"
+            >on GitLab</a
+          >.
+        </p>
+      </section>
+    </main>
 
     <script type="module">
-      import { gathering, mountThemePicker } from "./src/contributorAtlas.js";
-
+      import { mountThemePicker } from "./src/contributorAtlas.js";
       mountThemePicker(document.getElementById("ca-theme-picker"));
-
-      gathering(document.getElementById("ca-chart-container"), {
-        contributions: "data/gimp/contributions.csv",
-        project: "data/gimp/project.json",
-        search: document.getElementById("ca-contributor-search"),
-      });
     </script>
   </body>
 </html>

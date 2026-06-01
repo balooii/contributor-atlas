@@ -123,8 +123,8 @@ There are two ways to put these views on a page:
 
 ### Standalone pages
 
-The release bundle ships the five views as ready-to-serve pages — `index.html` (Gathering), `pulse.html`, `trails.html`, `ripples.html`, and `cornerstones.html`.
-Serve the bundle directory and open any page; each is a full-screen view with navigation between the five.
+The release bundle ships a landing page — `index.html` (welcome + links into the views) — plus the five views as ready-to-serve pages: `cornerstones.html`, `pulse.html`, `trails.html`, `ripples.html`, and `gathering.html`.
+Serve the bundle directory and open any page; each view is a full-screen canvas with navigation between the five.
 
 To point the pages at **your own** data, edit the `contributions` / `project` paths in the `<script type="module">` block near the bottom of each HTML file:
 

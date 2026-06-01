@@ -1,0 +1,190 @@
+/* Landing-page-only styles (index.html). */
+
+:root {
+  --c-landing-muted: rgba(255, 255, 255, 0.62);
+  --c-landing-card-bg: #161616;
+  --c-landing-card-border: #262626;
+  --c-landing-rule: rgba(255, 255, 255, 0.08);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --c-landing-muted: #5a5a5a;
+    --c-landing-card-bg: #ffffff;
+    --c-landing-card-border: #e2e2e2;
+    --c-landing-rule: rgba(0, 0, 0, 0.08);
+  }
+}
+:root[data-theme="light"] {
+  --c-landing-muted: #5a5a5a;
+  --c-landing-card-bg: #ffffff;
+  --c-landing-card-border: #e2e2e2;
+  --c-landing-rule: rgba(0, 0, 0, 0.08);
+}
+
+/* The landing page is a scrollable document, unlike the single-view pages,
+   so need to overwrite some basics here. */
+html {
+  height: auto;
+  overflow: auto;
+}
+body {
+  display: block;
+  height: auto;
+  overflow: visible;
+  color: var(--c-nav-text);
+}
+
+nav {
+  position: sticky;
+  top: 0;
+}
+
+.ca-landing {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+.ca-hero {
+  padding: 72px 0 8px;
+}
+.ca-hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.ca-hero .ca-eyebrow,
+.ca-section-title,
+.ca-disclaimer h2,
+.ca-colophon h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.ca-hero .ca-eyebrow {
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.ca-lead {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 64ch;
+  margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .ca-hero h1 {
+    font-size: 3.6rem;
+  }
+  .ca-lead {
+    font-size: 1.3rem;
+  }
+}
+
+.ca-section-title {
+  color: var(--c-landing-muted);
+  margin: 64px 0 20px;
+}
+
+.ca-views {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.ca-card {
+  padding: 22px;
+  background: var(--c-landing-card-bg);
+  border: 1px solid var(--c-landing-card-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--c-nav-text);
+}
+.ca-card:hover {
+  border-color: var(--accent);
+}
+.ca-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.ca-card h3 .ca-arrow {
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.ca-card:hover h3 .ca-arrow {
+  opacity: 1;
+}
+.ca-card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--c-landing-muted);
+}
+
+.ca-contribute {
+  margin-top: 56px;
+  padding: 28px;
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+}
+.ca-contribute h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.ca-contribute p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--c-landing-muted);
+}
+.ca-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 18px;
+  background: var(--c-landing-card-bg);
+  border: 1px solid var(--c-landing-card-border);
+  color: var(--c-nav-text);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 8px;
+}
+.ca-btn:hover {
+  border-color: var(--accent);
+}
+.ca-btn .ca-arrow {
+  transition: color 0.15s ease;
+}
+.ca-btn:hover .ca-arrow {
+  color: var(--accent);
+}
+
+.ca-disclaimer,
+.ca-colophon {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--c-landing-rule);
+}
+.ca-disclaimer h2,
+.ca-colophon h2 {
+  color: var(--c-landing-muted);
+  margin-bottom: 14px;
+}
+.ca-disclaimer p,
+.ca-colophon p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--c-landing-muted);
+  max-width: 70ch;
+}
+.ca-disclaimer p + p {
+  margin-top: 12px;
+}
+.ca-colophon a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.ca-colophon a:hover {
+  text-decoration: underline;
+}

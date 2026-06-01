@@ -9,7 +9,7 @@
 //   contributor-atlas.css        embeddable component stylesheet
 //   contributor-atlas.page.css   page shell - used by our HTML pages, not embedders
 //   static/                      font file only (d3 gets bundled in)
-//   *.html                       the five views
+//   *.html                       the landing page + five views
 //   data/gimp/                   example dataset so the built site has something to show
 //
 
@@ -22,10 +22,11 @@ const DIST = "dist";
 
 const PAGES = [
   "index.html",
+  "cornerstones.html",
   "pulse.html",
   "trails.html",
   "ripples.html",
-  "cornerstones.html",
+  "gathering.html",
 ];
 
 const RUNTIME_DATA = [
@@ -61,6 +62,7 @@ async function main() {
 
   await cp("src/styles.css", path.join(DIST, "contributor-atlas.css"));
   await cp("src/page.css", path.join(DIST, "contributor-atlas.page.css"));
+  await cp("src/landing.css", path.join(DIST, "contributor-atlas.landing.css"));
   await cp("static", path.join(DIST, "static"), { recursive: true });
   // d3 is bundled into the release artifacts, so the local/dev-only vendored copy
   // is not needed alongside them.
@@ -70,6 +72,7 @@ async function main() {
     const html = (await readFile(page, "utf8"))
       .replace('href="src/styles.css"', 'href="contributor-atlas.css"')
       .replace('href="src/page.css"', 'href="contributor-atlas.page.css"')
+      .replace('href="src/landing.css"', 'href="contributor-atlas.landing.css"')
       // The bundle has d3 inlined, so the bare "d3" specifier the import map
       // resolves no longer appears, so we can drop it.
       .replace(/\s*<script type="importmap">[\s\S]*?<\/script>/, "")

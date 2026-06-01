@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, shrink-to-fit=0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Ripples</title>
+    <title>Gathering</title>
     <link rel="stylesheet" href="src/styles.css" />
     <link rel="stylesheet" href="src/page.css" />
     <script>
@@ -26,18 +26,18 @@
       <a href="cornerstones.html">Cornerstones</a>
       <a href="pulse.html">Pulse</a>
       <a href="trails.html">Trails</a>
-      <a href="ripples.html" class="ca-active">Ripples</a>
-      <a href="gathering.html">Gathering</a>
+      <a href="ripples.html">Ripples</a>
+      <a href="gathering.html" class="ca-active">Gathering</a>
       <span id="ca-theme-picker"></span>
     </nav>
     <div id="ca-chart-container"></div>
 
     <script type="module">
-      import { ripples, mountThemePicker } from "./src/contributorAtlas.js";
+      import { gathering, mountThemePicker } from "./src/contributorAtlas.js";
 
       mountThemePicker(document.getElementById("ca-theme-picker"));
 
-      ripples(document.getElementById("ca-chart-container"), {
+      gathering(document.getElementById("ca-chart-container"), {
         contributions: "data/gimp/contributions.csv",
         project: "data/gimp/project.json",
         search: document.getElementById("ca-contributor-search"),
