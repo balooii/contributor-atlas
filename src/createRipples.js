@@ -14,6 +14,9 @@ export function createRipples(container) {
 
   // -- State ------------------------------------------------
   let nodes = [];
+  let single_nodes = []; // count == 1: single time contributors drawn in side wings
+  let main_nodes = []; // count >= 2: everyone else in the main disc (log radial scale)
+  let _wingLayout = null; // { centers, halfAngle, innerEdge, outerEdge } for wing-background drawing
   let center_node = null;
   let delaunay;
   let raw_contributions_all;
@@ -83,7 +86,14 @@ export function createRipples(container) {
   const LAYOUT_OUTER = 600; // log scale upper anchor; not necessarily outermost ring as value gets capped
   const LAYOUT_INNER = 55; // log scale lower anchor; innermost ring starts here
   const CENTER_RADIUS = 40; // logical radius of the central project node
-  let _layoutMaxR = LAYOUT_OUTER; // actual outermost node edge after layout (fallback before first rerun)
+  let _layoutMaxR = LAYOUT_OUTER; // main-disc outer edge after layout (fallback before first rerun)
+
+  // Side-wing layout for the count==1 nodes
+  const WING_MIN_ASPECT = 1.2;
+  const WING_MIN_HALF_ANGLE = (18 * PI) / 180;
+  const WING_MAX_HALF_ANGLE = (72 * PI) / 180; // leave a gap at the poles
+  const WING_DISC_GAP = 10; // empty gap between the disc edge and the wings
+  const SINGLE_GAP = 1.5;
 
   // Dot size scale (sqrt - contribution counts are heavy-tailed)
   const scale_dot_radius = d3.scaleSqrt().range([2, 28]);
@@ -105,18 +115,14 @@ export function createRipples(container) {
   }
 
   // -- Layout -----------------------------------------------
-  // Groups nodes by exact contribution count (same count => same natural_r and
-  // node_r). Processes groups innermost-first. Fills concentric sub-rings,
-  // spreading each ring's nodes evenly around the full circle and stepping out
-  // by 2*node_r + gap when a ring is full, expanding outward indefinitely.
+  // Groups nodes by exact contribution count (same count => same node_r) and
+  // anchors each group at its log-scale target radius. Processes groups
+  // innermost-first, filling concentric sub-rings: each ring spreads its nodes
+  // evenly around the full circle, stepping out by 2*node_r + gap when full.
   // Returns the actual max radius (outermost node edge) for dynamic SF scaling.
   function placeNodes(allNodes) {
     const gap = 1.5;
-    // Log scale produces large radial gaps at the outer edge (count=1,2,3).
-    // Cap how far each group can stray from the previous group's outer edge.
-    const MAX_RING_GAP = 10;
     let maxR = LAYOUT_INNER;
-    let lastOuterEdge = LAYOUT_INNER;
 
     const countGroups = d3.group(allNodes, (d) => d.count);
     const sortedCounts = Array.from(countGroups.keys()).sort((a, b) => b - a);
@@ -126,10 +132,7 @@ export function createRipples(container) {
       const node_r = group[0].r;
       const step = 2 * node_r + gap;
 
-      let current_r = Math.min(
-        scale_target_radius(count),
-        lastOuterEdge + MAX_RING_GAP,
-      );
+      let current_r = scale_target_radius(count);
       let idx = 0;
 
       while (idx < group.length) {
@@ -147,11 +150,118 @@ export function createRipples(container) {
         if (current_r + node_r > maxR) maxR = current_r + node_r;
         current_r += step;
       }
-
-      lastOuterEdge = current_r - step + node_r;
     }
 
     return maxR;
+  }
+
+  // Places the count==1 nodes (likely to be majority of nodes). On a non-square
+  // viewport they fill two side wings along the long axis (left/right when landscape,
+  // top/bottom when portrait), freeing the short axis so the main disc. Therefore
+  // every node on the disc scales larger.
+  // Near-square viewports have no lateral slack so singles are placed the same way as
+  // as other count groups - within full concentric rings around the center.
+  function layoutSingles() {
+    if (single_nodes.length === 0) {
+      _wingLayout = null;
+      return;
+    }
+
+    const node_r = single_nodes[0].r;
+    const step = 2 * node_r + SINGLE_GAP;
+    const aspect = Math.max(WIDTH, HEIGHT) / Math.min(WIDTH, HEIGHT);
+    const innerR = _layoutMaxR + WING_DISC_GAP + node_r;
+
+    let centers, halfAngle, fullRing;
+    if (aspect < WING_MIN_ASPECT) {
+      centers = [0];
+      halfAngle = PI;
+      fullRing = true;
+    } else {
+      // Mathematically speaking a wing is a annulus sector. We need to find
+      // inner (ri) and outer radius (Ro) to determine how wide each wing should be
+      // and how they extend outwards.
+      // We want the wing to roughly equal the discs height (discR). This complicates
+      // things but looks better (avoids having overly "thick" wings no using
+      // available height).
+      // Place wings either left+right or top+bottom depending on aspect ratio.
+      // Formula for annulus sector area (our wing): 2*halfAngle*(Ro^2 - ri^2)
+      const N = single_nodes.length;
+      const discR = _layoutMaxR;
+      const ri = innerR;
+      const need = N * step * step; // approx area needed for nodes
+
+      // binary search to find smallest outer radius that fits all nodes
+      let lo = ri * 1.0001;
+      let hi = ri * 8;
+      for (let it = 0; it < 40; it++) {
+        const mid = (lo + hi) / 2;
+        const f =
+          2 * Math.asin(Math.min(1, discR / mid)) * (mid * mid - ri * ri) -
+          need;
+        if (f > 0) hi = mid;
+        else lo = mid;
+      }
+      let Ro = hi;
+
+      // Don't let the wings overshoot the disc
+      const RoCap = discR * aspect * 0.99;
+      if (Ro <= RoCap) {
+        // wing fits, use natural angle
+        halfAngle = Math.asin(Math.min(1, discR / Ro));
+      } else {
+        // wing would extend too far; keep Ro at max then calc angle that
+        // fits all nodes
+        Ro = RoCap;
+        halfAngle = need / (2 * (Ro * Ro - ri * ri));
+      }
+      halfAngle = Math.max(
+        WING_MIN_HALF_ANGLE,
+        Math.min(WING_MAX_HALF_ANGLE, halfAngle),
+      );
+      centers = WIDTH >= HEIGHT ? [0, PI] : [PI / 2, -PI / 2]; //orientation
+      fullRing = false;
+    }
+
+    // now that we have our geometry we can place the nodes
+    const span = fullRing ? TAU : 2 * halfAngle;
+    let r = innerR;
+    let idx = 0;
+    while (idx < single_nodes.length) {
+      const perWing = Math.max(1, Math.floor((span * r) / step));
+      for (const c of centers) {
+        for (let k = 0; k < perWing && idx < single_nodes.length; k++) {
+          let angle;
+          if (fullRing) {
+            // Fallback (no wings). Evenly distribute around full circle
+            angle = c + (k / perWing) * TAU;
+          } else {
+            if (perWing === 1) {
+              // Only one node fits on this wing ring. Place it at wing center
+              angle = c;
+            } else {
+              // Multiple nodes fit on this wing ring.
+              const t = k / (perWing - 1); // 0..1
+              const startAngle = c - halfAngle;
+              const endAngle = c + halfAngle;
+              angle = startAngle + t * (endAngle - startAngle);
+            }
+          }
+          const n = single_nodes[idx++];
+          n.x = r * cos(angle);
+          n.y = r * sin(angle);
+        }
+      }
+      r += step;
+    }
+
+    _wingLayout = {
+      centers,
+      halfAngle, // PI for the full-ring fallback
+      nodeR: node_r,
+      innerEdge: innerR - node_r,
+      outerEdge: r - step + node_r,
+    };
   }
 
   // -- Pipeline ---------------------------------------------
@@ -182,6 +292,8 @@ export function createRipples(container) {
     };
 
     if (nodes.length === 0) {
+      main_nodes = [];
+      single_nodes = [];
       _layoutMaxR = LAYOUT_OUTER;
       chart.resize();
       if (chart.onRerun) chart.onRerun(_lastCategoryStats);
@@ -197,7 +309,9 @@ export function createRipples(container) {
       n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIB;
     });
 
-    _layoutMaxR = placeNodes(nodes);
+    single_nodes = nodes.filter((n) => n.count === 1);
+    main_nodes = nodes.filter((n) => n.count > 1);
+    _layoutMaxR = main_nodes.length ? placeNodes(main_nodes) : LAYOUT_INNER;
 
     if (SELECTED_ID) {
       SELECTED_NODE = findContributorNode(SELECTED_ID);
@@ -213,41 +327,83 @@ export function createRipples(container) {
   function drawRings() {
     const isLight =
       document.documentElement.getAttribute("data-theme") === "light";
-    context.save();
-    context.translate(WIDTH / 2, HEIGHT / 2);
-
-    const N = 8;
-    const logOuter = Math.log(_layoutMaxR);
-    const logInnerBound = Math.log(CENTER_RADIUS * 2);
-    const radii = [];
-    for (let i = 0; i < N; i++) {
-      const t = i / (N - 1);
-      radii.push(Math.exp(logOuter + t * (logInnerBound - logOuter)) * SF);
-    }
-
-    // alternating filled bands between adjacent rings
     const fillEven = isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.04)";
     const fillOdd = isLight ? "rgba(0,0,0,0.02)" : "rgba(255,255,255,0.02)";
-    for (let i = 0; i < radii.length - 1; i++) {
-      const rOuter = radii[i];
-      const rInner = radii[i + 1];
-      context.beginPath();
-      context.arc(0, 0, rOuter, 0, TAU);
-      context.arc(0, 0, rInner, 0, TAU, true);
-      context.closePath();
-      context.fillStyle = i % 2 === 0 ? fillEven : fillOdd;
-      context.fill();
+    const strokeCol = isLight ? "rgba(0,0,0,0.16)" : "rgba(255,255,255,0.24)";
+
+    context.save();
+    context.translate(WIDTH / 2, HEIGHT / 2);
+    context.lineWidth = 0.7 * SF;
+
+    const N = 8; // number of rings
+    const logOuter = Math.log(_layoutMaxR);
+    const logInnerBound = Math.log(CENTER_RADIUS * 2);
+    const hasDisc = _layoutMaxR > CENTER_RADIUS * 2;
+    // Outermost ring thickness (logical units), reused to space the wing-background strips.
+    const discRingT =
+      _layoutMaxR -
+      Math.exp(logOuter + (1 / (N - 1)) * (logInnerBound - logOuter));
+
+    if (hasDisc) {
+      const radii = [];
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);
+        radii.push(Math.exp(logOuter + t * (logInnerBound - logOuter)) * SF);
+      }
+
+      for (let i = 0; i < radii.length - 1; i++) {
+        context.beginPath();
+        context.arc(0, 0, radii[i], 0, TAU);
+        context.arc(0, 0, radii[i + 1], 0, TAU, true);
+        context.closePath();
+        context.fillStyle = i % 2 === 0 ? fillEven : fillOdd;
+        context.fill();
+      }
+
+      context.strokeStyle = strokeCol;
+      for (const r of radii) {
+        context.beginPath();
+        context.arc(0, 0, r, 0, TAU);
+        context.stroke();
+      }
     }
 
-    // ring strokes on top
-    context.strokeStyle = isLight
-      ? "rgba(0,0,0,0.16)"
-      : "rgba(255,255,255,0.24)";
-    context.lineWidth = 0.7 * SF;
-    for (const r of radii) {
-      context.beginPath();
-      context.arc(0, 0, r, 0, TAU);
-      context.stroke();
+    // Wing background
+    if (_wingLayout) {
+      const { centers, halfAngle, nodeR, innerEdge, outerEdge } = _wingLayout;
+      const bgStripT = hasDisc ? discRingT : (outerEdge - innerEdge) / 6;
+      const stripCount = Math.max(
+        1,
+        Math.round((outerEdge - innerEdge) / bgStripT),
+      );
+      const t = (outerEdge - innerEdge) / stripCount;
+      // Widen the sector so the edge dots (centred on the angular boundary) sit
+      // fully on the strip; skip the pad for the full-ring fallback.
+      const sectorHalf =
+        halfAngle >= PI ? halfAngle : halfAngle + nodeR / innerEdge;
+
+      for (let j = 0; j < stripCount; j++) {
+        const rIn = (innerEdge + j * t) * SF;
+        const rOut = (innerEdge + (j + 1) * t) * SF;
+        context.fillStyle = j % 2 === 0 ? fillEven : fillOdd;
+        for (const c of centers) {
+          context.beginPath();
+          context.arc(0, 0, rOut, c - sectorHalf, c + sectorHalf);
+          context.arc(0, 0, rIn, c + sectorHalf, c - sectorHalf, true);
+          context.closePath();
+          context.fill();
+        }
+      }
+
+      context.strokeStyle = strokeCol;
+      for (let j = 0; j <= stripCount; j++) {
+        const rr = (innerEdge + j * t) * SF;
+        for (const c of centers) {
+          context.beginPath();
+          context.arc(0, 0, rr, c - sectorHalf, c + sectorHalf);
+          context.stroke();
+        }
+      }
     }
 
     context.restore();
@@ -311,8 +467,21 @@ export function createRipples(container) {
       height,
     ));
 
-    // Scale so the actual outermost node fits with margin for tooltips
-    SF = Math.min(WIDTH, HEIGHT) / (2 * _layoutMaxR * 1.05);
+    // Position the wings for the current aspect ratio
+    layoutSingles();
+
+    // Scale so the full layout (disc + side wings) fits, with margin for
+    // tooltips. Wings make the layout wider than tall, so a single radius
+    // no longer bounds it. So we measure each axis actual reach separately.
+    let xHalf = CENTER_RADIUS;
+    let yHalf = CENTER_RADIUS;
+    for (const n of nodes) {
+      const ax = Math.abs(n.x) + n.r;
+      const ay = Math.abs(n.y) + n.r;
+      if (ax > xHalf) xHalf = ax;
+      if (ay > yHalf) yHalf = ay;
+    }
+    SF = Math.min(WIDTH / (2 * xHalf * 1.05), HEIGHT / (2 * yHalf * 1.05));
 
     if (nodes.length > 0) {
       delaunay = ChartBase.buildHitIndex(nodes);
