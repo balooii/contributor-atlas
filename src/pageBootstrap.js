@@ -23,7 +23,7 @@ export function bootstrapPage({
   onResize,
   resizeDelay = 300,
 }) {
-  const FF = getComputedStyle(document.documentElement)
+  const FF = getComputedStyle(container)
     .getPropertyValue("--font-family")
     .trim();
   [

@@ -3,6 +3,8 @@ import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
 
 export function createCornerstones(container) {
+  container.classList.add("ca-view");
+
   // -- Constants & variables --------------------------------
 
   const PI = Math.PI;
@@ -55,7 +57,7 @@ export function createCornerstones(container) {
     COLOR_ACCENT;
   let FONT_FAMILY;
   function readColors() {
-    const cs = getComputedStyle(document.documentElement);
+    const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_TOP_CONTRIBUTORS_RING = cs.getPropertyValue("--c-contributor").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();

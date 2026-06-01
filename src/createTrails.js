@@ -3,6 +3,8 @@ import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
 
 export function createTrails(container) {
+  container.classList.add("ca-view", "ca-trails");
+
   let COLOR_BACKGROUND,
     COLOR_TEXT,
     COLOR_LINK,
@@ -12,7 +14,7 @@ export function createTrails(container) {
     COLOR_ACCENT;
   let FONT_FAMILY;
   function readColors() {
-    const cs = getComputedStyle(document.documentElement);
+    const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
@@ -62,8 +64,6 @@ export function createTrails(container) {
   const ANIM_CYCLE = 1600;
 
   // -- DOM -------------------------------------------------------------
-  container.classList.add("ca-view", "ca-trails");
-
   const corner = document.createElement("div");
   corner.className = "trails-corner";
   corner.style.width = LABEL_WIDTH + "px";

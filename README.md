@@ -195,28 +195,28 @@ ripples(document.getElementById("chart"), {
 
 **Category colors** are set in `project.json` under `category_colors` (see [Data format](#projectjson-required)).
 
-Everything else is driven by CSS custom properties defined in `src/styles.css` (shipped as `contributor-atlas.css`). The JS reads the color and font tokens via `getComputedStyle` at render time, so overriding a variable in your own stylesheet — loaded **after** `contributor-atlas.css` — is enough; no rebuild needed.
+Everything else is driven by CSS custom properties defined in `src/styles.css` (shipped as `contributor-atlas.css`). The JS reads the color and font tokens via `getComputedStyle(container)` at render time, so overriding a variable is enough; no rebuild needed.
+
+These tokens are scoped to the chart's container, not :root, so it can't clash with same-named variables on your own page.
 
 ```css
-:root {
+#my-chart {
   /* Use your own font */
   --font-family: "Inter", sans-serif;
 
   /* Accent / highlight color */
   --accent: #e8820f;
 
-  /* A few of the canvas color tokens */
+  /* Canvas background color */
   --c-bg: #0b0b0b;
-  --c-text: #d8d4dc;
-  --c-project: #a09080;
 }
 ```
 
 The token groups you're most likely to touch if you're not happy with the defaults:
 
-- `--font-family` — the typeface used in the page shell and in canvas-rendered text
+- `--font-family` — the typeface used in canvas-rendered text
 - `--accent` / `--c-highlight` — the highlight color
-- `--c-*` — canvas and page-shell colors (`--c-bg`, `--c-text`, `--c-border`, `--c-project`, `--c-contributor`, …)
+- `--c-*` — canvas colors (`--c-bg`, `--c-text`, `--c-border`, `--c-project`, `--c-contributor`, …)
 - `--tc-*` — the timeline/category control widget
 
 The theme system ships a **dark** default and a **light** variant (under the system `prefers-color-scheme` and a `[data-theme="light"]` override). When the theme changes, each view re-reads its tokens and redraws, so your overrides apply in both modes if you scope them accordingly.

@@ -3,10 +3,12 @@ import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
 
 export function createPulse(container) {
+  container.classList.add("ca-view");
+
   let COLOR_BACKGROUND, COLOR_LINK, COLOR_TEXT, COLOR_HIGHLIGHT;
   let FONT_FAMILY;
   function readColors() {
-    const cs = getComputedStyle(document.documentElement);
+    const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
@@ -23,8 +25,6 @@ export function createPulse(container) {
   const range = ChartBase.createRangeFilter();
   let FULL_MIN, FULL_MAX;
   let W, H, PR;
-
-  container.classList.add("ca-view");
 
   const canvas = document.createElement("canvas");
   canvas.className = "ca-activity-canvas";

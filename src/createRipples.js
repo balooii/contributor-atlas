@@ -3,6 +3,8 @@ import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
 
 export function createRipples(container) {
+  container.classList.add("ca-view");
+
   const PI = Math.PI;
   const TAU = PI * 2;
 
@@ -27,7 +29,7 @@ export function createRipples(container) {
   let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIB, COLOR_ACCENT;
   let FONT_FAMILY;
   function readColors() {
-    const cs = getComputedStyle(document.documentElement);
+    const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
     COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();

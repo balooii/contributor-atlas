@@ -23,11 +23,25 @@
         border: 1px solid #ddd;
         border-radius: 8px;
       }
+
+      /* Test color overrides */
+      #gathering {
+        --c-bg: transparent;
+        --c-text: green;
+      }
+      #gathering-wrapper .embed {
+        border: none;
+      }
+      #gathering-wrapper {
+        background-color: lightblue;
+      }
     </style>
   </head>
   <body>
-    <h1>Gathering</h1>
-    <div id="gathering" class="embed"></div>
+    <h1>Gathering <small>(container-scoped color overrides)</small></h1>
+    <div id="gathering-wrapper">
+      <div id="gathering" class="embed"></div>
+    </div>
 
     <h1>Pulse</h1>
     <div id="pulse" class="embed"></div>
