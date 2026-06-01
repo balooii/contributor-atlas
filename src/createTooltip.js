@@ -3,7 +3,7 @@ export function createTooltip(container, options = {}) {
   const OY = options.offsetY ?? 14;
 
   const el = document.createElement("div");
-  el.className = "chart-tooltip";
+  el.className = "ca-chart-tooltip";
   if (options.font) el.style.font = options.font;
   if (options.zIndex != null) el.style.zIndex = options.zIndex;
   if (options.color) el.style.color = options.color;
@@ -28,10 +28,10 @@ export function createTooltip(container, options = {}) {
   function categoryRow(cat, count, pct, color) {
     const pctStr = pct != null ? ` (${pct}%)` : "";
     return (
-      `<div class="tt-cat-row">` +
-      `<span class="tt-cat-swatch" style="background:${color}"></span>` +
-      `<span class="tt-cat-name">${escapeHtml(cat)}</span>` +
-      `<span class="tt-cat-count">${count}${pctStr}</span>` +
+      `<div class="ca-tt-cat-row">` +
+      `<span class="ca-tt-cat-swatch" style="background:${color}"></span>` +
+      `<span class="ca-tt-cat-name">${escapeHtml(cat)}</span>` +
+      `<span class="ca-tt-cat-count">${count}${pctStr}</span>` +
       `</div>`
     );
   }

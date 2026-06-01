@@ -17,23 +17,23 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
   // -- DOM --------------------------------------------------
   var wrapper = document.createElement("div");
-  wrapper.className = "search-wrapper";
+  wrapper.className = "ca-search-wrapper";
 
   var input = document.createElement("input");
   input.type = "search";
-  input.className = "search-input";
+  input.className = "ca-search-input";
   input.placeholder = "Search contributor…";
   input.autocomplete = "off";
   input.spellcheck = false;
 
   var clearBtn = document.createElement("button");
-  clearBtn.className = "search-clear";
+  clearBtn.className = "ca-search-clear";
   clearBtn.type = "button";
   clearBtn.title = "Clear";
   clearBtn.textContent = "×";
 
   var dropdown = document.createElement("div");
-  dropdown.className = "search-dropdown";
+  dropdown.className = "ca-search-dropdown";
   dropdown.setAttribute("role", "listbox");
 
   wrapper.appendChild(input);
@@ -74,13 +74,13 @@ export function createContributorSearch(mount, Visual, rawContributions) {
   }
 
   function getItems() {
-    return Array.from(dropdown.querySelectorAll(".search-dropdown-item"));
+    return Array.from(dropdown.querySelectorAll(".ca-search-dropdown-item"));
   }
 
   function resetActive() {
     activeIndex = -1;
     getItems().forEach(function (el) {
-      el.classList.remove("is-active");
+      el.classList.remove("ca-is-active");
     });
   }
 
@@ -92,19 +92,19 @@ export function createContributorSearch(mount, Visual, rawContributions) {
     }
     activeIndex = ((idx % items.length) + items.length) % items.length;
     items.forEach(function (item, i) {
-      item.classList.toggle("is-active", i === activeIndex);
+      item.classList.toggle("ca-is-active", i === activeIndex);
     });
     items[activeIndex].scrollIntoView({ block: "nearest" });
   }
 
   function openDropdown() {
-    dropdown.classList.add("is-open");
+    dropdown.classList.add("ca-is-open");
     isOpen = true;
     document.addEventListener("click", onOutsideClick);
   }
 
   function closeDropdown() {
-    dropdown.classList.remove("is-open");
+    dropdown.classList.remove("ca-is-open");
     isOpen = false;
     resetActive();
     document.removeEventListener("click", onOutsideClick);
@@ -137,7 +137,7 @@ export function createContributorSearch(mount, Visual, rawContributions) {
   function unselectContributor() {
     selectedId = null;
     input.value = "";
-    wrapper.classList.remove("has-selection");
+    wrapper.classList.remove("ca-has-selection");
     updateClearBtn();
     closeDropdown();
     localStorage.removeItem(STORAGE_KEY);
@@ -148,7 +148,7 @@ export function createContributorSearch(mount, Visual, rawContributions) {
   function selectContributor(id, name) {
     selectedId = id;
     input.value = name || "";
-    wrapper.classList.toggle("has-selection", !!id);
+    wrapper.classList.toggle("ca-has-selection", !!id);
     updateClearBtn();
     closeDropdown();
     if (id) {
@@ -174,7 +174,7 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
     if (matches.length === 0) {
       var empty = document.createElement("div");
-      empty.className = "search-no-results";
+      empty.className = "ca-search-no-results";
       empty.textContent = "No contributors found";
       dropdown.appendChild(empty);
       openDropdown();
@@ -183,10 +183,10 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
     matches.slice(0, 100).forEach(function (c) {
       var item = document.createElement("button");
-      item.className = "search-dropdown-item";
+      item.className = "ca-search-dropdown-item";
       item.setAttribute("role", "option");
       item.dataset.id = c.id;
-      if (c.id === selectedId) item.classList.add("is-selected");
+      if (c.id === selectedId) item.classList.add("ca-is-selected");
       item.appendChild(highlight(c.name, query));
       item.addEventListener("click", function (e) {
         e.stopPropagation();

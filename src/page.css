@@ -53,7 +53,7 @@ body {
   font-family: var(--font-family);
 }
 
-#chart-container {
+#ca-chart-container {
   position: relative;
   width: 100%;
   flex: 1 1 auto;
@@ -78,10 +78,10 @@ nav a {
   margin-left: 14px;
 }
 /* Theme picker sits at the far left; push search + links via auto margin to the right */
-nav > #theme-picker {
+nav > #ca-theme-picker {
   margin-right: auto;
 }
-nav a.active,
+nav a.ca-active,
 nav a:hover {
   color: var(--accent);
 }

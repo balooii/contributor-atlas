@@ -42,8 +42,8 @@ export function createTimelineControl(container) {
 
   function clearActiveChapter() {
     if (!activeChapter) return;
-    activeChapter.pill.classList.remove("tc-active");
-    activeChapter.label.classList.remove("tc-active");
+    activeChapter.pill.classList.remove("ca-tc-active");
+    activeChapter.label.classList.remove("ca-tc-active");
     activeChapter = null;
   }
 
@@ -140,53 +140,53 @@ export function createTimelineControl(container) {
 
   function buildDom(hasChapters) {
     container.innerHTML = "";
-    container.classList.add("tc-controls");
+    container.classList.add("ca-tc-controls");
 
     if (CATEGORIES_ENABLED) {
-      els.categoryFilter = div("tc-category-filter");
+      els.categoryFilter = div("ca-tc-category-filter");
       container.appendChild(els.categoryFilter);
     }
 
-    els.controlsRow = div("tc-controls-row");
+    els.controlsRow = div("ca-tc-controls-row");
     container.appendChild(els.controlsRow);
 
-    els.timeline = div("tc-timeline");
-    if (hasChapters) els.timeline.classList.add("tc-has-chapters");
+    els.timeline = div("ca-tc-timeline");
+    if (hasChapters) els.timeline.classList.add("ca-tc-has-chapters");
     els.controlsRow.appendChild(els.timeline);
 
-    els.separator = div("tc-separator");
+    els.separator = div("ca-tc-separator");
     els.controlsRow.appendChild(els.separator);
 
-    els.actions = div("tc-actions");
+    els.actions = div("ca-tc-actions");
     els.controlsRow.appendChild(els.actions);
     EXTRAS.forEach((node) => els.actions.appendChild(node));
 
     els.resetBtn = document.createElement("button");
-    els.resetBtn.className = "tc-btn tc-reset-btn";
+    els.resetBtn.className = "ca-tc-btn ca-tc-reset-btn";
     els.resetBtn.textContent = CATEGORIES_ENABLED
       ? "reset filters"
       : "reset range";
     els.actions.appendChild(els.resetBtn);
 
     if (hasChapters) {
-      els.chapterTrack = div("tc-chapter-track");
+      els.chapterTrack = div("ca-tc-chapter-track");
       els.timeline.appendChild(els.chapterTrack);
     }
-    els.track = div("tc-track");
+    els.track = div("ca-tc-track");
     els.timeline.appendChild(els.track);
-    els.range = div("tc-range");
+    els.range = div("ca-tc-range");
     els.timeline.appendChild(els.range);
-    els.handleL = div("tc-handle tc-handle-left");
+    els.handleL = div("ca-tc-handle tc-handle-left");
     els.timeline.appendChild(els.handleL);
-    els.handleR = div("tc-handle tc-handle-right");
+    els.handleR = div("ca-tc-handle tc-handle-right");
     els.timeline.appendChild(els.handleR);
-    els.labelL = div("tc-label tc-label-left");
+    els.labelL = div("ca-tc-label tc-label-left");
     els.timeline.appendChild(els.labelL);
-    els.labelR = div("tc-label tc-label-right");
+    els.labelR = div("ca-tc-label tc-label-right");
     els.timeline.appendChild(els.labelR);
 
     if (hasChapters) {
-      els.tooltip = div("tc-chapter-tooltip");
+      els.tooltip = div("ca-tc-chapter-tooltip");
       document.body.appendChild(els.tooltip);
     }
   }
@@ -299,9 +299,9 @@ export function createTimelineControl(container) {
           dragWidth = posR - posL;
           dragStartPos = posFromClient(e.clientX);
           dragStartL = posL;
-          els.range.classList.add("is-dragging");
+          els.range.classList.add("ca-is-dragging");
         },
-        onEnd: () => els.range.classList.remove("is-dragging"),
+        onEnd: () => els.range.classList.remove("ca-is-dragging"),
       },
     );
   }
@@ -359,31 +359,31 @@ export function createTimelineControl(container) {
       // When we're having an image make it fixed with. Otherwise it would
       // briefly show the tooltip in the wrong position until the <img> loads
       // and immediately re-center it
-      els.tooltip.classList.toggle("tc-has-image", !!chapter.image_url);
+      els.tooltip.classList.toggle("ca-tc-has-image", !!chapter.image_url);
       if (chapter.image_url) {
         const img = document.createElement("img");
         img.src = chapter.image_url;
         img.alt = "";
         img.onerror = () => {
           img.remove();
-          els.tooltip.classList.remove("tc-has-image");
+          els.tooltip.classList.remove("ca-tc-has-image");
           positionTooltip(pill);
         };
         els.tooltip.appendChild(img);
       }
       const title = document.createElement("div");
-      title.className = "tc-chapter-tooltip-title";
+      title.className = "ca-tc-chapter-tooltip-title";
       title.textContent = chapter.name;
       els.tooltip.appendChild(title);
 
       const dates = document.createElement("div");
-      dates.className = "tc-chapter-tooltip-dates";
+      dates.className = "ca-tc-chapter-tooltip-dates";
       dates.textContent = `${fmt(new Date(chapter.start * 1000))} – ${fmt(new Date(chapter.end * 1000))}`;
       els.tooltip.appendChild(dates);
 
       if (chapter.text) {
         const text = document.createElement("p");
-        text.className = "tc-chapter-tooltip-text";
+        text.className = "ca-tc-chapter-tooltip-text";
         text.textContent = chapter.text;
         els.tooltip.appendChild(text);
       }
@@ -401,7 +401,7 @@ export function createTimelineControl(container) {
       positionTooltip(pill);
     }
 
-    const chapterLabelsEl = div("tc-chapter-labels");
+    const chapterLabelsEl = div("ca-tc-chapter-labels");
     els.timeline.insertBefore(chapterLabelsEl, els.track);
 
     const labelEls = [];
@@ -411,11 +411,11 @@ export function createTimelineControl(container) {
       const endPct = clampPct(chapter.end);
       if (endPct <= startPct) return;
 
-      const pill = div("tc-chapter-pill");
+      const pill = div("ca-tc-chapter-pill");
       pill.style.left = startPct + "%";
       pill.style.width = endPct - startPct + "%";
 
-      const labelEl = div("tc-chapter-label");
+      const labelEl = div("ca-tc-chapter-label");
       labelEl.style.left = startPct + "%";
       const nameSpan = document.createElement("span");
       nameSpan.textContent = chapter.name;
@@ -430,8 +430,8 @@ export function createTimelineControl(container) {
         visual.setRange(chapter.start, chapter.end);
         saveRange(chapter.start, chapter.end);
         clearActiveChapter();
-        pill.classList.add("tc-active");
-        labelEl.classList.add("tc-active");
+        pill.classList.add("ca-tc-active");
+        labelEl.classList.add("ca-tc-active");
         activeChapter = { pill, label: labelEl };
         updateResetButton();
       });
@@ -439,11 +439,11 @@ export function createTimelineControl(container) {
       pill.addEventListener("mouseenter", () => {
         cancelHide();
         showTooltip(pill, chapter);
-        labelEl.classList.add("tc-hover");
+        labelEl.classList.add("ca-tc-hover");
       });
       pill.addEventListener("mouseleave", () => {
         scheduleHide();
-        labelEl.classList.remove("tc-hover");
+        labelEl.classList.remove("ca-tc-hover");
       });
 
       els.chapterTrack.appendChild(pill);
@@ -452,10 +452,10 @@ export function createTimelineControl(container) {
     function updateLabelRows() {
       if (labelEls.length < 2) return;
       labelEls.forEach(({ labelEl }) =>
-        labelEl.classList.remove("tc-label-row-0", "tc-label-row-1"),
+        labelEl.classList.remove("ca-tc-label-row-0", "ca-tc-label-row-1"),
       );
-      chapterLabelsEl.classList.remove("tc-two-row");
-      els.timeline.classList.remove("tc-two-row");
+      chapterLabelsEl.classList.remove("ca-tc-two-row");
+      els.timeline.classList.remove("ca-tc-two-row");
 
       const rects = labelEls.map(({ labelEl }) =>
         labelEl.getBoundingClientRect(),
@@ -472,10 +472,10 @@ export function createTimelineControl(container) {
         const row =
           rowRights[0] + GAP <= left ? 0 : rowRights[1] + GAP <= left ? 1 : 0;
         rowRights[row] = Math.max(rowRights[row], right);
-        labelEl.classList.add("tc-label-row-" + row);
+        labelEl.classList.add("ca-tc-label-row-" + row);
       });
-      chapterLabelsEl.classList.add("tc-two-row");
-      els.timeline.classList.add("tc-two-row");
+      chapterLabelsEl.classList.add("ca-tc-two-row");
+      els.timeline.classList.add("ca-tc-two-row");
     }
 
     requestAnimationFrame(updateLabelRows);
@@ -498,18 +498,18 @@ export function createTimelineControl(container) {
     selectedCategories = new Set(allCats);
 
     allCats.forEach((cat) => {
-      const pillEl = div("tc-category-pill");
+      const pillEl = div("ca-tc-category-pill");
 
       const dot = document.createElement("span");
-      dot.className = "tc-category-pill-dot";
+      dot.className = "ca-tc-category-pill-dot";
       dot.style.background = visual.categoryColor(cat);
 
       const labelEl = document.createElement("span");
-      labelEl.className = "tc-category-pill-label";
+      labelEl.className = "ca-tc-category-pill-label";
       labelEl.textContent = cat;
 
       const countEl = document.createElement("span");
-      countEl.className = "tc-category-pill-count";
+      countEl.className = "ca-tc-category-pill-count";
 
       pillEl.append(dot, labelEl, countEl);
 
@@ -539,7 +539,7 @@ export function createTimelineControl(container) {
 
   function updatePillStates() {
     pills.forEach((p) =>
-      p.el.classList.toggle("tc-inactive", !selectedCategories.has(p.cat)),
+      p.el.classList.toggle("ca-tc-inactive", !selectedCategories.has(p.cat)),
     );
   }
 
@@ -577,9 +577,9 @@ export function createTimelineControl(container) {
       allCats.length > 0 &&
       selectedCategories.size < allCats.length;
     const resetVisible = timeActive || catActive;
-    els.resetBtn.classList.toggle("tc-visible", resetVisible);
+    els.resetBtn.classList.toggle("ca-tc-visible", resetVisible);
     els.separator.classList.toggle(
-      "tc-visible",
+      "ca-tc-visible",
       EXTRAS.length > 0 || resetVisible,
     );
   }
@@ -592,15 +592,15 @@ createTimelineControl.buildButtonGroup = function (
   onChange,
 ) {
   const wrap = document.createElement("div");
-  wrap.className = "tc-btn-group";
+  wrap.className = "ca-tc-btn-group";
 
   const labelEl = document.createElement("span");
-  labelEl.className = "tc-btn-group-label";
+  labelEl.className = "ca-tc-btn-group-label";
   labelEl.textContent = label;
 
   const btns = options.map(({ label: text, value }) => {
     const btn = document.createElement("button");
-    btn.className = "tc-btn";
+    btn.className = "ca-tc-btn";
     btn.textContent = text;
     btn.dataset.value = value;
     return btn;
@@ -631,7 +631,7 @@ createTimelineControl.buildZoomHint = function (visual) {
   wrapper.style.alignSelf = "flex-end";
 
   const hint = document.createElement("span");
-  hint.className = "tc-hint";
+  hint.className = "ca-tc-hint";
   const isMacOS = /Mac/.test(navigator.platform);
   const modifierKey = isMacOS ? "Cmd" : "Ctrl";
   hint.textContent = `${modifierKey}+scroll to zoom`;
@@ -639,7 +639,7 @@ createTimelineControl.buildZoomHint = function (visual) {
 
   if (visual) {
     const btn = document.createElement("button");
-    btn.className = "tc-btn";
+    btn.className = "ca-tc-btn";
     btn.textContent = "reset zoom";
     btn.style.display = "none";
     wrapper.appendChild(btn);

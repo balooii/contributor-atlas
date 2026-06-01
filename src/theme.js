@@ -53,25 +53,25 @@ export function mountThemePicker(target) {
   if (!mount) return;
 
   var wrapper = document.createElement("div");
-  wrapper.className = "theme-wrapper";
+  wrapper.className = "ca-theme-wrapper";
 
   var btn = document.createElement("button");
-  btn.id = "theme-btn";
-  btn.className = "theme-btn";
+  btn.id = "ca-theme-btn";
+  btn.className = "ca-theme-btn";
   btn.setAttribute("aria-haspopup", "true");
   btn.setAttribute("aria-expanded", "false");
 
   var menu = document.createElement("div");
-  menu.className = "theme-menu";
+  menu.className = "ca-theme-menu";
   menu.setAttribute("role", "menu");
 
   var items = ORDER.map(function (t) {
     var item = document.createElement("button");
-    item.className = "theme-menu-item";
+    item.className = "ca-theme-menu-item";
     item.setAttribute("role", "menuitem");
     item.dataset.value = t;
     var icon = document.createElement("span");
-    icon.className = "theme-menu-icon";
+    icon.className = "ca-theme-menu-icon";
     icon.textContent = ICONS[t];
     item.appendChild(icon);
     item.appendChild(document.createTextNode(LABELS[t]));
@@ -91,20 +91,20 @@ export function mountThemePicker(target) {
     btn.dataset.theme = t;
     items.forEach(function (item) {
       item.classList.toggle(
-        "theme-menu-item--active",
+        "ca-theme-menu-item--active",
         item.dataset.value === t,
       );
     });
   }
 
   function openMenu() {
-    menu.classList.add("is-open");
+    menu.classList.add("ca-is-open");
     btn.setAttribute("aria-expanded", "true");
     document.addEventListener("click", closeMenu);
   }
 
   function closeMenu() {
-    menu.classList.remove("is-open");
+    menu.classList.remove("ca-is-open");
     btn.setAttribute("aria-expanded", "false");
     document.removeEventListener("click", closeMenu);
   }
@@ -112,7 +112,7 @@ export function mountThemePicker(target) {
   btn.title = "Theme";
   btn.addEventListener("click", function (e) {
     e.stopPropagation();
-    if (menu.classList.contains("is-open")) {
+    if (menu.classList.contains("ca-is-open")) {
       closeMenu();
     } else {
       openMenu();

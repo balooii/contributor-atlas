@@ -127,15 +127,15 @@ export function buildContributorTooltipHTML(
   const count = d.data.total_contribution_count;
   const countStr = count < 10 ? count : _formatDigit(count);
 
-  let html = `<div class="tt-accent-bar" style="background:${accent}"></div>`;
-  html += `<div class="tt-type-label" style="color:${accent}">${typeLabel}</div>`;
-  html += `<div class="tt-title">${tooltip.escapeHtml(name)}</div>`;
+  let html = `<div class="ca-tt-accent-bar" style="background:${accent}"></div>`;
+  html += `<div class="ca-tt-type-label" style="color:${accent}">${typeLabel}</div>`;
+  html += `<div class="ca-tt-title">${tooltip.escapeHtml(name)}</div>`;
   let countLine = tooltip.pluralize(count, "contribution", countStr);
   if (isProject && d.data.contributor_count != null) {
     const cc = d.data.contributor_count;
     countLine += ` · ${tooltip.pluralize(cc, "contributor", _formatDigit(cc))}`;
   }
-  html += `<div class="tt-meta">${countLine}</div>`;
+  html += `<div class="ca-tt-meta">${countLine}</div>`;
 
   if (
     !isProject &&
@@ -149,7 +149,7 @@ export function buildContributorTooltipHTML(
     const dateStr = sameMonth
       ? `In ${_formatDate(mn)}`
       : `Between ${_formatDate(mn)} &amp; ${_formatDate(mx)}`;
-    html += `<div class="tt-meta">${dateStr}</div>`;
+    html += `<div class="ca-tt-meta">${dateStr}</div>`;
   }
 
   if (d.data.contribution_count_by_category?.size > 0) {
@@ -157,7 +157,7 @@ export function buildContributorTooltipHTML(
       (a, b) => b[1] - a[1],
     );
     const total = sorted.reduce((s, [, v]) => s + v, 0);
-    html += `<div class="tt-section-label">Categories</div>`;
+    html += `<div class="ca-tt-section-label">Categories</div>`;
     sorted.forEach(([cat, cnt]) => {
       html += tooltip.categoryRow(
         cat,
@@ -508,8 +508,8 @@ export function renderText(ctx, text, x, y, letterSpacing = 0, stroke = false) {
 
 export function createLoadingOverlay(container) {
   const el = document.createElement("div");
-  el.className = "loading-overlay";
-  el.innerHTML = '<div class="loading-spinner"></div>';
+  el.className = "ca-loading-overlay";
+  el.innerHTML = '<div class="ca-loading-spinner"></div>';
   el.style.display = "none";
   container.appendChild(el);
   return el;

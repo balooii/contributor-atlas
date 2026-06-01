@@ -282,8 +282,8 @@ export function createPulse(container) {
   function showHighlightTooltip(h, clientX, clientY) {
     const dateStr = d3.timeFormat("%b %-d, %Y")(new Date(h.ts * 1000));
     tooltip.show(
-      `<div class="tt-title">${tooltip.escapeHtml(h.name)}</div>` +
-        `<div class="tt-meta">${dateStr}</div>`,
+      `<div class="ca-tt-title">${tooltip.escapeHtml(h.name)}</div>` +
+        `<div class="ca-tt-meta">${dateStr}</div>`,
       clientX,
       clientY,
     );
@@ -310,8 +310,8 @@ export function createPulse(container) {
 
   function showTooltip(d, clientX, clientY) {
     const total = d.total;
-    let html = `<div class="tt-title">${bucketLabel(d.date)}</div>`;
-    html += `<div class="tt-meta">${tooltip.pluralize(total, "contribution")} · ${tooltip.pluralize(d.contributors, "contributor")}</div>`;
+    let html = `<div class="ca-tt-title">${bucketLabel(d.date)}</div>`;
+    html += `<div class="ca-tt-meta">${tooltip.pluralize(total, "contribution")} · ${tooltip.pluralize(d.contributors, "contributor")}</div>`;
     html += tooltip.categoryRows(
       categoryColor.domain(),
       d.counts,

@@ -47,7 +47,7 @@ export function bootstrapPage({
       // turn after a paint - this lets the browser render the spinner before
       // the synchronous layout/canvas computation blocks the main thread.
       const chartContainer =
-        container || document.getElementById("chart-container");
+        container || document.getElementById("ca-chart-container");
       const overlay =
         chartContainer && ChartBase.createLoadingOverlay(chartContainer);
       if (overlay) overlay.style.display = "flex";

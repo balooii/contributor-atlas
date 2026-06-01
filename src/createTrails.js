@@ -65,7 +65,7 @@ export function createTrails(container) {
 
   // -- DOM -------------------------------------------------------------
   const corner = document.createElement("div");
-  corner.className = "trails-corner";
+  corner.className = "ca-trails-corner";
   corner.style.width = LABEL_WIDTH + "px";
   corner.style.height = HEADER_HEIGHT + "px";
   container.appendChild(corner);
@@ -73,35 +73,35 @@ export function createTrails(container) {
   function updateCornerStats() {
     const totalContribs = contributors.reduce((s, c) => s + c.total, 0);
     corner.innerHTML =
-      `<span class="trails-corner-primary">${contributors.length.toLocaleString()} contributors</span>` +
-      `<span class="trails-corner-secondary">${totalContribs.toLocaleString()} contributions</span>`;
+      `<span class="ca-trails-corner-primary">${contributors.length.toLocaleString()} contributors</span>` +
+      `<span class="ca-trails-corner-secondary">${totalContribs.toLocaleString()} contributions</span>`;
   }
 
   // Each layer's presentation is in styles.css; only the geometry that depends
   // on LABEL_WIDTH / HEADER_HEIGHT is set here (and kept in sync by
   // applyLabelWidth / setupScales).
   const headerCanvas = document.createElement("canvas");
-  headerCanvas.className = "trails-header";
+  headerCanvas.className = "ca-trails-header";
   headerCanvas.style.left = LABEL_WIDTH + "px";
   container.appendChild(headerCanvas);
 
   const labelsCanvas = document.createElement("canvas");
-  labelsCanvas.className = "trails-labels";
+  labelsCanvas.className = "ca-trails-labels";
   labelsCanvas.style.top = HEADER_HEIGHT + "px";
   container.appendChild(labelsCanvas);
 
   const mainCanvas = document.createElement("canvas");
-  mainCanvas.className = "trails-main";
+  mainCanvas.className = "ca-trails-main";
   mainCanvas.style.top = HEADER_HEIGHT + "px";
   mainCanvas.style.left = LABEL_WIDTH + "px";
   container.appendChild(mainCanvas);
 
   const scroller = document.createElement("div");
-  scroller.className = "trails-scroller";
+  scroller.className = "ca-trails-scroller";
   scroller.style.top = HEADER_HEIGHT + "px";
   scroller.style.left = LABEL_WIDTH + "px";
   const spacer = document.createElement("div");
-  spacer.className = "trails-spacer";
+  spacer.className = "ca-trails-spacer";
   scroller.appendChild(spacer);
   container.appendChild(scroller);
 
@@ -780,10 +780,10 @@ export function createTrails(container) {
   function showTooltip(hit, clientX, clientY) {
     const fmt = d3.timeFormat("%b %-d, %Y");
     const s = hit.segment;
-    let html = `<div class="tt-title">${tooltip.escapeHtml(hit.contributor.name)}</div>`;
+    let html = `<div class="ca-tt-title">${tooltip.escapeHtml(hit.contributor.name)}</div>`;
     const sameDay = s.end - s.start < 86400;
-    html += `<div class="tt-meta">${fmt(new Date(s.start * 1000))}${sameDay ? "" : ` – ${fmt(new Date(s.end * 1000))}`}</div>`;
-    html += `<div class="tt-meta">${tooltip.pluralize(s.total, "contribution")}</div>`;
+    html += `<div class="ca-tt-meta">${fmt(new Date(s.start * 1000))}${sameDay ? "" : ` – ${fmt(new Date(s.end * 1000))}`}</div>`;
+    html += `<div class="ca-tt-meta">${tooltip.pluralize(s.total, "contribution")}</div>`;
     html += tooltip.categoryRows(
       _catScale.domain(),
       s.counts,
@@ -796,9 +796,9 @@ export function createTrails(container) {
   function showRowTooltip(hit, clientX, clientY) {
     const fmt = d3.timeFormat("%b %Y");
     const c = hit.contributor;
-    let html = `<div class="tt-title">${tooltip.escapeHtml(c.name)}</div>`;
-    html += `<div class="tt-meta">${tooltip.pluralize(c.total, "contribution")} · ${tooltip.pluralize(c.segments.length, "active period")}</div>`;
-    html += `<div class="tt-meta">${fmt(new Date(c.firstTs * 1000))} – ${fmt(new Date(c.lastTs * 1000))}</div>`;
+    let html = `<div class="ca-tt-title">${tooltip.escapeHtml(c.name)}</div>`;
+    html += `<div class="ca-tt-meta">${tooltip.pluralize(c.total, "contribution")} · ${tooltip.pluralize(c.segments.length, "active period")}</div>`;
+    html += `<div class="ca-tt-meta">${fmt(new Date(c.firstTs * 1000))} – ${fmt(new Date(c.lastTs * 1000))}</div>`;
     tooltip.show(html, clientX, clientY);
   }
 

@@ -1,4 +1,4 @@
-/* Page-level shell shared by every visualization (index.html, pulse.html, trails.html, ripples.html, gathering.html). */
+/* Styles shared by all views */
 
 @font-face {
   font-family: "Encode Sans";
@@ -11,10 +11,10 @@
 /* -- Color tokens -- dark mode is the default --------------------------- */
 
 .ca-view,
-.tc-controls,
-.tc-chapter-tooltip,
-.search-wrapper,
-.theme-wrapper {
+.ca-tc-controls,
+.ca-tc-chapter-tooltip,
+.ca-search-wrapper,
+.ca-theme-wrapper {
   --accent: #a682e8;
 
   /* Font family - read by JS via getComputedStyle */
@@ -75,10 +75,10 @@
   :root:not([data-theme="dark"])
     :is(
       .ca-view,
-      .tc-controls,
-      .tc-chapter-tooltip,
-      .search-wrapper,
-      .theme-wrapper
+      .ca-tc-controls,
+      .ca-tc-chapter-tooltip,
+      .ca-search-wrapper,
+      .ca-theme-wrapper
     ) {
     --c-bg: #f7f7f7;
     --c-text: #4d4950;
@@ -130,10 +130,10 @@
 :root[data-theme="light"]
   :is(
     .ca-view,
-    .tc-controls,
-    .tc-chapter-tooltip,
-    .search-wrapper,
-    .theme-wrapper
+    .ca-tc-controls,
+    .ca-tc-chapter-tooltip,
+    .ca-search-wrapper,
+    .ca-theme-wrapper
   ) {
   --c-bg: #f7f7f7;
   --c-text: #4d4950;
@@ -181,7 +181,7 @@
 
 /* -- Tooltip --------------------------------------------------------------- */
 
-.chart-tooltip {
+.ca-chart-tooltip {
   position: absolute;
   pointer-events: none;
   display: none;
@@ -197,18 +197,18 @@
 }
 
 /* Vertical rhythm between stacked tooltip lines */
-.chart-tooltip > * + * {
+.ca-chart-tooltip > * + * {
   margin-top: 4px;
 }
 
-.chart-tooltip .tt-cat-row {
+.ca-chart-tooltip .ca-tt-cat-row {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-top: 2px;
 }
 
-.chart-tooltip .tt-cat-swatch {
+.ca-chart-tooltip .ca-tt-cat-swatch {
   display: inline-block;
   width: 9px;
   height: 9px;
@@ -216,30 +216,30 @@
   flex-shrink: 0;
 }
 
-.chart-tooltip .tt-cat-name {
+.ca-chart-tooltip .ca-tt-cat-name {
   flex: 1;
 }
 
-.chart-tooltip .tt-cat-count {
+.ca-chart-tooltip .ca-tt-cat-count {
   margin-left: 14px;
   font-variant-numeric: tabular-nums;
 }
 
-.chart-tooltip .tt-accent-bar {
+.ca-chart-tooltip .ca-tt-accent-bar {
   height: 4px;
   margin: -8px -10px 8px -10px;
 }
-.chart-tooltip .tt-type-label {
+.ca-chart-tooltip .ca-tt-type-label {
   font-style: italic;
 }
-.chart-tooltip .tt-title {
+.ca-chart-tooltip .ca-tt-title {
   font-weight: 700;
   font-size: 14px;
 }
-.chart-tooltip .tt-meta {
+.ca-chart-tooltip .ca-tt-meta {
   opacity: 0.7;
 }
-.chart-tooltip .tt-section-label {
+.ca-chart-tooltip .ca-tt-section-label {
   opacity: 0.6;
   font-style: italic;
   margin-top: 10px;
@@ -247,7 +247,7 @@
 
 /* -- Loading overlay ------------------------------------------------------- */
 
-.loading-overlay {
+.ca-loading-overlay {
   position: absolute;
   inset: 0;
   display: flex;
@@ -258,16 +258,16 @@
   background: var(--c-bg);
 }
 
-.loading-spinner {
+.ca-loading-spinner {
   width: 40px;
   height: 40px;
   border: 3px solid var(--c-border);
   border-top-color: var(--accent);
   border-radius: 50%;
-  animation: loading-spin 0.8s linear infinite;
+  animation: ca-loading-spin 0.8s linear infinite;
 }
 
-@keyframes loading-spin {
+@keyframes ca-loading-spin {
   to {
     transform: rotate(360deg);
   }
@@ -314,37 +314,37 @@
   background: var(--c-bg);
 }
 
-.trails-header,
-.trails-labels,
-.trails-main {
+.ca-trails-header,
+.ca-trails-labels,
+.ca-trails-main {
   position: absolute;
   display: block;
   pointer-events: none;
 }
-.trails-header {
+.ca-trails-header {
   top: 0;
   z-index: 2;
 }
-.trails-labels {
+.ca-trails-labels {
   left: 0;
   z-index: 2;
 }
-.trails-main {
+.ca-trails-main {
   z-index: 1;
 }
-.trails-scroller {
+.ca-trails-scroller {
   position: absolute;
   right: 0;
   bottom: 0;
   overflow: auto;
   z-index: 4;
 }
-.trails-spacer {
+.ca-trails-spacer {
   width: 1px;
   height: 1px;
 }
 
-.trails-corner {
+.ca-trails-corner {
   position: absolute;
   top: 0;
   left: 0;
@@ -360,10 +360,10 @@
   border-right: 1px solid var(--c-border);
   border-bottom: 1px solid var(--c-border);
 }
-.trails-corner > :first-child {
+.ca-trails-corner > :first-child {
   opacity: 0.8;
 }
-.trails-corner > :last-child {
+.ca-trails-corner > :last-child {
   opacity: 0.45;
 }
 
@@ -377,11 +377,11 @@
 
 /* -- Theme picker  ---------------------------------------------- */
 
-.theme-wrapper {
+.ca-theme-wrapper {
   position: relative;
 }
 
-.theme-btn {
+.ca-theme-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -394,13 +394,13 @@
     opacity 0.15s,
     color 0.15s;
 }
-.theme-btn:hover,
-.theme-btn[aria-expanded="true"] {
+.ca-theme-btn:hover,
+.ca-theme-btn[aria-expanded="true"] {
   opacity: 1;
   color: var(--accent);
 }
 
-.theme-menu {
+.ca-theme-menu {
   display: none;
   position: absolute;
   top: calc(100% + 6px);
@@ -414,11 +414,11 @@
   border-radius: 6px;
   min-width: 110px;
 }
-.theme-menu.is-open {
+.ca-theme-menu.ca-is-open {
   display: flex;
 }
 
-.theme-menu-item {
+.ca-theme-menu-item {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -438,31 +438,31 @@
     color 0.15s,
     opacity 0.15s;
 }
-.theme-menu-item:hover {
+.ca-theme-menu-item:hover {
   color: var(--accent);
   opacity: 1;
 }
-.theme-menu-item--active {
+.ca-theme-menu-item--active {
   background: var(--c-row-hover);
   color: var(--accent);
   opacity: 1;
 }
 
-.theme-menu-icon {
+.ca-theme-menu-icon {
   font-size: 14px;
   width: 16px;
 }
 
 /* -- Contributor search ---------------------------------------------------- */
 
-.search-wrapper {
+.ca-search-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   margin-left: 8px;
 }
 
-.search-input {
+.ca-search-input {
   background: none;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -477,22 +477,22 @@
     opacity 0.15s;
   opacity: 0.6;
 }
-.search-input:focus,
-.search-input:not(:placeholder-shown) {
+.ca-search-input:focus,
+.ca-search-input:not(:placeholder-shown) {
   border-color: var(--c-border);
   background: var(--c-row-hover);
   opacity: 1;
 }
-.search-wrapper.has-selection .search-input {
+.ca-search-wrapper.ca-has-selection .ca-search-input {
   border-color: var(--accent);
   color: var(--accent);
 }
 /* Remove the browser-native clear button on search inputs */
-.search-input::-webkit-search-cancel-button {
+.ca-search-input::-webkit-search-cancel-button {
   display: none;
 }
 
-.search-clear {
+.ca-search-clear {
   position: absolute;
   right: 4px;
   background: none;
@@ -505,11 +505,11 @@
   opacity: 0.45;
   display: none;
 }
-.search-clear:hover {
+.ca-search-clear:hover {
   opacity: 1;
 }
 
-.search-dropdown {
+.ca-search-dropdown {
   display: none;
   position: absolute;
   top: calc(100% + 6px);
@@ -525,11 +525,11 @@
   max-height: 240px;
   overflow-y: auto;
 }
-.search-dropdown.is-open {
+.ca-search-dropdown.ca-is-open {
   display: flex;
 }
 
-.search-dropdown-item {
+.ca-search-dropdown-item {
   width: 100%;
   flex-shrink: 0;
   text-align: left;
@@ -548,22 +548,22 @@
     background 0.1s,
     opacity 0.1s;
 }
-.search-dropdown-item:hover,
-.search-dropdown-item.is-selected {
+.ca-search-dropdown-item:hover,
+.ca-search-dropdown-item.ca-is-selected {
   background: var(--c-row-hover);
   opacity: 1;
 }
-.search-dropdown-item.is-active {
+.ca-search-dropdown-item.ca-is-active {
   background: var(--c-row-active);
   opacity: 1;
 }
-.search-dropdown-item mark {
+.ca-search-dropdown-item mark {
   background: none;
   color: var(--accent);
   font-weight: 700;
 }
 
-.search-no-results {
+.ca-search-no-results {
   font: 12px var(--font-family);
   color: var(--c-nav-text);
   opacity: 0.4;
@@ -572,41 +572,41 @@
 
 /* -- Timeline Controls ------------------------------------------- */
 
-.tc-controls {
+.ca-tc-controls {
   flex: none;
   display: flex;
   flex-direction: column;
   background: var(--tc-bg);
 }
 
-.tc-controls-row {
+.ca-tc-controls-row {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 8px 5% 12px;
 }
 
-.tc-actions {
+.ca-tc-actions {
   flex: none;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.tc-separator {
+.ca-tc-separator {
   width: 1px;
   align-self: stretch;
   background: var(--tc-pill-border);
   visibility: hidden;
   margin: 2px 0;
 }
-.tc-separator.tc-visible {
+.ca-tc-separator.ca-tc-visible {
   visibility: visible;
 }
 
 /* -- Timeline slider --------------------------------------------- */
 
-.tc-timeline {
+.ca-tc-timeline {
   --tc-row-h: 14px; /* one row of chapter head / label */
   --tc-head-h: 0px; /* total head height = rows × row-h */
   --tc-slider-y: 0px; /* top of the slider zone */
@@ -616,17 +616,17 @@
   height: 32px;
   pointer-events: none;
 }
-.tc-timeline.tc-has-chapters {
+.ca-tc-timeline.ca-tc-has-chapters {
   --tc-head-h: var(--tc-row-h);
   --tc-slider-y: calc(var(--tc-head-h) + 6px);
   height: 54px;
 }
-.tc-timeline.tc-has-chapters.tc-two-row {
+.ca-tc-timeline.ca-tc-has-chapters.ca-tc-two-row {
   --tc-head-h: calc(var(--tc-row-h) * 2);
   height: 68px;
 }
 
-.tc-track {
+.ca-tc-track {
   position: absolute;
   top: calc(var(--tc-slider-y) + 5px);
   left: 0;
@@ -636,7 +636,7 @@
   border-radius: 3px;
 }
 
-.tc-range {
+.ca-tc-range {
   position: absolute;
   top: calc(var(--tc-slider-y) + 3px);
   height: 10px;
@@ -645,11 +645,11 @@
   pointer-events: all;
   cursor: grab;
 }
-.tc-range.is-dragging {
+.ca-tc-range.ca-is-dragging {
   cursor: grabbing;
 }
 
-.tc-handle {
+.ca-tc-handle {
   position: absolute;
   top: var(--tc-slider-y);
   width: 16px;
@@ -662,7 +662,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-.tc-label {
+.ca-tc-label {
   position: absolute;
   top: calc(var(--tc-slider-y) + 20px);
   font-size: 10px;
@@ -673,7 +673,7 @@
 
 /* -- Chapter track ----------------------------------------------- */
 
-.tc-chapter-track {
+.ca-tc-chapter-track {
   position: absolute;
   inset: 0;
 }
@@ -681,7 +681,7 @@
 /* Pill = strip positioned by JS (left/width) that spans the chapters full
     width. It's both hover/click target. While not clicked/hovered, we show only
     ticks + labels. */
-.tc-chapter-pill {
+.ca-tc-chapter-pill {
   position: absolute;
   top: 0;
   height: calc(var(--tc-slider-y) - 2px); /* stop above the slider drag area */
@@ -689,7 +689,7 @@
   pointer-events: all;
 }
 
-.tc-chapter-pill::after {
+.ca-tc-chapter-pill::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -701,26 +701,26 @@
     border-color 0.15s;
 }
 
-.tc-chapter-pill:hover::after {
+.ca-tc-chapter-pill:hover::after {
   background: var(--tc-pill-region-hover-bg);
   border-color: var(--tc-pill-hover-border);
 }
 
-.tc-chapter-pill.tc-active::after {
+.ca-tc-chapter-pill.ca-tc-active::after {
   background: var(--tc-pill-region-active-bg);
   border-color: var(--tc-pill-active-border);
 }
 
 /* -- Chapter labels (detached from pills, no overflow clipping) -- */
 
-.tc-chapter-labels {
+.ca-tc-chapter-labels {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 }
 
-.tc-chapter-label {
+.ca-tc-chapter-label {
   position: absolute;
   top: 2px;
   white-space: nowrap;
@@ -734,20 +734,20 @@
     color 0.15s,
     border-color 0.15s;
 }
-.tc-chapter-label.tc-hover {
+.ca-tc-chapter-label.ca-tc-hover {
   color: var(--tc-pill-label-hover);
   border-left-color: var(--tc-pill-hover-border);
 }
-.tc-chapter-label.tc-active {
+.ca-tc-chapter-label.ca-tc-active {
   color: var(--tc-pill-label-hover);
   border-left-color: var(--tc-pill-active-border);
   font-weight: 500;
 }
-.tc-chapter-labels.tc-two-row .tc-chapter-label.tc-label-row-1 {
+.ca-tc-chapter-labels.ca-tc-two-row .ca-tc-chapter-label.ca-tc-label-row-1 {
   top: calc(var(--tc-row-h) + 2px);
 }
 
-.tc-chapter-tooltip {
+.ca-tc-chapter-tooltip {
   position: fixed;
   display: none;
   z-index: 100;
@@ -762,25 +762,25 @@
 }
 /* Invisible bridge area that extend the tooltip's hover area across the 8px gap
    to the pill so we prevent tearing down the tooltip too early. */
-.tc-chapter-tooltip::before,
-.tc-chapter-tooltip::after {
+.ca-tc-chapter-tooltip::before,
+.ca-tc-chapter-tooltip::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   height: 12px;
 }
-.tc-chapter-tooltip::before {
+.ca-tc-chapter-tooltip::before {
   bottom: 100%;
 }
-.tc-chapter-tooltip::after {
+.ca-tc-chapter-tooltip::after {
   top: 100%;
 }
 /* Pin the width when an image is present (matches max-width) - see showTooltip() */
-.tc-chapter-tooltip.tc-has-image {
+.ca-tc-chapter-tooltip.ca-tc-has-image {
   width: 260px;
 }
-.tc-chapter-tooltip img {
+.ca-tc-chapter-tooltip img {
   display: block;
   width: 100%;
   height: 140px;
@@ -789,27 +789,27 @@
   margin-bottom: 6px;
   background: var(--tc-tt-img-bg);
 }
-.tc-chapter-tooltip-title {
+.ca-tc-chapter-tooltip-title {
   font-weight: 700;
   margin-bottom: 2px;
 }
-.tc-chapter-tooltip-dates {
+.ca-tc-chapter-tooltip-dates {
   font-size: 10px;
   color: var(--tc-tt-dates);
   margin-bottom: 6px;
 }
-.tc-chapter-tooltip a {
+.ca-tc-chapter-tooltip a {
   color: var(--tc-tt-link);
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--tc-tt-link) 40%, transparent);
 }
-.tc-chapter-tooltip a:hover {
+.ca-tc-chapter-tooltip a:hover {
   text-decoration-color: var(--tc-tt-link);
 }
 
 /* -- Category filter pills --------------------------------------- */
 
-.tc-category-filter {
+.ca-tc-category-filter {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 16px;
@@ -819,7 +819,7 @@
   pointer-events: none;
 }
 
-.tc-category-pill {
+.ca-tc-category-pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -832,24 +832,24 @@
   transition: opacity 0.15s;
   user-select: none;
 }
-.tc-category-pill.tc-inactive {
+.ca-tc-category-pill.ca-tc-inactive {
   opacity: 0.35;
 }
 
-.tc-category-pill-dot {
+.ca-tc-category-pill-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.tc-category-pill-count {
+.ca-tc-category-pill-count {
   opacity: 0.65;
 }
 
 /* -- Buttons (reset + page-specific toggles like layout) -------- */
 
-.tc-btn {
+.ca-tc-btn {
   flex: none;
   font-family: inherit;
   font-size: 10px;
@@ -862,26 +862,26 @@
   padding: 3px 8px;
   transition: background 0.15s;
 }
-.tc-btn:hover {
+.ca-tc-btn:hover {
   background: var(--tc-btn-hover);
 }
 
-.tc-reset-btn {
+.ca-tc-reset-btn {
   visibility: hidden;
 }
-.tc-reset-btn.tc-visible {
+.ca-tc-reset-btn.ca-tc-visible {
   visibility: visible;
 }
 
 /* -- Button group (label + toggle buttons row) ------------------ */
 
-.tc-btn-group {
+.ca-tc-btn-group {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.tc-btn-group-label {
+.ca-tc-btn-group-label {
   font-size: 10px;
   color: var(--tc-label);
   opacity: 0.55;
@@ -890,7 +890,7 @@
 
 /* -- Zoom hint --------------------------------------------------- */
 
-.tc-hint {
+.ca-tc-hint {
   font-size: 10px;
   color: var(--tc-label);
   opacity: 0.55;

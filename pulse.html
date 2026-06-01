@@ -21,21 +21,21 @@
   </head>
   <body>
     <nav>
-      <span id="theme-picker"></span>
+      <span id="ca-theme-picker"></span>
       <a href="index.html">Gathering</a>
-      <a href="pulse.html" class="active">Pulse</a>
+      <a href="pulse.html" class="ca-active">Pulse</a>
       <a href="trails.html">Trails</a>
       <a href="ripples.html">Ripples</a>
       <a href="cornerstones.html">Cornerstones</a>
     </nav>
-    <div id="chart-container"></div>
+    <div id="ca-chart-container"></div>
 
     <script type="module">
       import { pulse, mountThemePicker } from "./src/contributorAtlas.js";
 
-      mountThemePicker(document.getElementById("theme-picker"));
+      mountThemePicker(document.getElementById("ca-theme-picker"));
 
-      pulse(document.getElementById("chart-container"), {
+      pulse(document.getElementById("ca-chart-container"), {
         contributions: "data/gimp/contributions.csv",
         highlights: "data/gimp/highlights.csv",
         project: "data/gimp/project.json",
