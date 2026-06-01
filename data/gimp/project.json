@@ -25,7 +25,7 @@
   },
   "chapters": [
     {
-      "name": "Ancient History",
+      "name": "Origins",
       "start": null,
       "end": "1998-06-06",
       "image_url": "/data/gimp/chapter_images/gimp_oldest_logo.png",
@@ -33,7 +33,7 @@
       "link_url": "https://www.gimp.org/about/ancient_history.html"
     },
     {
-      "name": "Building GIMP 2.10",
+      "name": "The GIMP 2.10 years",
       "start": "2012-05-04",
       "end": "2018-04-27",
       "image_url": "/data/gimp/chapter_images/gimp-2-10-splash.png",
@@ -41,6 +41,7 @@
     },
     {
       "name": "Road to GIMP 3",
+      "text": "Likely GIMP's longest development cycle ─ seven years porting to GTK3 and laying the groundwork for non-destructive editing for what comes next.",
       "start": "2018-04-28",
       "end": "2025-03-16",
       "image_url": "/data/gimp/chapter_images/gimp-3-0-splash.jpg",
