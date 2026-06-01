@@ -102,12 +102,28 @@ export function createTimelineControl(container) {
       els.handleR.style.left = posR * 100 + "%";
       els.range.style.left = posL * 100 + "%";
       els.range.style.width = (posR - posL) * 100 + "%";
+
+      const textL = fmt(new Date(tsFromPos(posL) * 1000));
+      const textR = fmt(new Date(tsFromPos(posR) * 1000));
+
+      els.labelL.textContent = textL;
+      els.labelR.textContent = textR;
       els.labelL.style.left = posL * 100 + "%";
       els.labelR.style.left = posR * 100 + "%";
       els.labelL.style.transform = `translateX(-${Math.min(50, posL * 100)}%)`;
       els.labelR.style.transform = `translateX(-${Math.max(50, posR * 100)}%)`;
-      els.labelL.textContent = fmt(new Date(tsFromPos(posL) * 1000));
-      els.labelR.textContent = fmt(new Date(tsFromPos(posR) * 1000));
+      els.labelR.style.visibility = "";
+
+      const rectL = els.labelL.getBoundingClientRect();
+      const rectR = els.labelR.getBoundingClientRect();
+      if (rectL.right + 4 > rectR.left) {
+        const midPos = (posL + posR) / 2;
+        els.labelL.textContent =
+          textL === textR ? textL : `${textL} – ${textR}`;
+        els.labelL.style.left = midPos * 100 + "%";
+        els.labelL.style.transform = `translateX(-${midPos * 100}%)`;
+        els.labelR.style.visibility = "hidden";
+      }
     };
 
     initTimeline();
