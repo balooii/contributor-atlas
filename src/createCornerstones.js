@@ -54,7 +54,7 @@ export function createCornerstones(container) {
     COLOR_CONTRIBUTOR,
     COLOR_LINK,
     COLOR_TEXT,
-    COLOR_ACCENT;
+    COLOR_HIGHLIGHT;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
@@ -64,7 +64,7 @@ export function createCornerstones(container) {
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
-    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -116,7 +116,7 @@ export function createCornerstones(container) {
 
   const selectionHighlight = ChartBase.makeSelectionHighlight({
     context_click,
-    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),
+    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_HIGHLIGHT, TAU }),
     getNode: () => SELECTED_NODE,
     getBaseR: (n, SF) =>
       n.remaining_contributor

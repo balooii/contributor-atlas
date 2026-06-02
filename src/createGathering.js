@@ -36,15 +36,15 @@ export function createGathering(container) {
   let _logoImage = null;
 
   // -- Colours / fonts --------------------------------------
-  let COLOR_BACKGROUND, COLOR_TEXT, COLOR_PROJECT, COLOR_CONTRIB, COLOR_ACCENT;
+  let COLOR_BACKGROUND, COLOR_TEXT, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-bg").trim();
-    COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();
-    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
+    COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -62,7 +62,7 @@ export function createGathering(container) {
 
   const selectionHighlight = ChartBase.makeSelectionHighlight({
     context_click,
-    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),
+    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_HIGHLIGHT, TAU }),
     getNode: () => SELECTED_NODE,
   });
 
@@ -131,7 +131,7 @@ export function createGathering(container) {
     nodes.forEach((n) => {
       n.type = "contributor";
       n.r = scale_dot_radius(n.count);
-      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIB;
+      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIBUTOR;
     });
 
     if (LAYOUT_MODE === "random") {
@@ -299,7 +299,7 @@ export function createGathering(container) {
     const html = ChartBase.buildContributorTooltipHTML(d, {
       tooltip,
       categoryColor,
-      accent: isCentral ? COLOR_PROJECT : COLOR_CONTRIB,
+      accent: isCentral ? COLOR_PROJECT : COLOR_CONTRIBUTOR,
       isProject: isCentral,
     });
     ChartBase.showAnchoredTooltip(tooltip, html, d, {

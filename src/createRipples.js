@@ -29,14 +29,14 @@ export function createRipples(container) {
   let _logoImage = null;
 
   // -- Colours / fonts --------------------------------------
-  let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIB, COLOR_ACCENT;
+  let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
-    COLOR_CONTRIB = cs.getPropertyValue("--c-contrib").trim();
-    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
+    COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -60,7 +60,7 @@ export function createRipples(container) {
 
   const selectionHighlight = ChartBase.makeSelectionHighlight({
     context_click,
-    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }),
+    getState: () => ({ WIDTH, HEIGHT, SF, COLOR_HIGHLIGHT, TAU }),
     getNode: () => SELECTED_NODE,
   });
 
@@ -306,7 +306,7 @@ export function createRipples(container) {
 
     nodes.forEach((n) => {
       n.r = scale_dot_radius(n.count);
-      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIB;
+      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIBUTOR;
     });
 
     single_nodes = nodes.filter((n) => n.count === 1);
@@ -522,7 +522,7 @@ export function createRipples(container) {
     const html = ChartBase.buildContributorTooltipHTML(d, {
       tooltip,
       categoryColor,
-      accent: isProject ? COLOR_PROJECT : COLOR_CONTRIB,
+      accent: isProject ? COLOR_PROJECT : COLOR_CONTRIBUTOR,
       isProject,
     });
     ChartBase.showAnchoredTooltip(tooltip, html, d, {

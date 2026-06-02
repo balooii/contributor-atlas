@@ -11,7 +11,7 @@ export function createTrails(container) {
     COLOR_GRID,
     COLOR_ROW_ALT,
     COLOR_ROW_HOVER,
-    COLOR_ACCENT;
+    COLOR_HIGHLIGHT;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
@@ -21,7 +21,7 @@ export function createTrails(container) {
     COLOR_GRID = cs.getPropertyValue("--c-grid").trim();
     COLOR_ROW_ALT = cs.getPropertyValue("--c-row-alt").trim();
     COLOR_ROW_HOVER = cs.getPropertyValue("--c-row-hover").trim();
-    COLOR_ACCENT = cs.getPropertyValue("--accent").trim();
+    COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -422,7 +422,7 @@ export function createTrails(container) {
         const t = (performance.now() % ANIM_CYCLE) / ANIM_CYCLE;
         const ry = selIdx * ROW_HEIGHT - scrollTop;
         if (ry + ROW_HEIGHT > 0 && ry < viewportH) {
-          ctxL.fillStyle = COLOR_ACCENT;
+          ctxL.fillStyle = COLOR_HIGHLIGHT;
           ctxL.globalAlpha = 0.12 + (1 - t) * 0.12;
           ctxL.fillRect(0, ry, LABEL_WIDTH, ROW_HEIGHT);
           ctxL.globalAlpha = 0.85;
@@ -448,7 +448,7 @@ export function createTrails(container) {
       ctxL.fill();
 
       // Name (right aligned, truncated)
-      ctxL.fillStyle = isSelected ? COLOR_ACCENT : COLOR_TEXT;
+      ctxL.fillStyle = isSelected ? COLOR_HIGHLIGHT : COLOR_TEXT;
       ctxL.globalAlpha = isSelected ? 1 : 0.85;
       ctxL.font = `${isHovered || isSelected ? "bold " : ""}11px ${FONT_FAMILY}`;
       ctxL.textAlign = "right";
@@ -531,7 +531,7 @@ export function createTrails(container) {
     if (_selectedId) {
       const selIdx = contributors.findIndex((c) => c.id === _selectedId);
       if (selIdx >= startRow && selIdx <= endRow) {
-        ctxM.fillStyle = COLOR_ACCENT;
+        ctxM.fillStyle = COLOR_HIGHLIGHT;
         ctxM.globalAlpha = 0.07;
         ctxM.fillRect(
           0,

@@ -569,7 +569,7 @@ export function drawProjectNodeContent(
 //
 // Required options:
 //   context_click - the click-layer 2d context
-//   getState()    - returns { WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU }
+//   getState()    - returns { WIDTH, HEIGHT, SF, COLOR_HIGHLIGHT, TAU }
 //   getNode()     - returns the currently selected node, or null
 //
 // Optional (Overrides to handle Cornerstone's top-contributor ring highlights):
@@ -604,7 +604,7 @@ export function makeSelectionHighlight({
 
     function frame(ts) {
       _frame = null;
-      const { WIDTH, HEIGHT, SF, COLOR_ACCENT, TAU } = getState();
+      const { WIDTH, HEIGHT, SF, COLOR_HIGHLIGHT, TAU } = getState();
       const n = getNode();
       if (!n) {
         context_click.clearRect(0, 0, WIDTH, HEIGHT);
@@ -618,14 +618,14 @@ export function makeSelectionHighlight({
       context_click.save();
       context_click.translate(WIDTH / 2, HEIGHT / 2);
 
-      context_click.strokeStyle = COLOR_ACCENT;
+      context_click.strokeStyle = COLOR_HIGHLIGHT;
       context_click.lineWidth = Math.max(2, 2 * SF);
       context_click.beginPath();
       context_click.arc(n.x * SF, n.y * SF, BASE_R + 3 * SF, 0, TAU);
       context_click.stroke();
 
       context_click.globalAlpha = (1 - t) * 0.7;
-      context_click.strokeStyle = COLOR_ACCENT;
+      context_click.strokeStyle = COLOR_HIGHLIGHT;
       context_click.lineWidth = 3;
       context_click.beginPath();
       context_click.arc(n.x * SF, n.y * SF, BASE_R + PULSE_REACH * t, 0, TAU);

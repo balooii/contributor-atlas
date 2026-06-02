@@ -15,7 +15,7 @@
 .ca-tc-chapter-tooltip,
 .ca-search-wrapper,
 .ca-theme-wrapper {
-  --accent: #a682e8;
+  --accent: #f57900;
 
   /* Font family - read by JS via getComputedStyle */
   --font-family: "Encode Sans", sans-serif;
@@ -28,19 +28,17 @@
   --c-row-alt: #161616;
   --c-row-hover: #222222;
   --c-row-active: #222222;
-  --c-highlight: var(--accent);
+  --c-highlight: #ffffff;
   --c-project: #a09080;
   --c-contributor: #8099bb;
-  --c-contrib: #ea9df5;
 
   /* nav-chrome (used by the search + theme picker widgets) */
   --c-nav-bg: #0d0d0d;
   --c-nav-text: #ffffff;
 
   /* tooltip */
-  --c-tooltip-bg: rgba(18, 18, 18, 0.97);
+  --c-tooltip-bg: #121212;
   --c-tooltip-border: rgba(255, 255, 255, 0.1);
-  --c-tooltip-text: #c4c0c8;
 
   /* timeline control */
   --tc-bg: #0d0d0d;
@@ -58,12 +56,9 @@
   --tc-pill-label-hover: #ffffff;
   --tc-tt-bg: #1a1a1a;
   --tc-tt-border: rgba(255, 255, 255, 0.15);
-  --tc-tt-text: #ffffff;
+  --tc-text: #ffffff;
   --tc-tt-dates: rgba(255, 255, 255, 0.65);
-  --tc-tt-img-bg: #0d0d0d;
   --tc-tt-link: rgba(255, 255, 255, 0.85);
-  --tc-cat-pill: #ffffff;
-  --tc-btn-text: #ffffff;
   --tc-btn-bg: rgba(255, 255, 255, 0.08);
   --tc-btn-border: rgba(255, 255, 255, 0.2);
   --tc-btn-hover: rgba(255, 255, 255, 0.14);
@@ -89,14 +84,13 @@
     --c-row-active: #d4d4d4;
     --c-project: #504030;
     --c-contributor: #334155;
-    --c-contrib: #8030a8;
+    --c-highlight: #000000;
 
     --c-nav-bg: #eeeeee;
     --c-nav-text: #333333;
 
-    --c-tooltip-bg: rgba(255, 255, 255, 0.97);
+    --c-tooltip-bg: #ffffff;
     --c-tooltip-border: rgba(0, 0, 0, 0.08);
-    --c-tooltip-text: #4d4950;
 
     --tc-bg: #eeeeee;
     --tc-filter-bg: #e2e2e2;
@@ -113,12 +107,9 @@
     --tc-pill-label-hover: #111111;
     --tc-tt-bg: #fafafa;
     --tc-tt-border: rgba(0, 0, 0, 0.1);
-    --tc-tt-text: #333333;
+    --tc-text: #333333;
     --tc-tt-dates: rgba(0, 0, 0, 0.55);
-    --tc-tt-img-bg: #eeeeee;
     --tc-tt-link: rgba(0, 0, 0, 0.75);
-    --tc-cat-pill: #333333;
-    --tc-btn-text: #333333;
     --tc-btn-bg: rgba(0, 0, 0, 0.07);
     --tc-btn-border: rgba(0, 0, 0, 0.15);
     --tc-btn-hover: rgba(0, 0, 0, 0.12);
@@ -144,14 +135,13 @@
   --c-row-active: #d4d4d4;
   --c-project: #504030;
   --c-contributor: #334155;
-  --c-contrib: #8030a8;
+  --c-highlight: #000000;
 
   --c-nav-bg: #eeeeee;
   --c-nav-text: #333333;
 
-  --c-tooltip-bg: rgba(255, 255, 255, 0.97);
+  --c-tooltip-bg: #ffffff;
   --c-tooltip-border: rgba(0, 0, 0, 0.08);
-  --c-tooltip-text: #4d4950;
 
   --tc-bg: #eeeeee;
   --tc-filter-bg: #e2e2e2;
@@ -168,12 +158,9 @@
   --tc-pill-label-hover: #111111;
   --tc-tt-bg: #fafafa;
   --tc-tt-border: rgba(0, 0, 0, 0.1);
-  --tc-tt-text: #333333;
+  --tc-text: #333333;
   --tc-tt-dates: rgba(0, 0, 0, 0.55);
-  --tc-tt-img-bg: #eeeeee;
   --tc-tt-link: rgba(0, 0, 0, 0.75);
-  --tc-cat-pill: #333333;
-  --tc-btn-text: #333333;
   --tc-btn-bg: rgba(0, 0, 0, 0.07);
   --tc-btn-border: rgba(0, 0, 0, 0.15);
   --tc-btn-hover: rgba(0, 0, 0, 0.12);
@@ -190,7 +177,7 @@
   border-radius: 4px;
   padding: 8px 10px;
   font: 11px var(--font-family);
-  color: var(--c-tooltip-text);
+  color: var(--c-text);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   z-index: 20;
   white-space: nowrap;
@@ -397,7 +384,6 @@
 .ca-theme-btn:hover,
 .ca-theme-btn[aria-expanded="true"] {
   opacity: 1;
-  color: var(--accent);
 }
 
 .ca-theme-menu {
@@ -439,12 +425,10 @@
     opacity 0.15s;
 }
 .ca-theme-menu-item:hover {
-  color: var(--accent);
   opacity: 1;
 }
 .ca-theme-menu-item--active {
   background: var(--c-row-hover);
-  color: var(--accent);
   opacity: 1;
 }
 
@@ -484,8 +468,7 @@
   opacity: 1;
 }
 .ca-search-wrapper.ca-has-selection .ca-search-input {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--c-nav-text);
 }
 /* Remove the browser-native clear button on search inputs */
 .ca-search-input::-webkit-search-cancel-button {
@@ -559,7 +542,7 @@
 }
 .ca-search-dropdown-item mark {
   background: none;
-  color: var(--accent);
+  color: var(--c-nav-text);
   font-weight: 700;
 }
 
@@ -757,7 +740,7 @@
   padding: 8px;
   max-width: 260px;
   font-size: 11px;
-  color: var(--tc-tt-text);
+  color: var(--tc-text);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
 }
 /* Invisible bridge area that extend the tooltip's hover area across the 8px gap
@@ -787,7 +770,7 @@
   object-fit: contain;
   border-radius: 2px;
   margin-bottom: 6px;
-  background: var(--tc-tt-img-bg);
+  background: var(--tc-bg);
 }
 .ca-tc-chapter-tooltip-title {
   font-weight: 700;
@@ -824,7 +807,7 @@
   align-items: center;
   gap: 5px;
   font-size: 10px;
-  color: var(--tc-cat-pill);
+  color: var(--tc-text);
   cursor: pointer;
   pointer-events: all;
   letter-spacing: 0.02em;
@@ -853,7 +836,7 @@
   flex: none;
   font-family: inherit;
   font-size: 10px;
-  color: var(--tc-btn-text);
+  color: var(--tc-text);
   background: var(--tc-btn-bg);
   border: 1px solid var(--tc-btn-border);
   border-radius: 3px;
