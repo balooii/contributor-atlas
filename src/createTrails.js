@@ -165,24 +165,6 @@ export function createTrails(container) {
     spacer.style.width = virtualW + "px";
   }
 
-  // -- Helpers ---------------------------------------------------------
-  // Pick the dominant category by first finding the group with the highest
-  // aggregate count, then returning the top individual category within it.
-  // catCounts: { [cat]: count }   catToGroup: { [cat]: group }
-  function dominantCategory(catCounts, catToGroup) {
-    const groupTotals = {};
-    for (const [cat, n] of Object.entries(catCounts)) {
-      const g = catToGroup[cat] ?? cat;
-      groupTotals[g] = (groupTotals[g] || 0) + n;
-    }
-    const topGroup = Object.entries(groupTotals).sort(
-      (a, b) => b[1] - a[1],
-    )[0][0];
-    return Object.entries(catCounts)
-      .filter(([cat]) => (catToGroup[cat] ?? cat) === topGroup)
-      .sort((a, b) => b[1] - a[1])[0][0];
-  }
-
   // -- Data prep -------------------------------------------------------
   function processData() {
     const byContributor = d3.group(
@@ -211,7 +193,7 @@ export function createTrails(container) {
         counts[c.cat] = (counts[c.cat] || 0) + 1;
         catToGroup[c.cat] = c.group;
       });
-      const dominantCat = dominantCategory(counts, catToGroup);
+      const dominantCat = ChartBase.dominantCategory(counts, catToGroup);
 
       contributors.push({
         name: items[0].contributorName,
@@ -246,7 +228,7 @@ export function createTrails(container) {
       counts[c.cat] = (counts[c.cat] || 0) + 1;
       catToGroup[c.cat] = c.group;
     });
-    const dominantCat = dominantCategory(counts, catToGroup);
+    const dominantCat = ChartBase.dominantCategory(counts, catToGroup);
     return {
       start: items[0].ts,
       end: items[items.length - 1].ts,
@@ -287,7 +269,7 @@ export function createTrails(container) {
       const cs = byMonth.get(m.getTime());
       let dom;
       if (cs) {
-        dom = dominantCategory(cs, catToGroup);
+        dom = ChartBase.dominantCategory(cs, catToGroup);
         lastDom = dom;
       } else {
         dom = lastDom || segDominantCat;

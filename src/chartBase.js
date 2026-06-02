@@ -25,11 +25,9 @@ export function createRangeFilter() {
       return end;
     },
     set(s, e) {
-      const ns = s == null ? null : s;
-      const ne = e == null ? null : e;
-      if (ns === start && ne === end) return false;
-      start = ns;
-      end = ne;
+      if (s === start && e === end) return false;
+      start = s;
+      end = e;
       return true;
     },
     clear() {
@@ -86,15 +84,17 @@ export function aggregateByContributor(rows) {
 // Pick the dominant category by first finding the group with the highest
 // aggregate count, then returning the top individual category within it.
 export function dominantCategory(catCounts, catToGroup = {}) {
+  const entries = Object.entries(catCounts);
+  if (!entries.length) return null;
   const groupTotals = {};
-  for (const [cat, n] of Object.entries(catCounts)) {
+  for (const [cat, n] of entries) {
     const g = catToGroup[cat] ?? cat;
     groupTotals[g] = (groupTotals[g] || 0) + n;
   }
   const topGroup = Object.entries(groupTotals).sort(
     (a, b) => b[1] - a[1],
   )[0][0];
-  return Object.entries(catCounts)
+  return entries
     .filter(([cat]) => (catToGroup[cat] ?? cat) === topGroup)
     .sort((a, b) => b[1] - a[1])[0][0];
 }
@@ -336,24 +336,17 @@ export function wireInteraction(
     showTooltip,
   },
 ) {
-  let HOVER_ACTIVE = false,
-    HOVERED_NODE = null;
-
   d3.select(canvas_hover).on("mousemove", function (event) {
     const [mx, my] = d3.pointer(event, this);
     const [d, FOUND] = findNode(mx, my);
-    const { WIDTH, HEIGHT } = getSize();
     if (FOUND) {
-      HOVER_ACTIVE = true;
-      HOVERED_NODE = d;
       canvas.style.opacity = "0.25";
       drawHoverState(context_hover, d);
       showTooltip(d);
     } else {
+      const { WIDTH, HEIGHT } = getSize();
       context_hover.clearRect(0, 0, WIDTH, HEIGHT);
       tooltip.hide();
-      HOVER_ACTIVE = false;
-      HOVERED_NODE = null;
       canvas.style.opacity = "1";
     }
   });
@@ -361,8 +354,6 @@ export function wireInteraction(
   d3.select(canvas_hover).on("mouseleave", function () {
     const { WIDTH, HEIGHT } = getSize();
     context_hover.clearRect(0, 0, WIDTH, HEIGHT);
-    HOVER_ACTIVE = false;
-    HOVERED_NODE = null;
     canvas.style.opacity = "1";
     tooltip.hide();
   });
@@ -370,8 +361,6 @@ export function wireInteraction(
   return {
     reset() {
       const { WIDTH, HEIGHT } = getSize();
-      HOVER_ACTIVE = false;
-      HOVERED_NODE = null;
       context_hover.clearRect(0, 0, WIDTH, HEIGHT);
       canvas.style.opacity = "1";
     },

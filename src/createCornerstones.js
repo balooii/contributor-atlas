@@ -1092,16 +1092,12 @@ export function createCornerstones(container) {
   }
 
   // -- Fonts ------------------------------------------------
-
-  const setFont = (ctx, size, weight, style = "normal") =>
-    ChartBase.setFont(ctx, FONT_FAMILY, size, weight, style);
-
   function setProjectFont(context, SF = 1, font_size = 15) {
-    setFont(context, font_size * SF, 700, "normal");
+    ChartBase.setFont(context, FONT_FAMILY, font_size * SF, 700, "normal");
   }
 
   function setContributorFont(context, SF = 1, font_size = 13) {
-    setFont(context, font_size * SF, 700, "italic");
+    ChartBase.setFont(context, FONT_FAMILY, font_size * SF, 700, "italic");
   }
 
   const renderText = ChartBase.renderText;

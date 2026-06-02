@@ -316,9 +316,6 @@ export function createGathering(container) {
     });
   }
 
-  const setFont = (ctx, size, weight, style = "normal") =>
-    ChartBase.setFont(ctx, FONT_FAMILY, size, weight, style);
-
   // -- Accessors --------------------------------------------
   chart.width = function (v) {
     if (!arguments.length) return width;
