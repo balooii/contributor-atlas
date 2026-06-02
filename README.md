@@ -39,7 +39,7 @@ The main data file. One row per contribution event.
 | `category`         | string  | Contribution type (must match a key in `project.json` `category_colors`)                 |
 | `contributor_name` | string  | Display name                                                                             |
 | `contributor_id`   | string  | Canonical identifier (email, handle, etc.)                                               |
-| `timestamp`        | integer | Unix timestamp (seconds, but time can be truncated. Day-precision is enough for the viz) |
+| `timestamp`        | integer | Unix timestamp in seconds; day precision is enough, so the time-of-day can be zeroed out |
 
 **Minimal example:**
 
@@ -126,20 +126,11 @@ There are two ways to put these views on a page:
 The release bundle ships a landing page — `index.html` (welcome + links into the views) — plus the five views as ready-to-serve pages: `cornerstones.html`, `pulse.html`, `trails.html`, `ripples.html`, and `gathering.html`.
 Serve the bundle directory and open any page; each view is a full-screen canvas with navigation between the five.
 
-To point the pages at **your own** data, edit the `contributions` / `project` paths in the `<script type="module">` block near the bottom of each HTML file:
+To make the pages your own, edit each HTML file:
 
-```html
-<script type="module">
-  import { gathering } from "./contributor-atlas.js";
-
-  gathering(document.getElementById("chart-container"), {
-    contributions: "data/myproject/contributions.csv",
-    project: "data/myproject/project.json",
-  });
-</script>
-```
-
-All views load `project.json`; `pulse.html` additionally accepts a `highlights` path.
+- **Data paths** — Point `contributions` / `project` / `highlights` at your own files in the `<script type="module">` block near the bottom of each page.
+- **Nav bar brand** — Every page shows the project name in the top-left as `<span class="ca-brand-project">GIMP</span> Contributor Atlas`. Replace `GIMP` in that span with your own project name.
+- **Landing page content** — `index.html` is GIMP-specific. Edit that page's body to describe your own project.
 
 ### Embedding a single view
 
@@ -189,9 +180,12 @@ ripples(document.getElementById("chart"), {
 | `enableControls` | (default `true`) whether to render the timeline/category filter control just below the chart. Pass `false` to omit it.                                           |
 | `search`         | element or CSS selector to render contributor search into. The view appends the search widget to it; you own the element and its placement. Omit to skip search. |
 
+**Optional widgets.** Two extra UI pieces ship with the bundle, both opt-in and rendered into a host element you provide: a **contributor search** box (enabled via the `search` option above) and a **theme picker** menu).
+See `embed-demo.html` in the repository for a runnable demo that wires up both.
+
 ---
 
-## Customizing colors, fonts, and theme
+## Customizing font and colors
 
 **Category colors** are set in `project.json` under `category_colors` (see [Data format](#projectjson-required)).
 
@@ -204,29 +198,16 @@ These tokens are scoped to the chart's container, not :root, so it can't clash w
   /* Use your own font */
   --font-family: "Inter", sans-serif;
 
-  /* Accent / highlight color */
-  --accent: #e8820f;
-
   /* Canvas background color */
   --c-bg: #0b0b0b;
 }
 ```
 
-The token groups you're most likely to touch if you're not happy with the defaults:
-
-- `--font-family` — the typeface used in canvas-rendered text
-- `--accent` / `--c-highlight` — the highlight color
-- `--c-*` — canvas colors (`--c-bg`, `--c-text`, `--c-border`, `--c-project`, `--c-contributor`, …)
-- `--tc-*` — the timeline/category control widget
-
-The theme system ships a **dark** default and a **light** variant (under the system `prefers-color-scheme` and a `[data-theme="light"]` override). When the theme changes, each view re-reads its tokens and redraws, so your overrides apply in both modes if you scope them accordingly.
-
-Views follow the visitor's OS light/dark preference automatically. If your page has its own theme switch, call `notifyThemeChange()` to make the views pick it up:
+A dark default and a light variant ship out of the box (the latter via `prefers-color-scheme` or a `[data-theme="light"]` override), so views follow the visitor's OS preference automatically. On any theme change each view re-reads its tokens and redraws — scope your overrides per mode and they apply in both. If your page has its own theme switch, call `notifyThemeChange()` after updating your CSS so the views pick it up:
 
 ```js
 import { notifyThemeChange } from "./contributor-atlas.js";
-// after your toggle has updated the page's CSS:
-notifyThemeChange("dark"); // "light" | "dark" | "system"
+notifyThemeChange();
 ```
 
 ---
@@ -259,8 +240,9 @@ npm run build:release  # creates files in dist/
 
 - `contributor-atlas.js` — ESM bundle
 - `contributor-atlas.global.js` — IIFE bundle exposing the `ContributorAtlas` global
-- `contributor-atlas.css` — the stylesheet, with the font in `static/` beside it
-- the five HTML pages, repointed at the bundle
+- `contributor-atlas.css` — the embeddable stylesheet, with the font in `static/` beside it
+- `contributor-atlas.page.css` / `contributor-atlas.landing.css` — page-shell stylesheets, used only by the bundled HTML pages
+- the landing page (`index.html`) and the five view pages
 - `data/gimp/` — runtime data, using GIMP as an example dataset so there is something to show
 
 ---
