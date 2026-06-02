@@ -79,20 +79,44 @@ nav a {
   color: var(--c-nav-text);
   text-decoration: none;
   margin-left: 18px;
-  transition: color 0.15s, opacity 0.15s;
+  transition:
+    color 0.15s,
+    opacity 0.15s;
   opacity: 0.6;
 }
-/* Home link sits at the far left; push the rest to the right
-   via an auto margin */
 nav > .ca-home {
   margin-left: 0;
-  margin-right: auto;
+  margin-right: 12px;
   font-size: 18px;
-  line-height: 1;
+  display: none;
 }
 nav > .ca-home:hover {
   color: var(--c-nav-text);
   opacity: 1;
+}
+nav > .ca-brand {
+  margin-left: 0;
+  margin-right: auto;
+  opacity: 1;
+  letter-spacing: 0.15rem;
+  color: color-mix(in srgb, var(--c-nav-text) 65%, transparent);
+}
+nav > .ca-brand:hover {
+  opacity: 1;
+  color: var(--c-nav-text);
+}
+nav > .ca-brand .ca-brand-project {
+  color: var(--accent);
+  font-weight: 600;
+}
+@media (max-width: 720px) {
+  nav > .ca-brand {
+    display: none;
+  }
+  nav > .ca-home {
+    display: inline;
+    margin-right: auto;
+  }
 }
 nav > #ca-theme-picker {
   margin-left: 14px;

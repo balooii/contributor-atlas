@@ -306,7 +306,9 @@ export function createRipples(container) {
 
     nodes.forEach((n) => {
       n.r = scale_dot_radius(n.count);
-      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIBUTOR;
+      n.color = n.dominant_cat
+        ? categoryColor(n.dominant_cat)
+        : COLOR_CONTRIBUTOR;
     });
 
     single_nodes = nodes.filter((n) => n.count === 1);

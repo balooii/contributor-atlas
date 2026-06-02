@@ -36,7 +36,11 @@ export function createGathering(container) {
   let _logoImage = null;
 
   // -- Colours / fonts --------------------------------------
-  let COLOR_BACKGROUND, COLOR_TEXT, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
+  let COLOR_BACKGROUND,
+    COLOR_TEXT,
+    COLOR_PROJECT,
+    COLOR_CONTRIBUTOR,
+    COLOR_HIGHLIGHT;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
@@ -131,7 +135,9 @@ export function createGathering(container) {
     nodes.forEach((n) => {
       n.type = "contributor";
       n.r = scale_dot_radius(n.count);
-      n.color = n.dominant_cat ? categoryColor(n.dominant_cat) : COLOR_CONTRIBUTOR;
+      n.color = n.dominant_cat
+        ? categoryColor(n.dominant_cat)
+        : COLOR_CONTRIBUTOR;
     });
 
     if (LAYOUT_MODE === "random") {
