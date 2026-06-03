@@ -14,8 +14,8 @@ prompt: |
   - coding-feature: adds support for a new macOS architecture (e.g. Apple Silicon), new macOS version, new bundled dependency, or new CI pipeline capability. Cue words: "introduce", "new", "support for", "implement", "add" (only when adding a genuinely new thing, not fixing an omission).
   - coding-bugfix: fixes a bug, regression, crash, memory leak, security issue, or incorrect behavior. Cue words: "fix", "resolve", "crash", "wrong", "broken", "leak", "regression".
   - translation: i18n, l10n, .po/.pot files, string localization, new language support.
-  - documentation: user-facing docs (manpages, NEWS, README, in-app help, devel-docs/), API reference comments (gtk-doc/doxygen blocks). Plain in-code comments are coding-other, not documentation.
-  - communication: news posts, release announcements, blog content, conference/event materials, social media, outreach to end users.
+  - documentation: user-facing docs (manpages, README, in-app help, devel-docs/), API reference comments (gtk-doc/doxygen blocks). Plain in-code comments are coding-other, not documentation.
+  - communication: news posts, release announcements, blog content, the NEWS changelog file, conference/event materials, social media, outreach to end users.
   - coding-other: everything else — refactoring, code cleanup, performance optimization (when not fixing a regression), packaging, CI, build system (meson/autotools), tests, dependency bumps, formatting, plain code comments.
 
   Rules:

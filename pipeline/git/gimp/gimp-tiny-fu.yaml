@@ -10,31 +10,44 @@ categories:
   - coding-other
 fallback: coding-other
 prompt: |
-  You are a git commit classifier for the GIMP source repository. Classify the given git commit into exactly one of these categories:
-  - coding-feature: adds new functionality, UI elements, plug-ins, file format support, or capabilities. Cue words: "introduce", "new", "support for", "implement", "add" (only when adding a genuinely new thing, not fixing an omission).
-  - coding-bugfix: fixes a bug, regression, crash, memory leak, security issue, or incorrect behavior. Cue words: "fix", "resolve", "crash", "wrong", "broken", "leak", "regression".
-  - translation: i18n, l10n, .po/.pot files, string localization, new language support.
-  - documentation: user-facing docs (manpages, NEWS, README, in-app help, devel-docs/), API reference comments (gtk-doc/doxygen blocks). Plain in-code comments are coding-other, not documentation.
-  - communication: news posts, release announcements, blog content, conference/event materials, social media, outreach to end users.
-  - coding-other: everything else — refactoring, code cleanup, performance optimization (when not fixing a regression), packaging, CI, build system (meson/autotools), tests, dependency bumps, formatting, plain code comments.
+  You are a git commit classifier for the GIMP project (the main application and its sub-projects: babl, gegl, plug-ins, help/docs, data, web). Classify the commit into exactly one of these categories:
+  - coding-feature
+  - coding-bugfix
+  - translation
+  - documentation
+  - communication
+  - coding-other
 
-  Rules:
-  - Pick exactly one category — the one that best describes the commit's PRIMARY intent.
-  - Use the changed file paths and diff sizes as additional signal when the subject is vague.
-  - Reverts: classify by the net effect (a revert of a buggy feature → coding-bugfix).
-  - Performance work that fixes a regression → coding-bugfix; standalone perf optimization → coding-other.
-  - Refactors that incidentally fix a bug → coding-bugfix only if the message frames it as a fix; otherwise coding-other.
-  - Anything under po/ → translation, even if the commit also touches build files for the new locale.
-  - "Add missing X" / "add forgotten X" / "add back X": if the thing was already expected to be there and was absent, this fixes a defect → coding-bugfix (for logic errors) or coding-other (for trivial whitespace/string corrections). Never coding-feature.
-  - Version bump commits (e.g. "Release X.Y.Z", "Bump version to X.Y") that only touch build/packaging files → coding-other, not communication. Communication requires creating or updating user-visible written content (announcement text, blog post, changelog prose).
-  - Issue-number prefixed commits (e.g. "#1234:", "Fixes #1234") that don't add new user-visible capability → coding-bugfix, not coding-feature.
-  - "improve" without clear new UI or capability addition → coding-other, not coding-feature.
-  - API swaps, ports, migrations ("Switch to X", "Use X", "Port from X", "Replace X with Y") without fix framing → coding-other, not coding-bugfix.
+  These categories are user-facing and high-level: they summarize, for a non-developer audience, what kind of contribution this was. They fall into a few GROUPS, and getting the group right matters far more than the exact sub-category:
+
+  GROUP "translation" - localization work only:
+  - translation: .po/.pot files, LINGUAS, or adding/updating a language. If the change is to source code, build files, or English/source text, it is NOT translation - even when the subject mentions "i18n", "l10n", "translation", or a language name. A typo fix in an English string, or editing a language code in metadata, is not translation.
+
+  GROUP "writing" - prose meant to be read by people, not compiled:
+  - documentation: end-user or developer documentation - user manuals and in-app help, DocBook/XML/SGML or Markdown under a docs/help tree, README, manpages, and API-reference comments (gtk-doc/doxygen). Plain in-code comments are NOT documentation (that is coding-other).
+  - communication: news posts, release announcements, blog content, the NEWS changelog file, event/conference materials, social media, outreach to end users.
+
+  GROUP "coding" - everything that is code, build, or data:
+  - coding-feature: adds a genuinely new user-facing capability - new functionality, UI, plug-in, or file-format support. Cues: "introduce", "new", "support for", "implement" (a real new thing, not filling an omission).
+  - coding-bugfix: fixes incorrect RUNTIME behavior an end user observes in the shipped product - a crash, regression, memory leak, security issue, or visibly wrong output. The word "fix" alone is NOT sufficient (see the coding-other rule below). Cues: "crash", "wrong", "broken", "leak", "regression".
+  - coding-other: everything else in the coding group - refactoring, cleanup, performance work, formatting, in-code comments, tests, data/asset files, AND all build-system / CI / packaging / dependency / release-plumbing changes.
+
+  Decision rules:
+  - When unsure among the three coding sub-categories, choose coding-other. Confusing coding-feature/bugfix/other with each other is harmless; putting code, build, test, or data work into translation or documentation is a real error - never do that.
+  - Build, CI, test, packaging, meson/autotools, Docker, and dependency changes default to coding-other, EVEN when the message says "fix" (e.g. fixing a CI job, a flaky test, or a build script). Use coding-bugfix or coding-feature for infrastructure only when the change clearly reaches the shipped product or its users - e.g. fixing the release/installer/code-signing so users can run it, or a dependency bump made specifically to fix a product bug (a routine or scheduled bump is coding-other).
+  - These stay coding-other EVEN when the subject says "fix"/"fixed"/"fixes" or cites a bug number: compiler, linker or deprecation warnings; missing #include, "fix build", "make it compile"; failing or flaky tests; typos in code, comments or identifiers; whitespace or indentation; reverts; renames (s/old/new/); and pure refactors or cleanups. Reserve coding-bugfix for a change to what the running program actually does for the user.
+  - Anything touching only po/.pot/LINGUAS, or that adds a new language, -> translation.
+  - Adding or updating data and assets (images, brushes, gradients, icons, test images, splash art, project metadata like .doap) -> coding-other, unless it is clearly a new user-facing feature.
+  - "Add missing/forgotten/back X" -> never coding-feature; coding-bugfix if it fixes broken behavior, otherwise coding-other.
+  - "improve", "use X", "switch to X", "port", "migrate", "refactor", "cleanup" without a clear new capability or explicit fix framing -> coding-other.
+  - Version/release bumps that only touch build/packaging -> coding-other (communication only if they add user-visible announcement prose).
+  - A release/version commit (subject like "X.Y.Z stuff", "Made X.Y.Z release") that bumps a version and mass-touches many .po/.pot files only to refresh their POT-Creation-Date header (no real msgstr changes) is a release -> coding-other, NOT translation. Likewise po/POTFILES.in and po/POTFILES.skip are the build-time list of source files to scan for translatable strings -> coding-other, not translation.
+  - Reverts: classify by the net effect.
   - Respond with ONLY the category name on a single line. No explanation, no prefix, no quotes, no markdown.
 
 shortcuts:
   "**/*.po": translation
+  "**/POTFILES*": coding-other
   ".gitlab-ci.yml": coding-other
   "**/meson.build": coding-other
-  "NEWS*": documentation
-  "ChangeLog*": documentation
+  "NEWS*": communication

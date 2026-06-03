@@ -25,10 +25,13 @@ prompt: |
   - Commits touching only build/script files (Makefile.am, configure.in, *.sh, *.py, *.dsl, *.c tools) → coding-other.
   - Respond with ONLY the category name on a single line. No explanation, no prefix, no quotes, no markdown.
 
-shortcuts_ignore:
-  - "ChangeLog*"
 shortcuts:
   "**/*.sgml": documentation
+  "**/*.png": documentation
+  "**/*.jpg": documentation
+  "**/*.jpeg": documentation
+  "**/*.gif": documentation
   "help/ja/**": translation
   "**/Makefile.am": coding-other
-  "NEWS*": documentation
+  "NEWS*": communication
+shortcuts_ignore: []

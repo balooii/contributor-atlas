@@ -19,7 +19,55 @@ DEFAULT_LLAMA_URL = "http://localhost:8001/v1/chat/completions"
 
 MAX_BODY_CHARS = 500
 MAX_STAT_CHARS = 4000
+MAX_CHANGELOG_CHARS = 1200
 CACHE_SAVE_INTERVAL_SECONDS = 120
+
+# ChangeLog/Changes files bias the model toward documentation, but their added
+# text often describes the change better than the commit subject. So we hide
+# them from the stat and fold their added lines into the message instead.
+# Matched by basename to catch root, nested, and archived ChangeLog.* files.
+CHANGELOG_BASENAME_PREFIX = "ChangeLog"
+CHANGELOG_BASENAMES_EXACT = {"Changes"}
+# git pathspecs (globs); leading **/ matches at any depth incl. the repo root.
+CHANGELOG_PATHSPECS = [":(glob)**/ChangeLog*", ":(glob)**/Changes"]
+CHANGELOG_EXCLUDE_PATHSPECS = [
+    ".",
+    ":(exclude,glob)**/ChangeLog*",
+    ":(exclude,glob)**/Changes",
+]
+
+
+def is_changelog_file(path: str) -> bool:
+    base = path.rsplit("/", 1)[-1]
+    return base.startswith(CHANGELOG_BASENAME_PREFIX) or base in CHANGELOG_BASENAMES_EXACT
+
+
+def is_release_po_bump(repo_path: str, commit_hash: str, files: list[str]) -> bool:
+    """True if the *only* .po/.pot change is the POT-Creation-Date header;
+    then it's not a translation"""
+    po_files = [f for f in files if f.endswith((".po", ".pot"))]
+    if not po_files:
+        return False
+    result = subprocess.run(
+        ["git", "show", "--format=", "--no-color", commit_hash, "--", *po_files],
+        cwd=repo_path,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=True,
+    )
+    saw_pot_date = False
+    for line in result.stdout.splitlines():
+        if line[:1] not in "+-" or line.startswith(("+++", "---")):
+            continue
+        content = line[1:].lstrip()
+        if content.startswith('"POT-Creation-Date:'):
+            saw_pot_date = True
+        elif content.startswith(('"', "msgid", "msgstr")):
+            # a translatable string or any other PO header changed -> real work
+            return False
+    return saw_pot_date
 
 
 def load_profile(path: str) -> dict:
@@ -154,24 +202,35 @@ def get_changed_files(repo_path: str, commit_hash: str) -> list[str]:
 def check_shortcuts(
     files: list[str], shortcuts: dict[str, str], ignore: list[str] | None = None
 ) -> str | None:
-    # fnmatch uses shell-glob semantics where '*' also matches '/', so a pattern
-    # like 'docs/*' already matches files in nested subdirectories — '**' has no
-    # special meaning here.
+    # fnmatch uses shell globbing semantics
     if not files or not shortcuts:
         return None
     if ignore:
         files = [f for f in files if not any(fnmatch.fnmatch(f, p) for p in ignore)]
     if not files:
         return None
+    # Primary (order-sensitive): a single pattern matches every file.
     for pattern, category in shortcuts.items():
         if all(fnmatch.fnmatch(f, pattern) for f in files):
             return category
-    return None
+    # Fallback: every file maps to the same category, possibly via different
+    # patterns (e.g. src/foo.xml + images/foo.png both -> documentation). Any
+    # unmatched file, or a category clash, still returns None -> the LLM.
+    categories = set()
+    for f in files:
+        cat = next((c for pat, c in shortcuts.items() if fnmatch.fnmatch(f, pat)), None)
+        if cat is None:
+            return None
+        categories.add(cat)
+        if len(categories) > 1:
+            return None
+    return categories.pop()
 
 
 def get_stat(repo_path: str, commit_hash: str) -> str:
+    # Exclude ChangeLog/Changes here (folded into the message already).
     result = subprocess.run(
-        ["git", "show", "--stat", "--format=", commit_hash],
+        ["git", "show", "--stat", "--format=", commit_hash, "--", *CHANGELOG_EXCLUDE_PATHSPECS],
         cwd=repo_path,
         capture_output=True,
         text=True,
@@ -182,6 +241,28 @@ def get_stat(repo_path: str, commit_hash: str) -> str:
     return result.stdout.strip()
 
 
+def get_changelog_additions(repo_path: str, commit_hash: str) -> str:
+    # Gets added (`+`) lines of any ChangeLog/Changes file the commit touched
+    result = subprocess.run(
+        ["git", "show", "--format=", "--no-color", commit_hash, "--", *CHANGELOG_PATHSPECS],
+        cwd=repo_path,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=True,
+    )
+    added = [
+        line[1:]
+        for line in result.stdout.splitlines()
+        if line.startswith("+") and not line.startswith("+++")
+    ]
+    text = "\n".join(added).strip()
+    if len(text) > MAX_CHANGELOG_CHARS:
+        text = text[:MAX_CHANGELOG_CHARS] + "\n[truncated]"
+    return text
+
+
 def classify_commit(
     subject: str,
     body: str,
@@ -189,6 +270,7 @@ def classify_commit(
     prompt_text: str,
     llama_url: str,
     stat: str = "",
+    changelog_text: str = "",
 ) -> tuple[str | None, str]:
     """Returns (matched_category_or_None, raw_response). The caller substitutes
     a fallback (and warns) when no category matched."""
@@ -198,6 +280,8 @@ def classify_commit(
             body[:MAX_BODY_CHARS] + "\n[truncated]" if len(body) > MAX_BODY_CHARS else body
         )
         message += f"\n\nBody:\n{body_truncated}"
+    if changelog_text:
+        message += f"\n\nChangeLog entry:\n{changelog_text}"
     if stat:
         stat_truncated = (
             stat[:MAX_STAT_CHARS] + "\n[truncated]" if len(stat) > MAX_STAT_CHARS else stat
@@ -232,6 +316,52 @@ def classify_commit(
         if candidate.startswith(cat):
             return cat, raw
     return None, raw
+
+
+def classify_one(
+    repo_path: str,
+    commit: dict,
+    profile: dict,
+    llama_url: str,
+    debug: bool = False,
+) -> tuple[str, str]:
+    """Classify a single commit (no caching). Returns (category, via) where via
+    is "shortcut", "po-date-bump", or "llm"."""
+    h = commit["hash"]
+    files = get_changed_files(repo_path, h)
+    shortcut_files = [f for f in files if not is_changelog_file(f)]
+    if is_release_po_bump(repo_path, h, shortcut_files):
+        return "coding-other", "po-date-bump"
+    shortcuts = profile["shortcuts"]
+    if shortcuts:
+        category = check_shortcuts(shortcut_files, shortcuts, profile["shortcuts_ignore"])
+        if category is not None:
+            return category, "shortcut"
+
+    stat = get_stat(repo_path, h)
+    changelog_text = ""
+    if any(is_changelog_file(f) for f in files):
+        changelog_text = get_changelog_additions(repo_path, h)
+    matched, raw = classify_commit(
+        commit["subject"],
+        commit["body"],
+        profile["categories"],
+        profile["prompt"],
+        llama_url,
+        stat,
+        changelog_text,
+    )
+    if debug:
+        print(f"  [DEBUG] {h} LLM raw response:\n{raw}", file=sys.stderr)
+    if matched is None:
+        snippet = raw.replace("\n", " ")[:100]
+        fallback = profile["fallback"]
+        print(
+            f"  [WARN] {h}: LLM response matched no category ({snippet!r}); using fallback '{fallback}'",
+            file=sys.stderr,
+        )
+        return fallback, "llm"
+    return matched, "llm"
 
 
 def cache_path(profile_path: str) -> Path:
@@ -298,11 +428,6 @@ def main():
     profile = load_profile(args.profile)
 
     repo = ensure_repo(args.profile, profile)
-    categories = profile["categories"]
-    prompt_text = profile["prompt"]
-    shortcuts = profile["shortcuts"]
-    shortcuts_ignore = profile["shortcuts_ignore"]
-    fallback = profile["fallback"]
 
     current_fp = profile_fingerprint(profile)
     cache = load_cache(args.profile)
@@ -349,33 +474,7 @@ def main():
                     category = cache[h]["category"]
                     via = "cache"
                 else:
-                    via = "shortcut"
-                    category = None
-                    if shortcuts:
-                        files = get_changed_files(repo, h)
-                        category = check_shortcuts(files, shortcuts, shortcuts_ignore)
-                    if category is None:
-                        via = "llm"
-                        stat = get_stat(repo, h)
-                        matched, raw = classify_commit(
-                            commit["subject"],
-                            commit["body"],
-                            categories,
-                            prompt_text,
-                            args.llama_url,
-                            stat,
-                        )
-                        if args.debug:
-                            print(f"  [DEBUG] {h} LLM raw response:\n{raw}", file=sys.stderr)
-                        if matched is None:
-                            snippet = raw.replace("\n", " ")[:100]
-                            print(
-                                f"  [WARN] {h}: LLM response matched no category ({snippet!r}); using fallback '{fallback}'",
-                                file=sys.stderr,
-                            )
-                            category = fallback
-                        else:
-                            category = matched
+                    category, via = classify_one(repo, commit, profile, args.llama_url, args.debug)
                     cache[h] = {"category": category, "fingerprint": current_fp}
                     if time.monotonic() - last_save >= CACHE_SAVE_INTERVAL_SECONDS:
                         save_cache(args.profile, cache)
