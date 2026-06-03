@@ -181,10 +181,3 @@ nav {
 .ca-disclaimer p + p {
   margin-top: 12px;
 }
-.ca-colophon a {
-  color: var(--accent);
-  text-decoration: none;
-}
-.ca-colophon a:hover {
-  text-decoration: underline;
-}
