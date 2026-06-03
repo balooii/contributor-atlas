@@ -37,16 +37,20 @@ export function createGathering(container) {
   let COLOR_BACKGROUND,
     COLOR_TEXT,
     COLOR_PROJECT,
+    COLOR_PROJECT_BG,
     COLOR_CONTRIBUTOR,
     COLOR_HIGHLIGHT;
+  let GLOW_RGB;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
-    COLOR_PROJECT = cs.getPropertyValue("--c-bg").trim();
+    COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
+    COLOR_PROJECT_BG = cs.getPropertyValue("--c-project-bg").trim();
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
+    GLOW_RGB = cs.getPropertyValue("--c-glow").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -92,6 +96,8 @@ export function createGathering(container) {
   // actual outer extent is measured from the packing result every rerun.
   let LAYOUT_EXTENT = 700;
   const CENTER_RADIUS = 90; // logical radius of the central node
+  const CENTER_MOAT = 7; // logical bg ring clearing dots off the rim
+  const CENTER_HALO_REACH = 80; // logical distance the rim glow bleeds outward
 
   // Dot size scale (sqrt - contribution counts are heavy-tailed)
   const scale_dot_radius = d3.scaleSqrt().range([2, 55]);
@@ -205,36 +211,59 @@ export function createGathering(container) {
     context.save();
     context.translate(WIDTH / 2, HEIGHT / 2);
 
-    nodes.forEach((n) => drawNode(context, n));
+    // Contributor nodes first, then the center node on top so its halo
+    // read above the surrounding nodes.
+    nodes.forEach((n) => {
+      if (n.type !== "project") drawNode(context, n);
+    });
+    drawCenterNode(context);
 
     context.restore();
   }
 
   function drawNode(ctx, n) {
-    if (n.type === "project") {
-      drawCenterNode(ctx);
-      return;
-    }
     ctx.fillStyle = n.color;
     ctx.beginPath();
     ctx.arc(n.x * SF, n.y * SF, n.r * SF, 0, TAU);
     ctx.fill();
   }
 
-  // The logo only appears when the center node itself is hovered.
-  function drawCenterNode(ctx, hovered = false) {
-    const r = CENTER_RADIUS * SF;
+  function drawCenterNode(ctx) {
+    const r = (CENTER_RADIUS - CENTER_MOAT) * SF;
+
+    // Small gap between project node and surrounding contributor nodes
+    ctx.fillStyle = COLOR_BACKGROUND;
+    ctx.beginPath();
+    ctx.arc(0, 0, CENTER_RADIUS * SF, 0, TAU);
+    ctx.fill();
+
+    // Radiating halo casting from the center
+    const haloOuter = r + CENTER_HALO_REACH * SF;
+    const halo = ctx.createRadialGradient(0, 0, r, 0, 0, haloOuter);
+    halo.addColorStop(0, `rgba(${GLOW_RGB}, 0.22)`);
+    halo.addColorStop(1, `rgba(${GLOW_RGB}, 0)`);
+    ctx.fillStyle = halo;
+    ctx.beginPath();
+    ctx.arc(0, 0, haloOuter, 0, TAU);
+    ctx.fill();
+
     ctx.beginPath();
     ctx.arc(0, 0, r, 0, TAU);
-    ctx.fillStyle = COLOR_PROJECT;
+    ctx.fillStyle = COLOR_PROJECT_BG;
     ctx.fill();
+
+    ctx.strokeStyle = `rgba(${GLOW_RGB}, 0.7)`;
+    ctx.lineWidth = Math.max(1.4, 1.8 * SF);
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, TAU);
+    ctx.stroke();
 
     ChartBase.drawProjectNodeContent(ctx, {
       cx: 0,
       cy: 0,
       r,
       name: PROJECT_NAME,
-      logoImage: hovered ? _logoImage : null,
+      logoImage: _logoImage,
       COLOR_TEXT,
       FONT_FAMILY,
       fontSize: 30 * SF,

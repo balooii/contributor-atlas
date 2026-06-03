@@ -34,7 +34,10 @@
   --c-ring-stroke: rgba(255, 255, 255, 0.24);
   --c-highlight: #ffffff;
   --c-project: #a09080;
+  --c-project-bg: #232323;
   --c-contributor: #8099bb;
+  /* Gathering center halo (r,g,b; JS applies the alpha) */
+  --c-glow: 245, 121, 0;
 
   /* nav-chrome (used by the search + theme picker widgets) */
   --c-nav-bg: #0d0d0d;
@@ -91,8 +94,11 @@
     --c-ring-odd: rgba(0, 0, 0, 0.02);
     --c-ring-stroke: rgba(0, 0, 0, 0.16);
     --c-project: #504030;
+    --c-project-bg: #e7e7e7;
     --c-contributor: #334155;
     --c-highlight: #000000;
+    /* Gathering center halo (r,g,b; JS applies the alpha) */
+    --c-glow: 247, 156, 74;
 
     --c-nav-bg: #eeeeee;
     --c-nav-text: #333333;
@@ -146,8 +152,11 @@
   --c-ring-odd: rgba(0, 0, 0, 0.02);
   --c-ring-stroke: rgba(0, 0, 0, 0.16);
   --c-project: #504030;
+  --c-project-bg: #e7e7e7;
   --c-contributor: #334155;
   --c-highlight: #000000;
+  /* Gathering center halo (r,g,b; JS applies the alpha) */
+  --c-glow: 247, 156, 74;
 
   --c-nav-bg: #eeeeee;
   --c-nav-text: #333333;
