@@ -169,8 +169,12 @@ export function createGathering(container) {
       nodes.sort((a, b) => b.r - a.r);
     }
 
-    const { catMap: centralCatMap, total: centralTotal } =
-      ChartBase.buildCentralData(nodes);
+    const {
+      catMap: centralCatMap,
+      total: centralTotal,
+      secMin: centralSecMin,
+      secMax: centralSecMax,
+    } = ChartBase.buildCentralData(nodes);
     const centralNode = {
       type: "project",
       data: {
@@ -178,6 +182,8 @@ export function createGathering(container) {
         total_contribution_count: centralTotal,
         contribution_count_by_category: centralCatMap,
         contributor_count: nodes.length,
+        contribution_sec_min: centralSecMin,
+        contribution_sec_max: centralSecMax,
       },
       r: CENTER_RADIUS,
       color: COLOR_PROJECT,
@@ -201,7 +207,10 @@ export function createGathering(container) {
       n.y -= dy;
     });
 
-    LAYOUT_EXTENT = d3.max(nodes, (n) => Math.sqrt(n.x * n.x + n.y * n.y) + n.r);
+    LAYOUT_EXTENT = d3.max(
+      nodes,
+      (n) => Math.sqrt(n.x * n.x + n.y * n.y) + n.r,
+    );
 
     // Cluster center: Not necessarily origin as we have sorted mode.
     let minX = Infinity,
@@ -216,8 +225,9 @@ export function createGathering(container) {
     });
     CLUSTER_CX = (minX + maxX) / 2;
     CLUSTER_CY = (minY + maxY) / 2;
-    CLUSTER_R = d3.max(nodes, (n) =>
-      Math.hypot(n.x - CLUSTER_CX, n.y - CLUSTER_CY) + n.r,
+    CLUSTER_R = d3.max(
+      nodes,
+      (n) => Math.hypot(n.x - CLUSTER_CX, n.y - CLUSTER_CY) + n.r,
     );
 
     SELECTED_NODE = SELECTED_ID ? findContributorNode(SELECTED_ID) : null;
@@ -261,7 +271,14 @@ export function createGathering(container) {
     const clusterR = CLUSTER_R * SF; // outer edge of the packed cluster, px
 
     const glowAlpha = BG_IS_DARK ? 0.12 : 0.07;
-    const glow = context.createRadialGradient(cx, cy, 0, cx, cy, clusterR * 1.2);
+    const glow = context.createRadialGradient(
+      cx,
+      cy,
+      0,
+      cx,
+      cy,
+      clusterR * 1.2,
+    );
     glow.addColorStop(0, `rgba(${GLOW_RGB},${glowAlpha})`);
     glow.addColorStop(0.85, `rgba(${GLOW_RGB},${glowAlpha})`);
     glow.addColorStop(1, `rgba(${GLOW_RGB},0)`);

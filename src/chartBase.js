@@ -131,11 +131,7 @@ export function buildContributorTooltipHTML(
   }
   html += `<div class="ca-tt-meta">${countLine}</div>`;
 
-  if (
-    !isProject &&
-    d.data.contribution_sec_min &&
-    d.data.contribution_sec_max
-  ) {
+  if (d.data.contribution_sec_min && d.data.contribution_sec_max) {
     const mn = d.data.contribution_sec_min,
       mx = d.data.contribution_sec_max;
     const sameMonth =
@@ -230,13 +226,23 @@ export function buildNodes(aggregated, catToGroup) {
 export function buildCentralData(nodes) {
   const catMap = new Map();
   let total = 0;
+  let secMin = null,
+    secMax = null;
   for (const n of nodes) {
     total += n.count;
     n.data.contribution_count_by_category.forEach((cnt, cat) => {
       catMap.set(cat, (catMap.get(cat) || 0) + cnt);
     });
+    if (n.data.contribution_sec_min) {
+      if (!secMin || n.data.contribution_sec_min < secMin)
+        secMin = n.data.contribution_sec_min;
+    }
+    if (n.data.contribution_sec_max) {
+      if (!secMax || n.data.contribution_sec_max > secMax)
+        secMax = n.data.contribution_sec_max;
+    }
   }
-  return { catMap, total };
+  return { catMap, total, secMin, secMax };
 }
 
 export function bgIsDark(hex) {

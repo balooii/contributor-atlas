@@ -271,8 +271,12 @@ export function createRipples(container) {
         catToGroup,
       ));
 
-    const { catMap: centerCatMap, total: centerTotal } =
-      ChartBase.buildCentralData(nodes);
+    const {
+      catMap: centerCatMap,
+      total: centerTotal,
+      secMin: centerSecMin,
+      secMax: centerSecMax,
+    } = ChartBase.buildCentralData(nodes);
     center_node = {
       type: "project",
       x: 0,
@@ -284,6 +288,8 @@ export function createRipples(container) {
         total_contribution_count: centerTotal,
         contribution_count_by_category: centerCatMap,
         contributor_count: nodes.length,
+        contribution_sec_min: centerSecMin,
+        contribution_sec_max: centerSecMax,
       },
     };
 

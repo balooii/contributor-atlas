@@ -338,16 +338,38 @@ export function createCornerstones(container) {
 
     // Synthetic project node
     const project_cat_map = new Map();
+    let projectSecMin = null,
+      projectSecMax = null;
     contributors.forEach((d) => {
       d.contribution_count_by_category.forEach((count, cat) => {
         project_cat_map.set(cat, (project_cat_map.get(cat) || 0) + count);
       });
+      if (
+        d.contribution_sec_min &&
+        (!projectSecMin || d.contribution_sec_min < projectSecMin)
+      )
+        projectSecMin = d.contribution_sec_min;
+      if (
+        d.contribution_sec_max &&
+        (!projectSecMax || d.contribution_sec_max > projectSecMax)
+      )
+        projectSecMax = d.contribution_sec_max;
     });
     if (REMAINING_PRESENT) {
       remainingContributors.forEach((d) => {
         d.data.contribution_count_by_category.forEach((count, cat) => {
           project_cat_map.set(cat, (project_cat_map.get(cat) || 0) + count);
         });
+        if (
+          d.data.contribution_sec_min &&
+          (!projectSecMin || d.data.contribution_sec_min < projectSecMin)
+        )
+          projectSecMin = d.data.contribution_sec_min;
+        if (
+          d.data.contribution_sec_max &&
+          (!projectSecMax || d.data.contribution_sec_max > projectSecMax)
+        )
+          projectSecMax = d.data.contribution_sec_max;
       });
     }
     const project_total = [...project_cat_map.values()].reduce(
@@ -362,6 +384,8 @@ export function createCornerstones(container) {
       contributor_count: contributors.length + remainingContributors.length,
       color: COLOR_PROJECT,
       name: PROJECT_NAME,
+      contribution_sec_min: projectSecMin,
+      contribution_sec_max: projectSecMax,
     };
     nodes.push({
       id: PROJECT_NAME,
