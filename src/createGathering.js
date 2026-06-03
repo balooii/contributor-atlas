@@ -3,7 +3,7 @@ import * as d3 from "d3";
 // createGathering.js - random packing around a labelled central node
 //   * One central project circle at the origin
 //   * Every contributor is a dot; d3.packSiblings packs them around the
-//     centre. Bigger dots are biased toward an inner band so they don't extend
+//     center. Bigger dots are biased toward an inner band so they don't extend
 //     past the perceptual rim.
 //   * Dot colour = dominant category
 
@@ -41,10 +41,12 @@ export function createGathering(container) {
     COLOR_CONTRIBUTOR,
     COLOR_HIGHLIGHT;
   let GLOW_RGB;
+  let BG_IS_DARK;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
+    BG_IS_DARK = ChartBase.bgIsDark(COLOR_BACKGROUND);
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
     COLOR_PROJECT_BG = cs.getPropertyValue("--c-project-bg").trim();
@@ -92,9 +94,14 @@ export function createGathering(container) {
     height = DEFAULT_SIZE;
   let SF, PIXEL_RATIO;
 
-  // Logical layout extents (centred coordinate space, units before SF). The
+  // Logical layout extents (centered coordinate space, units before SF). The
   // actual outer extent is measured from the packing result every rerun.
   let LAYOUT_EXTENT = 700;
+  // Geometric center + radius of the packed cluster (logical units) which the
+  // cluster halo tracks. It can be offset from the origin in sorted mode.
+  let CLUSTER_CX = 0,
+    CLUSTER_CY = 0,
+    CLUSTER_R = 700;
   const CENTER_RADIUS = 90; // logical radius of the central node
   const CENTER_MOAT = 7; // logical bg ring clearing dots off the rim
   const CENTER_HALO_REACH = 80; // logical distance the rim glow bleeds outward
@@ -194,8 +201,24 @@ export function createGathering(container) {
       n.y -= dy;
     });
 
-    LAYOUT_EXTENT =
-      d3.max(nodes, (n) => Math.sqrt(n.x * n.x + n.y * n.y) + n.r) || 700;
+    LAYOUT_EXTENT = d3.max(nodes, (n) => Math.sqrt(n.x * n.x + n.y * n.y) + n.r);
+
+    // Cluster center: Not necessarily origin as we have sorted mode.
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
+    nodes.forEach((n) => {
+      if (n.x - n.r < minX) minX = n.x - n.r;
+      if (n.x + n.r > maxX) maxX = n.x + n.r;
+      if (n.y - n.r < minY) minY = n.y - n.r;
+      if (n.y + n.r > maxY) maxY = n.y + n.r;
+    });
+    CLUSTER_CX = (minX + maxX) / 2;
+    CLUSTER_CY = (minY + maxY) / 2;
+    CLUSTER_R = d3.max(nodes, (n) =>
+      Math.hypot(n.x - CLUSTER_CX, n.y - CLUSTER_CY) + n.r,
+    );
 
     SELECTED_NODE = SELECTED_ID ? findContributorNode(SELECTED_ID) : null;
 
@@ -207,6 +230,8 @@ export function createGathering(container) {
   function draw() {
     context.fillStyle = COLOR_BACKGROUND;
     context.fillRect(0, 0, WIDTH, HEIGHT);
+
+    drawClusterHalo();
 
     context.save();
     context.translate(WIDTH / 2, HEIGHT / 2);
@@ -228,6 +253,44 @@ export function createGathering(container) {
     ctx.fill();
   }
 
+  // A warm halo behind the whole cluster plus an edge vignette to lift the disc
+  // off the flat background. Mirrors the center halo, one scale up.
+  function drawClusterHalo() {
+    const cx = WIDTH / 2 + CLUSTER_CX * SF,
+      cy = HEIGHT / 2 + CLUSTER_CY * SF;
+    const clusterR = CLUSTER_R * SF; // outer edge of the packed cluster, px
+
+    const glowAlpha = BG_IS_DARK ? 0.12 : 0.07;
+    const glow = context.createRadialGradient(cx, cy, 0, cx, cy, clusterR * 1.2);
+    glow.addColorStop(0, `rgba(${GLOW_RGB},${glowAlpha})`);
+    glow.addColorStop(0.85, `rgba(${GLOW_RGB},${glowAlpha})`);
+    glow.addColorStop(1, `rgba(${GLOW_RGB},0)`);
+    context.fillStyle = glow;
+    context.fillRect(0, 0, WIDTH, HEIGHT);
+
+    // Vignette: clear over the cluster, darkening toward the corners. Reach the
+    // farthest corner from the (possibly offset) centre so it fully covers.
+    const maxR = Math.max(
+      Math.hypot(cx, cy),
+      Math.hypot(WIDTH - cx, cy),
+      Math.hypot(cx, HEIGHT - cy),
+      Math.hypot(WIDTH - cx, HEIGHT - cy),
+    );
+    const vigAlpha = BG_IS_DARK ? 0.55 : 0.1;
+    const vig = context.createRadialGradient(
+      cx,
+      cy,
+      clusterR * 1.05,
+      cx,
+      cy,
+      maxR,
+    );
+    vig.addColorStop(0, "rgba(0,0,0,0)");
+    vig.addColorStop(1, `rgba(0,0,0,${vigAlpha})`);
+    context.fillStyle = vig;
+    context.fillRect(0, 0, WIDTH, HEIGHT);
+  }
+
   function drawCenterNode(ctx) {
     const r = (CENTER_RADIUS - CENTER_MOAT) * SF;
 
@@ -237,7 +300,7 @@ export function createGathering(container) {
     ctx.arc(0, 0, CENTER_RADIUS * SF, 0, TAU);
     ctx.fill();
 
-    // Radiating halo casting from the center
+    // Center halo radiating from the rim
     const haloOuter = r + CENTER_HALO_REACH * SF;
     const halo = ctx.createRadialGradient(0, 0, r, 0, 0, haloOuter);
     halo.addColorStop(0, `rgba(${GLOW_RGB}, 0.22)`);

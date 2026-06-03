@@ -239,7 +239,7 @@ export function buildCentralData(nodes) {
   return { catMap, total };
 }
 
-function _bgIsDark(hex) {
+export function bgIsDark(hex) {
   if (!hex || hex[0] !== "#") return true;
   const r = parseInt(hex.slice(1, 3), 16) / 255;
   const g = parseInt(hex.slice(3, 5), 16) / 255;
@@ -263,7 +263,7 @@ export function drawNodeHighlight(
   const inner = innerR ?? n.r * SF;
   const outer = inner + 14 * SF;
   const grad = ctx.createRadialGradient(cx, cy, inner, cx, cy, outer);
-  const dark = _bgIsDark(COLOR_BACKGROUND);
+  const dark = bgIsDark(COLOR_BACKGROUND);
   grad.addColorStop(0, dark ? "rgba(255,255,255,0.18)" : "#00000040");
   grad.addColorStop(1, dark ? "rgba(255,255,255,0.00)" : "#00000000");
   ctx.save();
