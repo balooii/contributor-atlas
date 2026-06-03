@@ -30,6 +30,7 @@ export function createRipples(container) {
 
   // -- Colours / fonts --------------------------------------
   let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
+  let COLOR_RING_EVEN, COLOR_RING_ODD, COLOR_RING_STROKE;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
@@ -37,6 +38,9 @@ export function createRipples(container) {
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
+    COLOR_RING_EVEN = cs.getPropertyValue("--c-ring-even").trim();
+    COLOR_RING_ODD = cs.getPropertyValue("--c-ring-odd").trim();
+    COLOR_RING_STROKE = cs.getPropertyValue("--c-ring-stroke").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -327,11 +331,9 @@ export function createRipples(container) {
 
   // -- Drawing ----------------------------------------------
   function drawRings() {
-    const isLight =
-      document.documentElement.getAttribute("data-theme") === "light";
-    const fillEven = isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.04)";
-    const fillOdd = isLight ? "rgba(0,0,0,0.02)" : "rgba(255,255,255,0.02)";
-    const strokeCol = isLight ? "rgba(0,0,0,0.16)" : "rgba(255,255,255,0.24)";
+    const fillEven = COLOR_RING_EVEN;
+    const fillOdd = COLOR_RING_ODD;
+    const strokeCol = COLOR_RING_STROKE;
 
     context.save();
     context.translate(WIDTH / 2, HEIGHT / 2);

@@ -28,6 +28,10 @@
   --c-row-alt: #161616;
   --c-row-hover: #222222;
   --c-row-active: #222222;
+  /* Ripples ring/strip alternating bands */
+  --c-ring-even: rgba(255, 255, 255, 0.04);
+  --c-ring-odd: rgba(255, 255, 255, 0.02);
+  --c-ring-stroke: rgba(255, 255, 255, 0.24);
   --c-highlight: #ffffff;
   --c-project: #a09080;
   --c-contributor: #8099bb;
@@ -82,6 +86,10 @@
     --c-row-alt: #fbfbfb;
     --c-row-hover: #ebebeb;
     --c-row-active: #d4d4d4;
+    /* Ripples ring/strip alternating bands */
+    --c-ring-even: rgba(0, 0, 0, 0.04);
+    --c-ring-odd: rgba(0, 0, 0, 0.02);
+    --c-ring-stroke: rgba(0, 0, 0, 0.16);
     --c-project: #504030;
     --c-contributor: #334155;
     --c-highlight: #000000;
@@ -133,6 +141,10 @@
   --c-row-alt: #fbfbfb;
   --c-row-hover: #ebebeb;
   --c-row-active: #d4d4d4;
+  /* Ripples ring/strip alternating bands */
+  --c-ring-even: rgba(0, 0, 0, 0.04);
+  --c-ring-odd: rgba(0, 0, 0, 0.02);
+  --c-ring-stroke: rgba(0, 0, 0, 0.16);
   --c-project: #504030;
   --c-contributor: #334155;
   --c-highlight: #000000;
