@@ -93,6 +93,7 @@ nav {
   gap: 14px;
 }
 .ca-card {
+  --card-accent: var(--accent);
   padding: 22px;
   background: var(--c-landing-card-bg);
   border: 1px solid var(--c-landing-card-border);
@@ -101,15 +102,59 @@ nav {
   color: var(--c-nav-text);
 }
 .ca-card:hover {
-  border-color: var(--accent);
+  border-color: var(--c-landing-muted);
 }
+
+.ca-card--cornerstones {
+  --card-accent: #1d4ed8;
+}
+.ca-card--pulse {
+  --card-accent: #e11d48;
+}
+.ca-card--trails {
+  --card-accent: #8ecf8e;
+}
+.ca-card--ripples {
+  --card-accent: #14b8a6;
+}
+.ca-card--gathering {
+  --card-accent: #f5c842;
+}
+
 .ca-card h3 {
+  display: flex;
+  align-items: center;
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 8px;
 }
+.ca-card h3::before {
+  content: "";
+  flex: 0 0 auto;
+  margin-right: 10px;
+  background: var(--card-accent);
+}
+/* Per-view marker shapes; somewhat resembling the look of each graph */
+.ca-card--pulse h3::before {
+  width: 3px;
+  height: 16px;
+  border-radius: 2px;
+}
+.ca-card--trails h3::before {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+}
+.ca-card--cornerstones h3::before,
+.ca-card--ripples h3::before,
+.ca-card--gathering h3::before {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
 .ca-card h3 .ca-arrow {
-  color: var(--accent);
+  margin-left: 8px;
+  color: var(--card-accent);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
