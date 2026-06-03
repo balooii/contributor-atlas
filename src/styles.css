@@ -8,7 +8,7 @@
   font-display: swap;
 }
 
-/* -- Color tokens -- dark mode is the default --------------------------- */
+/* Color tokens - dark mode is the default */
 
 .ca-view,
 .ca-tc-controls,
@@ -68,7 +68,7 @@
   --tc-btn-hover: rgba(255, 255, 255, 0.14);
 }
 
-/* -- Light tokens (system preference, not overridden by data-theme) -- */
+/* Light tokens (system preference, not overridden by data-theme) */
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"])
@@ -124,7 +124,7 @@
   }
 }
 
-/* -- Forced light (overrides system dark preference) --------------- */
+/* Forced light (overrides system dark preference) */
 
 :root[data-theme="light"]
   :is(
@@ -178,7 +178,7 @@
   --tc-btn-hover: rgba(0, 0, 0, 0.12);
 }
 
-/* -- Tooltip --------------------------------------------------------------- */
+/* Tooltip */
 
 .ca-chart-tooltip {
   position: absolute;
@@ -244,7 +244,7 @@
   margin-top: 10px;
 }
 
-/* -- Loading overlay ------------------------------------------------------- */
+/* Loading overlay */
 
 .ca-loading-overlay {
   position: absolute;
@@ -272,18 +272,13 @@
   }
 }
 
-/* -- View container -------------------------------------------------------- */
+/* View container */
 /* Every view turns its container into the positioning context for its own
-   absolutely-positioned canvases and tooltip. Set via a class (added by the
-   chart factories) rather than an inline style so it stays in the stylesheet
-   and works the same whether the view is standalone or embedded. */
+   absolutely-positioned canvases and tooltip. */
 
 .ca-view {
   position: relative;
 }
-
-/* -- Canvas layer stack (createCanvasLayers in chartBase.js) --------------- */
-/* Classes (not ids) so several views can be embedded on one page. */
 
 .ca-canvas,
 .ca-canvas-click,
@@ -306,7 +301,7 @@
   z-index: 1;
 }
 
-/* -- Trails -------------------------------------------------------------- */
+/* Trails */
 
 .ca-trails {
   overflow: hidden;
@@ -374,7 +369,7 @@
   left: 0;
 }
 
-/* -- Theme picker  ---------------------------------------------- */
+/* Theme picker */
 
 .ca-theme-wrapper {
   position: relative;
@@ -449,7 +444,7 @@
   width: 16px;
 }
 
-/* -- Contributor search ---------------------------------------------------- */
+/* Contributor search */
 
 .ca-search-wrapper {
   position: relative;
@@ -565,7 +560,7 @@
   padding: 5px 8px;
 }
 
-/* -- Timeline Controls ------------------------------------------- */
+/* Timeline Controls */
 
 .ca-tc-controls {
   flex: none;
@@ -599,7 +594,7 @@
   visibility: visible;
 }
 
-/* -- Timeline slider --------------------------------------------- */
+/* Timeline slider */
 
 .ca-tc-timeline {
   --tc-row-h: 14px; /* one row of chapter head / label */
@@ -666,16 +661,16 @@
   letter-spacing: 0.02em;
 }
 
-/* -- Chapter track ----------------------------------------------- */
+/* Chapter track */
 
 .ca-tc-chapter-track {
   position: absolute;
   inset: 0;
 }
 
-/* Pill = strip positioned by JS (left/width) that spans the chapters full
-    width. It's both hover/click target. While not clicked/hovered, we show only
-    ticks + labels. */
+/* Pill = strip positioned by JS (left/width) that spans the chapter's full
+   width and is both the hover and click target. While not clicked/hovered, we
+   show only ticks + labels. */
 .ca-tc-chapter-pill {
   position: absolute;
   top: 0;
@@ -706,7 +701,7 @@
   border-color: var(--tc-pill-active-border);
 }
 
-/* -- Chapter labels (detached from pills, no overflow clipping) -- */
+/* Chapter labels (detached from pills, no overflow clipping) */
 
 .ca-tc-chapter-labels {
   position: absolute;
@@ -755,8 +750,8 @@
   color: var(--tc-text);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
 }
-/* Invisible bridge area that extend the tooltip's hover area across the 8px gap
-   to the pill so we prevent tearing down the tooltip too early. */
+/* Invisible bridge that extends the tooltip's hover area across the 8px gap to
+   the pill, so the tooltip isn't torn down too early. */
 .ca-tc-chapter-tooltip::before,
 .ca-tc-chapter-tooltip::after {
   content: "";
@@ -802,7 +797,7 @@
   text-decoration-color: var(--tc-tt-link);
 }
 
-/* -- Category filter pills --------------------------------------- */
+/* Category filter pills */
 
 .ca-tc-category-filter {
   display: flex;
@@ -842,7 +837,7 @@
   opacity: 0.65;
 }
 
-/* -- Buttons (reset + page-specific toggles like layout) -------- */
+/* Buttons (reset + page-specific toggles like layout) */
 
 .ca-tc-btn {
   flex: none;
@@ -868,7 +863,7 @@
   visibility: visible;
 }
 
-/* -- Button group (label + toggle buttons row) ------------------ */
+/* Button group (label + toggle buttons row) */
 
 .ca-tc-btn-group {
   display: flex;
@@ -883,7 +878,7 @@
   letter-spacing: 0.04em;
 }
 
-/* -- Zoom hint --------------------------------------------------- */
+/* Zoom hint */
 
 .ca-tc-hint {
   font-size: 10px;

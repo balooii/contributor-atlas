@@ -5,8 +5,6 @@ import * as ChartBase from "./chartBase.js";
 export function createCornerstones(container) {
   container.classList.add("ca-view");
 
-  // -- Constants & variables --------------------------------
-
   const PI = Math.PI;
   const TAU = PI * 2;
 
@@ -16,13 +14,11 @@ export function createCornerstones(container) {
   let max = Math.max;
   let sqrt = Math.sqrt;
 
-  // Datasets
   let contributors, remainingContributors;
   let nodes = [];
   let links;
   let project_node;
 
-  // Hover options
   let delaunay;
   let nodes_delaunay;
   let delaunay_remaining;
@@ -46,8 +42,6 @@ export function createCornerstones(container) {
   let ACTIVE_CATEGORIES = null; // null = all; Set<string> = selected only
   let _lastCategoryStats = []; // [{cat, count, pct}] updated every rerun
 
-  // -- Colors -----------------------------------------------
-
   let COLOR_BACKGROUND,
     COLOR_TOP_CONTRIBUTORS_RING,
     COLOR_PROJECT,
@@ -68,8 +62,6 @@ export function createCornerstones(container) {
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
-
-  // -- Category arc ring ------------------------------------
 
   const CATEGORY_RING_GAP = 3; // logical units between node edge and ring
   const CATEGORY_RING_THICKNESS = 6; // radial thickness (logical units)
@@ -127,9 +119,6 @@ export function createCornerstones(container) {
 
   const tooltip = createTooltip(container, { zIndex: 22 });
 
-  // -- Sizes ------------------------------------------------
-
-  //Sizes
   const DEFAULT_SIZE = 1500;
   let WIDTH = DEFAULT_SIZE;
   let HEIGHT = DEFAULT_SIZE;
@@ -137,15 +126,11 @@ export function createCornerstones(container) {
   let height = DEFAULT_SIZE;
   let SF, PIXEL_RATIO;
 
-  // -- Scales -----------------------------------------------
-
   // Based on the number of contributions to the central project
   const scale_contributor_radius = d3.scaleSqrt().range([8, 30]);
   const scale_remaining_contributor_radius = d3.scaleSqrt().range([1, 8]);
 
   const scale_link_width = d3.scalePow().exponent(0.75).range([1, 2, 60]);
-
-  // -- Entry ------------------------------------------------
 
   function chart(values) {
     const parsed = ChartBase.parseChartValues(values);
@@ -217,14 +202,10 @@ export function createCornerstones(container) {
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }
 
-  // -- Draw -------------------------------------------------
-
   function draw() {
-    // Fill the background with a color
     context.fillStyle = COLOR_BACKGROUND;
     context.fillRect(0, 0, WIDTH, HEIGHT);
 
-    // Move the visual to the center
     context.save();
     context.translate(WIDTH / 2, HEIGHT / 2);
 
@@ -234,29 +215,22 @@ export function createCornerstones(container) {
       context.globalAlpha = 0.4;
       remainingContributors.forEach((d) => {
         drawCircle(context, d.x, d.y, SF, d.r);
-      }); // forEach
+      });
       context.globalAlpha = 1;
     }
 
-    // Draw the ring showing the placement of the top contributors
     drawTopContributorsRing(context, SF);
 
-    // Draw all the links as lines (contributor -> central)
     links.forEach((l) => drawLink(context, SF, l));
 
     // Draw the project label in the background (in case it is bigger than it's circle)
     drawNodeLabel(context, project_node, true);
 
-    // Draw all the nodes as circles
     nodes.forEach((d) => drawNode(context, SF, d));
-
-    // Draw the labels
     nodes.forEach((d) => drawNodeLabel(context, d));
 
     context.restore();
   }
-
-  // -- Resize -----------------------------------------------
 
   // Size the canvases and compute the scale factor. The 1.5 leaves margin for
   // the contributor labels that radiate outside the ring.
@@ -316,10 +290,8 @@ export function createCornerstones(container) {
     if (!REMAINING_PRESENT || REMAINING_PLACED) markReady();
   };
 
-  // -- Data preparation -------------------------------------
-
   function prepareData() {
-    //// CONTRIBUTORS ////
+    // Top contributors
     contributors.forEach((d) => {
       d.color = COLOR_CONTRIBUTOR;
 
@@ -338,7 +310,7 @@ export function createCornerstones(container) {
       );
     });
 
-    //// REMAINING CONTRIBUTORS ////
+    // Remaining contributors
     if (REMAINING_PRESENT) {
       remainingContributors = remainingContributors.map((d) => {
         d.contribution_sec_min = ChartBase.parseDateUnix(
@@ -364,7 +336,7 @@ export function createCornerstones(container) {
       });
     });
 
-    //// SYNTHETIC PROJECT NODE ////
+    // Synthetic project node
     const project_cat_map = new Map();
     contributors.forEach((d) => {
       d.contribution_count_by_category.forEach((count, cat) => {
@@ -398,7 +370,7 @@ export function createCornerstones(container) {
       data: project_data,
     });
 
-    //// SCALES ////
+    // Scales
     scale_contributor_radius.domain(
       d3.extent(contributors, (d) => d.total_contribution_count),
     );
@@ -407,7 +379,7 @@ export function createCornerstones(container) {
       scale_contributor_radius.domain()[0],
     ]);
 
-    //// NODE VISUAL PROPERTIES ////
+    // Node visual properties
     nodes.forEach((d, i) => {
       d.index = i;
       d.data.index = i;
@@ -423,7 +395,7 @@ export function createCornerstones(container) {
       d.color = d.data.color;
     });
 
-    //// SORT: contributors by first contribution date (chronological), the synthetic project node last ////
+    // Sort contributors by first contribution date (chronological); project node last
     nodes.sort((a, b) => {
       const aIsProject = a.type === "project";
       const bIsProject = b.type === "project";
@@ -438,7 +410,6 @@ export function createCornerstones(container) {
       return 0;
     });
 
-    //// PROJECT NODE ////
     project_node = nodes.find((d) => d.type === "project");
     if (!project_node) throw new Error("Project node not found in nodes");
     project_node.r = CENTRAL_RADIUS;
@@ -476,10 +447,9 @@ export function createCornerstones(container) {
           RADIUS_CONTRIBUTOR * sin(angle + contributor_angle - PI / 2);
         d.contributor_angle = angle + contributor_angle - PI / 2;
         angle += contributor_angle * 2;
-      }); // forEach
+      });
   }
 
-  // -- Remaining-contributor placement ----------------------
   // The region the remaining contributors are scattered into: outside the
   // inner contributor ring and inside the canvas rectangle.
   function remainingBounds() {
@@ -645,7 +615,6 @@ export function createCornerstones(container) {
     }, REPLACE_DEBOUNCE_MS);
   }
 
-  // -- Background -------------------------------------------
   // Draw a ring around the central node to show the top contributors
   function drawTopContributorsRing(context, SF) {
     context.fillStyle = context.strokeStyle = COLOR_TOP_CONTRIBUTORS_RING;
@@ -665,10 +634,7 @@ export function createCornerstones(container) {
     context.globalAlpha = 1;
   }
 
-  // -- Node drawing -----------------------------------------
-
   function drawNode(context, SF, d) {
-    // Draw a circle for the node
     context.shadowBlur = HOVER_ACTIVE ? 0 : max(2, d.r * 0.2) * SF;
     context.shadowColor = COLOR_BACKGROUND;
 
@@ -676,7 +642,6 @@ export function createCornerstones(container) {
     drawCircle(context, d.x, d.y, SF, d.r);
     context.shadowBlur = 0;
 
-    // Also draw a stroke around the node
     if (!d.remaining_contributor) {
       context.strokeStyle = COLOR_BACKGROUND;
       context.lineWidth = max(HOVER_ACTIVE ? 1.5 : 1, d.r * 0.07) * SF;
@@ -684,7 +649,7 @@ export function createCornerstones(container) {
       context.stroke();
     }
 
-    // Draw category arc ring outside the circle
+    // Category arc ring outside the circle
     if (!d.remaining_contributor) {
       drawCategoryRing(context, d);
     }
@@ -729,8 +694,6 @@ export function createCornerstones(container) {
     if (begin && stroke == false) context.fill();
   }
 
-  // -- Line drawing -----------------------------------------
-
   function drawLink(context, SF, l) {
     if (l.source.x !== undefined && l.target.x !== undefined) {
       calculateLinkGradient(context, l);
@@ -738,9 +701,7 @@ export function createCornerstones(container) {
       context.strokeStyle = l.gradient;
     } else context.strokeStyle = COLOR_LINK;
 
-    // Base line width
     let line_width = scale_link_width(l.contribution_count);
-
     context.lineWidth = line_width * SF;
     drawLine(context, SF, l);
   }
@@ -774,10 +735,9 @@ export function createCornerstones(container) {
   }
 
   function calculateEdgeCenters(l, size = 2, sign = true) {
-    //Find a good radius
+    // Arc radius, scaled by size (can run from > 0.5)
     l.r =
-      sqrt(sq(l.target.x - l.source.x) + sq(l.target.y - l.source.y)) * size; //Can run from > 0.5
-    //Find center of the arc function
+      sqrt(sq(l.target.x - l.source.x) + sq(l.target.y - l.source.y)) * size;
     let centers = findCenters(
       l.r,
       { x: l.source.x, y: l.source.y },
@@ -860,8 +820,7 @@ export function createCornerstones(container) {
     }
   }
 
-  // -- Hover ------------------------------------------------
-  // Setup the hover on the top canvas, get the mouse position and call the drawing functions
+  // Wire hover on the top canvas: read the mouse position and redraw the hover state.
   function setupHover() {
     let clearHoverTimer = null;
 
@@ -873,11 +832,9 @@ export function createCornerstones(container) {
     }
 
     d3.select(canvas_hover).on("mousemove", function (event) {
-      // Get the position of the mouse on the canvas
       let [mx, my] = d3.pointer(event, this);
       let [d, FOUND] = findNode(mx, my);
 
-      // Draw the hover state on the top canvas
       if (FOUND) {
         // Cancel any pending clear
         if (clearHoverTimer !== null) {
@@ -918,19 +875,17 @@ export function createCornerstones(container) {
 
   // Draw the hovered node and its links and neighbors
   function drawHoverState(context, d) {
-    // Draw the hover canvas
     context.save();
     context.clearRect(0, 0, WIDTH, HEIGHT);
     context.translate(WIDTH / 2, HEIGHT / 2);
 
-    // Get all the connected links (if not done before)
+    // Connected links and nodes are memoized on first hover
     if (d.neighbor_links === undefined) {
       d.neighbor_links = links.filter(
         (l) => l.source.id === d.id || l.target.id === d.id,
       );
     }
 
-    // Get all the connected nodes (if not done before)
     if (d.neighbors === undefined) {
       d.neighbors = nodes.filter((n) =>
         links.find(
@@ -941,7 +896,6 @@ export function createCornerstones(container) {
       );
     }
 
-    // Draw all the links to this node
     d.neighbor_links.forEach((l) => {
       drawLink(context, SF, l);
     });
@@ -960,7 +914,6 @@ export function createCornerstones(container) {
     d.neighbors.forEach((n) => drawNode(context, SF, n));
     d.neighbors.forEach((n) => drawNodeLabel(context, n));
 
-    // Draw the hovered node
     drawNode(context, SF, d);
     ChartBase.drawNodeHighlight(context, d, {
       SF,
@@ -988,9 +941,7 @@ export function createCornerstones(container) {
     context.restore();
   }
 
-  // -- Interaction ------------------------------------------
-
-  // Turn the mouse position into a canvas x and y location and see if it's close enough to a node
+  // Map the mouse position into logical space and find the node under it (if any).
   function findNode(mx, my) {
     const [lx, ly] = ChartBase.toLogical(mx, my, {
       PIXEL_RATIO,
@@ -1033,7 +984,6 @@ export function createCornerstones(container) {
   }
 
   function drawNodeLabel(context, d, DO_PROJECT_OUTSIDE = false) {
-    // Draw the name above each node
     context.fillStyle = COLOR_TEXT;
     context.lineWidth = 2 * SF;
     context.textAlign = "center";
@@ -1053,7 +1003,7 @@ export function createCornerstones(container) {
       context.rotate(
         d.contributor_angle + (d.contributor_angle > PI / 2 ? PI : 0),
       );
-      // Move the max_radius farther away
+      // Offset outward past the node edge so the label sits outside the circle
       context.translate(
         (d.contributor_angle > PI / 2 ? -1 : 1) * (d.r + 14) * SF,
         0,
@@ -1091,7 +1041,6 @@ export function createCornerstones(container) {
     }
   }
 
-  // -- Fonts ------------------------------------------------
   function setProjectFont(context, SF = 1, font_size = 15) {
     ChartBase.setFont(context, FONT_FAMILY, font_size * SF, 700, "normal");
   }
@@ -1102,7 +1051,7 @@ export function createCornerstones(container) {
 
   const renderText = ChartBase.renderText;
 
-  //From: https://stackoverflow.com/questions/2936112
+  // From: https://stackoverflow.com/questions/2936112
   function getLines(context, text, max_width, balance = true) {
     let words = text.split(" ");
     let lines = [];
@@ -1125,12 +1074,11 @@ export function createCornerstones(container) {
       lines = splitSpring(text);
     }
 
-    //Figure out the maximum width of all the lines
     let max_length = 0;
     lines.forEach((l) => {
       let width = context.measureText(l).width;
       if (width > max_length) max_length = width;
-    }); //forEach
+    });
 
     return [lines, max_length];
   }
@@ -1138,25 +1086,23 @@ export function createCornerstones(container) {
   function splitSpring(text) {
     let len = text.length;
 
-    //Find the index of all spaces
+    // Index of every space
     let indices = [];
     for (let i = 0; i < text.length; i++) {
       if (text[i] === " ") indices.push(i);
     }
 
-    //Which space is the closes to the middle
+    // Which space is closest to the middle
     let diff = indices.map((d) => Math.abs(len / 2 - d));
     let min_value = min(...diff);
     let ind = indices[diff.indexOf(min_value)];
 
-    //Split the string at the "most-middle" space
+    // Split at the most-middle space
     let str1 = text.substr(0, ind);
     let str2 = text.substr(ind);
 
     return [str1.trim(), str2.trim()];
   }
-
-  // -- Helpers ----------------------------------------------
 
   function sq(x) {
     return x * x;
@@ -1166,13 +1112,13 @@ export function createCornerstones(container) {
     if (!arguments.length) return width;
     width = value;
     return chart;
-  }; // chart.width
+  };
 
   chart.height = function (value) {
     if (!arguments.length) return height;
     height = value;
     return chart;
-  }; // chart.height
+  };
 
   chart.project = function (data) {
     if (!arguments.length) return PROJECT_NAME;
@@ -1191,7 +1137,7 @@ export function createCornerstones(container) {
     if (!arguments.length) return TOP_N;
     TOP_N = value;
     return chart;
-  }; // chart.topContributors
+  };
 
   chart.contributors = function () {
     return contributors;
@@ -1244,4 +1190,4 @@ export function createCornerstones(container) {
   });
 
   return chart;
-} // function createCornerstones
+}

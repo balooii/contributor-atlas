@@ -10,8 +10,8 @@ import * as d3 from "d3";
 // Each page still owns its chart factory construction, timeline-control wiring,
 // and any page-specific toggles - this just removes the boilerplate they all share.
 //
-// A view with an async first render returns a promise from render(); Once it
-// resolves the spinner goes down an onReady is fired.
+// A view with an async first render returns a promise from render(); once it
+// resolves the spinner is removed and onReady is fired.
 
 import * as ChartBase from "./chartBase.js";
 

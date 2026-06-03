@@ -63,7 +63,6 @@ export function createTrails(container) {
   let _animFrame = null;
   const ANIM_CYCLE = 1600;
 
-  // -- DOM -------------------------------------------------------------
   const corner = document.createElement("div");
   corner.className = "ca-trails-corner";
   corner.style.width = LABEL_WIDTH + "px";
@@ -111,7 +110,6 @@ export function createTrails(container) {
   const ctxL = labelsCanvas.getContext("2d");
   const ctxM = mainCanvas.getContext("2d");
 
-  // -- Sizing ----------------------------------------------------------
   function applyLabelWidth() {
     LABEL_WIDTH =
       sortBy === "career" ? LABEL_WIDTH_CAREER : LABEL_WIDTH_DEFAULT;
@@ -165,7 +163,6 @@ export function createTrails(container) {
     spacer.style.width = virtualW + "px";
   }
 
-  // -- Data prep -------------------------------------------------------
   function processData() {
     const byContributor = d3.group(
       range.filter(raw_contributions, (d) => d.ts),
@@ -293,7 +290,6 @@ export function createTrails(container) {
     return merged;
   }
 
-  // -- Selection animation ---------------------------------------------
   function startAnim() {
     if (_animFrame !== null) return;
     function frame() {
@@ -312,7 +308,6 @@ export function createTrails(container) {
     }
   }
 
-  // -- Drawing ---------------------------------------------------------
   function drawHeader() {
     ctxH.save();
     ctxH.scale(PR, PR);
@@ -639,7 +634,6 @@ export function createTrails(container) {
     drawMain();
   }
 
-  // -- Interaction -----------------------------------------------------
   scroller.addEventListener(
     "scroll",
     () => {
@@ -784,7 +778,6 @@ export function createTrails(container) {
     tooltip.show(html, clientX, clientY);
   }
 
-  // -- Range filter ----------------------------------------------------
   function rerun() {
     processData();
     updateCornerStats();
@@ -801,7 +794,6 @@ export function createTrails(container) {
     chart.onZoomChange(false);
   }
 
-  // -- Public API ------------------------------------------------------
   const chart = (values) => {
     const catToGroup = values[2] || {};
     raw_contributions = values[0]

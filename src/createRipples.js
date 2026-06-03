@@ -12,7 +12,6 @@ export function createRipples(container) {
   const sin = Math.sin;
   const sqrt = Math.sqrt;
 
-  // -- State ------------------------------------------------
   let nodes = [];
   let single_nodes = []; // count == 1: single time contributors drawn in side wings
   let main_nodes = []; // count >= 2: everyone else in the main disc (log radial scale)
@@ -28,7 +27,6 @@ export function createRipples(container) {
   let PROJECT_NAME;
   let _logoImage = null;
 
-  // -- Colours / fonts --------------------------------------
   let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
   let COLOR_RING_EVEN, COLOR_RING_ODD, COLOR_RING_STROKE;
   let FONT_FAMILY;
@@ -48,11 +46,9 @@ export function createRipples(container) {
   let scale_category_color = d3.scaleOrdinal();
   const categoryColor = (cat) => scale_category_color(cat);
 
-  // -- Selection state --------------------------------------
   let SELECTED_ID = null;
   let SELECTED_NODE = null;
 
-  // -- Canvases ---------------------------------------------
   const layers = ChartBase.createCanvasLayers(container, COLOR_BACKGROUND);
   const canvas = layers.base,
     canvas_hover = layers.hover;
@@ -78,7 +74,6 @@ export function createRipples(container) {
     showTooltip: showContributorTooltip,
   });
 
-  // -- Sizes ------------------------------------------------
   const DEFAULT_SIZE = 1500;
   let WIDTH = DEFAULT_SIZE,
     HEIGHT = DEFAULT_SIZE;
@@ -107,7 +102,6 @@ export function createRipples(container) {
     .range([LAYOUT_OUTER, LAYOUT_INNER])
     .clamp(true);
 
-  // -- Entry ------------------------------------------------
   function chart(values) {
     const parsed = ChartBase.parseChartValues(values);
     raw_contributions_all = parsed.contributions;
@@ -118,7 +112,6 @@ export function createRipples(container) {
     rerun();
   }
 
-  // -- Layout -----------------------------------------------
   // Groups nodes by exact contribution count (same count => same node_r) and
   // anchors each group at its log-scale target radius. Processes groups
   // innermost-first, filling concentric sub-rings: each ring spreads its nodes
@@ -223,7 +216,7 @@ export function createRipples(container) {
         WING_MIN_HALF_ANGLE,
         Math.min(WING_MAX_HALF_ANGLE, halfAngle),
       );
-      centers = WIDTH >= HEIGHT ? [0, PI] : [PI / 2, -PI / 2]; //orientation
+      centers = WIDTH >= HEIGHT ? [0, PI] : [PI / 2, -PI / 2]; // orientation
       fullRing = false;
     }
 
@@ -268,7 +261,6 @@ export function createRipples(container) {
     };
   }
 
-  // -- Pipeline ---------------------------------------------
   function rerun() {
     ({ nodes: nodes, categoryStats: _lastCategoryStats } =
       ChartBase.runPipeline(
@@ -329,7 +321,6 @@ export function createRipples(container) {
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }
 
-  // -- Drawing ----------------------------------------------
   function drawRings() {
     const fillEven = COLOR_RING_EVEN;
     const fillOdd = COLOR_RING_ODD;
@@ -459,7 +450,6 @@ export function createRipples(container) {
   const drawNodeHighlight = (ctx, n) =>
     ChartBase.drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND });
 
-  // -- Resize -----------------------------------------------
   function findContributorNode(id) {
     return nodes.find((n) => n.data.contributor_id === id) || null;
   }
@@ -505,7 +495,6 @@ export function createRipples(container) {
     });
   }
 
-  // -- Hit detection ----------------------------------------
   function findNode(mx, my) {
     const [lx, ly] = ChartBase.toLogical(mx, my, {
       PIXEL_RATIO,
@@ -537,7 +526,6 @@ export function createRipples(container) {
     });
   }
 
-  // -- Accessors --------------------------------------------
   chart.width = function (v) {
     if (!arguments.length) return width;
     width = v;

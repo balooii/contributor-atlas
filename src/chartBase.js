@@ -1,7 +1,5 @@
 import * as d3 from "d3";
 
-// -- Filters -----------------------------------------------------
-
 export function filterByRange(rows, start, end) {
   if (start == null) return rows;
   return rows.filter((d) => {
@@ -48,8 +46,6 @@ export function filterByCategory(rows, activeSet) {
   if (activeSet == null) return rows;
   return rows.filter((d) => activeSet.has(d.category));
 }
-
-// -- Aggregation -------------------------------------------------
 
 // Roll up rows of `{contributor_id, contributor_name, category, timestamp, [...]}` into one record
 // per contributor with totals, per-category breakdown, and first/last timestamp.
@@ -112,8 +108,6 @@ export function categoryStats(rows) {
       pct: Math.round((count / rows.length) * 100),
     }));
 }
-
-// -- Tooltip -----------------------------------------------------
 
 const _formatDigit = d3.format(",.2s");
 const _formatDate = d3.timeFormat("%b %Y");
@@ -184,11 +178,9 @@ export function showAnchoredTooltip(
   tooltip.showAt(html, cx, cy, d.y < 0 ? "below" : "above");
 }
 
-// -- Shared chart init --------------------------------------------
-
-// Parse the two-element values array that every cluster chart receives on
-// first call: [contributions_csv_rows, categories_json_object].
-// Returns the derived fields so each factory doesn't repeat this boilerplate.
+// Parse the values array every cluster chart receives on first call:
+// [contributions_csv_rows, categories_json_object]. Returns the derived fields
+// so each factory doesn't repeat this boilerplate.
 export const parseDateUnix = d3.timeParse("%s");
 
 export function parseChartValues(values) {
@@ -247,12 +239,6 @@ export function buildCentralData(nodes) {
   return { catMap, total };
 }
 
-// Draw a soft radial halo around a node. Used by Cornerstones, Ripples, and Gathering.
-//   innerR - optional override for the halo's inner edge (physical pixels already
-//            multiplied by SF). When omitted, defaults to n.r * SF and the node dot
-//            is redrawn on top. When provided, a donut arc is used so the area inside
-//            innerR is left untouched (useful when a category ring sits between the
-//            node edge and the halo).
 function _bgIsDark(hex) {
   if (!hex || hex[0] !== "#") return true;
   const r = parseInt(hex.slice(1, 3), 16) / 255;
@@ -261,6 +247,12 @@ function _bgIsDark(hex) {
   return 0.299 * r + 0.587 * g + 0.114 * b < 0.5;
 }
 
+// Draw a soft radial halo around a node. Used by Cornerstones, Ripples, and Gathering.
+//   innerR - optional override for the halo's inner edge (physical pixels already
+//            multiplied by SF). When omitted, defaults to n.r * SF and the node dot
+//            is redrawn on top. When provided, a donut arc is used so the area inside
+//            innerR is left untouched (useful when a category ring sits between the
+//            node edge and the halo).
 export function drawNodeHighlight(
   ctx,
   n,
@@ -293,8 +285,6 @@ export function drawNodeHighlight(
     ctx.stroke();
   }
 }
-
-// -- Interaction -------------------------------------------------
 
 // Draw the hover-state overlay for a round-cluster chart.
 //   isCenterNode(d)        - true if d is the central project node
@@ -367,7 +357,6 @@ export function wireInteraction(
   };
 }
 
-// -- Delaunay hit detection ----------------------------------
 // Build a Delaunay index over node centers, used to find the nearest node to
 // the mouse.
 export const buildHitIndex = (nodes) =>
@@ -399,8 +388,6 @@ export function runPipeline(raw, rangeStart, rangeEnd, activeCats, catToGroup) {
   const nodes = buildNodes(aggregateByContributor(catFiltered), catToGroup);
   return { nodes, categoryStats: categoryStats(rangeFiltered) };
 }
-
-// -- Canvas trio -------------------------------------------------
 
 // Create the base/click/hover canvas stack used by the round-cluster
 // visualizations. Returns refs to the canvases and their 2d contexts.
@@ -465,8 +452,6 @@ export function sizeCanvasLayers(layers, width, height) {
   }
   return { PIXEL_RATIO, WIDTH: W, HEIGHT: H };
 }
-
-// -- Font / text -------------------------------------------------
 
 export function setFont(ctx, family, size, weight = 400, style = "normal") {
   ctx.font = `${weight} ${style} ${size}px ${family}`;

@@ -19,7 +19,6 @@ export function createGathering(container) {
   const cos = Math.cos;
   const sin = Math.sin;
 
-  // -- State ------------------------------------------------
   let nodes = [];
   let delaunay;
   let raw_contributions_all;
@@ -35,7 +34,6 @@ export function createGathering(container) {
   let PROJECT_NAME;
   let _logoImage = null;
 
-  // -- Colours / fonts --------------------------------------
   let COLOR_BACKGROUND,
     COLOR_TEXT,
     COLOR_PROJECT,
@@ -56,7 +54,6 @@ export function createGathering(container) {
   let scale_category_color = d3.scaleOrdinal();
   const categoryColor = (cat) => scale_category_color(cat);
 
-  // -- Canvases ---------------------------------------------
   const layers = ChartBase.createCanvasLayers(container, COLOR_BACKGROUND);
   const canvas = layers.base,
     canvas_hover = layers.hover;
@@ -84,7 +81,6 @@ export function createGathering(container) {
     showTooltip: showContributorTooltip,
   });
 
-  // -- Sizes ------------------------------------------------
   const DEFAULT_SIZE = 1500;
   let WIDTH = DEFAULT_SIZE,
     HEIGHT = DEFAULT_SIZE;
@@ -100,7 +96,6 @@ export function createGathering(container) {
   // Dot size scale (sqrt - contribution counts are heavy-tailed)
   const scale_dot_radius = d3.scaleSqrt().range([2, 55]);
 
-  // -- Entry ------------------------------------------------
   function chart(values) {
     const parsed = ChartBase.parseChartValues(values);
     raw_contributions_all = parsed.contributions;
@@ -111,7 +106,6 @@ export function createGathering(container) {
     rerun();
   }
 
-  // -- Pipeline ---------------------------------------------
   function rerun() {
     ({ nodes: nodes, categoryStats: _lastCategoryStats } =
       ChartBase.runPipeline(
@@ -204,7 +198,6 @@ export function createGathering(container) {
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }
 
-  // -- Drawing ----------------------------------------------
   function draw() {
     context.fillStyle = COLOR_BACKGROUND;
     context.fillRect(0, 0, WIDTH, HEIGHT);
@@ -252,7 +245,6 @@ export function createGathering(container) {
   const drawNodeHighlight = (ctx, n) =>
     ChartBase.drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND });
 
-  // -- Resize -----------------------------------------------
   function findContributorNode(id) {
     return (
       nodes.find(
@@ -289,7 +281,6 @@ export function createGathering(container) {
     });
   }
 
-  // -- Hit detection ----------------------------------------
   function findNode(mx, my) {
     const [lx, ly] = ChartBase.toLogical(mx, my, {
       PIXEL_RATIO,
@@ -316,7 +307,6 @@ export function createGathering(container) {
     });
   }
 
-  // -- Accessors --------------------------------------------
   chart.width = function (v) {
     if (!arguments.length) return width;
     width = v;

@@ -17,7 +17,6 @@ export function createContributorSearch(mount, Visual, rawContributions) {
     return a.name.localeCompare(b.name);
   });
 
-  // -- DOM --------------------------------------------------
   var wrapper = document.createElement("div");
   wrapper.className = "ca-search-wrapper";
 
@@ -46,12 +45,10 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
   var STORAGE_KEY = "selected-contributor";
 
-  // -- State ----------------------------------------------------
   var selectedId = null;
   var isOpen = false;
   var activeIndex = -1; // keyboard-highlighted row index (-1 is none)
 
-  // -- Helpers --------------------------------------------------
   function escapeRegex(s) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
@@ -201,7 +198,6 @@ export function createContributorSearch(mount, Visual, rawContributions) {
     openDropdown();
   }
 
-  // -- Events ---------------------------------------------------
   input.addEventListener("input", function () {
     updateClearBtn();
     renderResults(input.value.trim());

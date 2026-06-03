@@ -78,8 +78,6 @@ export function createTimelineControl(container) {
 
   return control;
 
-  // -- DOM construction --------------------------------------------
-
   function build() {
     const hasChapters = CHAPTERS.length > 0;
 
@@ -219,8 +217,6 @@ export function createTimelineControl(container) {
     });
   }
 
-  // -- Timeline slider ---------------------------------------------
-
   function snapToMonthStart(ts) {
     const d = new Date(ts * 1000);
     return new Date(d.getFullYear(), d.getMonth(), 1).getTime() / 1000;
@@ -305,8 +301,6 @@ export function createTimelineControl(container) {
       },
     );
   }
-
-  // -- Chapter track -----------------------------------------------
 
   function initChapterTrack(chapters) {
     if (span <= 0) return;
@@ -484,8 +478,6 @@ export function createTimelineControl(container) {
     );
   }
 
-  // -- Category filter pills ---------------------------------------
-
   function initCategoryFilter() {
     const initialStats = visual.getCategoryStats();
     const statMapInit = new Map(initialStats.map((s) => [s.cat, s]));
@@ -551,8 +543,6 @@ export function createTimelineControl(container) {
       if (s) p.countEl.textContent = `${s.count}  ${s.pct}%`;
     });
   }
-
-  // -- Reset button ------------------------------------------------
 
   function onReset() {
     posL = 0;
