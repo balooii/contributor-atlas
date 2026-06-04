@@ -463,14 +463,36 @@ export function setFont(ctx, family, size, weight = 400, style = "normal") {
   ctx.font = `${weight} ${style} ${size}px ${family}`;
 }
 
+// Width of a letter-spaced string at the context's current font
+export function measureSpacedText(ctx, text, letterSpacing = 0) {
+  const chars = String.prototype.split.call(text, "");
+  let total = 0;
+  for (let i = 0; i < chars.length; i++)
+    total += ctx.measureText(chars[i]).width + letterSpacing;
+  return total;
+}
+
+// Factor (<= 1) to scale a font size (and letter-spacing) so a centered line of
+// `text` fits inside a circle of pixel-radius r. The available width is the
+// chord at the top/bottom of the text, which is narrower than the diameter, so
+// the text stays clear of the curved rim.
+// Context font must already be set at baseSize.
+export function fitTextScale(ctx, text, r, baseSize, letterSpacing = 0) {
+  const PADDING = 0.9; // leave a little gap between text and the rim
+  const halfHeight = baseSize / 2;
+  const width = measureSpacedText(ctx, text, letterSpacing);
+  const maxWidth =
+    PADDING * 2 * Math.sqrt(Math.max(0, r * r - halfHeight ** 2));
+  if (width <= maxWidth || maxWidth <= 0) return 1;
+  return maxWidth / width;
+}
+
 // Manual letter-spaced text rendering - Canvas2D has no native letterSpacing.
 // Respects the context's current textAlign.
 export function renderText(ctx, text, x, y, letterSpacing = 0, stroke = false) {
   const chars = String.prototype.split.call(text, "");
   const align = ctx.textAlign;
-  let total = 0;
-  for (let i = 0; i < chars.length; i++)
-    total += ctx.measureText(chars[i]).width + letterSpacing;
+  const total = measureSpacedText(ctx, text, letterSpacing);
 
   let pos = x;
   if (align === "right") pos = x - total;
@@ -533,11 +555,14 @@ export function drawProjectNodeContent(
     ctx.drawImage(logoImage, cx - w / 2, cy - h / 2, w, h);
     ctx.restore();
   } else {
-    setFont(ctx, FONT_FAMILY, fontSize, 700, "normal");
     ctx.fillStyle = COLOR_TEXT;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    renderText(ctx, name, cx, cy, letterSpacing);
+
+    setFont(ctx, FONT_FAMILY, fontSize, 700, "normal");
+    const scale = fitTextScale(ctx, name, r, fontSize, letterSpacing);
+    if (scale < 1) setFont(ctx, FONT_FAMILY, fontSize * scale, 700, "normal");
+    renderText(ctx, name, cx, cy, letterSpacing * scale);
   }
 }
 

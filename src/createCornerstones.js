@@ -32,6 +32,9 @@ export function createCornerstones(container) {
   const MAX_CONTRIBUTOR_WIDTH = 55; // The maximum width (at SF = 1) of the contributor name before it gets wrapped
   const CONTRIBUTOR_PADDING = 20; // The padding between the contributor nodes around the circle (at SF = 1)
 
+  const PROJECT_FONT_SIZE = 15; // project label font size (at SF = 1)
+  const LABEL_LETTER_SPACING = 1.25; // letter spacing for node labels (at SF = 1)
+
   let REMAINING_PRESENT = false; // Is the dataset of remaining contributors present?
   let TOP_N = 30; // Number of top contributors to show in the rings
 
@@ -222,9 +225,6 @@ export function createCornerstones(container) {
     drawTopContributorsRing(context, SF);
 
     links.forEach((l) => drawLink(context, SF, l));
-
-    // Draw the project label in the background (in case it is bigger than it's circle)
-    drawNodeLabel(context, project_node, true);
 
     nodes.forEach((d) => drawNode(context, SF, d));
     nodes.forEach((d) => drawNodeLabel(context, d));
@@ -1007,7 +1007,7 @@ export function createCornerstones(container) {
     });
   }
 
-  function drawNodeLabel(context, d, DO_PROJECT_OUTSIDE = false) {
+  function drawNodeLabel(context, d) {
     context.fillStyle = COLOR_TEXT;
     context.lineWidth = 2 * SF;
     context.textAlign = "center";
@@ -1046,26 +1046,30 @@ export function createCornerstones(container) {
             i * font_size * label_line_height) *
           SF;
 
-        renderText(context, l, x, y, 1.25 * SF);
+        renderText(context, l, x, y, LABEL_LETTER_SPACING * SF);
       });
 
       context.restore();
     } else if (d.type === "project") {
       context.textBaseline = "middle";
-      context.fillStyle = DO_PROJECT_OUTSIDE ? COLOR_PROJECT : COLOR_BACKGROUND;
-      // If this is drawing the text in the inside of the project circle, clip it to that circle
-      if (!DO_PROJECT_OUTSIDE) {
-        context.save();
-        context.beginPath();
-        context.arc(d.x * SF, d.y * SF, d.r * SF, 0, 2 * PI);
-        context.clip();
-      }
-      renderText(context, d.label, d.x * SF, d.y * SF, 1.25 * SF);
-      if (!DO_PROJECT_OUTSIDE) context.restore();
+      context.fillStyle = COLOR_BACKGROUND;
+      // Shrink the font so a long name stays inside the circle instead of
+      // clipping its rim.
+      const baseSize = PROJECT_FONT_SIZE * SF;
+      const letterSpacing = LABEL_LETTER_SPACING * SF;
+      const scale = ChartBase.fitTextScale(
+        context,
+        d.label,
+        d.r * SF,
+        baseSize,
+        letterSpacing,
+      );
+      if (scale < 1) setProjectFont(context, SF, PROJECT_FONT_SIZE * scale);
+      renderText(context, d.label, d.x * SF, d.y * SF, letterSpacing * scale);
     }
   }
 
-  function setProjectFont(context, SF = 1, font_size = 15) {
+  function setProjectFont(context, SF = 1, font_size = PROJECT_FONT_SIZE) {
     ChartBase.setFont(context, FONT_FAMILY, font_size * SF, 700, "normal");
   }
 
