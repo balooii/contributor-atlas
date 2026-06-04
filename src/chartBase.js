@@ -245,14 +245,6 @@ export function buildCentralData(nodes) {
   return { catMap, total, secMin, secMax };
 }
 
-export function bgIsDark(hex) {
-  if (!hex || hex[0] !== "#") return true;
-  const r = parseInt(hex.slice(1, 3), 16) / 255;
-  const g = parseInt(hex.slice(3, 5), 16) / 255;
-  const b = parseInt(hex.slice(5, 7), 16) / 255;
-  return 0.299 * r + 0.587 * g + 0.114 * b < 0.5;
-}
-
 // A warm glow behind a cluster plus an edge vignette to lift it off the flat
 // background. The cluster's bounding box is given as a center (cx, cy) and
 // semi-axes (xr, yr), in physical pixels.
@@ -262,7 +254,7 @@ export function bgIsDark(hex) {
 // screen as an ellipse hugging the cluster. (A circular cluster is just xr === yr.)
 export function drawClusterHalo(
   ctx,
-  { cx, cy, xr, yr, WIDTH, HEIGHT, GLOW_RGB, dark },
+  { cx, cy, xr, yr, WIDTH, HEIGHT, GLOW_RGB, glowAlpha, vigAlpha },
 ) {
   ctx.save();
   ctx.translate(cx, cy);
@@ -276,7 +268,6 @@ export function drawClusterHalo(
   const fillCanvas = () => ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
 
   // Glow
-  const glowAlpha = dark ? 0.12 : 0.07;
   const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, 1.2);
   glow.addColorStop(0, `rgba(${GLOW_RGB},${glowAlpha})`);
   glow.addColorStop(0.85, `rgba(${GLOW_RGB},${glowAlpha})`);
@@ -291,7 +282,6 @@ export function drawClusterHalo(
     Math.hypot(x0, y1),
     Math.hypot(x1, y1),
   );
-  const vigAlpha = dark ? 0.55 : 0.1;
   const vig = ctx.createRadialGradient(0, 0, 1.05, 0, 0, corner);
   vig.addColorStop(0, "rgba(0,0,0,0)");
   vig.addColorStop(1, `rgba(0,0,0,${vigAlpha})`);
@@ -310,16 +300,15 @@ export function drawClusterHalo(
 export function drawNodeHighlight(
   ctx,
   n,
-  { SF, TAU, COLOR_BACKGROUND, innerR },
+  { SF, TAU, COLOR_BACKGROUND, NODE_GLOW, NODE_GLOW_ALPHA, innerR },
 ) {
   const cx = n.x * SF,
     cy = n.y * SF;
   const inner = innerR ?? n.r * SF;
   const outer = inner + 14 * SF;
   const grad = ctx.createRadialGradient(cx, cy, inner, cx, cy, outer);
-  const dark = bgIsDark(COLOR_BACKGROUND);
-  grad.addColorStop(0, dark ? "rgba(255,255,255,0.18)" : "#00000040");
-  grad.addColorStop(1, dark ? "rgba(255,255,255,0.00)" : "#00000000");
+  grad.addColorStop(0, `rgba(${NODE_GLOW},${NODE_GLOW_ALPHA})`);
+  grad.addColorStop(1, `rgba(${NODE_GLOW},0)`);
   ctx.save();
   ctx.fillStyle = grad;
   ctx.beginPath();

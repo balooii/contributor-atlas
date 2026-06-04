@@ -40,19 +40,21 @@ export function createGathering(container) {
     COLOR_PROJECT_BG,
     COLOR_CONTRIBUTOR,
     COLOR_HIGHLIGHT;
-  let GLOW_RGB;
-  let BG_IS_DARK;
+  let GLOW_RGB, GLOW_ALPHA, VIGNETTE_ALPHA, NODE_GLOW, NODE_GLOW_ALPHA;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
-    BG_IS_DARK = ChartBase.bgIsDark(COLOR_BACKGROUND);
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
     COLOR_PROJECT_BG = cs.getPropertyValue("--c-project-bg").trim();
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
     GLOW_RGB = cs.getPropertyValue("--c-glow").trim();
+    GLOW_ALPHA = cs.getPropertyValue("--c-glow-alpha").trim();
+    VIGNETTE_ALPHA = cs.getPropertyValue("--c-vignette-alpha").trim();
+    NODE_GLOW = cs.getPropertyValue("--c-node-glow").trim();
+    NODE_GLOW_ALPHA = cs.getPropertyValue("--c-node-glow-alpha").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -273,7 +275,8 @@ export function createGathering(container) {
       WIDTH,
       HEIGHT,
       GLOW_RGB,
-      dark: BG_IS_DARK,
+      glowAlpha: GLOW_ALPHA,
+      vigAlpha: VIGNETTE_ALPHA,
     });
   }
 
@@ -321,7 +324,13 @@ export function createGathering(container) {
   }
 
   const drawNodeHighlight = (ctx, n) =>
-    ChartBase.drawNodeHighlight(ctx, n, { SF, TAU, COLOR_BACKGROUND });
+    ChartBase.drawNodeHighlight(ctx, n, {
+      SF,
+      TAU,
+      COLOR_BACKGROUND,
+      NODE_GLOW,
+      NODE_GLOW_ALPHA,
+    });
 
   function findContributorNode(id) {
     return (

@@ -52,6 +52,7 @@ export function createCornerstones(container) {
     COLOR_LINK,
     COLOR_TEXT,
     COLOR_HIGHLIGHT;
+  let NODE_GLOW, NODE_GLOW_ALPHA;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
@@ -62,6 +63,8 @@ export function createCornerstones(container) {
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
+    NODE_GLOW = cs.getPropertyValue("--c-node-glow").trim();
+    NODE_GLOW_ALPHA = cs.getPropertyValue("--c-node-glow-alpha").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -943,6 +946,8 @@ export function createCornerstones(container) {
       SF,
       TAU,
       COLOR_BACKGROUND,
+      NODE_GLOW,
+      NODE_GLOW_ALPHA,
       innerR: (d.r + CATEGORY_RING_GAP + CATEGORY_RING_THICKNESS) * SF,
     });
 
