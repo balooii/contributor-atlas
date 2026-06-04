@@ -29,11 +29,13 @@ export function createRipples(container) {
 
   let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
   let COLOR_RING_EVEN, COLOR_RING_ODD, COLOR_RING_STROKE;
+  let GLOW_RGB;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
+    GLOW_RGB = cs.getPropertyValue("--c-glow").trim();
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
     COLOR_RING_EVEN = cs.getPropertyValue("--c-ring-even").trim();
@@ -428,10 +430,35 @@ export function createRipples(container) {
   // The logo only appears when the center node itself is hovered.
   function drawCenterNode(ctx, hovered = false) {
     const r = CENTER_RADIUS * SF;
+
     ctx.beginPath();
     ctx.arc(0, 0, r, 0, TAU);
     ctx.fillStyle = COLOR_PROJECT;
     ctx.fill();
+
+    // Spherical sheen to give it some depth
+    const sheen = ctx.createRadialGradient(
+      -r * 0.35,
+      -r * 0.35,
+      r * 0.1,
+      0,
+      0,
+      r,
+    );
+    sheen.addColorStop(0, "rgba(255, 255, 255, 0.22)");
+    sheen.addColorStop(0.6, "rgba(255, 255, 255, 0.05)");
+    sheen.addColorStop(1, "rgba(0, 0, 0, 0.12)");
+    ctx.fillStyle = sheen;
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, TAU);
+    ctx.fill();
+
+    // Glowing rim
+    ctx.strokeStyle = `rgba(${GLOW_RGB}, 0.7)`;
+    ctx.lineWidth = Math.max(1.4, 1.8 * SF);
+    ctx.beginPath();
+    ctx.arc(0, 0, r - ctx.lineWidth / 2, 0, TAU);
+    ctx.stroke();
 
     ChartBase.drawProjectNodeContent(ctx, {
       cx: 0,
