@@ -253,6 +253,54 @@ export function bgIsDark(hex) {
   return 0.299 * r + 0.587 * g + 0.114 * b < 0.5;
 }
 
+// A warm glow behind a cluster plus an edge vignette to lift it off the flat
+// background. The cluster's bounding box is given as a center (cx, cy) and
+// semi-axes (xr, yr), in physical pixels.
+// An elliptical halo is needed for Ripples (disc + side wings is wider than
+// tall), but canvas has no elliptical-gradient API. So we stretch the coordinate
+// system by (xr, yr) first, then draw a plain circle in that space - it lands on
+// screen as an ellipse hugging the cluster. (A circular cluster is just xr === yr.)
+export function drawClusterHalo(
+  ctx,
+  { cx, cy, xr, yr, WIDTH, HEIGHT, GLOW_RGB, dark },
+) {
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.scale(xr, yr);
+
+  // Canvas corners
+  const x0 = -cx / xr,
+    x1 = (WIDTH - cx) / xr,
+    y0 = -cy / yr,
+    y1 = (HEIGHT - cy) / yr;
+  const fillCanvas = () => ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+
+  // Glow
+  const glowAlpha = dark ? 0.12 : 0.07;
+  const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, 1.2);
+  glow.addColorStop(0, `rgba(${GLOW_RGB},${glowAlpha})`);
+  glow.addColorStop(0.85, `rgba(${GLOW_RGB},${glowAlpha})`);
+  glow.addColorStop(1, `rgba(${GLOW_RGB},0)`);
+  ctx.fillStyle = glow;
+  fillCanvas();
+
+  // Vignette
+  const corner = Math.max(
+    Math.hypot(x0, y0),
+    Math.hypot(x1, y0),
+    Math.hypot(x0, y1),
+    Math.hypot(x1, y1),
+  );
+  const vigAlpha = dark ? 0.55 : 0.1;
+  const vig = ctx.createRadialGradient(0, 0, 1.05, 0, 0, corner);
+  vig.addColorStop(0, "rgba(0,0,0,0)");
+  vig.addColorStop(1, `rgba(0,0,0,${vigAlpha})`);
+  ctx.fillStyle = vig;
+  fillCanvas();
+
+  ctx.restore();
+}
+
 // Draw a soft radial halo around a node. Used by Cornerstones, Ripples, and Gathering.
 //   innerR - optional override for the halo's inner edge (physical pixels already
 //            multiplied by SF). When omitted, defaults to n.r * SF and the node dot

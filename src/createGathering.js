@@ -263,49 +263,18 @@ export function createGathering(container) {
     ctx.fill();
   }
 
-  // A warm halo behind the whole cluster plus an edge vignette to lift the disc
-  // off the flat background. Mirrors the center halo, one scale up.
   function drawClusterHalo() {
-    const cx = WIDTH / 2 + CLUSTER_CX * SF,
-      cy = HEIGHT / 2 + CLUSTER_CY * SF;
-    const clusterR = CLUSTER_R * SF; // outer edge of the packed cluster, px
-
-    const glowAlpha = BG_IS_DARK ? 0.12 : 0.07;
-    const glow = context.createRadialGradient(
-      cx,
-      cy,
-      0,
-      cx,
-      cy,
-      clusterR * 1.2,
-    );
-    glow.addColorStop(0, `rgba(${GLOW_RGB},${glowAlpha})`);
-    glow.addColorStop(0.85, `rgba(${GLOW_RGB},${glowAlpha})`);
-    glow.addColorStop(1, `rgba(${GLOW_RGB},0)`);
-    context.fillStyle = glow;
-    context.fillRect(0, 0, WIDTH, HEIGHT);
-
-    // Vignette: clear over the cluster, darkening toward the corners. Reach the
-    // farthest corner from the (possibly offset) centre so it fully covers.
-    const maxR = Math.max(
-      Math.hypot(cx, cy),
-      Math.hypot(WIDTH - cx, cy),
-      Math.hypot(cx, HEIGHT - cy),
-      Math.hypot(WIDTH - cx, HEIGHT - cy),
-    );
-    const vigAlpha = BG_IS_DARK ? 0.55 : 0.1;
-    const vig = context.createRadialGradient(
-      cx,
-      cy,
-      clusterR * 1.05,
-      cx,
-      cy,
-      maxR,
-    );
-    vig.addColorStop(0, "rgba(0,0,0,0)");
-    vig.addColorStop(1, `rgba(0,0,0,${vigAlpha})`);
-    context.fillStyle = vig;
-    context.fillRect(0, 0, WIDTH, HEIGHT);
+    const r = CLUSTER_R * SF;
+    ChartBase.drawClusterHalo(context, {
+      cx: WIDTH / 2 + CLUSTER_CX * SF,
+      cy: HEIGHT / 2 + CLUSTER_CY * SF,
+      xr: r,
+      yr: r,
+      WIDTH,
+      HEIGHT,
+      GLOW_RGB,
+      dark: BG_IS_DARK,
+    });
   }
 
   function drawCenterNode(ctx) {

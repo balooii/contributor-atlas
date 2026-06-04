@@ -30,10 +30,12 @@ export function createRipples(container) {
   let COLOR_BACKGROUND, COLOR_PROJECT, COLOR_CONTRIBUTOR, COLOR_HIGHLIGHT;
   let COLOR_RING_EVEN, COLOR_RING_ODD, COLOR_RING_STROKE;
   let GLOW_RGB;
+  let BG_IS_DARK;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
     COLOR_BACKGROUND = cs.getPropertyValue("--c-bg").trim();
+    BG_IS_DARK = ChartBase.bgIsDark(COLOR_BACKGROUND);
     COLOR_PROJECT = cs.getPropertyValue("--c-project").trim();
     GLOW_RGB = cs.getPropertyValue("--c-glow").trim();
     COLOR_CONTRIBUTOR = cs.getPropertyValue("--c-contributor").trim();
@@ -88,6 +90,11 @@ export function createRipples(container) {
   const LAYOUT_INNER = 55; // log scale lower anchor; innermost ring starts here
   const CENTER_RADIUS = 40; // logical radius of the central project node
   let _layoutMaxR = LAYOUT_OUTER; // main-disc outer edge after layout (fallback before first rerun)
+  // Half-extents of the whole layout (disc + wings) in logical units, measured
+  // each resize. The cluster halo/vignette tracks this bounding ellipse - the
+  // wings make it wider than tall, so a single radius wouldn't bound it.
+  let CLUSTER_XR = LAYOUT_OUTER,
+    CLUSTER_YR = LAYOUT_OUTER;
 
   // Side-wing layout for the count==1 nodes
   const WING_MIN_ASPECT = 1.2;
@@ -329,6 +336,21 @@ export function createRipples(container) {
     if (chart.onRerun) chart.onRerun(_lastCategoryStats);
   }
 
+  // The disc + two lateral wings are wider than tall, so the halo tracks the
+  // layout's bounding ellipse (semi-axes from the measured cluster extents).
+  function drawClusterHalo() {
+    ChartBase.drawClusterHalo(context, {
+      cx: WIDTH / 2,
+      cy: HEIGHT / 2,
+      xr: Math.max(CENTER_RADIUS, CLUSTER_XR) * SF,
+      yr: Math.max(CENTER_RADIUS, CLUSTER_YR) * SF,
+      WIDTH,
+      HEIGHT,
+      GLOW_RGB,
+      dark: BG_IS_DARK,
+    });
+  }
+
   function drawRings() {
     const fillEven = COLOR_RING_EVEN;
     const fillOdd = COLOR_RING_ODD;
@@ -353,6 +375,13 @@ export function createRipples(container) {
         const t = i / (N - 1);
         radii.push(Math.exp(logOuter + t * (logInnerBound - logOuter)) * SF);
       }
+
+      // Opaque base so the warm cluster halo stays behind the disc rather than
+      // bleeding through the translucent ring bands
+      context.fillStyle = COLOR_BACKGROUND;
+      context.beginPath();
+      context.arc(0, 0, radii[0], 0, TAU);
+      context.fill();
 
       for (let i = 0; i < radii.length - 1; i++) {
         context.beginPath();
@@ -385,6 +414,16 @@ export function createRipples(container) {
       const sectorHalf =
         halfAngle >= PI ? halfAngle : halfAngle + nodeR / innerEdge;
 
+      // Opaque base so the halo stays behind the wings too (see disc above).
+      context.fillStyle = COLOR_BACKGROUND;
+      for (const c of centers) {
+        context.beginPath();
+        context.arc(0, 0, outerEdge * SF, c - sectorHalf, c + sectorHalf);
+        context.arc(0, 0, innerEdge * SF, c + sectorHalf, c - sectorHalf, true);
+        context.closePath();
+        context.fill();
+      }
+
       for (let j = 0; j < stripCount; j++) {
         const rIn = (innerEdge + j * t) * SF;
         const rOut = (innerEdge + (j + 1) * t) * SF;
@@ -415,6 +454,8 @@ export function createRipples(container) {
   function draw() {
     context.fillStyle = COLOR_BACKGROUND;
     context.fillRect(0, 0, WIDTH, HEIGHT);
+
+    drawClusterHalo();
 
     drawRings();
 
@@ -509,6 +550,8 @@ export function createRipples(container) {
       if (ax > xHalf) xHalf = ax;
       if (ay > yHalf) yHalf = ay;
     }
+    CLUSTER_XR = xHalf;
+    CLUSTER_YR = yHalf;
     SF = Math.min(WIDTH / (2 * xHalf * 1.05), HEIGHT / (2 * yHalf * 1.05));
 
     if (nodes.length > 0) {
