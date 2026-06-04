@@ -499,9 +499,10 @@ export function createRipples(container) {
 
     // Scale so the full layout (disc + side wings) fits, with margin for
     // tooltips. Wings make the layout wider than tall, so a single radius
-    // no longer bounds it. So we measure each axis actual reach separately.
-    let xHalf = CENTER_RADIUS;
-    let yHalf = CENTER_RADIUS;
+    // no longer bounds it. So we measure each axis actual reach separately,
+    // seeded with _layoutMaxR so the full-circle rings always stay on screen.
+    let xHalf = Math.max(CENTER_RADIUS, _layoutMaxR);
+    let yHalf = Math.max(CENTER_RADIUS, _layoutMaxR);
     for (const n of nodes) {
       const ax = Math.abs(n.x) + n.r;
       const ay = Math.abs(n.y) + n.r;
