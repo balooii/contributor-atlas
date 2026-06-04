@@ -1,10 +1,8 @@
 # Contributor Atlas
 
-> [!NOTE]
-> **Work in progress.** The GIMP dataset is still being built out, and larger structural changes or clean-ups may follow.
-> I'd recommend waiting until the GIMP work has settled before adopting this for other projects.
-
 Interactive visualizations for exploring contributor activity in open-source projects over time.
+
+It's aimed at projects with a long legacy of contributors — the views come alive when there are many people spread across many years of history.
 
 This project was built to visualize contributions to [GIMP](https://www.gimp.org/) and its ecosystem, but the graphs themselves are generic — if your project has contribution data, you should be able to plug it in without too much effort. Unfortunately I don't have the time to do this for other projects myself, but I'd love to see it used elsewhere.
 
@@ -112,9 +110,8 @@ v2.10 release,2018-04-27
 
 ## Using the visualizations
 
-> [!NOTE]
-> There hasn't been a release yet so the described files in this section are not available for download at this point.
-> Until then you have to build these yourself. See [Building the release bundle](#building-the-release-bundle) for how to produce these files.
+> [!TIP]
+> The [Releases page](https://gitlab.gnome.org/balooii/contributor-atlas/-/releases) has a ready-to-use `.zip`. It contains everything described below — the standalone HTML pages (`index.html` plus the five views), the embeddable JS/CSS bundles, the bundled font under `static/`, and the GIMP dataset under `data/gimp/` as an example. Unzip it and serve the directory.
 
 There are two ways to put these views on a page:
 
@@ -143,7 +140,7 @@ To use just one (or a few) views inside another page, ship the release bundle ra
 | `contributor-atlas.css`       | the stylesheet                                                                              |
 | `static/`                     | the bundled font (Encode Sans)                                                              |
 
-The JS bundles are self-contained — there are no other runtime dependencies to load. See [Building the release bundle](#building-the-release-bundle) for how to produce these files; published releases will ship them directly.
+The JS bundles are self-contained — there are no other runtime dependencies to load. They're included in the release `.zip` on the [Releases page](https://gitlab.gnome.org/balooii/contributor-atlas/-/releases); see [Building the release bundle](#building-the-release-bundle) if you'd rather produce them from source.
 
 `src/contributorAtlas.js` is the public API: one function per view, `view(container, options)`. The functions are `gathering`, `pulse`, `trails`, `ripples`, and `cornerstones`.
 
@@ -249,14 +246,17 @@ npm run build:release  # creates files in dist/
 
 ## Contributing
 
+The canonical repository is on [GNOME GitLab](https://gitlab.gnome.org/balooii/contributor-atlas) — please open merge requests there.
+
 To run locally:
 
-1. Download `contributions.csv` from https://gitlab.gnome.org/balooii/contributor-atlas/-/work_items/1 and put it in `data/gimp/` (or generate your own — see [Adapting the data](#adapting-the-data)).
-2. Serve the repository root over HTTP (feel free to use another (local) web server):
+1. Serve the repository root over HTTP (feel free to use another (local) web server):
    ```sh
    python3 -m http.server
    ```
-3. Open http://localhost:8000 in your browser.
+2. Open http://localhost:8000 in your browser.
+
+This shows the GIMP dataset out of the box. To use your own data, see [Adapting the data](#adapting-the-data).
 
 When contributing code please run the formatters first:
 
