@@ -11,6 +11,7 @@
 //   static/                      font file only (d3 gets bundled in)
 //   *.html                       the landing page + five views
 //   data/gimp/                   example dataset so the built site has something to show
+//   LICENSES/                    license texts
 //
 
 import { build } from "esbuild";
@@ -64,6 +65,7 @@ async function main() {
   await cp("src/page.css", path.join(DIST, "contributor-atlas.page.css"));
   await cp("src/landing.css", path.join(DIST, "contributor-atlas.landing.css"));
   await cp("static", path.join(DIST, "static"), { recursive: true });
+  await cp("LICENSES", path.join(DIST, "LICENSES"), { recursive: true });
   // d3 is bundled into the release artifacts, so the local/dev-only vendored copy
   // is not needed alongside them.
   await rm(path.join(DIST, "static", "d3.v7.esm.js"), { force: true });
