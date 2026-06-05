@@ -125,9 +125,10 @@ Serve the bundle directory and open any page; each view is a full-screen canvas 
 
 To make the pages your own, edit each HTML file:
 
-- **Data paths** — Point `contributions` / `project` / `highlights` at your own files in the `<script type="module">` block near the bottom of each page.
-- **Nav bar brand** — Every page shows the project name in the top-left as `<span class="ca-brand-project">GIMP</span> Contributor Atlas`. Replace `GIMP` in that span with your own project name.
-- **Landing page content** — `index.html` is GIMP-specific. Edit that page's body to describe your own project.
+- **Data paths** — `contributions` / `project` / `highlights` in the `<script type="module">` block near the bottom of each page.
+- **Nav bar brand** — the `GIMP` inside `<span class="ca-brand-project">GIMP</span> Contributor Atlas` in the top-left of every page.
+- **Landing page content** — the body of `index.html`, which is GIMP-specific prose.
+- **Page metadata** — each page's `<title>` plus the `description` / `og:title` / `og:description` tags in the `<head>` (the `og:` ones drive social-share previews).
 
 ### Embedding a single view
 
