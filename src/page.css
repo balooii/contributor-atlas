@@ -82,7 +82,7 @@ nav a {
   transition:
     color 0.15s,
     opacity 0.15s;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 nav > .ca-home {
   margin-left: 0;
