@@ -77,6 +77,12 @@ def parse_args():
         default=None,
         help="Output CSV (default: _contributions_<profile-stem>_gitlab.csv in cwd)",
     )
+    parser.add_argument(
+        "--fetch-users",
+        choices=["full", "missing", "none"],
+        default="full",
+        help="User cache (public emails) refresh policy: missing only fetches users absent from the cache, full additionally also refreshes outdated entries (default), none skips fetching entirely",
+    )
     args = parser.parse_args()
     if args.out is None:
         args.out = f"_contributions_{Path(args.profile).stem}_gitlab.csv"
@@ -195,17 +201,21 @@ def collect_user_ids(cache):
     return ids
 
 
-def needs_user_fetch(entry):
+def needs_user_fetch(entry, mode):
+    if mode == "none":
+        return False
     if entry is None:
         return True
+    if mode == "missing":
+        return False
     age = datetime.now(timezone.utc).timestamp() - iso_to_seconds(entry["fetched_at"])
     return age >= USER_CACHE_TTL_SECONDS
 
 
-def update_users_cache(cache, host, users_cache):
+def update_users_cache(cache, host, users_cache, mode="full"):
     host_users = users_cache.setdefault(host, {})
     all_ids = collect_user_ids(cache)
-    to_fetch = [uid for uid in all_ids if needs_user_fetch(host_users.get(uid))]
+    to_fetch = [uid for uid in all_ids if needs_user_fetch(host_users.get(uid), mode)]
     tty = sys.stderr.isatty()
     print(f"Fetching public email for {len(to_fetch)}/{len(all_ids)} user(s)...", file=sys.stderr)
     if not to_fetch:
@@ -515,7 +525,7 @@ def main():
 
     users_cache = load_users_cache()
     try:
-        update_users_cache(cache, host, users_cache)
+        update_users_cache(cache, host, users_cache, args.fetch_users)
     finally:
         save_users_cache(users_cache)
 
