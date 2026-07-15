@@ -468,7 +468,8 @@ def main():
             out_writer = csv.DictWriter(out_f, fieldnames=CSV_FIELDS, lineterminator="\n")
             out_writer.writeheader()
 
-            for i, commit in enumerate(commits, 1):
+            classified = 0
+            for commit in commits:
                 h = commit["hash"]
                 if h in cache:
                     category = cache[h]["category"]
@@ -479,8 +480,9 @@ def main():
                     if time.monotonic() - last_save >= CACHE_SAVE_INTERVAL_SECONDS:
                         save_cache(args.profile, cache)
                         last_save = time.monotonic()
+                    classified += 1
                     print(
-                        f"  [{i:3}/{len(commits)}] {h} -> {category:20s} | via {via} | {commit['subject'][:60]}",
+                        f"  [{classified:3}/{new_count}] {h} -> {category:20s} | via {via} | {commit['subject'][:60]}",
                         file=sys.stderr,
                     )
 
