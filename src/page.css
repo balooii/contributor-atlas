@@ -102,12 +102,19 @@ nav > .ca-brand .ca-brand-project {
   font-weight: 600;
 }
 @media (max-width: 720px) {
+  nav {
+    flex-wrap: wrap;
+    height: auto;
+    row-gap: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    justify-content: flex-start;
+  }
   nav > .ca-brand {
     display: none;
   }
   nav > .ca-home {
     display: inline;
-    margin-right: auto;
   }
 }
 nav > #ca-theme-picker {
