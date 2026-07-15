@@ -13,11 +13,7 @@ import * as ChartBase from "./chartBase.js";
 export function createGathering(container) {
   container.classList.add("ca-view");
 
-  const PI = Math.PI;
-  const TAU = PI * 2;
-
-  const cos = Math.cos;
-  const sin = Math.sin;
+  const TAU = Math.PI * 2;
 
   let nodes = [];
   let delaunay;
@@ -75,8 +71,6 @@ export function createGathering(container) {
     getNode: () => SELECTED_NODE,
   });
 
-  let _activeTick = null;
-
   const tooltip = createTooltip(container, { zIndex: 22 });
 
   const interaction = ChartBase.wireInteraction(canvas_hover, {
@@ -125,8 +119,7 @@ export function createGathering(container) {
     ({ nodes: nodes, categoryStats: _lastCategoryStats } =
       ChartBase.runPipeline(
         raw_contributions_all,
-        range.start,
-        range.end,
+        range,
         ACTIVE_CATEGORIES,
         catToGroup,
       ));

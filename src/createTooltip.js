@@ -1,12 +1,10 @@
 export function createTooltip(container, options = {}) {
-  const OX = options.offsetX ?? 14;
-  const OY = options.offsetY ?? 14;
+  const OX = 14;
+  const OY = 14;
 
   const el = document.createElement("div");
   el.className = "ca-chart-tooltip";
-  if (options.font) el.style.font = options.font;
   if (options.zIndex != null) el.style.zIndex = options.zIndex;
-  if (options.color) el.style.color = options.color;
   container.appendChild(el);
 
   function escapeHtml(s) {
@@ -96,15 +94,11 @@ export function createTooltip(container, options = {}) {
   function hide() {
     el.style.display = "none";
   }
-  function destroy() {
-    el.parentNode?.removeChild(el);
-  }
 
   return {
     show,
     showAt,
     hide,
-    destroy,
     escapeHtml,
     categoryRow,
     categoryRows,

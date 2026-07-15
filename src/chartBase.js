@@ -1,13 +1,5 @@
 import * as d3 from "d3";
 
-export function filterByRange(rows, start, end) {
-  if (start == null) return rows;
-  return rows.filter((d) => {
-    const ts = +d.timestamp;
-    return ts >= start && ts <= end;
-  });
-}
-
 // The [start, end] timeline-filter state every view shares. `set` returns
 // true only when the range actually changed, so callers can guard their rerun.
 // The default accessor reads `+d.timestamp` (for the raw CSV rows).
@@ -166,11 +158,11 @@ export function showAnchoredTooltip(
   tooltip,
   html,
   d,
-  { width, height, SF, pixelRatio, centerX = 0, centerY = 0 },
+  { width, height, SF, pixelRatio },
 ) {
   const edgeY = d.y + (d.y < 0 ? 1 : -1) * d.r;
-  const cx = width / 2 + ((d.x - centerX) * SF) / pixelRatio;
-  const cy = height / 2 + ((edgeY - centerY) * SF) / pixelRatio;
+  const cx = width / 2 + (d.x * SF) / pixelRatio;
+  const cy = height / 2 + (edgeY * SF) / pixelRatio;
   tooltip.showAt(html, cx, cy, d.y < 0 ? "below" : "above");
 }
 
@@ -425,8 +417,8 @@ export function pickNode(delaunay, nodes, lx, ly, pad) {
 // Run the shared filter -> aggregate -> build-nodes pipeline used by all
 // round-cluster charts. categoryStats is computed on the range-filtered rows
 // (before the category filter) so pill counts reflect the full time window.
-export function runPipeline(raw, rangeStart, rangeEnd, activeCats, catToGroup) {
-  const rangeFiltered = filterByRange(raw, rangeStart, rangeEnd);
+export function runPipeline(raw, range, activeCats, catToGroup) {
+  const rangeFiltered = range.filter(raw);
   const catFiltered = filterByCategory(rangeFiltered, activeCats);
   const nodes = buildNodes(aggregateByContributor(catFiltered), catToGroup);
   return { nodes, categoryStats: categoryStats(rangeFiltered) };

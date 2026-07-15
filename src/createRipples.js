@@ -276,8 +276,7 @@ export function createRipples(container) {
     ({ nodes: nodes, categoryStats: _lastCategoryStats } =
       ChartBase.runPipeline(
         raw_contributions_all,
-        range.start,
-        range.end,
+        range,
         ACTIVE_CATEGORIES,
         catToGroup,
       ));

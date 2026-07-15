@@ -1,23 +1,25 @@
 import * as d3 from "d3";
 
+const RANGE_KEY = "range";
+
+function saveRange(start, end) {
+  try {
+    localStorage.setItem(RANGE_KEY, JSON.stringify({ start, end }));
+  } catch (e) {}
+}
+
+function loadRange() {
+  try {
+    return JSON.parse(localStorage.getItem(RANGE_KEY));
+  } catch (e) {
+    return null;
+  }
+}
+
 export function createTimelineControl(container) {
   let CHAPTERS = [];
   let CATEGORIES_ENABLED = false;
   let EXTRAS = [];
-
-  const RANGE_KEY = "range";
-  function saveRange(start, end) {
-    try {
-      localStorage.setItem(RANGE_KEY, JSON.stringify({ start, end }));
-    } catch (e) {}
-  }
-  function loadRange() {
-    try {
-      return JSON.parse(localStorage.getItem(RANGE_KEY));
-    } catch (e) {
-      return null;
-    }
-  }
 
   let visual = null;
   let posL = 0,
@@ -645,10 +647,4 @@ createTimelineControl.buildZoomHint = function (visual) {
   return wrapper;
 };
 
-createTimelineControl.loadRange = function () {
-  try {
-    return JSON.parse(localStorage.getItem("range"));
-  } catch (e) {
-    return null;
-  }
-};
+createTimelineControl.loadRange = loadRange;

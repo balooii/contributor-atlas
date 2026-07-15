@@ -46,34 +46,31 @@ export function bootstrapPage({
       // Show a spinner, then defer the heavy computation to the next event loop
       // turn after a paint - this lets the browser render the spinner before
       // the synchronous layout/canvas computation blocks the main thread.
-      const chartContainer =
-        container || document.getElementById("ca-chart-container");
-      const overlay =
-        chartContainer && ChartBase.createLoadingOverlay(chartContainer);
-      if (overlay) overlay.style.display = "flex";
+      const overlay = ChartBase.createLoadingOverlay(container);
+      overlay.style.display = "flex";
 
       requestAnimationFrame(() =>
         setTimeout(() => {
           // render() may return a promise; hold the spinner until it resolves
           // (sync views return nothing and resolve immediately).
           Promise.resolve(render(values)).then(() => {
-            if (overlay) overlay.remove();
+            overlay.remove();
             onReady?.();
 
-            let currentW = chartContainer.offsetWidth;
-            let currentH = chartContainer.offsetHeight;
+            let currentW = container.offsetWidth;
+            let currentH = container.offsetHeight;
             let timer = null;
             new ResizeObserver(() => {
               clearTimeout(timer);
               timer = setTimeout(() => {
-                const w = chartContainer.offsetWidth;
-                const h = chartContainer.offsetHeight;
+                const w = container.offsetWidth;
+                const h = container.offsetHeight;
                 if (w === currentW && h === currentH) return;
                 currentW = w;
                 currentH = h;
                 onResize();
               }, resizeDelay);
-            }).observe(chartContainer);
+            }).observe(container);
           });
         }, 0),
       );

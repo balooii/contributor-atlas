@@ -20,7 +20,6 @@ export function createCornerstones(container) {
   let project_node;
 
   let delaunay;
-  let nodes_delaunay;
   let delaunay_remaining;
   let HOVER_ACTIVE = false;
 
@@ -36,7 +35,7 @@ export function createCornerstones(container) {
   const LABEL_LETTER_SPACING = 1.25; // letter spacing for node labels (at SF = 1)
 
   let REMAINING_PRESENT = false; // Is the dataset of remaining contributors present?
-  let TOP_N = 30; // Number of top contributors to show in the rings
+  const TOP_N = 30; // Number of top contributors to show in the rings
 
   // Raw data (preserved across range changes)
   let raw_contributions_all;
@@ -150,11 +149,7 @@ export function createCornerstones(container) {
   function rerun() {
     nodes = [];
 
-    const rangeFiltered = ChartBase.filterByRange(
-      raw_contributions_all,
-      range.start,
-      range.end,
-    );
+    const rangeFiltered = range.filter(raw_contributions_all);
     const aggregated = ChartBase.aggregateByContributor(
       ChartBase.filterByCategory(rangeFiltered, ACTIVE_CATEGORIES),
     );
@@ -275,8 +270,7 @@ export function createCornerstones(container) {
     }
 
     // Reset the delaunay for the mouse events
-    nodes_delaunay = nodes;
-    delaunay = ChartBase.buildHitIndex(nodes_delaunay);
+    delaunay = ChartBase.buildHitIndex(nodes);
     if (REMAINING_PRESENT && REMAINING_PLACED)
       delaunay_remaining = ChartBase.buildHitIndex(remainingContributors);
 
@@ -299,7 +293,7 @@ export function createCornerstones(container) {
       d.color = COLOR_CONTRIBUTOR;
 
       setContributorFont(context);
-      [d.contributor_lines] = getLines(
+      d.contributor_lines = getLines(
         context,
         d.contributor_name,
         MAX_CONTRIBUTOR_WIDTH,
@@ -672,7 +666,7 @@ export function createCornerstones(container) {
     if (!d.remaining_contributor) {
       context.strokeStyle = COLOR_BACKGROUND;
       context.lineWidth = max(HOVER_ACTIVE ? 1.5 : 1, d.r * 0.07) * SF;
-      drawCircle(context, d.x, d.y, SF, d.r, true, true);
+      drawCircle(context, d.x, d.y, SF, d.r, true);
       context.stroke();
     }
 
@@ -714,17 +708,17 @@ export function createCornerstones(container) {
     });
   }
 
-  function drawCircle(context, x, y, SF, r = 10, begin = true, stroke = false) {
-    if (begin === true) context.beginPath();
+  function drawCircle(context, x, y, SF, r, stroke = false) {
+    context.beginPath();
     context.moveTo((x + r) * SF, y * SF);
     context.arc(x * SF, y * SF, r * SF, 0, TAU);
-    if (begin && stroke == false) context.fill();
+    if (stroke === false) context.fill();
   }
 
   function drawLink(context, SF, l) {
     if (l.source.x !== undefined && l.target.x !== undefined) {
       calculateLinkGradient(context, l);
-      calculateEdgeCenters(l, 1);
+      calculateEdgeCenters(l);
       context.strokeStyle = l.gradient;
     } else context.strokeStyle = COLOR_LINK;
 
@@ -761,21 +755,20 @@ export function createCornerstones(container) {
     );
   }
 
-  function calculateEdgeCenters(l, size = 2, sign = true) {
-    // Arc radius, scaled by size (can run from > 0.5)
+  function calculateEdgeCenters(l) {
+    // Arc radius: the distance between source and target
     l.r =
-      sqrt(sq(l.target.x - l.source.x) + sq(l.target.y - l.source.y)) * size;
-    let centers = findCenters(
+      sqrt(sq(l.target.x - l.source.x) + sq(l.target.y - l.source.y));
+    l.sign = true;
+    l.center = findCenter(
       l.r,
       { x: l.source.x, y: l.source.y },
       { x: l.target.x, y: l.target.y },
     );
-    l.sign = sign;
-    l.center = l.sign ? centers.c2 : centers.c1;
 
     //https://stackoverflow.com/questions/26030023
     //http://jsbin.com/jutidigepeta/3/edit?html,js,output
-    function findCenters(r, p1, p2) {
+    function findCenter(r, p1, p2) {
       // pm is middle point of (p1, p2)
       let pm = { x: 0.5 * (p1.x + p2.x), y: 0.5 * (p1.y + p2.y) };
       // compute leading vector of the perpendicular to p1 p2 == C1C2 line
@@ -789,14 +782,9 @@ export function createCornerstones(container) {
       let dpmp1 = sqrt(sq(pm.x - p1.x) + sq(pm.y - p1.y));
       // sin of the angle between { circle center,  middle , p1 }
       let sin = dpmp1 / r;
-      // is such a circle possible ?
-      if (sin < -1 || sin > 1) return null; // no, return null
-      // yes, compute the two centers
       let cos = sqrt(1 - sq(sin)); // build cos out of sin
       let d = r * cos;
-      let res1 = { x: pm.x + perpABdx * d, y: pm.y + perpABdy * d };
-      let res2 = { x: pm.x - perpABdx * d, y: pm.y - perpABdy * d };
-      return { c1: res1, c2: res2 };
+      return { x: pm.x - perpABdx * d, y: pm.y - perpABdy * d };
     }
   }
 
@@ -980,7 +968,7 @@ export function createCornerstones(container) {
     });
 
     // Get the closest top-contributor node
-    let [d, FOUND] = ChartBase.pickNode(delaunay, nodes_delaunay, lx, ly, 50);
+    let [d, FOUND] = ChartBase.pickNode(delaunay, nodes, lx, ly, 50);
 
     // If that missed, fall back to the remaining-contributors index
     if (!FOUND && REMAINING_PRESENT && REMAINING_PLACED) {
@@ -1085,7 +1073,7 @@ export function createCornerstones(container) {
   const renderText = ChartBase.renderText;
 
   // From: https://stackoverflow.com/questions/2936112
-  function getLines(context, text, max_width, balance = true) {
+  function getLines(context, text, max_width) {
     let words = text.split(" ");
     let lines = [];
     let currentLine = words[0];
@@ -1103,17 +1091,11 @@ export function createCornerstones(container) {
     lines.push(currentLine);
 
     //Now that we know how many lines are needed, split those of 2 lines into better balanced sections
-    if (balance && lines.length === 2) {
+    if (lines.length === 2) {
       lines = splitSpring(text);
     }
 
-    let max_length = 0;
-    lines.forEach((l) => {
-      let width = context.measureText(l).width;
-      if (width > max_length) max_length = width;
-    });
-
-    return [lines, max_length];
+    return lines;
   }
 
   function splitSpring(text) {
@@ -1164,19 +1146,6 @@ export function createCornerstones(container) {
       });
     }
     return chart;
-  };
-
-  chart.topContributors = function (value) {
-    if (!arguments.length) return TOP_N;
-    TOP_N = value;
-    return chart;
-  };
-
-  chart.contributors = function () {
-    return contributors;
-  };
-  chart.remainingContributors = function () {
-    return remainingContributors;
   };
 
   chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
