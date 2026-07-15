@@ -60,6 +60,7 @@ Akascape <akashbora737[at]gmail.com> <@Akascape>
 A Kelday <garagecoder[at]gmail.com> <#A-Kelday>
 Akkana Peck <akkana[at]git.gnome.org> <akkana[at]shallowsky.com> <akkana[at]src.gnome.org> <@akkana> <#Akkana-Peck>
 alampy <arcticlampyrid[at]outlook.com> <@alampy>
+Alan Mortensen <alanmortensen.am[at]gmail.com> <oversaet[at]proton.me>
 Alberto Garcia Briz <alberto.garciabriz[at]gmail.com> <@AlbertoG>
 Alevtina <karashokovaaa[at]basealt.ru|Alevtina/Alevtina Karashokova> <@karashokovaaa>
 Alexander Hämmerle <Alexander.Haemmerle[at]gmx.de> <#Alexander-Hämmerle>
@@ -87,6 +88,7 @@ Andras Timar <timar74[at]gmail.com> <timar[at]gnome.hu> <@timar>
 Andreas Fischer <andreas.fischer[at]student.kit.edu> <#Andreas-Fischer>
 Andreas Hydén <a.hyden[at]cyberpoint.se> <ahyden[at]src.gnome.org>
 Andreas Scherer <andreas_github[at]freenet.de> <@ascherer>
+Andreas Vukman <andreas.vukman[at]gmail.com> <@andreas.vukman>
 Andrea Veri <andrea.veri[at]gmail.com> <averi[at]redhat.com> <@averi>
 Andrei Rybak <rybak.a.v[at]gmail.com> <@andrybak>
 André Klapper <a9016009[at]gmx.de> <ak-47[at]gmx.net> <@aklapper> <#André-Klapper>
@@ -167,6 +169,7 @@ Carol Spears <carol.spears[at]gmail.com> <carol[at]gimp.org> <carol[at]src.gnome
 Carsten Jensen <@tomse0008> <#Carsten-Jensen>
 Cătălin George Feștilă <@catafest> <#Cătălin-George-Feștilă>
 Changwoo Ryu <cwryu[at]debian.org> <cwryu[at]src.gnome.org> <@cwryu>
+Chao-Hsiung Liao <chliao[at]src.gnome.org> <j_h_liau[at]yahoo.com.tw>
 Chas Belov <docorbit[at]sonic.net> <@ChasBelov>
 Cheesequake <dev.cheesequake[at]gmail.com> <@cheesequake>
 chenzero <@stzdzyhs> <#chenzero>
@@ -224,6 +227,7 @@ David Gowers <00ai99[at]gmail.com> <finticemo[at]gmail.com> <@tilkau> <#David-Go
 David Lodge <dave[at]cirt.net> <dlodge[at]src.gnome.org>
 David Monniaux <monniaux[at]src.gnome.org> <@monniaux> <#David-Monniaux>
 David Odin <dindinx[at]src.gnome.org> <#David-Odin>
+David Planella <david.planella[at]gmail.com> <david.planella[at]googlemail.com>
 Dean Birch <dean.birch[at]arm.com> <@deanbirch>
 Debarshi Ray <debarshir[at]freedesktop.org> <debarshir[at]gnome.org> <debarshir[at]src.gnome.org> <rishi.is[at]lostca.se> <@debarshir> <#Debarshi-Ray>
 Denis Knoepfle <penpal.denis[at]web.de> <#Denis-Knoepfle>
@@ -266,6 +270,7 @@ Felix Yan <felixonmars[at]archlinux.org> <@felixonmars>
 Florian Klemme <mail[at]florianklemme.de> <#Florian-Klemme>
 Florian Weimer <fweimer[at]redhat.com> <@fweimer>
 Fotis Tsamis <ftsamis[at]gmail.com> <#Fotis-Tsamis>
+Francisco Bustamante <pancho[at]nuclecu.unam.mx>
 Francisco Javier F. Serrador <serrador[at]cvs.gnome.org> <serrador[at]openshine.com>
 Francisco vila <francisco.vila[at]hispalinux.es> <paconet.org[at]gmail.com>
 François Guerraz <francois[at]orographic.uk> <@kubrick> <#François-Guerraz>
@@ -339,6 +344,7 @@ James Golden <golden-james[at]att.net> <@GoldenWon>
 James Henstridge <james[at]daa.com.au> <jamesh[at]src.gnome.org>
 James Johnson <@mrjohnson1373> <#James-Johnson>
 James Legg <lankyleggy[at]gmail.com> <#James-Legg>
+James Mitchell <mitchell[at]gimp.org>
 Jan Heller <jheller[at]svn.gnome.org> <#Jan-Heller>
 Jan Morén <JanneM[at]src.gnome.org> <jan.moren[at]lucs.lu.se>
 Jan Palus <jpalus[at]fastmail.com> <@jpalus>
@@ -357,6 +363,7 @@ Jean-Baptiste Mayer <jean-baptiste.mayer[at]m4x.org> <#Jean-Baptiste-Mayer>
 Jean-Christophe Manciot <@actionmystique> <#Jean-Christophe-Manciot>
 Jeb Eldridge <@jebeld17> <#Jeb-Eldridge>
 Jeffery Small <@cjsmall> <@jefferysmall> <#Jeffery-Small>
+Jeff Fortin <nekohayo[at]gmail.com> <@jfft>
 Jeff Knox <jd.knox[at]gmail.com> <#Jeff-Knox>
 Jehan <jehan[at]girinstud.io> <@Jehan> <@Jehan_ZeMarmot> <#Jehan>
 Jens Georg <@jensgeorg> <#Jens-Georg>
@@ -372,10 +379,12 @@ Joachim Bauch <fancycode[at]debian.org> <@fancycode>
 Joachim P <@jpr> <137221-jpr[at]users.noreply.gitlab.gnome.org|Joachim Priesner>
 Joachim Wagner <@jowagner> <#Joachim-Wagner>
 João S. O. Bueno <gwidion[at]gmail.com> <gwidion[at]mpc.com.br> <#Joao-S.-O.-Bueno> <@jsbueno23>
+Joaquim Fellmann <joaquim[at]hrnet.fr>
 Joe Da Silva <digital[at]joescat.com> <@JoesCat>
 Joe Hansen <joedalton2[at]yahoo.dk> <#Joe-Hansen>
 Joey Riches <josephriches[at]gmail.com> <@joebonrichie>
 Johannes Matschke <butesa[at]freenet.de> <#Johannes-Matschke>
+John Bampton <jbampton[at]gmail.com> <@johnbam>
 John H. Davis <@jsdavis> <#John-H.-Davis>
 John K. Herreshoff <@John_k_h> <#John-K.-Herreshoff>
 John Marshall <jtm.home[at]gmail.com> <@jtm94> <#John-Marshall>
@@ -416,11 +425,12 @@ Kevin Sookocheff <sookokev[at]src.gnome.org> <#Kevin-Sookocheff>
 Kevin Stoffler <kevin.stoff[at]hotmail.com> <@Firego>
 Kevin Turner <acapnotic[at]src.gnome.org> <acapnotic[at]users.sourceforge.net> <#Kevin-Turner>
 Khaled Hosny <khaled[at]aliftype.com> <khaledhosny[at]eglug.org> <@khaledhosny> <#Khaled-Hosny>
+Khoem Sokhem <khem[at]src.gnome.org> <khoemsokhem[at]khmeros.info>
 Kiyotaka NISHIBORI <ml.nishibori.kiyotaka[at]gmail.com> <#Kiyotaka-NISHIBORI>
 Kjartan Maraas <kjartan.maraas[at]gmail.com> <kmaraas[at]gnome.org> <kmaraas[at]gnu.org> <kmaraas[at]online.no> <kmaraas[at]src.gnome.org> <#Kjartan-Maraas>
 Klaatu <@notklaatu> <#klaatu>
 Klaus Staedtler <staedtler-przyborski[at]web.de> <#Klaus-Staedtler>
-Kolbjørn Stuestøl <kolbjoern[at]src.gnome.org> <kolbjoern[at]stuestoel.no> <kolbjoern[at]git.gnome.org> <@kolbjoern> <#Kolbjørn-Stuestøl>
+Kolbjørn Stuestøl <kolbjoern[at]src.gnome.org> <kolbjoern[at]stuestoel.no> <kolbjoern[at]git.gnome.org> <@kolbjoern> <#Kolbjørn-Stuestøl> <#Kolbjoern>
 kotvkvante <kot-b-kbahte[at]yandex.ru> <@kotvkvante>
 Kővágó, Zoltán <DirtY.iCE.hu[at]gmail.com> <#Kővágó,-Zoltán>
 Krasnaya Ploshchad’ <@KrasnayaPloshchad> <#Krasnaya-Ploshchad’>
@@ -455,6 +465,7 @@ Lukas Oberhuber <lukas.oberhuber[at]simplybusiness.co.uk> <lukas[at]hiphops.io> 
 lumingzh <lumingzh[at]qq.com|Luming Zh/luming zh/lumingzh> <@flywater>
 Luna Jernberg <droidbittin[at]gmail.com> <@droidbittin>
 luzpaz <kunda[at]scribus.net> <luzpaz[at]pm.me> <@luzpaz> <luzpaz[at]users.noreply.github.com|luz paz/luz.paz/luzpaz>
+Mandrake <mandrake[at]mandrake.net>
 Manish Singh <yosh[at]gimp.org> <yosh[at]src.gnome.org> <#Manish-Singh>
 Marcelo Hernandez <marcelohdez.inq[at]gmail.com> <@marcelohdez>
 Marc Espie <espie[at]openbsd.org> <@marc.espie.openbsd> <@marcespie>
@@ -523,6 +534,7 @@ Miloš Popović <mpopovic[at]src.gnome.org> <@gpopac>
 Mingye Wang <arthur200126[at]gmail.com> <arthur2e5[at]aosc.io> <arthur2e5[at]aosc.xyz> <@Artoria2e5>
 Mircea Purdea <someone_else[at]exhalus.net> <#Mircea-Purdea>
 Miroslav Talasek <miroslav.talasek[at]seznam.cz> <#Miroslav-Talasek>
+MohammadSaleh Kamyab <mskf1383[at]envs.net> <mskf1383[at]protonmail.com>
 Morgane Glidic <sardemff7+git[at]sardemff7.net> <@sardemff7>
 mottechy <@mottechy> <#mottechy>
 Mr. Beedell, Roke Julian Lockhart (RJLB) <suybnd6r[at]rokejulianlockhart.addy.io> <@RokeJulianLockhart>
@@ -547,6 +559,7 @@ Nicholas La Roux <larouxn[at]gmail.com> <@larouxn>
 Nicholas Spies <@spiesn> <#Nicholas-Spies>
 nick758 <nick758[at]yandex.ru> <@nick758>
 nick black <nick.black[at]sprezzatech.com> <#nick-black>
+Nick Fetchak <nuke[at]bayside.net>
 Nick Lamb <nicklamb[at]src.gnome.org> <#Nick-Lamb>
 Nick Levinson <@Nick_Levinson> <#Nick-Levinson>
 Nickolay V. Shmyrev <nshmyrev[at]src.gnome.org> <nshmyrev[at]yandex.ru> <#Nickolay-V.-Shmyrev>
@@ -620,6 +633,7 @@ Pino Toscano <toscano.pino[at]tiscali.it> <#Pino-Toscano>
 Piotr Drąg <piotrdrag[at]gmail.com> <@piotrdrag> <#Piotr-Drąg>
 postscript-dev <postscript-dev[at]outlook.com> <@postscript-dev>
 Povilas Kanapickas <povilas[at]radix.lt> <@p12tic>
+Pranav P <pranav.p7[at]ibm.com> <@pranavkaruvally>
 Priit Laes <plaes at svn dot gnome dot org> <plaes[at]cvs.gnome.org> <plaes[at]svn.gnome.org> <amd[at]store20.com>
 programmer_ceds <programmer_ceds[at]yahoo.co.uk|Richard McLean/programmer-ceds/programmer_ceds> <@programmer_ceds> <#programmer_ceds>
 psykose <alice[at]ayaya.dev> <@psykose1>
@@ -654,7 +668,7 @@ Robert McHardy <robert[at]robertmchardy.de> <#Robert-McHardy>
 Robert Prins <@robert.ah.prins> <#Robert-Prins>
 Robin Swift <robinswiftart[at]gmail.com> <@swift>
 Rodolfo Ribeiro Gomes <rodolforg[at]gmail.com> <#Rodolfo-Ribeiro-Gomes>
-Rodrigo Lledó <rodhos92[at]gmail.com> <rodhos[at]gmail.com>
+Rodrigo Lledó <rodhos92[at]gmail.com> <rodhos[at]gmail.com> <rodhos92[at]protonmail.com>
 Roland Illig <@lmroil> <@rillig> <#Roland-Illig>
 Rolf Eike Beer <eike[at]sf-mail.de> <@DerDakon>
 Roman Horník <@roman.hornik> <#Roman-Horník>
@@ -804,6 +818,7 @@ Vint Prox <vintprox[at]envs.net> <@vintprox>
 Vladimir Savić <@vladimir.firefly.savic> <#Vladimir-Savic>
 Voya Thomison <voyaxthomison[at]gmail.com> <@nuppington>
 Wadim Dziedzic <wadimd[at]svn.gnome.org> <wdziedzic[at]aviary.pl>
+WarisMaqbool <warisk709[at]gmail.com|Waris/WarisMaqbool> <@WarisMaqbool>
 William Ferguson <wpferguson[at]gmail.com> <@wpferguson>
 William Jon McCann <@william.jon.mccann> <#William-Jon-McCann>
 William J Smyth <devopsmyth[at]gmail.com> <@devopsmyth>
@@ -830,6 +845,7 @@ Zander Brown <zbrown[at]gnome.org> <@ZanderBrown>
 Zbigniew Chyla <Zbigniew.Chyla[at]gmail.com> <cyba[at]gnome.pl> <#Zbigniew-Chyla>
 Zhouyang <jiazhouyang09[at]gmail.com> <#Zhouyang>
 Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
+Žygimantas Beručka <uid0[at]akl.lt> <zygis[at]gnome.org> <zygis[at]src.gnome.org>
 Дилян Палаузов <git-dpa[at]aegee.org> <@dilyan.palauzov> <#Дилян-Палаузов>
 Роман Гаврилов <alpha86devil[at]gmail.com> <@alpha86devil>
 張俊芝 <zjz[at]zjz.name> <@Zhang-Junzhi>
@@ -838,16 +854,19 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # === very-high (0) ===
 # deterministic gitlab handle - email binding: profile public_email (e.g. @user has user@x.com on profile), noreply commit (e.g. 123-user@users.noreply.gitlab.gnome.org), or commit local-part = handle (e.g. user@domain.com for @user).
 
-# === high (2) ===
+# === high (3) ===
 # same name across sources AND BOTH a specific name (multi-word or containing a digit, e.g. 'Jane Smith') AND >=1 identifier in >=2 sources (e.g. jane@x.com in both).
 # Jernej Simončič <jernej[at]ena.si|Jernej Simoncic/Jernej Simončič/Jernej Simončič> <jernej|s-cccp[at]eternallybored.org|Jernej Simončič> <jernej|s-gitstuff[at]eternallybored.org|Jernej Simončič>
+# Roman Horník <@Kremator> <@roman.hornik|Roman Hornik/Roman Horník>
 # Sven  Neumann <neo[at]bender|MEST 1999  Sven Neumann/MEST 1999 Sven Neumann/Sven  Neumann/Sven Neumann> <s.neumann[at]phase-zero.de|Sven Neumann> <s.neumann[at]raumfeld.com|Sven Neumann>
 
-# === medium (1) ===
+# === medium (3) ===
 # same name across sources AND (specific name (e.g. 'Jane Smith' with different emails per source) OR >=1 identifier in >=2 sources (e.g. 'Bruno' with same email in git and gitlab)), but not both.
 # Bruno <brunolopesdsilv[at]outlook.com|Bruno/Bruno Lopes> <#Bruno> <#bruno|bruno>
+# Einar Lielmanis <@spicausis> <#Einar-Lielmanis>
+# Franz Wein <@franzj> <#Franz-Wein>
 
-# === low (10) ===
+# === low (9) ===
 # NOT in common-names dataset AND (not-specific name AND 0 identifiers in >=2 sources (e.g. 'Xantiva' in git and gitlab with different IDs), OR match only under aggressive normalization (e.g. 'Adam D Moss' <=> 'Adam Moss')).
 # Administrator <gnome-sysadmin[at]gnome.org|Administrator/GNOME Translation Robot> <@root>
 # Alexander Rabtchevich <@bigserpent> <#alexander.v.rabtchevich|alexander.v.rabtchevich>
@@ -855,12 +874,11 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # E <@Caremdil> <#E> <#e|e>
 # G <@chandleg> <#G> <#g.|g.>
 # J <@J2583> <@Jonny007-MKD> <@Orphan-Crippler> <@bestwhisky1> <@darkbot> <@jessesm> <#J> <#j|j>
-# Kolbjørn Stuestøl <kolbjoern[at]src.gnome.org|kolbjoern> <#Kolbjoern|Kolbjoern>
 # Michael A Morris <@Collidence> <@mmorris|Michael Morris>
 # Pascal Massimino <pascal.massimino[at]gmail.com|Pascal Massimino/skal> <skal[at]google.com|Skal> <@skal65535|skal>
 # S <@alex2275> <@pees> <#s|s>
 
-# === very-low (336) ===
+# === very-low (337) ===
 # in common-names dataset AND (not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk.
 # A. Rudi B. <@arbbornscheinmediade> <#Rudi|Rudi>
 # Aaron <@ay_ay_ron> <#Aaron> <#aaron|aaron>
@@ -932,8 +950,8 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Danny <@dannyken|danny> <#Danny> <#danny|danny>
 # Dave <@DaveM> <@dcbrown73> <@dseeba> <#Dave> <#dave|dave>
 # Dave S <@DaveH|Dave H> <@DaveM|Dave> <@dcbrown73|Dave> <@dpaolicelli|Dave P> <@dseeba|Dave> <#Dave|Dave> <#Dave-B|Dave B> <#Dave-S> <#dave|dave>
-# David <@ShryDvd> <@Snaggletooth> <@astaroth|david> <@davidroth09> <@dmillins> <#David> <#david|david>
-# David S. <@ShryDvd|David> <@Snaggletooth|David> <@astaroth|david> <@davidroth09|David> <@dmillins|David> <@unimportantdavidz|David Z> <#David|David> <#David-D|David D> <#David-K|David K> <#David-P.|David P.> <#David-S.> <#david|david>
+# David <@ShryDvd> <@Snaggletooth> <@astaroth|david> <@davidroth09> <@dmillins> <@dobadia> <#David> <#david|david>
+# David S. <@ShryDvd|David> <@Snaggletooth|David> <@astaroth|david> <@davidroth09|David> <@dmillins|David> <@dobadia|David> <@unimportantdavidz|David Z> <#David|David> <#David-D|David D> <#David-K|David K> <#David-P.|David P.> <#David-S.> <#david|david>
 # Dev <@Devmursea> <#dev|dev>
 # DF <@duane.feldhacker> <#DF>
 # Diego <@Diegoelzorro> <#diego|diego>
@@ -1028,8 +1046,8 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Kate <@kateshort2> <#Kate>
 # Kathryn <@jkathryn882> <#Kathryn>
 # Keith <@KeithRoberts> <#Keith> <#keith|keith>
-# Kevin <@kblans> <#Kevin> <#kevin|kevin>
-# Kevin L. C. <@KevDoy|Kevin D> <@UrIcApTEFU|Kevin L> <@kblans|Kevin> <#Kevin|Kevin> <#Kevin-L.-C.> <#Kevin-M.|Kevin M.> <#kevin|kevin>
+# Kevin <@KevinABowman> <@kblans> <#Kevin> <#kevin|kevin>
+# Kevin L. C. <@KevDoy|Kevin D> <@KevinABowman|Kevin> <@UrIcApTEFU|Kevin L> <@kblans|Kevin> <#Kevin|Kevin> <#Kevin-L.-C.> <#Kevin-M.|Kevin M.> <#kevin|kevin>
 # Klaus <@KlausZehe> <@kbauer> <#Klaus>
 # Kris <@kris> <#Kris>
 # Krzysztof <@netvalker> <#Krzysztof>
@@ -1056,11 +1074,11 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Mac P <@MacFellmann|Mac> <@dpwdfdlam4182> <#Mac|Mac>
 # Magnus <@Traxzorg> <#Magnus>
 # Malte <@Malte> <#Malte>
-# Manfred <@schohmik> <#Manfred>
+# Manfred <@Manfred28> <@schohmik> <#Manfred>
 # Marc <@Zanam> <@marc.savioz> <#MarC|MarC> <#Marc> <#marc|marc>
 # Marcel <@marrelmaker> <#Marcel>
-# Marco <@marco.to> <#marco|marco>
-# Marco D. <@MFDV> <@marco.to|Marco> <#marco|marco>
+# Marco <@marco.to> <@marcosarag|marco> <#marco|marco>
+# Marco D. <@MFDV> <@marco.to|Marco> <@marcosarag|marco> <#marco|marco>
 # Marcos C <@chisao> <#marcos|marcos>
 # Marek <@mareg> <#Marek> <#marek|marek>
 # Marie-P <mpbwelle[at]gmail.com> <@Mariemilie|Marie>
@@ -1076,8 +1094,8 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Matt G H C <@gnomeo|Matt C> <@knumat|Matt K> <#Matt|Matt> <#Matt-G-H-C> <#Matt-G.|Matt G.> <#Matt-H|Matt H> <#matt|matt>
 # Matthew J. <@puppy2655> <#Matthew|Matthew> <#matthew|matthew>
 # Maurizio <@maurizio.bada> <#Maurizio>
-# Max <@Maxwh2007> <#Max> <#max|max>
-# Max J <@Maxwh2007|Max> <@maxsocial001> <#Max|Max> <#max|max>
+# Max <@MaxZ> <@Maxwh2007> <#Max> <#max|max>
+# Max J <@MaxZ|Max> <@Maxwh2007|Max> <@maxsocial001> <#Max|Max> <#max|max>
 # Maxim <@gnomax> <#Maxim>
 # Mel <@M3l> <#Mel>
 # Michael <@EhmJayBe> <@Michael> <@Michael_Eyinck> <#Michael> <#michael|michael>
@@ -1122,6 +1140,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Pippin <@Pippin> <#Pippin>
 # PM <@Mecki> <@PM> <#pm|pm>
 # pollux <@pollux> <#pollux>
+# Pranav P <pranav.p7[at]ibm.com> <@Pranav|Pranav>
 # Péter <@Peter93197|Peter> <@PeterBenedek> <@peterno3|Peter> <@peto2006|Peter> <@phunsoft|Peter> <#Peter|Peter> <#Peter_|Peter_> <#peter|peter>
 # Ralf D. <@_Alf> <#Ralf|Ralf> <#ralf|ralf>
 # Ralph <@oertli_r> <#Ralph>
@@ -1169,8 +1188,8 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Tester <@Testing> <#Tester>
 # Th <@TH_1> <#th|th>
 # Thilo <@tpki> <#Thilo>
-# Thomas <@flipp3003> <@greenknight9000> <#THOMAS|THOMAS> <#Thomas> <#thomas|thomas>
-# Thomas F. <@flipp3003|Thomas> <@greenknight9000|Thomas> <#THOMAS|THOMAS> <#Thomas|Thomas> <#Thomas-F.> <#Thomas-W|Thomas W> <#thomas|thomas>
+# Thomas <@flipp3003> <@greenknight9000> <@thoros> <#THOMAS|THOMAS> <#Thomas> <#thomas|thomas>
+# Thomas F. <@flipp3003|Thomas> <@greenknight9000|Thomas> <@thoros|Thomas> <#THOMAS|THOMAS> <#Thomas|Thomas> <#Thomas-F.> <#Thomas-W|Thomas W> <#thomas|thomas>
 # Thorsten K <@sputnikchen2|Thorsten H> <#Thorsten|Thorsten> <#Thorsten-K>
 # Tilo <@tilo|tilo> <#Tilo>
 # Tim <@enlowtainment> <@pkhits> <#Tim> <#tim|tim>
@@ -1199,14 +1218,13 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Zach <@ZThing222> <#Zach>
 # Zero <@zero_fire|zero> <@zeroaladreta|zero> <#Zero>
 
-# === single-source (238) ===
+# === single-source (232) ===
 # same name with >=2 distinct IDs all within ONE source (e.g. 'Andy Thomas' committing as both alt@gimp.org and alt@picnic.demon.co.uk) - no cross-source corroboration, so for gitlab and bugzilla these are likely false-positives. May be useful for mails.
 # A <#A> <#a|a>
 # Akira <@Akirakp_30> <@akirapink>
 # Alain G. <#Alain|Alain> <#Alain-G.>
 # Alan <#Alan> <#alan|alan>
 # Alan German <@alan.german> <@alanthelinuxguy>
-# Alan Mortensen <alanmortensen.am[at]gmail.com> <oversaet[at]proton.me>
 # Alessandro <@Rospus> <@alcap>
 # Alessandro R. <@AlessandroR9891> <@Rospus|Alessandro> <@alcap|Alessandro>
 # Alex Samorukov <oleksii_samorukov[at]mckinsey.com|Oleksii Samorukov> <samm[at]net-art.cz|Alex Samorukov/Oleksii Samorukov>
@@ -1243,7 +1261,6 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Caspar Wahl-vom Bruch <@CWvB> <@casparwahlvombruch>
 # Cathy <#Cathy> <#cathy|cathy>
 # Cecily Rowley <@cybercrrgm> <@ladyseshiiria>
-# Chao-Hsiung Liao <chliao[at]src.gnome.org> <j_h_liau[at]yahoo.com.tw>
 # Christine Gardner <@chrissiemg26> <@gardnerchristine52>
 # Christoph N <#Christoph|Christoph> <#Christoph-N>
 # Christophe saigne <#Christophe-Saigne|Christophe Saigne> <#Christophe-saigne>
@@ -1261,7 +1278,6 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Daniel Gerber <@DJGerber> <@devioushyde>
 # Daniel Șerbănescu <cyber19rider[at]gmail.com> <daniel[at]serbanescu.dk> <daniel[at]serbanescu.tk>
 # Darren G <@darreng5150> <@dazzer9505|darren>
-# David Planella <david.planella[at]gmail.com> <david.planella[at]googlemail.com>
 # Davide <#Davide> <#davide|davide>
 # Dennis <#Dennis> <#dennis|dennis>
 # Derek <#Derek> <#derek|derek>
@@ -1313,7 +1329,6 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # José <@Pepe-Thartesos> <@interwebnavigator> <@moral|Jose>
 # João S. O. Bueno <gwidion[at]gmail.com|Joao S. O. Bueno/Joao S. O. Bueno Calligaris/João S. O. Bueno/João S. O. Bueno Calligaris> <gwidon[at]mpc.com.br|João S. O. Bueno Calligaris>
 # Julien Jorge <#Julien-Jorge> <#julien.jorge|julien.jorge>
-# Khoem Sokhem <khem[at]src.gnome.org> <khoemsokhem[at]khmeros.info>
 # KJ <@Just> <@k.jablonski>
 # Klaus Goelker <#Klaus-Goelker> <#Klaus.Goelker|Klaus.Goelker>
 # Krystian D. <#Krystian|Krystian> <#Krystian-D.>
@@ -1323,8 +1338,8 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Laxminarayan G Kamath A <#Laxminarayan-G-Kamath-A> <#Laxminarayan-Kamath|Laxminarayan Kamath>
 # Leo <#LeO|LeO> <#Leo>
 # LL L <@brgt2020|LL> <@info.proware>
-# luca <@247> <@strife>
-# Luca P. <@247|luca> <@lucap> <@strife|luca>
+# Luca <@247|luca> <@hawk89zagor> <@strife|luca>
+# Luca P. <@247|luca> <@hawk89zagor|Luca> <@lucap> <@strife|luca>
 # Lucas <#Lucas> <#lucas|lucas>
 # M L <@la-marc> <@photomom71>
 # M.P. <@michellepatry06> <@mp|m p>
@@ -1342,7 +1357,6 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Mika <@mikatastrophe|mika> <@mnuotio>
 # Mike Landis <@3c58> <@darkskyanarchy>
 # Mike Marek <@lathemaster> <@lathemaster.mm>
-# MohammadSaleh Kamyab <mskf1383[at]envs.net> <mskf1383[at]protonmail.com>
 # Natalie <#Natalie> <#natalie|natalie>
 # Nathan <#Nathan> <#nathan|nathan>
 # Nicole Vickers <@nicole.vickers> <@nuv79>
@@ -1438,4 +1452,6 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # WILLIAM CHEN <@WEIHAIC> <@william-chen|william chen>
 # Wolf <#Wolf> <#wolf|wolf>
 # Yuri Myasoedov <omerta13[at]yandex.ru> <ymyasoedov[at]yandex.ru>
-# Žygimantas Beručka <uid0[at]akl.lt|Zygimantas Berucka/Žygimantas Beručka> <zygis[at]gnome.org> <zygis[at]src.gnome.org>
+
+# === name-cleanup (0) ===
+# no duplicates to merge; name carries a 'TZ YYYY' prefix (e.g. 'CST 1998  Francisco Bustamante'). The alias just strips the prefix so the name reads cleanly.

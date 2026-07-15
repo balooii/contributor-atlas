@@ -1,4 +1,36 @@
 category,contributor_name,contributor_id,timestamp
+coding-other,Bruno,1,1783771200
+coding-other,Bruno,1,1783512000
+coding-other,Bruno,1,1782993600
+coding-other,Bruno,1,1782993600
+coding-other,Bruno,1,1782734400
+coding-other,Bruno,1,1782734400
+coding-other,Bruno,1,1782734400
+coding-other,Bruno,1,1782561600
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+documentation,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781784000
+coding-other,Jehan,4,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
 coding-other,Bruno,1,1780228800
 coding-other,Bruno,1,1780228800
 coding-other,Bruno,1,1780228800
@@ -2182,7 +2214,7 @@ bug-reporting,Jeremy Bicha,94,1765454400
 improvement-suggestion,Jeremy Bicha,94,1765454400
 bug-reporting,Sergey Torokhov,21,1617796800
 bug-reporting,Elle Stone,38,1564315200
-bug-reporting,Bruno,1,1752235200
+improvement-suggestion,Bruno,1,1752235200
 improvement-suggestion,WabiWasabi,133,1776513600
 bug-reporting,Aruius,134,1775736000
 improvement-suggestion,Harsh Verma,135,1777723200
@@ -2224,6 +2256,8 @@ coding-other,Joe Da Silva,6,1759492800
 coding-other,Jeremy Bicha,94,1769428800
 coding-other,Charlie Li,142,1770033600
 coding-other,wyatt mccurdy,143,1775995200
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
 improvement-suggestion,Daniel Rogers,144,1074945600
 improvement-suggestion,Daniel Rogers,144,1075032000
 bug-reporting,Daniel Rogers,144,1075032000
@@ -3047,6 +3081,64 @@ bug-reporting,Ján Veselý,32,1526558400
 bug-reporting,Jason Woofenden,392,1526817600
 bug-reporting,Dylon,393,1526904000
 bug-reporting,Jean-Luc Coulon,357,1527076800
+coding-other,Bruno,1,1783771200
+coding-other,Bruno,1,1783771200
+coding-bugfix,Bruno,1,1783771200
+coding-other,Bruno,1,1783771200
+coding-feature,Bruno,1,1783771200
+coding-other,Bruno,1,1783684800
+coding-other,Tal Regev,3,1783684800
+coding-bugfix,Tal Regev,3,1783684800
+coding-other,Tal Regev,3,1783684800
+coding-other,Bruno,1,1783512000
+coding-other,Bruno,1,1783080000
+coding-other,Bruno,1,1783080000
+coding-other,Tal Regev,3,1783080000
+coding-other,Bruno,1,1782993600
+coding-other,Bruno,1,1782993600
+coding-other,Bruno,1,1782993600
+coding-other,"Øyvind ""pippin"" Kolås",2,1782820800
+coding-other,Bruno,1,1782734400
+coding-feature,Bruno,1,1782734400
+coding-bugfix,Bruno,1,1782734400
+coding-bugfix,Bruno,1,1782648000
+translation,Yuri Chornoivan,403,1782648000
+translation,Dick Groskamp,397,1782648000
+translation,Martin,407,1782648000
+coding-bugfix,Bruno,1,1782648000
+translation,lumingzh,406,1782648000
+coding-other,Bruno,1,1782561600
+coding-other,Bruno,1,1782561600
+coding-feature,Thomas Manni,39,1782561600
+coding-other,Bruno,1,1782561600
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781784000
+translation,Rodrigo Lledó,429,1781611200
+coding-other,Bruno,1,1781265600
+coding-bugfix,Jehan,4,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
 coding-bugfix,Jehan,4,1780488000
 coding-other,Bruno,1,1780228800
 coding-other,Bruno,1,1780228800
@@ -3141,7 +3233,7 @@ coding-other,Bruno,1,1776772800
 translation,Dick Groskamp,397,1776600000
 translation,Marco Ciampa,398,1776427200
 coding-other,Bruno,1,1775908800
-translation,Alan Mortensen,399,1775908800
+translation,Alan Mortensen,420,1775908800
 coding-other,"Øyvind ""pippin"" Kolås",2,1775736000
 translation,Anders Jonsson,12,1775649600
 coding-other,Tal Regev,3,1775476800
@@ -14776,6 +14868,9 @@ improvement-suggestion,Jeremy Bicha,94,1778414400
 bug-reporting,Ondřej Míchal,394,1779192000
 bug-reporting,mzuest,684,1778673600
 improvement-suggestion,Administrator,138,1780228800
+improvement-suggestion,woot000,9268,1782993600
+bug-reporting,Anders Jonsson,12,1780574400
+bug-reporting,Bruno,1,1783080000
 coding-other,Elad Shahar,486,1540123200
 coding-other,Ghost User,89,1549022400
 coding-other,Ghost User,89,1548331200
@@ -15216,6 +15311,9 @@ improvement-suggestion,Alexandre Prokoudine,36,1528718400
 improvement-suggestion,Jehan,4,1674561600
 bug-reporting,Ghost User,89,1543147200
 improvement-suggestion,Ghost User,89,1555243200
+coding-other,Anders Jonsson,12,1782648000
+coding-other,balooii,409,1781611200
+coding-other,Bruno,1,1780660800
 coding-other,Jehan,4,1780315200
 coding-other,Jehan,4,1780056000
 coding-other,Jehan,4,1779969600
@@ -15411,6 +15509,7 @@ bug-reporting,Roman Kuznetsov,706,1774785600
 improvement-suggestion,Bruno,1,1719403200
 improvement-suggestion,Anders Jonsson,12,1776945600
 improvement-suggestion,Bruno,1,1778500800
+improvement-suggestion,balooii,409,1781870400
 coding-other,Lukas Oberhuber,13,1736683200
 coding-other,Kyuzo,707,1744459200
 coding-other,Aryeom,699,1756555200
@@ -15418,6 +15517,9 @@ coding-other,Denis Rangelov,698,1763812800
 coding-other,v4vansh,708,1775995200
 coding-other,Jasper,709,1758715200
 coding-other,Alx Sa,422,1779278400
+coding-other,Denis Rangelov,698,1782993600
+coding-feature,Blezecon,710,1781956800
+coding-feature,Blezecon,710,1781956800
 coding-other,Blezecon,710,1779883200
 coding-bugfix,Blezecon,710,1779796800
 coding-bugfix,Blezecon,710,1779796800
@@ -15489,7 +15591,7 @@ coding-other,ts-31,718,1745323200
 coding-other,ts-31,718,1745582400
 coding-other,Fabio Coroli,720,1774008000
 coding-other,Michal Vašut,711,1775217600
-coding-other,Blezecon,710,1780228800
+coding-other,Blezecon,710,1783166400
 translation,Cédric Valmary,502,1433678400
 coding-other,Piotr Drąg,442,1426334400
 translation,Samir Ribic,517,1426334400
@@ -16567,7 +16669,7 @@ communication,Sven Neumann,83,1132401600
 coding-other,Sven Neumann,83,1132056000
 coding-other,Sven Neumann,83,1132056000
 coding-other,Sven Neumann,83,1132056000
-translation,Žygimantas Beručka,902,1131624000
+translation,Žygimantas Beručka,9478,1131624000
 translation,Francisco Javier F. Serrador,738,1131192000
 coding-other,Sven Neumann,83,1130932800
 translation,Adam Weinberger,744,1130760000
@@ -17737,6 +17839,82 @@ bug-reporting,Edward Chernenko,1053,1524830400
 bug-reporting,dan.piercey,1054,1525348800
 bug-reporting,Ralph Corderoy,1055,1526385600
 bug-reporting,Federico L,1044,1526558400
+translation,Dick Groskamp,397,1784030400
+documentation,Jacob Boerema,7,1783944000
+documentation,Jacob Boerema,7,1783944000
+coding-other,Jacob Boerema,7,1783684800
+translation,Marco Ciampa,398,1783425600
+translation,Marco Ciampa,398,1782993600
+translation,Marco Ciampa,398,1782820800
+translation,Marco Ciampa,398,1782561600
+translation,Dick Groskamp,397,1782475200
+translation,Dick Groskamp,397,1782475200
+translation,Dick Groskamp,397,1782388800
+documentation,Jacob Boerema,7,1782388800
+coding-other,Jacob Boerema,7,1782388800
+translation,Marco Ciampa,398,1782302400
+translation,Mateusz Jastrząb,9282,1782302400
+translation,Mateusz Jastrząb,9282,1782302400
+translation,Dick Groskamp,397,1782216000
+translation,Dick Groskamp,397,1782216000
+translation,Yuri Chornoivan,403,1782129600
+documentation,Jacob Boerema,7,1782129600
+documentation,Jacob Boerema,7,1782129600
+translation,Dick Groskamp,397,1782129600
+translation,Dick Groskamp,397,1782129600
+documentation,Chas Belov,666,1782129600
+translation,Dick Groskamp,397,1782129600
+documentation,Jacob Boerema,7,1782043200
+translation,Dick Groskamp,397,1782043200
+translation,Yuri Chornoivan,403,1781956800
+translation,Yuri Chornoivan,403,1781956800
+translation,Yuri Chornoivan,403,1781956800
+translation,Dick Groskamp,397,1781956800
+translation,Dick Groskamp,397,1781956800
+translation,Dick Groskamp,397,1781956800
+documentation,Alx Sa,422,1781956800
+translation,Dick Groskamp,397,1781956800
+documentation,Jacob Boerema,7,1781956800
+translation,Dick Groskamp,397,1781956800
+documentation,Jacob Boerema,7,1781956800
+documentation,Jacob Boerema,7,1781956800
+documentation,Jacob Boerema,7,1781956800
+documentation,Jacob Boerema,7,1781956800
+documentation,Jacob Boerema,7,1781956800
+documentation,Jacob Boerema,7,1781956800
+translation,Kolbjørn Stuestøl,401,1781870400
+translation,Marco Ciampa,398,1781870400
+translation,Kolbjørn Stuestøl,401,1781784000
+translation,Kolbjørn Stuestøl,401,1781784000
+translation,Marco Ciampa,398,1781784000
+translation,Marco Ciampa,398,1781697600
+translation,Rodrigo Lledó,429,1781611200
+translation,Marco Ciampa,398,1781611200
+translation,Marco Ciampa,398,1781611200
+translation,Marco Ciampa,398,1781524800
+translation,Marco Ciampa,398,1781524800
+translation,Marco Ciampa,398,1781352000
+translation,Dick Groskamp,397,1781265600
+translation,Dick Groskamp,397,1781179200
+documentation,Jacob Boerema,7,1781179200
+documentation,Jacob Boerema,7,1781179200
+documentation,Jacob Boerema,7,1781092800
+translation,Марко Костић,404,1781092800
+translation,Марко Костић,404,1781092800
+translation,Марко Костић,404,1781092800
+translation,Марко Костић,404,1781092800
+translation,Марко Костић,404,1781092800
+translation,Марко Костић,404,1781092800
+translation,Марко Костић,404,1781092800
+translation,Marco Ciampa,398,1781006400
+translation,Marco Ciampa,398,1781006400
+translation,Yuri Chornoivan,403,1780920000
+translation,Marco Ciampa,398,1780920000
+translation,Marco Ciampa,398,1780920000
+translation,Kolbjørn Stuestøl,401,1780920000
+translation,Dick Groskamp,397,1780833600
+translation,Dick Groskamp,397,1780833600
+documentation,Jacob Boerema,7,1780747200
 translation,Christian Kirbach,253,1779451200
 translation,Christian Kirbach,253,1779451200
 translation,Dick Groskamp,397,1778760000
@@ -25060,13 +25238,13 @@ documentation,Axel Wernicke,924,1216814400
 documentation,Axel Wernicke,924,1216728000
 translation,Axel Wernicke,924,1216555200
 documentation,Ulf-D. Ehlert,212,1216296000
-documentation,Žygimantas Beručka,902,1216209600
+documentation,Žygimantas Beručka,9478,1216209600
 documentation,Axel Wernicke,924,1216123200
 documentation,Axel Wernicke,924,1216123200
 documentation,Ulf-D. Ehlert,212,1215950400
-documentation,Žygimantas Beručka,902,1215864000
-documentation,Žygimantas Beručka,902,1215864000
-documentation,Žygimantas Beručka,1129,1215864000
+documentation,Žygimantas Beručka,9478,1215864000
+documentation,Žygimantas Beručka,9478,1215864000
+documentation,Žygimantas Beručka,9478,1215864000
 communication,Róman Joost,923,1215604800
 documentation,Axel Wernicke,924,1215345600
 documentation,Róman Joost,923,1215259200
@@ -25220,7 +25398,7 @@ documentation,Axel Wernicke,924,1202558400
 documentation,Axel Wernicke,924,1202558400
 documentation,Julien hardelin,477,1202472000
 translation,Julien hardelin,477,1202385600
-documentation,Žygimantas Beručka,902,1202299200
+documentation,Žygimantas Beručka,9478,1202299200
 documentation,Julien hardelin,477,1202299200
 documentation,Raphaël Quinet,937,1202212800
 documentation,Axel Wernicke,924,1202126400
@@ -25259,15 +25437,15 @@ documentation,Róman Joost,923,1200571200
 documentation,Marco Ciampa,398,1200571200
 documentation,Axel Wernicke,924,1200484800
 documentation,Axel Wernicke,924,1200484800
-documentation,Žygimantas Beručka,1129,1200398400
+documentation,Žygimantas Beručka,9478,1200398400
 documentation,Julien hardelin,477,1200398400
 documentation,Marco Ciampa,398,1200225600
 documentation,Julien hardelin,477,1200139200
-documentation,Žygimantas Beručka,1129,1200052800
-documentation,Žygimantas Beručka,1129,1200052800
+documentation,Žygimantas Beručka,9478,1200052800
+documentation,Žygimantas Beručka,9478,1200052800
 documentation,Ulf-D. Ehlert,212,1199880000
-documentation,Žygimantas Beručka,1129,1199880000
-documentation,Žygimantas Beručka,1129,1199880000
+documentation,Žygimantas Beručka,9478,1199880000
+documentation,Žygimantas Beručka,9478,1199880000
 documentation,Julien hardelin,477,1199880000
 documentation,Marco Ciampa,398,1199793600
 coding-other,Julien hardelin,477,1199793600
@@ -25280,7 +25458,7 @@ documentation,Julien hardelin,477,1199534400
 documentation,Ulf-D. Ehlert,212,1199448000
 documentation,Julien hardelin,477,1199448000
 documentation,Vitaly Lomov,1111,1199448000
-documentation,Žygimantas Beručka,1129,1199448000
+documentation,Žygimantas Beručka,9478,1199448000
 coding-other,Róman Joost,923,1199361600
 documentation,Ulf-D. Ehlert,212,1199361600
 documentation,Ulf-D. Ehlert,212,1199361600
@@ -25289,12 +25467,12 @@ documentation,Axel Wernicke,924,1199275200
 coding-other,Axel Wernicke,924,1199188800
 documentation,Julien hardelin,477,1199188800
 translation,Marco Ciampa,398,1199188800
-documentation,Žygimantas Beručka,1129,1199102400
-documentation,Žygimantas Beručka,1129,1199016000
-documentation,Žygimantas Beručka,1129,1199016000
-documentation,Žygimantas Beručka,1129,1199016000
-documentation,Žygimantas Beručka,1129,1199016000
-documentation,Žygimantas Beručka,1129,1199016000
+documentation,Žygimantas Beručka,9478,1199102400
+documentation,Žygimantas Beručka,9478,1199016000
+documentation,Žygimantas Beručka,9478,1199016000
+documentation,Žygimantas Beručka,9478,1199016000
+documentation,Žygimantas Beručka,9478,1199016000
+documentation,Žygimantas Beručka,9478,1199016000
 documentation,Julien hardelin,477,1199016000
 documentation,Julien hardelin,477,1199016000
 documentation,Róman Joost,923,1198929600
@@ -28160,9 +28338,9 @@ coding-other,Dick Groskamp,397,1764072000
 coding-other,Sabri Ünal,400,1764417600
 coding-other,André Klapper,15,1720612800
 coding-other,Chas Belov,666,1772539200
-coding-other,Chas Belov,666,1772539200
 coding-other,balooii,409,1777550400
 coding-other,Richard Gitschlag,705,1778155200
+coding-other,Dick Groskamp,397,1781265600
 coding-other,Lukas Oberhuber,13,1778932800
 coding-other,Lukas Oberhuber,13,1778932800
 coding-other,Lukas Oberhuber,13,1778932800
@@ -28845,6 +29023,7 @@ improvement-suggestion,Dominik Reichardt,1292,1772625600
 improvement-suggestion,Dominik Reichardt,1292,1769601600
 improvement-suggestion,Chas Belov,666,1759665600
 bug-reporting,Foxlet,1295,1531483200
+improvement-suggestion,Lukas Oberhuber,13,1780660800
 coding-other,emsspree,1296,1600257600
 coding-other,Lukas Oberhuber,13,1636632000
 coding-other,Lukas Oberhuber,13,1645444800
@@ -29889,7 +30068,7 @@ coding-other,Marc Lehmann,912,940248000
 coding-other,Marc Lehmann,912,940161600
 translation,Marc Lehmann,912,940075200
 translation,Kelly Martin,694,938865600
-translation,CDT 1999 James Mitchell,1346,938606400
+translation,James Mitchell,1346,938606400
 coding-other,Marc Lehmann,912,937656000
 coding-other,Marc Lehmann,912,937656000
 coding-feature,Marc Lehmann,912,937310400
@@ -31666,6 +31845,38 @@ improvement-suggestion,Denis Rangelov,698,1735819200
 improvement-suggestion,mm_gnome,1558,1779364800
 improvement-suggestion,Michael Schumacher,34,1780488000
 improvement-suggestion,BobsDaughter,1511,1780488000
+improvement-suggestion,Michael Schumacher,34,1780660800
+improvement-suggestion,Reju,1251,1780660800
+improvement-suggestion,Benoit Gérin-Lajoie,1532,1566388800
+improvement-suggestion,Babs Keeley,1249,1645963200
+improvement-suggestion,Judson Borges,13206,1592395200
+improvement-suggestion,Michael Thomson,12401,1780660800
+improvement-suggestion,Richard Gitschlag,705,1780747200
+improvement-suggestion,Jon,15887,1780747200
+improvement-suggestion,GWS,18295,1781092800
+improvement-suggestion,Jon,15887,1780920000
+improvement-suggestion,Richard Gitschlag,705,1780833600
+improvement-suggestion,spillz,18296,1780920000
+improvement-suggestion,Richard Gitschlag,705,1781611200
+improvement-suggestion,Awussi,18297,1782129600
+improvement-suggestion,Richard Gitschlag,705,1781784000
+improvement-suggestion,Awussi,18297,1782302400
+improvement-suggestion,Ellie,1455,1782388800
+improvement-suggestion,Richard Gitschlag,705,1782475200
+improvement-suggestion,MoonlightWave-12,1553,1782475200
+improvement-suggestion,Awussi,18297,1782561600
+improvement-suggestion,pee-j,18298,1782648000
+improvement-suggestion,Americo Gobbo,1461,1782820800
+improvement-suggestion,Pierpaolo,18299,1782561600
+improvement-suggestion,Americo Gobbo,1461,1782820800
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,Mark Sweeney,677,1679918400
+improvement-suggestion,DaviesMediaDesign,1435,1587556800
+improvement-suggestion,Steph Jensen,12769,1713614400
+improvement-suggestion,Shubham Agrawal,9878,1583668800
+improvement-suggestion,Denis Rangelov,698,1783857600
+improvement-suggestion,Yann Salmon,12274,1784030400
+improvement-suggestion,Reju,1251,1784030400
 documentation,Jehan,4,1779624000
 documentation,Jehan,4,1776427200
 documentation,Jehan,4,1776427200
@@ -32852,6 +33063,9 @@ coding-other,Bruno,1,1717588800
 coding-other,Robin Swift,715,1658145600
 coding-other,Lloyd Konneker,123,1763380800
 coding-other,Lloyd Konneker,123,1763294400
+coding-other,Harsh Verma,135,1781524800
+coding-other,Bruno,1,1783252800
+coding-other,Harsh Verma,135,1783771200
 bug-reporting,pavel,1578,990619200
 bug-reporting,Stephane Chauveau,1579,1001246400
 bug-reporting,Branko Collin,1580,1004356800
@@ -33805,6 +34019,79 @@ bug-reporting,Simon Harhues,2244,1532260800
 bug-reporting,Simon Harhues,2244,1532260800
 bug-reporting,PAULRF0NTEN0T,2245,1532692800
 bug-reporting,Simon Jalandt,2246,1534075200
+coding-other,Bruno,1,1783684800
+communication,Alx Sa,422,1783684800
+communication,Alx Sa,422,1783684800
+communication,Alx Sa,422,1783684800
+communication,Alx Sa,422,1783684800
+communication,Alx Sa,422,1783598400
+coding-bugfix,Bruno,1,1783512000
+coding-other,Bruno,1,1783512000
+coding-feature,Bruno,1,1783512000
+coding-other,Bruno,1,1783512000
+communication,Alx Sa,422,1783512000
+documentation,Bruno,1,1783512000
+coding-other,Bruno,1,1783512000
+communication,Alx Sa,422,1783512000
+documentation,Bruno,1,1783425600
+documentation,Bruno,1,1783425600
+documentation,Bruno,1,1783425600
+coding-feature,Bruno,1,1783425600
+coding-other,Bruno,1,1783425600
+communication,Bruno,1,1783425600
+communication,Bruno,1,1783425600
+coding-bugfix,Bruno,1,1783425600
+coding-other,Bruno,1,1783425600
+coding-other,Bruno,1,1782993600
+coding-other,Bruno,1,1782993600
+documentation,Jehan,4,1782820800
+communication,Alx Sa,422,1782820800
+communication,Alx Sa,422,1782820800
+communication,Alx Sa,422,1782734400
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+communication,Alx Sa,422,1782648000
+documentation,Bruno,1,1782648000
+documentation,Jehan,4,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+documentation,Bruno,1,1782648000
+coding-other,Bruno,1,1782648000
+coding-bugfix,Bruno,1,1782302400
+documentation,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-other,Bruno,1,1782043200
+coding-bugfix,Jehan,4,1781956800
+communication,Jehan,4,1781870400
+coding-feature,balooii,409,1781611200
+coding-feature,balooii,409,1781611200
+coding-other,Jehan,4,1781179200
+coding-bugfix,Jehan,4,1781179200
+coding-bugfix,balooii,409,1780315200
+documentation,Alx Sa,422,1780142400
+coding-other,Bruno,1,1779969600
+coding-other,Bruno,1,1779969600
+coding-other,Bruno,1,1779969600
+coding-other,Jehan,4,1779883200
+coding-other,Jehan,4,1779883200
+coding-other,Jehan,4,1779883200
+coding-other,Jehan,4,1779883200
+coding-other,Bruno,1,1779710400
 communication,Jehan,4,1779278400
 communication,Jehan,4,1779278400
 communication,Jehan,4,1779278400
@@ -39783,6 +40070,14 @@ improvement-suggestion,lewmarti,2414,1780142400
 improvement-suggestion,balooii,409,1780315200
 improvement-suggestion,JayJLvNv,2415,1780401600
 improvement-suggestion,WILBER_BOT,2410,1780574400
+improvement-suggestion,WILBER_BOT,2410,1781179200
+improvement-suggestion,WILBER_BOT,2410,1781784000
+improvement-suggestion,A. Rudi B.,15886,1780142400
+improvement-suggestion,balooii,409,1781784000
+improvement-suggestion,balooii,409,1782302400
+improvement-suggestion,Alon Bar-Lev,18347,1783252800
+improvement-suggestion,Jenn Li,18348,1783425600
+improvement-suggestion,WILBER_BOT,2410,1783771200
 coding-other,nmat,1085,1558872000
 coding-other,nmat,1085,1558958400
 coding-other,nmat,1085,1560168000
@@ -39852,7 +40147,6 @@ coding-other,Sabri Ünal,400,1763985600
 coding-other,Aryeom,699,1771070400
 coding-other,Harsh Verma,135,1775217600
 coding-other,balooii,409,1777204800
-coding-other,balooii,409,1780315200
 improvement-suggestion,jps,2422,937483200
 bug-reporting,bernhard,1846,939643200
 bug-reporting,angel,2423,939816000
@@ -51160,7 +51454,7 @@ bug-reporting,Sudarsh,7628,1341057600
 bug-reporting,Tobias Vogel,6042,1341057600
 bug-reporting,Ron Z,7629,1341144000
 bug-reporting,mancha,7630,1341144000
-bug-reporting,Kolbjoern,7631,1341144000
+bug-reporting,Kolbjørn Stuestøl,401,1341144000
 bug-reporting,GrafxUser,249,1341144000
 bug-reporting,mmarcus,7632,1341144000
 bug-reporting,piada-.-,7633,1341144000
@@ -55463,6 +55757,440 @@ bug-reporting,strata_ranger,5496,1527076800
 bug-reporting,Kaz,9262,1527076800
 bug-reporting,Kaz,9262,1527163200
 bug-reporting,piotrunio-2004@wp.pl,9263,1527163200
+coding-feature,Alx Sa,422,1784116800
+coding-bugfix,Alx Sa,422,1784116800
+translation,lumingzh,406,1784030400
+translation,Yuri Chornoivan,403,1784030400
+coding-other,Bruno,1,1784030400
+translation,Dick Groskamp,397,1784030400
+translation,Julien Humbert,9266,1784030400
+coding-other,Bruno,1,1783944000
+coding-other,Bruno,1,1783944000
+coding-bugfix,Jacob Boerema,7,1783944000
+translation,Martin,407,1783944000
+coding-other,Alx Sa,422,1783944000
+coding-feature,Bruno,1,1783944000
+coding-bugfix,Estecka,131,1783857600
+coding-other,Bruno,1,1783857600
+coding-bugfix,Andreas Vukman,18349,1783857600
+coding-other,Bruno,1,1783857600
+coding-other,Bruno,1,1783771200
+translation,Vasil Pupkin,9317,1783771200
+translation,lumingzh,406,1783771200
+translation,lumingzh,406,1783771200
+translation,lumingzh,406,1783771200
+translation,Dick Groskamp,397,1783684800
+coding-bugfix,Pranav P,18350,1783684800
+translation,Martin,407,1783684800
+translation,lumingzh,406,1783684800
+translation,lumingzh,406,1783684800
+coding-bugfix,Richard Gitschlag,705,1783684800
+translation,lumingzh,406,1783684800
+translation,lumingzh,406,1783684800
+translation,Yuri Chornoivan,403,1783598400
+coding-other,Bruno,1,1783598400
+coding-other,Alx Sa,422,1783598400
+coding-bugfix,Alx Sa,422,1783512000
+translation,Martin,407,1783512000
+translation,Marco Ciampa,398,1783425600
+coding-bugfix,Alx Sa,422,1783425600
+coding-feature,Gabriele,415,1783425600
+coding-bugfix,Alx Sa,422,1783425600
+coding-bugfix,Alx Sa,422,1783425600
+coding-other,Bruno,1,1783425600
+coding-bugfix,Alx Sa,422,1783425600
+translation,Ekaterine Papava,405,1783425600
+coding-bugfix,Petr Vorel,1560,1783425600
+translation,lumingzh,406,1783339200
+translation,Yuri Chornoivan,403,1783339200
+coding-other,Jacob Boerema,7,1783339200
+translation,Dick Groskamp,397,1783339200
+coding-other,Anders Jonsson,12,1783339200
+coding-feature,Alx Sa,422,1783339200
+coding-other,Alx Sa,422,1783339200
+coding-other,Bruno,1,1783252800
+coding-other,Jacob Boerema,7,1783252800
+coding-bugfix,Jacob Boerema,7,1783252800
+coding-other,Bruno,1,1783252800
+coding-bugfix,Bruno,1,1783252800
+coding-other,Bruno,1,1783252800
+coding-other,Bruno,1,1783166400
+coding-bugfix,Jacob Boerema,7,1783166400
+translation,Yuri Chornoivan,403,1783166400
+coding-other,Jehan,4,1783166400
+coding-other,Alx Sa,422,1783166400
+coding-other,Bruno,1,1783166400
+coding-other,Bruno,1,1783166400
+translation,Ekaterine Papava,405,1783166400
+translation,lumingzh,406,1783080000
+communication,Jehan,4,1783080000
+coding-other,Bruno,1,1783080000
+coding-other,Bruno,1,1783080000
+coding-other,Jacob Boerema,7,1783080000
+coding-other,Jacob Boerema,7,1783080000
+coding-bugfix,Alx Sa,422,1783080000
+coding-bugfix,Lloyd Konneker,123,1783080000
+coding-bugfix,Lloyd Konneker,123,1783080000
+coding-other,Lloyd Konneker,123,1783080000
+coding-bugfix,Lloyd Konneker,123,1783080000
+coding-other,Bruno,1,1783080000
+coding-other,Bruno,1,1782993600
+coding-feature,Frank Teklote,9269,1782993600
+coding-other,Bruno,1,1782993600
+coding-other,Bruno,1,1782993600
+coding-feature,Alx Sa,422,1782907200
+translation,Martin,407,1782907200
+translation,Dick Groskamp,397,1782907200
+coding-feature,Alx Sa,422,1782907200
+translation,Ekaterine Papava,405,1782907200
+translation,lumingzh,406,1782907200
+translation,Martin,407,1782820800
+coding-bugfix,Jacob Boerema,7,1782820800
+translation,Martin,407,1782820800
+coding-bugfix,Jacob Boerema,7,1782820800
+translation,Dick Groskamp,397,1782820800
+coding-other,Alx Sa,422,1782820800
+coding-other,WarisMaqbool,690,1782820800
+translation,Yuri Chornoivan,403,1782734400
+coding-feature,Jehan,4,1782734400
+coding-other,Jehan,4,1782734400
+coding-other,Bruno,1,1782734400
+coding-bugfix,Bruno,1,1782734400
+translation,Martin,407,1782734400
+communication,Jehan,4,1782734400
+translation,Dick Groskamp,397,1782734400
+translation,Ekaterine Papava,405,1782734400
+translation,lumingzh,406,1782734400
+translation,lumingzh,406,1782648000
+coding-other,Bruno,1,1782648000
+coding-other,Bruno,1,1782648000
+coding-bugfix,Anders Jonsson,12,1782648000
+translation,Martin,407,1782648000
+translation,Yuri Chornoivan,403,1782648000
+coding-other,Bruno,1,1782648000
+coding-other,Alx Sa,422,1782648000
+coding-feature,Jehan,4,1782648000
+coding-other,Jehan,4,1782648000
+coding-feature,Jehan,4,1782648000
+coding-feature,Jehan,4,1782648000
+coding-other,Jehan,4,1782648000
+coding-feature,Jehan,4,1782648000
+coding-other,Jehan,4,1782648000
+coding-bugfix,Bruno,1,1782648000
+translation,Juliano de Souza Camargo,432,1782648000
+coding-bugfix,Alx Sa,422,1782648000
+translation,Martin,407,1782648000
+coding-bugfix,Alx Sa,422,1782648000
+coding-other,Alx Sa,422,1782648000
+translation,lumingzh,406,1782648000
+coding-bugfix,Jehan,4,1782561600
+coding-other,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Alx Sa,422,1782561600
+coding-bugfix,Bruno,1,1782561600
+translation,Dick Groskamp,397,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-other,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-bugfix,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-other,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+coding-feature,Jehan,4,1782561600
+translation,Marco Ciampa,398,1782561600
+translation,Marco Ciampa,398,1782561600
+coding-other,Bruno,1,1782561600
+coding-other,Bruno,1,1782561600
+coding-other,Bruno,1,1782475200
+coding-other,Bruno,1,1782475200
+coding-other,Bruno,1,1782475200
+coding-feature,Bruno,1,1782475200
+coding-bugfix,Alx Sa,422,1782475200
+translation,Ekaterine Papava,405,1782475200
+coding-other,Bruno,1,1782388800
+translation,Yuri Chornoivan,403,1782388800
+coding-other,Bruno,1,1782388800
+coding-other,Bruno,1,1782388800
+translation,Dick Groskamp,397,1782388800
+translation,Martin,407,1782388800
+translation,lumingzh,406,1782388800
+coding-feature,Alx Sa,422,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+translation,Marco Ciampa,398,1782302400
+coding-bugfix,Frank Teklote,9269,1782302400
+translation,Marco Ciampa,398,1782302400
+coding-feature,Alx Sa,422,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+communication,Jehan,4,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782302400
+coding-other,Bruno,1,1782216000
+coding-bugfix,Richard Allen,644,1782216000
+coding-bugfix,Jehan,4,1782216000
+coding-other,Bruno,1,1782216000
+coding-other,Bruno,1,1782216000
+coding-other,Bruno,1,1782216000
+coding-other,Bruno,1,1782216000
+translation,Ekaterine Papava,405,1782216000
+translation,Ekaterine Papava,405,1782216000
+translation,lumingzh,406,1782216000
+coding-bugfix,Alx Sa,422,1782129600
+coding-other,Alx Sa,422,1782129600
+translation,Yuri Chornoivan,403,1782129600
+coding-other,Bruno,1,1782129600
+coding-other,Jacob Boerema,7,1782129600
+coding-other,Bruno,1,1782129600
+translation,Dick Groskamp,397,1782129600
+translation,Dick Groskamp,397,1782129600
+translation,Martin,407,1782129600
+coding-other,Alx Sa,422,1782129600
+translation,Martin,407,1782129600
+coding-feature,CGrogan4,18300,1782129600
+coding-feature,CGrogan4,18300,1782129600
+translation,lumingzh,406,1782043200
+communication,Jehan,4,1782043200
+communication,Jehan,4,1782043200
+coding-bugfix,Jehan,4,1782043200
+translation,Martin,407,1782043200
+coding-bugfix,Jehan,4,1782043200
+coding-bugfix,Jehan,4,1782043200
+coding-bugfix,Jehan,4,1782043200
+coding-other,Jehan,4,1782043200
+translation,Yuri Chornoivan,403,1782043200
+coding-other,Bruno,1,1782043200
+translation,Dick Groskamp,397,1782043200
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+coding-other,Bruno,1,1781956800
+translation,Yuri Chornoivan,403,1781956800
+coding-bugfix,Alx Sa,422,1781956800
+communication,Bruno,1,1781956800
+translation,Martin,407,1781956800
+translation,Dick Groskamp,397,1781956800
+translation,lumingzh,406,1781956800
+coding-other,Anders Jonsson,12,1781870400
+communication,Jehan,4,1781870400
+coding-feature,Jehan,4,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781870400
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+translation,Martin,407,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+translation,Dick Groskamp,397,1781784000
+coding-bugfix,Alx Sa,422,1781784000
+coding-other,Alx Sa,422,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-other,Bruno,1,1781784000
+coding-feature,Alx Sa,422,1781784000
+translation,lumingzh,406,1781697600
+coding-other,Bruno,1,1781697600
+coding-other,Bruno,1,1781697600
+coding-other,Bruno,1,1781697600
+coding-other,Bruno,1,1781697600
+coding-other,John Bampton,18301,1781697600
+translation,Kolbjørn Stuestøl,401,1781697600
+coding-other,Bruno,1,1781697600
+coding-other,balooii,409,1781611200
+coding-other,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+translation,Rodrigo Lledó,429,1781611200
+communication,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+translation,Rodrigo Lledó,429,1781611200
+translation,Rodrigo Lledó,429,1781611200
+translation,Rodrigo Lledó,429,1781611200
+translation,Rodrigo Lledó,429,1781611200
+translation,Rodrigo Lledó,429,1781611200
+coding-other,Harsh Verma,135,1781611200
+coding-other,Rodrigo Lledó,429,1781611200
+translation,Rodrigo Lledó,429,1781611200
+coding-other,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+coding-other,Bruno,1,1781611200
+translation,Marco Ciampa,398,1781611200
+coding-other,Bruno,1,1781611200
+coding-bugfix,Alx Sa,422,1781611200
+translation,Marco Ciampa,398,1781611200
+translation,Marco Ciampa,398,1781611200
+coding-bugfix,Alx Sa,422,1781611200
+coding-other,Bruno,1,1781611200
+translation,lumingzh,406,1781611200
+translation,lumingzh,406,1781611200
+coding-other,Jehan,4,1781524800
+translation,Marco Ciampa,398,1781524800
+translation,Marco Ciampa,398,1781524800
+translation,Dick Groskamp,397,1781524800
+translation,Dick Groskamp,397,1781524800
+translation,Yuri Chornoivan,403,1781524800
+translation,Martin,407,1781524800
+coding-bugfix,Alx Sa,422,1781524800
+coding-bugfix,Alx Sa,422,1781524800
+coding-other,Alx Sa,422,1781524800
+coding-other,Bruno,1,1781524800
+coding-other,Bruno,1,1781524800
+coding-other,Bruno,1,1781438400
+translation,Yuri Chornoivan,403,1781438400
+coding-other,Bruno,1,1781438400
+coding-other,Bruno,1,1781438400
+coding-other,Bruno,1,1781438400
+coding-other,Bruno,1,1781438400
+translation,Martin,407,1781438400
+coding-feature,Richard Gitschlag,705,1781438400
+coding-other,Bruno,1,1781438400
+coding-feature,Alx Sa,422,1781438400
+coding-other,Bruno,1,1781438400
+translation,Rodrigo Lledó,429,1781438400
+translation,Carsten Drewes,18302,1781352000
+translation,Kolbjørn Stuestøl,401,1781352000
+translation,Yuri Chornoivan,403,1781352000
+translation,Marco Ciampa,398,1781352000
+translation,Marco Ciampa,398,1781352000
+translation,Marco Ciampa,398,1781352000
+translation,Rodrigo Lledó,429,1781352000
+coding-feature,Bruno,1,1781352000
+coding-other,Bruno,1,1781352000
+translation,Dick Groskamp,397,1781352000
+translation,Ekaterine Papava,405,1781352000
+translation,Ekaterine Papava,405,1781352000
+translation,lumingzh,406,1781265600
+translation,Martin,407,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-feature,Alx Sa,422,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781265600
+coding-other,Bruno,1,1781179200
+coding-other,Bruno,1,1781179200
+coding-other,Bruno,1,1781179200
+translation,Jan Papež,9276,1781092800
+translation,Yuri Chornoivan,403,1781092800
+coding-other,Bruno,1,1781092800
+coding-other,Bruno,1,1781092800
+coding-other,Bruno,1,1781092800
+coding-other,Bruno,1,1781092800
+translation,Dick Groskamp,397,1781092800
+translation,lumingzh,406,1781092800
+translation,Martin,407,1781006400
+coding-other,Jehan,4,1781006400
+translation,Марко Костић,404,1781006400
+translation,Марко Костић,404,1781006400
+translation,Марко Костић,404,1781006400
+translation,Марко Костић,404,1781006400
+translation,Martin,407,1781006400
+translation,Marco Ciampa,398,1781006400
+translation,Marco Ciampa,398,1781006400
+translation,Dick Groskamp,397,1781006400
+coding-bugfix,Alx Sa,422,1781006400
+coding-other,Bruno,1,1780920000
+coding-other,Bruno,1,1780920000
+coding-other,Bruno,1,1780920000
+coding-bugfix,Michael Natterer,42,1780920000
+translation,Marco Ciampa,398,1780920000
+translation,Marco Ciampa,398,1780920000
+coding-other,Bruno,1,1780833600
+coding-feature,Alx Sa,422,1780833600
+coding-other,Bruno,1,1780833600
+coding-other,Bruno,1,1780833600
+coding-feature,Michael Natterer,42,1780833600
+communication,Jehan,4,1780833600
+translation,lumingzh,406,1780833600
+translation,lumingzh,406,1780833600
+coding-bugfix,Michael Natterer,42,1780747200
+coding-other,Bruno,1,1780747200
+coding-bugfix,Alx Sa,422,1780747200
+translation,Yuri Chornoivan,403,1780747200
+translation,Yuri Chornoivan,403,1780747200
+translation,Martin,407,1780747200
+translation,Dick Groskamp,397,1780747200
+translation,Dick Groskamp,397,1780747200
+coding-feature,Alx Sa,422,1780747200
+coding-bugfix,Jacob Boerema,7,1780660800
+translation,Martin,407,1780660800
+coding-other,Bruno,1,1780660800
+coding-other,Bruno,1,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-bugfix,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-bugfix,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-bugfix,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-bugfix,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-bugfix,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-other,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+coding-feature,Jacob Boerema,7,1780660800
+translation,Dick Groskamp,397,1780660800
+translation,Martin,407,1780660800
+coding-other,Alx Sa,422,1780660800
+coding-bugfix,Alx Sa,422,1780574400
+translation,lumingzh,406,1780574400
+coding-feature,Anders Jonsson,12,1780574400
+coding-feature,Gabriele,415,1780574400
+coding-other,Gabriele,415,1780574400
+coding-other,Bruno,1,1780574400
 coding-feature,Alx Sa,422,1780488000
 translation,Kolbjørn Stuestøl,401,1780488000
 translation,Kolbjørn Stuestøl,401,1780488000
@@ -56093,7 +56821,7 @@ coding-bugfix,Jehan,4,1776081600
 coding-bugfix,Jehan,4,1776081600
 coding-bugfix,Jehan,4,1776081600
 coding-bugfix,screem02,9264,1776081600
-translation,Alan Mortensen,399,1776081600
+translation,Alan Mortensen,420,1776081600
 coding-bugfix,Ahmed E. Yassin,9270,1776081600
 coding-bugfix,Alx Sa,422,1776081600
 coding-other,Bruno,1,1776081600
@@ -56110,11 +56838,11 @@ coding-bugfix,Alx Sa,422,1775908800
 coding-bugfix,Alx Sa,422,1775908800
 coding-other,Bruno,1,1775908800
 coding-other,Bruno,1,1775908800
-translation,Alan Mortensen,399,1775908800
+translation,Alan Mortensen,420,1775908800
 coding-bugfix,Alx Sa,422,1775908800
-translation,Alan Mortensen,399,1775908800
-translation,Alan Mortensen,399,1775908800
-translation,Alan Mortensen,399,1775908800
+translation,Alan Mortensen,420,1775908800
+translation,Alan Mortensen,420,1775908800
+translation,Alan Mortensen,420,1775908800
 coding-bugfix,Alx Sa,422,1775908800
 coding-bugfix,Alx Sa,422,1775822400
 coding-bugfix,balooii,409,1775822400
@@ -56675,7 +57403,7 @@ translation,Marco Ciampa,398,1772280000
 coding-bugfix,Jehan,4,1772280000
 coding-bugfix,Jehan,4,1772280000
 translation,Marco Ciampa,398,1772280000
-coding-feature,Waris,9284,1772280000
+coding-feature,WarisMaqbool,690,1772280000
 coding-bugfix,screem02,9264,1772280000
 coding-other,Bruno,1,1772280000
 coding-other,Bruno,1,1772193600
@@ -64428,10 +65156,10 @@ translation,Zurab Kargareteli,451,1672747200
 translation,Yuri Chornoivan,403,1672660800
 translation,Yuri Chornoivan,403,1672660800
 translation,lumingzh,406,1672574400
-translation,Chao-Hsiung Liao,9335,1672488000
-translation,Chao-Hsiung Liao,9335,1672401600
-translation,Chao-Hsiung Liao,9335,1672401600
-translation,Chao-Hsiung Liao,9335,1672401600
+translation,Chao-Hsiung Liao,9545,1672488000
+translation,Chao-Hsiung Liao,9545,1672401600
+translation,Chao-Hsiung Liao,9545,1672401600
+translation,Chao-Hsiung Liao,9545,1672401600
 coding-feature,Alx Sa,422,1672401600
 coding-other,Alx Sa,422,1672401600
 coding-other,Sabri Ünal,400,1672401600
@@ -64806,7 +65534,7 @@ coding-other,Jehan,4,1660996800
 coding-feature,Jehan,4,1660996800
 translation,Anders Jonsson,12,1660996800
 translation,Anders Jonsson,12,1660996800
-translation,MohammadSaleh Kamyab,9339,1660996800
+translation,MohammadSaleh Kamyab,9325,1660996800
 coding-bugfix,Jehan,4,1660996800
 coding-other,Jehan,4,1660996800
 coding-other,Alx Sa,422,1660996800
@@ -64992,7 +65720,7 @@ coding-bugfix,Jehan,4,1658059200
 coding-feature,Nikc,2257,1658059200
 translation,Martin,407,1657972800
 coding-other,"Øyvind ""pippin"" Kolås",2,1657713600
-translation,MohammadSaleh Kamyab,9339,1657627200
+translation,MohammadSaleh Kamyab,9325,1657627200
 translation,Rodrigo Lledó,429,1657627200
 translation,Rodrigo Lledó,429,1657627200
 translation,Hugo Carvalho,428,1657540800
@@ -65190,7 +65918,7 @@ coding-bugfix,Kevin Cozens,81,1653998400
 coding-other,Kevin Cozens,81,1653998400
 translation,Aleksandr Melman,1074,1653912000
 coding-other,Lloyd Konneker,123,1653825600
-translation,MohammadSaleh Kamyab,9339,1653825600
+translation,MohammadSaleh Kamyab,9325,1653825600
 coding-bugfix,Jacob Boerema,7,1653739200
 translation,lumingzh,406,1653739200
 translation,Jordi Mas,410,1653652800
@@ -65296,7 +66024,7 @@ translation,Dimitris Spingos,419,1651147200
 translation,Alan Mortensen,420,1651147200
 coding-other,Jehan,4,1651060800
 coding-bugfix,Jehan,4,1651060800
-translation,MohammadSaleh Kamyab,9339,1651060800
+translation,MohammadSaleh Kamyab,9325,1651060800
 translation,Hugo Carvalho,428,1651060800
 translation,Yuri Chornoivan,403,1651060800
 communication,Jehan,4,1651060800
@@ -71806,7 +72534,7 @@ coding-other,Michael Natterer,42,1530446400
 translation,Gábor Kelemen,5199,1530446400
 coding-other,Michael Natterer,42,1530360000
 translation,Jordi Mas,410,1530360000
-translation,Chao-Hsiung Liao,9335,1530360000
+translation,Chao-Hsiung Liao,9545,1530360000
 communication,Jehan,4,1530273600
 coding-bugfix,Michael Natterer,42,1530273600
 coding-other,Michael Natterer,42,1530273600
@@ -72987,7 +73715,7 @@ coding-bugfix,Jehan,4,1525089600
 coding-other,Jehan,4,1525089600
 coding-other,Alexandre Prokoudine,36,1525089600
 translation,Dimitris Spingos,419,1525089600
-translation,Chao-Hsiung Liao,9335,1525089600
+translation,Chao-Hsiung Liao,9545,1525089600
 translation,Alexandre Prokoudine,36,1525089600
 translation,Anders Jonsson,12,1525003200
 coding-other,Piotr Drąg,442,1525003200
@@ -74011,10 +74739,10 @@ coding-other,Jehan,4,1514376000
 communication,Jehan,4,1514376000
 coding-other,Ell,30,1514376000
 translation,Ell,30,1514376000
-translation,Chao-Hsiung Liao,9335,1514376000
-translation,Chao-Hsiung Liao,9335,1514376000
-translation,Chao-Hsiung Liao,9335,1514376000
-translation,Chao-Hsiung Liao,9335,1514376000
+translation,Chao-Hsiung Liao,9545,1514376000
+translation,Chao-Hsiung Liao,9545,1514376000
+translation,Chao-Hsiung Liao,9545,1514376000
+translation,Chao-Hsiung Liao,9545,1514376000
 coding-other,Alexandre Prokoudine,36,1514376000
 coding-other,Alexandre Prokoudine,36,1514376000
 coding-other,Alexandre Prokoudine,36,1514376000
@@ -74128,8 +74856,8 @@ coding-other,Michael Natterer,42,1513512000
 coding-bugfix,Jehan,4,1513512000
 communication,Jehan,4,1513425600
 coding-feature,Jehan,4,1513425600
-translation,Chao-Hsiung Liao,9335,1513425600
-translation,Chao-Hsiung Liao,9335,1513425600
+translation,Chao-Hsiung Liao,9545,1513425600
+translation,Chao-Hsiung Liao,9545,1513425600
 coding-feature,Jehan,4,1513425600
 communication,Jehan,4,1513252800
 coding-other,Jehan,4,1513252800
@@ -75272,11 +76000,11 @@ coding-feature,Michael Natterer,42,1493294400
 coding-other,Michael Natterer,42,1493294400
 coding-other,Michael Natterer,42,1493294400
 coding-bugfix,Ell,30,1493294400
-translation,Chao-Hsiung Liao,9335,1493208000
-translation,Chao-Hsiung Liao,9335,1493208000
-translation,Chao-Hsiung Liao,9335,1493208000
-translation,Chao-Hsiung Liao,9335,1493208000
-translation,Chao-Hsiung Liao,9335,1493208000
+translation,Chao-Hsiung Liao,9545,1493208000
+translation,Chao-Hsiung Liao,9545,1493208000
+translation,Chao-Hsiung Liao,9545,1493208000
+translation,Chao-Hsiung Liao,9545,1493208000
+translation,Chao-Hsiung Liao,9545,1493208000
 translation,Piotr Drąg,442,1492948800
 coding-bugfix,Ell,30,1492948800
 coding-bugfix,Ell,30,1492948800
@@ -81398,7 +82126,7 @@ coding-bugfix,Michael Natterer,42,1349438400
 coding-bugfix,Michael Natterer,42,1349352000
 coding-other,Michael Natterer,42,1349352000
 coding-bugfix,Michael Natterer,42,1349352000
-translation,Khoem Sokhem,9458,1349265600
+translation,Khoem Sokhem,9546,1349265600
 coding-bugfix,Michael Natterer,42,1349179200
 coding-other,Michael Natterer,42,1349179200
 coding-bugfix,Michael Natterer,42,1349179200
@@ -85039,7 +85767,7 @@ coding-other,Michael Natterer,42,1288440000
 coding-other,Michael Natterer,42,1288440000
 coding-other,Michael Natterer,42,1288440000
 coding-other,Michael Natterer,42,1288440000
-translation,Chao-Hsiung Liao,9335,1288440000
+translation,Chao-Hsiung Liao,9545,1288440000
 coding-other,Michael Natterer,42,1288353600
 coding-other,Michael Natterer,42,1288353600
 coding-bugfix,Michael Natterer,42,1288353600
@@ -85684,7 +86412,7 @@ coding-other,Michael Muré,64,1281787200
 coding-other,Michael Muré,64,1281787200
 coding-bugfix,Michael Muré,64,1281787200
 coding-bugfix,Michael Muré,64,1281787200
-translation,David Planella,9508,1281700800
+translation,David Planella,1368,1281700800
 coding-other,Michael Muré,64,1281700800
 coding-feature,Michael Muré,64,1281700800
 translation,Marco Ciampa,398,1281700800
@@ -90051,12 +90779,12 @@ coding-other,Sven Neumann,83,1216296000
 translation,Daniel Nylander,536,1216296000
 coding-other,Sven Neumann,83,1216296000
 coding-other,Sven Neumann,83,1216296000
-translation,Žygimantas Beručka,902,1216296000
-translation,Žygimantas Beručka,902,1216296000
+translation,Žygimantas Beručka,9478,1216296000
+translation,Žygimantas Beručka,9478,1216296000
 coding-other,Tor Lillqvist,74,1216296000
-translation,Žygimantas Beručka,902,1216296000
-translation,Žygimantas Beručka,902,1216296000
-translation,Žygimantas Beručka,902,1216296000
+translation,Žygimantas Beručka,9478,1216296000
+translation,Žygimantas Beručka,9478,1216296000
+translation,Žygimantas Beručka,9478,1216296000
 translation,Åsmund Skjæveland,9466,1216296000
 translation,Åsmund Skjæveland,9466,1216296000
 documentation,Sven Neumann,83,1216296000
@@ -91728,16 +92456,16 @@ coding-feature,Sven Neumann,83,1194609600
 coding-feature,Sven Neumann,83,1194609600
 coding-feature,Sven Neumann,83,1194609600
 coding-feature,Sven Neumann,83,1194609600
-translation,Žygimantas Beručka,1129,1194609600
-translation,Žygimantas Beručka,1129,1194609600
+translation,Žygimantas Beručka,9478,1194609600
+translation,Žygimantas Beručka,9478,1194609600
 coding-other,Michael Natterer,42,1194609600
 coding-bugfix,Sven Neumann,83,1194523200
 coding-other,Michael Natterer,42,1194523200
 coding-bugfix,Sven Neumann,83,1194523200
 coding-bugfix,Michael Natterer,42,1194523200
 translation,Gil Forcada Codinachs,897,1194436800
-coding-other,Žygimantas Beručka,1129,1194436800
-translation,Žygimantas Beručka,1129,1194436800
+coding-other,Žygimantas Beručka,9478,1194436800
+translation,Žygimantas Beručka,9478,1194436800
 coding-bugfix,Martin Nordholts,68,1194350400
 coding-other,Michael Natterer,42,1194350400
 documentation,Sven Neumann,83,1194350400
@@ -91863,7 +92591,7 @@ coding-bugfix,Sven Neumann,83,1193313600
 communication,Sven Neumann,83,1193313600
 coding-bugfix,Sven Neumann,83,1193313600
 coding-other,Manish Singh,82,1193313600
-translation,Žygimantas Beručka,1129,1193227200
+translation,Žygimantas Beručka,9478,1193227200
 translation,Sven Neumann,83,1193227200
 coding-other,Kevin Cozens,81,1193227200
 coding-other,Simon Budig,52,1193140800
@@ -91971,7 +92699,7 @@ coding-other,Martin Nordholts,68,1192449600
 coding-other,Michael Natterer,42,1192449600
 coding-other,Michael Natterer,42,1192449600
 coding-feature,Michael Natterer,42,1192449600
-translation,Žygimantas Beručka,1129,1192449600
+translation,Žygimantas Beručka,9478,1192449600
 translation,Daniel Nylander,536,1192449600
 translation,Julien hardelin,477,1192449600
 coding-other,Michael Natterer,42,1192363200
@@ -92004,8 +92732,8 @@ translation,Matic Žgur,729,1192104000
 translation,Matic Žgur,729,1192104000
 translation,Matic Žgur,729,1192104000
 translation,Daniel Nylander,536,1192017600
-translation,Žygimantas Beručka,1129,1192017600
-translation,Žygimantas Beručka,1129,1192017600
+translation,Žygimantas Beručka,9478,1192017600
+translation,Žygimantas Beručka,9478,1192017600
 translation,Ulf-D. Ehlert,212,1192017600
 coding-other,Sven Neumann,83,1192017600
 coding-bugfix,Sven Neumann,83,1192017600
@@ -92071,10 +92799,10 @@ coding-feature,Sven Neumann,83,1191585600
 coding-bugfix,Sven Neumann,83,1191585600
 coding-other,Sven Neumann,83,1191585600
 coding-feature,Sven Neumann,83,1191585600
-translation,Žygimantas Beručka,1129,1191499200
-translation,Žygimantas Beručka,1129,1191499200
-translation,Žygimantas Beručka,1129,1191499200
-translation,Žygimantas Beručka,1129,1191499200
+translation,Žygimantas Beručka,9478,1191499200
+translation,Žygimantas Beručka,9478,1191499200
+translation,Žygimantas Beručka,9478,1191499200
+translation,Žygimantas Beručka,9478,1191499200
 coding-other,Sven Neumann,83,1191499200
 coding-feature,Sven Neumann,83,1191499200
 coding-feature,Sven Neumann,83,1191412800
@@ -92173,8 +92901,8 @@ coding-other,Michael Natterer,42,1190548800
 coding-other,Sven Neumann,83,1190548800
 coding-other,Martin Nordholts,68,1190548800
 translation,Daniel Nylander,536,1190548800
-translation,Žygimantas Beručka,1129,1190548800
-translation,Žygimantas Beručka,1129,1190548800
+translation,Žygimantas Beručka,9478,1190548800
+translation,Žygimantas Beručka,9478,1190548800
 coding-bugfix,Martin Nordholts,68,1190548800
 coding-bugfix,Martin Nordholts,68,1190548800
 coding-bugfix,Martin Nordholts,68,1190548800
@@ -92198,8 +92926,8 @@ coding-other,Sven Neumann,83,1190376000
 coding-bugfix,Sven Neumann,83,1190376000
 coding-other,Sven Neumann,83,1190376000
 coding-bugfix,Sven Neumann,83,1190376000
-translation,Žygimantas Beručka,1129,1190376000
-translation,Žygimantas Beručka,1129,1190376000
+translation,Žygimantas Beručka,9478,1190376000
+translation,Žygimantas Beručka,9478,1190376000
 translation,Daniel Nylander,536,1190289600
 coding-feature,Sven Neumann,83,1190289600
 coding-other,Sven Neumann,83,1190289600
@@ -92210,12 +92938,12 @@ coding-other,Sven Neumann,83,1190289600
 coding-bugfix,Sven Neumann,83,1190203200
 coding-bugfix,Sven Neumann,83,1190203200
 coding-other,Raphaël Quinet,937,1190203200
-translation,Žygimantas Beručka,1129,1190203200
+translation,Žygimantas Beručka,9478,1190203200
 translation,Daniel Nylander,536,1190203200
 translation,Daniel Nylander,536,1190203200
-translation,Žygimantas Beručka,1129,1190203200
+translation,Žygimantas Beručka,9478,1190203200
 coding-bugfix,Raphaël Quinet,937,1190203200
-translation,Žygimantas Beručka,1129,1190203200
+translation,Žygimantas Beručka,9478,1190203200
 coding-other,Michael Natterer,42,1190116800
 coding-other,Michael Natterer,42,1190116800
 translation,Jakub Friedl,157,1190116800
@@ -92740,11 +93468,11 @@ translation,Daniel Nylander,536,1185624000
 translation,Daniel Nylander,536,1185624000
 translation,Daniel Nylander,536,1185624000
 translation,Daniel Nylander,536,1185624000
-translation,Žygimantas Beručka,1129,1185624000
-translation,Žygimantas Beručka,1129,1185624000
-translation,Žygimantas Beručka,1129,1185624000
-translation,Žygimantas Beručka,1129,1185624000
-translation,Žygimantas Beručka,1129,1185624000
+translation,Žygimantas Beručka,9478,1185624000
+translation,Žygimantas Beručka,9478,1185624000
+translation,Žygimantas Beručka,9478,1185624000
+translation,Žygimantas Beručka,9478,1185624000
+translation,Žygimantas Beručka,9478,1185624000
 translation,Stéphane Raimbault,888,1185537600
 coding-bugfix,Sven Neumann,83,1185537600
 coding-other,Raphaël Quinet,937,1185537600
@@ -92785,12 +93513,12 @@ coding-other,Sven Neumann,83,1185451200
 coding-bugfix,Sven Neumann,83,1185451200
 coding-bugfix,Sven Neumann,83,1185364800
 coding-bugfix,Sven Neumann,83,1185364800
-translation,Žygimantas Beručka,1129,1185364800
-translation,Žygimantas Beručka,1129,1185364800
-translation,Žygimantas Beručka,1129,1185364800
-translation,Žygimantas Beručka,1129,1185364800
-translation,Žygimantas Beručka,1129,1185364800
-translation,Žygimantas Beručka,1129,1185364800
+translation,Žygimantas Beručka,9478,1185364800
+translation,Žygimantas Beručka,9478,1185364800
+translation,Žygimantas Beručka,9478,1185364800
+translation,Žygimantas Beručka,9478,1185364800
+translation,Žygimantas Beručka,9478,1185364800
+translation,Žygimantas Beručka,9478,1185364800
 coding-other,Sven Neumann,83,1185364800
 coding-other,Sven Neumann,83,1185364800
 coding-other,Sven Neumann,83,1185364800
@@ -93668,11 +94396,11 @@ coding-bugfix,Sven Neumann,83,1173268800
 coding-other,Sven Neumann,83,1173268800
 coding-other,Michael Natterer,42,1173268800
 coding-other,Sven Neumann,83,1173182400
-translation,Žygimantas Beručka,1129,1173182400
-translation,Žygimantas Beručka,1129,1173182400
-translation,Žygimantas Beručka,1129,1173182400
+translation,Žygimantas Beručka,9478,1173182400
+translation,Žygimantas Beručka,9478,1173182400
+translation,Žygimantas Beručka,9478,1173182400
 coding-other,Sven Neumann,83,1173182400
-translation,Žygimantas Beručka,1129,1173182400
+translation,Žygimantas Beručka,9478,1173182400
 coding-feature,Sven Neumann,83,1173182400
 coding-other,Manish Singh,82,1173182400
 translation,Nickolay V. Shmyrev,898,1173182400
@@ -94016,7 +94744,7 @@ translation,Ole Laursen,781,1168776000
 coding-other,Hans Breuer,163,1168776000
 translation,Ole Laursen,781,1168776000
 coding-other,Hans Breuer,163,1168689600
-translation,Žygimantas Beručka,1129,1168689600
+translation,Žygimantas Beručka,9478,1168689600
 coding-other,Sven Neumann,83,1168689600
 coding-feature,Sven Neumann,83,1168689600
 coding-other,Sven Neumann,83,1168689600
@@ -94139,7 +94867,7 @@ coding-bugfix,Michael Natterer,42,1167048000
 coding-other,Sven Neumann,83,1167048000
 coding-feature,Mukund Sivaraman,58,1166961600
 translation,Josep Puigdemont i Casamajó,9556,1166875200
-translation,Žygimantas Beručka,902,1166788800
+translation,Žygimantas Beručka,9478,1166788800
 coding-other,Sven Neumann,83,1166788800
 translation,Hendrik Brandt,905,1166788800
 coding-other,Sven Neumann,83,1166788800
@@ -94151,7 +94879,7 @@ documentation,Sven Neumann,83,1166788800
 coding-feature,Sven Neumann,83,1166788800
 translation,Marco Ciampa,398,1166702400
 coding-other,Sven Neumann,83,1166616000
-translation,Žygimantas Beručka,902,1166616000
+translation,Žygimantas Beručka,9478,1166616000
 coding-other,Sven Neumann,83,1166616000
 coding-other,Sven Neumann,83,1166616000
 translation,Adam Weinberger,744,1166616000
@@ -94186,7 +94914,7 @@ coding-bugfix,Sven Neumann,83,1165924800
 translation,Sven Neumann,83,1165924800
 coding-other,Sven Neumann,83,1165924800
 coding-other,Sven Neumann,83,1165924800
-translation,Žygimantas Beručka,902,1165924800
+translation,Žygimantas Beručka,9478,1165924800
 coding-other,Sven Neumann,83,1165924800
 coding-other,Sven Neumann,83,1165924800
 coding-other,Manish Singh,82,1165838400
@@ -94632,13 +95360,13 @@ coding-other,Sven Neumann,83,1160568000
 coding-other,Sven Neumann,83,1160568000
 translation,Marco Ciampa,398,1160568000
 translation,Marco Ciampa,398,1160568000
-translation,Žygimantas Beručka,902,1160568000
+translation,Žygimantas Beručka,9478,1160568000
 coding-bugfix,Raphaël Quinet,937,1160568000
 coding-other,Sven Neumann,83,1160568000
 coding-other,Sven Neumann,83,1160568000
 coding-other,Sven Neumann,83,1160568000
 coding-feature,Manish Singh,82,1160568000
-translation,Žygimantas Beručka,902,1160481600
+translation,Žygimantas Beručka,9478,1160481600
 coding-bugfix,Sven Neumann,83,1160481600
 coding-other,Kevin Cozens,81,1160481600
 coding-other,Tor Lillqvist,74,1160395200
@@ -94767,7 +95495,7 @@ translation,Francisco Javier F. Serrador,738,1158753600
 coding-other,Sven Neumann,83,1158753600
 coding-bugfix,William Skaggs,1130,1158753600
 coding-other,Sven Neumann,83,1158753600
-translation,Žygimantas Beručka,902,1158753600
+translation,Žygimantas Beručka,9478,1158753600
 coding-other,Sven Neumann,83,1158753600
 translation,Sven Neumann,83,1158753600
 coding-bugfix,Sven Neumann,83,1158753600
@@ -95384,7 +96112,7 @@ coding-bugfix,Sven Neumann,83,1151409600
 coding-feature,William Skaggs,1130,1151323200
 translation,Marco Ciampa,398,1151323200
 translation,Marco Ciampa,398,1151323200
-translation,Žygimantas Beručka,902,1151323200
+translation,Žygimantas Beručka,9478,1151323200
 translation,Jakub Friedl,157,1151323200
 coding-feature,Sven Neumann,83,1151323200
 coding-other,Sven Neumann,83,1151323200
@@ -95777,7 +96505,7 @@ coding-bugfix,Michael Natterer,42,1146916800
 coding-feature,Michael Natterer,42,1146916800
 coding-bugfix,Michael Natterer,42,1146916800
 coding-bugfix,Manish Singh,82,1146916800
-translation,Žygimantas Beručka,902,1146830400
+translation,Žygimantas Beručka,9478,1146830400
 coding-other,Michael Natterer,42,1146830400
 coding-feature,Michael Natterer,42,1146744000
 coding-other,Michael Natterer,42,1146744000
@@ -95822,7 +96550,7 @@ coding-other,Sven Neumann,83,1146225600
 documentation,Sven Neumann,83,1146225600
 coding-other,Tor Lillqvist,74,1146225600
 coding-other,Sven Neumann,83,1146225600
-translation,Žygimantas Beručka,902,1146225600
+translation,Žygimantas Beručka,9478,1146225600
 documentation,Sven Neumann,83,1146139200
 coding-feature,Michael Natterer,42,1146139200
 coding-feature,Michael Natterer,42,1146139200
@@ -96148,7 +96876,7 @@ documentation,Sven Neumann,83,1142424000
 coding-feature,Sven Neumann,83,1142424000
 coding-other,Sven Neumann,83,1142424000
 coding-other,Michael Natterer,42,1142337600
-translation,Žygimantas Beručka,902,1142337600
+translation,Žygimantas Beručka,9478,1142337600
 communication,Sven Neumann,83,1142337600
 coding-feature,Michael Natterer,42,1142251200
 coding-other,Sven Neumann,83,1142251200
@@ -96180,9 +96908,9 @@ coding-other,Sven Neumann,83,1141473600
 coding-feature,Sven Neumann,83,1141473600
 coding-other,Sven Neumann,83,1141473600
 coding-other,Sven Neumann,83,1141387200
-translation,Žygimantas Beručka,902,1141387200
-translation,Žygimantas Beručka,902,1141387200
-translation,Žygimantas Beručka,902,1141387200
+translation,Žygimantas Beručka,9478,1141387200
+translation,Žygimantas Beručka,9478,1141387200
+translation,Žygimantas Beručka,9478,1141387200
 coding-bugfix,Sven Neumann,83,1141387200
 coding-other,Manish Singh,82,1141387200
 coding-other,Michael Natterer,42,1141300800
@@ -96575,7 +97303,7 @@ translation,Sven Neumann,83,1131105600
 coding-other,Sven Neumann,83,1131105600
 coding-bugfix,Sven Neumann,83,1131105600
 coding-other,Sven Neumann,83,1131105600
-translation,Žygimantas Beručka,902,1131105600
+translation,Žygimantas Beručka,9478,1131105600
 coding-other,Sven Neumann,83,1131105600
 translation,Alexander Shopov,414,1131105600
 translation,Adam Weinberger,744,1131019200
@@ -96615,7 +97343,7 @@ coding-feature,Michael Natterer,42,1130760000
 coding-feature,Michael Natterer,42,1130673600
 coding-other,Michael Natterer,42,1130673600
 translation,Francisco Javier F. Serrador,738,1130673600
-translation,Žygimantas Beručka,902,1130673600
+translation,Žygimantas Beručka,9478,1130673600
 translation,Takeshi Aihana,768,1130673600
 translation,Takeshi Aihana,768,1130673600
 coding-bugfix,Michael Natterer,42,1130587200
@@ -96673,7 +97401,7 @@ coding-feature,William Skaggs,1130,1129723200
 translation,Adam Weinberger,744,1129723200
 coding-other,Sven Neumann,83,1129723200
 coding-feature,Sven Neumann,83,1129723200
-translation,Žygimantas Beručka,902,1129723200
+translation,Žygimantas Beručka,9478,1129723200
 coding-other,Sven Neumann,83,1129723200
 coding-feature,Sven Neumann,83,1129636800
 coding-bugfix,William Skaggs,1130,1129636800
@@ -96703,7 +97431,7 @@ coding-bugfix,Sven Neumann,83,1129118400
 coding-bugfix,Sven Neumann,83,1129118400
 coding-feature,Sven Neumann,83,1129118400
 coding-bugfix,Michael Natterer,42,1129032000
-translation,Žygimantas Beručka,902,1129032000
+translation,Žygimantas Beručka,9478,1129032000
 translation,Marcel Telka,1372,1128945600
 coding-feature,Michael Natterer,42,1128859200
 coding-bugfix,Michael Natterer,42,1128859200
@@ -96743,7 +97471,7 @@ coding-other,Sven Neumann,83,1128427200
 coding-other,Sven Neumann,83,1128427200
 coding-other,Sven Neumann,83,1128427200
 translation,Adam Weinberger,744,1128427200
-translation,Žygimantas Beručka,902,1128427200
+translation,Žygimantas Beručka,9478,1128427200
 coding-other,Michael Natterer,42,1128340800
 translation,Marcel Telka,1372,1128340800
 coding-feature,William Skaggs,1130,1128340800
@@ -100484,7 +101212,7 @@ coding-feature,Sven Neumann,83,1093089600
 coding-other,Sven Neumann,83,1093003200
 coding-feature,Sven Neumann,83,1093003200
 coding-other,Sven Neumann,83,1093003200
-translation,Laurent Dhima,9578,1093003200
+translation,Laurent Dhima,18303,1093003200
 coding-other,Sven Neumann,83,1092916800
 coding-bugfix,Michael Schumacher,34,1092916800
 coding-other,Manish Singh,82,1092916800
@@ -101400,11 +102128,11 @@ coding-other,Sven Neumann,83,1085313600
 translation,Sven Neumann,83,1085313600
 coding-other,Michael Natterer,42,1085313600
 coding-feature,Henrik Brix Andersen,1134,1085313600
-coding-other,Zygimantas Berucka,9478,1085313600
+coding-other,Žygimantas Beručka,9478,1085313600
 coding-feature,Michael Schumacher,34,1085313600
-translation,Zygimantas Berucka,9478,1085313600
+translation,Žygimantas Beručka,9478,1085313600
 coding-other,Michael Natterer,42,1085313600
-translation,Zygimantas Berucka,9478,1085313600
+translation,Žygimantas Beručka,9478,1085313600
 translation,Marco Ciampa,398,1085227200
 translation,Marco Ciampa,398,1085227200
 translation,Ole Laursen,781,1085140800
@@ -101984,7 +102712,7 @@ translation,Changwoo Ryu,896,1079524800
 translation,Jan Morén,1373,1079524800
 coding-feature,Simon Budig,52,1079438400
 translation,Pablo Gonzalo del Campo,764,1079438400
-translation,Zygimantas Berucka,9478,1079438400
+translation,Žygimantas Beručka,9478,1079438400
 coding-other,Michael Natterer,42,1079438400
 translation,Stanislav Visnovsky,751,1079438400
 coding-bugfix,Michael Natterer,42,1079438400
@@ -110152,7 +110880,7 @@ coding-other,Tor Lillqvist,74,950529600
 translation,David Monniaux,911,950529600
 translation,David Monniaux,911,950529600
 translation,Stanislav Brabec,176,950529600
-translation,Fellmann Joaquim,9605,950529600
+translation,Joaquim Fellmann,9605,950529600
 coding-other,Michael Natterer,42,950529600
 coding-other,Michael Natterer,42,950529600
 translation,Sven Neumann,83,950529600
@@ -110412,7 +111140,7 @@ coding-feature,jaycox,556,948715200
 translation,Sergey I. Panov,1344,948715200
 coding-bugfix,Marc Lehmann,912,948628800
 coding-bugfix,Sven Neumann,83,948628800
-translation,CET 2000  Joaquim Fellmann,9605,948628800
+translation,Joaquim Fellmann,9605,948628800
 coding-bugfix,Sven Neumann,83,948628800
 translation,David Monniaux,911,948628800
 coding-bugfix,Austin Donnelly,2430,948542400
@@ -111154,7 +111882,7 @@ coding-bugfix,Sven Neumann,83,938606400
 coding-feature,Sven Neumann,83,938606400
 coding-other,Sven Neumann,83,938606400
 translation,Yukihiro Nakai,789,938606400
-translation,CDT 1999 James Mitchell,1346,938606400
+translation,James Mitchell,1346,938606400
 translation,Kjartan Maraas,508,938520000
 coding-other,Asbjørn Pettersen,9599,938520000
 coding-other,Asbjørn Pettersen,9599,938520000
@@ -111193,7 +111921,7 @@ coding-bugfix,Zach Beane,9598,938088000
 coding-feature,Zach Beane,9598,938088000
 translation,Vincent Renardias,9607,938088000
 translation,Sven Neumann,83,938088000
-translation,CDT 1999 James Mitchell,1346,938088000
+translation,James Mitchell,1346,938088000
 translation,Chyla Zbigniew,778,938001600
 coding-other,Asbjørn Pettersen,9599,938001600
 coding-other,Asbjørn Pettersen,9599,938001600
@@ -111213,7 +111941,7 @@ coding-other,Nick Lamb,917,937828800
 coding-feature,Austin Donnelly,2430,937828800
 coding-other,Asbjørn Pettersen,9599,937828800
 translation,Sven Neumann,83,937828800
-translation,CDT 1999 James Mitchell,1346,937742400
+translation,James Mitchell,1346,937742400
 coding-other,Marc Lehmann,912,937656000
 translation,Chyla Zbigniew,778,937656000
 coding-other,Marc Lehmann,912,937656000
@@ -111265,7 +111993,7 @@ coding-bugfix,Austin Donnelly,2430,936964800
 coding-other,Manish Singh,82,936964800
 coding-bugfix,Adrian Likins,696,936964800
 coding-feature,Kelly Martin,694,936964800
-translation,CDT 1999 James Mitchell,1346,936964800
+translation,James Mitchell,1346,936964800
 coding-other,Manish Singh,82,936878400
 translation,Manish Singh,82,936878400
 coding-other,Vidar Madsen,919,936878400
@@ -111286,7 +112014,7 @@ coding-other,Marc Lehmann,912,936792000
 coding-other,Marc Lehmann,912,936792000
 coding-other,Marc Lehmann,912,936792000
 translation,Yukihiro Nakai,789,936792000
-translation,CDT 1999 James Mitchell,1346,936792000
+translation,James Mitchell,1346,936792000
 coding-other,Marc Lehmann,912,936705600
 coding-other,Asbjørn Pettersen,9599,936705600
 coding-other,Asbjørn Pettersen,9599,936705600
@@ -111515,7 +112243,7 @@ communication,Sven Neumann,83,934718400
 coding-other,Sven Neumann,83,934718400
 coding-feature,Sven Neumann,83,934718400
 coding-feature,Sven Neumann,83,934632000
-translation,CDT 1999  James Mitchell,1346,934632000
+translation,James Mitchell,1346,934632000
 translation,Kjartan Maraas,508,934545600
 coding-other,Manish Singh,82,934545600
 coding-other,Adrian Likins,696,934545600
@@ -111532,12 +112260,12 @@ coding-feature,Sven Neumann,83,934459200
 coding-feature,Sven Neumann,83,934459200
 coding-bugfix,Adrian Likins,696,934286400
 translation,mitchell,9609,934286400
-translation,CDT 1999  James Mitchell,1346,934286400
+translation,James Mitchell,1346,934286400
 coding-other,Adrian Likins,696,934286400
 coding-feature,Adrian Likins,696,934200000
 coding-feature,Tor Lillqvist,74,934113600
 coding-feature,Seth Burgess,787,934027200
-translation,CDT 1999  James Mitchell,1346,934027200
+translation,James Mitchell,1346,934027200
 coding-other,Asbjørn Pettersen,9599,933940800
 coding-other,Tor Lillqvist,74,933768000
 coding-other,Marc Lehmann,912,933768000
@@ -112371,7 +113099,7 @@ coding-other,Manish Singh,82,916920000
 coding-other,Manish Singh,82,916920000
 coding-other,Manish Singh,82,916920000
 coding-other,Raja R Harinath,2735,916920000
-coding-other,EST 1999 Mandrake,9615,916920000
+coding-other,Mandrake,9615,916920000
 coding-other,Adam D. Moss,3283,916920000
 coding-other,Adam D. Moss,3283,916833600
 coding-other,Adam D. Moss,3283,916833600
@@ -112472,7 +113200,7 @@ coding-feature,Austin Donnelly,2430,912859200
 coding-other,Manish Singh,82,912859200
 coding-other,Manish Singh,82,912859200
 coding-feature,Sven Neumann,83,912859200
-coding-feature,EST 1998 Nick Fetchak,9616,912772800
+coding-feature,Nick Fetchak,9616,912772800
 coding-other,Shawn T. Amundson,2272,912686400
 coding-bugfix,Larry Ewing,3187,912600000
 coding-other,Sven Neumann,83,912600000
@@ -113276,7 +114004,7 @@ coding-bugfix,Lauri Alanko,1347,890049600
 coding-other,Manish Singh,82,890049600
 coding-feature,Manish Singh,82,890049600
 coding-other,Larry Ewing,3187,890049600
-coding-feature,CST 1998   Francisco Bustamante,9627,890049600
+coding-feature,Francisco Bustamante,9627,890049600
 coding-bugfix,Larry Ewing,3187,890049600
 coding-bugfix,Larry Ewing,3187,889963200
 coding-other,Sven Neumann,83,889963200
@@ -113344,8 +114072,8 @@ coding-other,Lauri Alanko,1347,888494400
 coding-feature,Manish Singh,82,888408000
 coding-bugfix,Manish Singh,82,888408000
 coding-other,Manish Singh,82,888321600
-coding-bugfix,CST 1998  Francisco Bustamante,9627,888235200
-coding-bugfix,CST 1998  Francisco Bustamante,9627,888235200
+coding-bugfix,Francisco Bustamante,9627,888235200
+coding-bugfix,Francisco Bustamante,9627,888235200
 coding-other,Manish Singh,82,888148800
 coding-other,Manish Singh,82,888148800
 coding-other,Manish Singh,82,888148800
@@ -126086,7 +126814,7 @@ improvement-suggestion,Asodin,15132,1761998400
 bug-reporting,Diconica Bastion,15133,1626955200
 bug-reporting,Kathy Jeppesen,15134,1693310400
 improvement-suggestion,Jacob Boerema,7,1762171200
-improvement-suggestion,JohnMoyer,15135,1761912000
+bug-reporting,JohnMoyer,15135,1761912000
 bug-reporting,Shubham Daule,11507,1689681600
 bug-reporting,Mark Sweeney,677,1680004800
 bug-reporting,ShiroYuki_Mot,1470,1762257600
@@ -126496,7 +127224,7 @@ bug-reporting,Tobias,704,1766145600
 improvement-suggestion,jamesrm,15296,1766318400
 improvement-suggestion,DACBARBOS Brand,15297,1766318400
 improvement-suggestion,soulfire,600,1570017600
-improvement-suggestion,KB Games LLC,15298,1765800000
+bug-reporting,KB Games LLC,18304,1765800000
 improvement-suggestion,James Smagata,15299,1766491200
 improvement-suggestion,Jeffery Rowley,13951,1766059200
 improvement-suggestion,Richard Gitschlag,705,1765627200
@@ -127245,7 +127973,7 @@ bug-reporting,Knowtsun,15628,1773403200
 improvement-suggestion,Martijn Dekker,13122,1732708800
 improvement-suggestion,Richard Gitschlag,705,1773403200
 bug-reporting,mkht,15629,1771416000
-improvement-suggestion,Emile Schwarz,11586,1742126400
+bug-reporting,Emile Schwarz,11586,1742126400
 improvement-suggestion,Alx Sa,422,1723550400
 bug-reporting,Ulrich Windl,1277,1773576000
 improvement-suggestion,Zana-Fishy,1519,1772539200
@@ -128022,7 +128750,126 @@ bug-reporting,Anders Jonsson,12,1780401600
 bug-reporting,bluetoothfairy,15899,1780488000
 bug-reporting,orbanp,15900,1780488000
 improvement-suggestion,WAUKN,15901,1780574400
-improvement-suggestion,scott peterson,15902,1780574400
+bug-reporting,scott peterson,18305,1780574400
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+bug-reporting,Zero Day Initiative,640,1776427200
+improvement-suggestion,abyto,18306,1780660800
+improvement-suggestion,Michael Thomson,12401,1780660800
+bug-reporting,Jacob Boerema,7,1780747200
+improvement-suggestion,reno,18307,1780747200
+bug-reporting,kkai,18308,1780747200
+improvement-suggestion,Jon,15887,1780747200
+improvement-suggestion,Richard Gitschlag,705,1780833600
+improvement-suggestion,Roman Horník,18309,1780833600
+improvement-suggestion,Manu Cornet,18310,1781006400
+improvement-suggestion,zz,18311,1781179200
+improvement-suggestion,woot000,9268,1781092800
+bug-reporting,Andriy,18312,1781092800
+improvement-suggestion,Richard Gitschlag,705,1781179200
+improvement-suggestion,GWS,18295,1781092800
+bug-reporting,Lumbreras,18313,1780920000
+improvement-suggestion,Jon,15887,1780920000
+bug-reporting,MSqsh,15027,1781265600
+improvement-suggestion,Richard Gitschlag,705,1781006400
+bug-reporting,Bruno,1,1781352000
+improvement-suggestion,Richard Gitschlag,705,1781352000
+bug-reporting,Luca,18314,1781352000
+improvement-suggestion,juanpc2018,1417,1781352000
+improvement-suggestion,Harsh Verma,135,1781438400
+improvement-suggestion,Chris Harbour,18315,1781006400
+improvement-suggestion,GWS,18295,1781870400
+improvement-suggestion,WILBER_BOT,15705,1781524800
+bug-reporting,Emile Schwarz,11586,1781870400
+bug-reporting,Macr237,13592,1781265600
+bug-reporting,Luca,18314,1781352000
+bug-reporting,MisterAnderson91,18316,1781352000
+bug-reporting,あるみな,18317,1781524800
+bug-reporting,Scott Pakin,18318,1781524800
+bug-reporting,Macr237,13592,1781611200
+bug-reporting,marco,18319,1781438400
+bug-reporting,Manfred,18320,1781784000
+improvement-suggestion,chuckhenrich,702,1781784000
+bug-reporting,Erik Daniels,18321,1781870400
+improvement-suggestion,Anselm Schüler,15337,1781352000
+improvement-suggestion,Chas Belov,666,1781611200
+bug-reporting,programmer_ceds,1194,1781611200
+improvement-suggestion,WILBER_BOT,15705,1782129600
+improvement-suggestion,Gifhub_wim,15224,1782129600
+improvement-suggestion,André Monteiro,18322,1782129600
+bug-reporting,Lloyd Konneker,123,1782129600
+improvement-suggestion,Akkana Peck,304,1781006400
+improvement-suggestion,スポイト情報のバグ及び色塗りスクリプトのバグ,18323,1782216000
+bug-reporting,Bruno,1,1782302400
+bug-reporting,DebW,18324,1781697600
+improvement-suggestion,Christophe Frichet,13298,1782561600
+bug-reporting,Ghost User,89,1548849600
+bug-reporting,Zana-Fishy,1519,1782302400
+improvement-suggestion,WILBER_BOT,15705,1782734400
+improvement-suggestion,Thomas,18325,1782907200
+bug-reporting,Securin Disclose,18326,1781524800
+bug-reporting,Securin Disclose,18326,1781524800
+bug-reporting,Securin Disclose,18326,1781524800
+bug-reporting,Jacob Boerema,7,1782129600
+bug-reporting,Jacob Boerema,7,1782129600
+improvement-suggestion,Kevin Finck,18327,1783080000
+improvement-suggestion,Greg Skyles,18328,1783080000
+bug-reporting,dsvendse,18329,1782043200
+improvement-suggestion,Richard Gitschlag,705,1782129600
+bug-reporting,marc-halbruegge,18330,1782216000
+improvement-suggestion,mohammed malik,10009,1782302400
+improvement-suggestion,WILBER_BOT,15705,1783080000
+bug-reporting,mohammed malik,10009,1782302400
+improvement-suggestion,MoonlightWave-12,1553,1782475200
+bug-reporting,Charles Mention,18331,1782388800
+improvement-suggestion,Pierpaolo,18299,1782561600
+bug-reporting,Richard Gitschlag,705,1782216000
+improvement-suggestion,Ellie,1455,1782388800
+bug-reporting,Amrkk,18332,1782388800
+bug-reporting,chicky,18333,1782648000
+bug-reporting,Tim Prince,18334,1782907200
+improvement-suggestion,Richard Gitschlag,705,1782820800
+bug-reporting,DudleySirius,18335,1782648000
+improvement-suggestion,pee-j,18298,1782648000
+improvement-suggestion,lumingzh,406,1782648000
+bug-reporting,Kaspar,18336,1782648000
+bug-reporting,q,11219,1782907200
+improvement-suggestion,Martin Prohn,10169,1782907200
+improvement-suggestion,Franz Wein,18337,1782820800
+bug-reporting,Michael Thomson,12401,1783080000
+bug-reporting,Aooo,18338,1782648000
+improvement-suggestion,Aooo,18338,1783339200
+improvement-suggestion,Petr Vorel,1560,1783425600
+improvement-suggestion,Kevin,18351,1783425600
+improvement-suggestion,Brent Hull,13311,1783425600
+improvement-suggestion,Matthias Rieger,18352,1783425600
+improvement-suggestion,David Nixon,18353,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,rf3874h,18346,1783425600
+bug-reporting,Michael Catanzaro,29,1783339200
+improvement-suggestion,rf3874h,18346,1783425600
+improvement-suggestion,ronskurat,18354,1783425600
+improvement-suggestion,Tom Merien,18355,1783512000
+bug-reporting,Securin Disclose,18326,1781524800
+improvement-suggestion,visualjoel,18356,1783512000
+bug-reporting,GitLab Support Bot,662,1782561600
+improvement-suggestion,Richard Gitschlag,705,1783512000
+bug-reporting,Max,18357,1783771200
+improvement-suggestion,David Gowers,161,1783771200
+improvement-suggestion,Andreas Vukman,18349,1783512000
+improvement-suggestion,EKO,18358,1783944000
 coding-other,Salamandar,37,1527595200
 coding-other,Salamandar,37,1527249600
 coding-other,Alex Samorukov,33,1528891200
@@ -128451,7 +129298,6 @@ coding-other,Alx Sa,422,1732449600
 coding-other,Alx Sa,422,1742472000
 coding-other,Alx Sa,422,1743681600
 coding-other,Alx Sa,422,1747396800
-coding-other,Alx Sa,422,1748174400
 coding-other,Alx Sa,422,1705233600
 coding-other,Cheesequake,9291,1748260800
 coding-other,Petr,15942,1748606400
@@ -128531,7 +129377,6 @@ coding-other,Joachim P,9314,1733659200
 coding-other,Bruno,1,1760011200
 coding-other,Jehan,4,1723636800
 coding-other,Jehan,4,1747051200
-coding-other,Alx Sa,422,1762084800
 coding-other,Ondřej Míchal,394,1755518400
 coding-other,Jehan,4,1762516800
 coding-other,Jehan,4,1759492800
@@ -128581,7 +129426,6 @@ coding-other,Richard Gitschlag,705,1771761600
 coding-other,balooii,409,1773316800
 coding-other,Alx Sa,422,1709899200
 coding-other,balooii,409,1773748800
-coding-other,Alx Sa,422,1686571200
 coding-other,balooii,409,1774267200
 coding-other,Barış L,15928,1677499200
 coding-other,screem02,9264,1774526400
@@ -128608,7 +129452,6 @@ coding-other,Alx Sa,422,1688299200
 coding-other,Lloyd Konneker,123,1660305600
 coding-other,Vinicius Monego,15951,1626177600
 coding-other,Stanislav Grinkov,1468,1610798400
-coding-other,Jacob Boerema,7,1750420800
 coding-other,ktoyle,9341,1658404800
 coding-other,Shubham Daule,11507,1684584000
 coding-other,Idriss Fekir,9265,1708344000
@@ -128633,10 +129476,8 @@ coding-other,programmer_ceds,1194,1707480000
 coding-other,Tejas,13927,1744804800
 coding-other,programmer_ceds,1194,1693828800
 coding-other,wyattwradkiewicz,1434,1741953600
-coding-other,Estecka,131,1747656000
 coding-other,Cassidie Grogan,15953,1698840000
 coding-other,Niels De Graef,31,1751889600
-coding-other,Gabriele,415,1775649600
 coding-other,Josh Soref,14614,1750766400
 coding-other,Gabriele,415,1754308800
 coding-other,Rupert Weber,72,1733745600
@@ -128657,13 +129498,10 @@ coding-other,Thomas Yeh,15955,1769601600
 coding-other,Abdelhadi Wael,15956,1770465600
 coding-other,Jan,15570,1770897600
 coding-other,Gabriele,415,1771329600
-coding-other,Gabriele,415,1771070400
 coding-other,screem02,9264,1770897600
 coding-other,Akascape,418,1768478400
 coding-other,Nils Philippsen,60,1748865600
 coding-other,balooii,409,1773403200
-coding-other,Anders Jonsson,12,1774094400
-coding-other,Cassidie Grogan,15953,1773748800
 coding-other,Ondřej Míchal,394,1774353600
 coding-other,infinity,1534,1773921600
 coding-other,Chomu,15957,1773576000
@@ -128684,14 +129522,11 @@ coding-other,v4vansh,708,1776254400
 coding-other,Gabriele,415,1753012800
 coding-other,Cheesequake,9291,1750593600
 coding-other,Gabriele,415,1746446400
-coding-other,Bruno,1,1774267200
 coding-other,balooii,409,1772452800
 coding-other,v4vansh,708,1776427200
 coding-other,Ahmed E. Yassin,9270,1773835200
 coding-other,Frank Teklote,9269,1773144000
 coding-other,Frank Teklote,9269,1773144000
-coding-other,Frank Teklote,9269,1773144000
-coding-other,Richard Allen,644,1775390400
 coding-other,v4vansh,708,1776772800
 coding-other,v4vansh,708,1776600000
 coding-other,Harsh Verma,135,1777809600
@@ -128726,10 +129561,33 @@ coding-other,Charlie Skilbeck,15960,1778932800
 coding-other,Richard Gitschlag,705,1777550400
 coding-other,Alx Sa,422,1753358400
 coding-other,balooii,409,1780142400
-coding-other,Harsh Verma,135,1779796800
 coding-other,Alx Sa,422,1780488000
 coding-other,Akascape,418,1780488000
 coding-other,Richard Gitschlag,705,1780574400
+coding-other,Alx Sa,422,1780660800
+coding-other,Alx Sa,422,1780833600
+coding-other,Manu Cornet,18310,1781006400
+coding-other,John Bampton,18301,1781870400
+coding-other,Harsh Verma,135,1781956800
+coding-other,novalinium,18339,1781352000
+coding-other,Richard Gitschlag,705,1782216000
+coding-other,Jehan,4,1782561600
+coding-other,Bruno,1,1782475200
+coding-other,Bruno,1,1782475200
+coding-other,Richard Gitschlag,705,1782129600
+coding-other,Richard Gitschlag,705,1782993600
+coding-other,Richard Gitschlag,705,1782129600
+coding-other,balooii,409,1781265600
+coding-other,Harsh Verma,135,1782302400
+coding-other,WarisMaqbool,690,1782388800
+coding-other,Bruno,1,1783252800
+coding-other,Bruno,1,1783252800
+coding-other,Bruno,1,1783339200
+coding-other,Dimitriy Ryazantcev,11427,1783512000
+coding-other,Harsh Verma,135,1783857600
+coding-other,Harsh Verma,135,1784030400
+coding-other,Alx Sa,422,1783857600
+coding-other,WarisMaqbool,690,1783684800
 communication,Peter Mattis,15961,816955200
 communication,Spencer Kimball,15962,816955200
 communication,Peter Mattis,15961,824385600
@@ -128866,13 +129724,14 @@ triaging,Bruno,1,1759406400
 triaging,Daniele Cruciani,3342,1689249600
 triaging,"Øyvind ""pippin"" Kolås",2,1614254400
 triaging,Bruno,1,1759406400
+triaging,Bruno,1,1782648000
 triaging,Lukas Oberhuber,13,1727092800
 triaging,VVD,15970,1716552000
 triaging,Jacob Boerema,7,1703851200
 triaging,"Øyvind ""pippin"" Kolås",2,1684756800
 triaging,"Øyvind ""pippin"" Kolås",2,1572350400
-triaging,Jacob Boerema,7,1759406400
 triaging,Bruno,1,1759406400
+triaging,Jacob Boerema,7,1759406400
 triaging,Bruno,1,1759406400
 triaging,Jehan,4,1741867200
 triaging,Jacob Boerema,7,1741694400
@@ -128915,8 +129774,8 @@ triaging,Bruno,1,1777723200
 triaging,Bruno,1,1759406400
 triaging,Lukas Oberhuber,13,1759492800
 triaging,"Øyvind ""pippin"" Kolås",2,1588680000
-triaging,Aruius,134,1777464000
 triaging,Bruno,1,1771416000
+triaging,Aruius,134,1777464000
 triaging,wuffie,15973,1775908800
 triaging,Jehan,4,1771416000
 triaging,Michael Catanzaro,29,1780315200
@@ -128964,6 +129823,7 @@ triaging,Jehan,4,1712836800
 triaging,"Øyvind ""pippin"" Kolås",2,1714824000
 triaging,Bruno,1,1780142400
 triaging,"Øyvind ""pippin"" Kolås",2,1743249600
+triaging,Bruno,1,1783771200
 triaging,Jehan,4,1743422400
 triaging,Bruno,1,1750161600
 triaging,Eli Schwartz,23,1650801600
@@ -130297,9 +131157,11 @@ triaging,lillolollo,10,1550404800
 triaging,Thomas Manni,39,1547726400
 triaging,Michael Natterer,42,1546516800
 triaging,Alex Samorukov,33,1545739200
+triaging,Bruno,1,1782561600
 triaging,"Øyvind ""pippin"" Kolås",2,1548849600
 triaging,"Øyvind ""pippin"" Kolås",2,1530446400
 triaging,Michael Schumacher,34,1530360000
+triaging,Bruno,1,1782734400
 triaging,"Øyvind ""pippin"" Kolås",2,1530100800
 triaging,"Øyvind ""pippin"" Kolås",2,1552392000
 triaging,lillolollo,10,1552478400
@@ -130376,6 +131238,7 @@ triaging,Michael Schumacher,34,1584964800
 triaging,Simon McVittie,456,1584532800
 triaging,"Øyvind ""pippin"" Kolås",2,1552132800
 triaging,Ell,30,1551268800
+triaging,Bruno,1,1782648000
 triaging,"Øyvind ""pippin"" Kolås",2,1553428800
 triaging,Massimo Valentini,44,1553601600
 triaging,"Øyvind ""pippin"" Kolås",2,1587124800
@@ -130394,6 +131257,7 @@ triaging,Ell,30,1592136000
 triaging,"Øyvind ""pippin"" Kolås",2,1595332800
 triaging,lillolollo,10,1596369600
 triaging,"Øyvind ""pippin"" Kolås",2,1569844800
+triaging,Bruno,1,1782561600
 triaging,Michael Schumacher,34,1608984000
 triaging,Thomas Manni,39,1612094400
 triaging,Jehan,4,1603195200
@@ -130557,10 +131421,10 @@ triaging,"Øyvind ""pippin"" Kolås",2,1574683200
 triaging,lillolollo,10,1573819200
 triaging,"Øyvind ""pippin"" Kolås",2,1687176000
 triaging,"Øyvind ""pippin"" Kolås",2,1743076800
+triaging,Bruno,1,1739620800
 triaging,Jehan,4,1739793600
 triaging,Beaver,16003,1741953600
 triaging,Denis Rangelov,698,1740139200
-triaging,Bruno,1,1739620800
 triaging,Jacob Boerema,7,1739620800
 triaging,Liam Quin,118,1712836800
 triaging,Jehan,4,1686830400
@@ -130582,6 +131446,7 @@ triaging,André Klapper,15,1633003200
 triaging,Jehan,4,1743940800
 triaging,lillolollo,10,1735214400
 triaging,"Øyvind ""pippin"" Kolås",2,1732708800
+triaging,Bruno,1,1782907200
 triaging,"Øyvind ""pippin"" Kolås",2,1739016000
 triaging,Sam L,430,1738670400
 triaging,Bruno,1,1756036800
@@ -130610,11 +131475,11 @@ triaging,lillolollo,10,1730376000
 triaging,Bruno,1,1756900800
 triaging,"Øyvind ""pippin"" Kolås",2,1759924800
 triaging,"Øyvind ""pippin"" Kolås",2,1759924800
+triaging,Bruno,1,1753012800
 triaging,"Øyvind ""pippin"" Kolås",2,1759924800
 triaging,Lukas Oberhuber,13,1759924800
 triaging,Chas Belov,666,1753012800
 triaging,Gabriele,415,1753012800
-triaging,Bruno,1,1753012800
 triaging,Bruno,1,1748779200
 triaging,"Øyvind ""pippin"" Kolås",2,1760270400
 triaging,Michael Catanzaro,29,1758715200
@@ -130691,6 +131556,7 @@ triaging,"Øyvind ""pippin"" Kolås",2,1582200000
 triaging,André Klapper,15,1556712000
 triaging,Elle Stone,38,1551268800
 triaging,Bruno,1,1780142400
+triaging,Bruno,1,1782734400
 triaging,Bruno,1,1780142400
 triaging,Bruno,1,1780142400
 triaging,Bruno,1,1780142400
@@ -130717,6 +131583,7 @@ triaging,Jan Tojnar,139,1677412800
 triaging,Bruno,1,1770984000
 triaging,Hubert Figuière,80,1710590400
 triaging,Sebastian Dröge,16007,1566907200
+triaging,Jehan,4,1782907200
 triaging,Bruno,1,1770984000
 triaging,Bruno,1,1770984000
 triaging,John Marshall,17,1613995200
@@ -130740,6 +131607,7 @@ triaging,Bruno,1,1770984000
 triaging,Jacob Boerema,7,1768478400
 triaging,Jehan,4,1770120000
 triaging,Bruno,1,1761825600
+triaging,Bruno,1,1782561600
 triaging,Jacob Boerema,7,1771848000
 triaging,Harold Knowlden,16008,1764158400
 triaging,"Øyvind ""pippin"" Kolås",2,1772712000
@@ -130756,6 +131624,7 @@ triaging,ColeBantam,10603,1773835200
 triaging,Bruno,1,1773835200
 triaging,Gabriele,415,1764849600
 triaging,Bruno,1,1773835200
+triaging,Bruno,1,1782648000
 triaging,"Øyvind ""pippin"" Kolås",2,1774612800
 triaging,Michael Catanzaro,29,1773316800
 triaging,Emmanuele Bassi,16009,1763726400
@@ -130782,22 +131651,30 @@ triaging,Michael Natterer,42,1546776000
 triaging,"Øyvind ""pippin"" Kolås",2,1529323200
 triaging,Felix Baumann,679,1529496000
 triaging,Alexandre Prokoudine,36,1529582400
+triaging,Bruno,1,1782561600
 triaging,John Marshall,17,1617019200
+triaging,Bruno,1,1782907200
+triaging,Bruno,1,1782993600
 triaging,Elle Stone,38,1551614400
 triaging,Thomas Manni,39,1565179200
 triaging,"Øyvind ""pippin"" Kolås",2,1561723200
 triaging,Elle Stone,38,1561723200
 triaging,Michael Natterer,42,1561723200
+triaging,Bruno,1,1782648000
 triaging,Michael Natterer,42,1583582400
 triaging,Massimo Valentini,44,1565092800
+triaging,Bruno,1,1782561600
 triaging,Tobias,704,1526990400
 triaging,Bruno,1,1780142400
 triaging,lillolollo,10,1598529600
+triaging,Bruno,1,1782561600
 triaging,lillolollo,10,1546689600
+triaging,Bruno,1,1782561600
 triaging,immeralleine,16013,1636286400
 triaging,Thomas Manni,39,1600862400
 triaging,Jehan,4,1600776000
 triaging,lillolollo,10,1600776000
+triaging,Bruno,1,1782561600
 triaging,"Øyvind ""pippin"" Kolås",2,1633348800
 triaging,"Øyvind ""pippin"" Kolås",2,1575028800
 triaging,Massimo Valentini,44,1575028800
@@ -130806,6 +131683,7 @@ triaging,Michael Natterer,42,1591876800
 triaging,Jeremy Bicha,94,1691150400
 triaging,"Øyvind ""pippin"" Kolås",2,1684065600
 triaging,Sam James,449,1686139200
+triaging,Bruno,1,1782561600
 triaging,"Øyvind ""pippin"" Kolås",2,1593777600
 triaging,lillolollo,10,1593777600
 triaging,André Klapper,15,1593777600
@@ -130827,11 +131705,13 @@ triaging,Alx Sa,422,1684324800
 triaging,Jacob Boerema,7,1744632000
 triaging,Bruno,1,1715947200
 triaging,Jacob Boerema,7,1710417600
+triaging,Bruno,1,1782561600
 triaging,"Øyvind ""pippin"" Kolås",2,1773230400
 triaging,Thomas Manni,39,1735214400
 triaging,Jacob Boerema,7,1739448000
 triaging,Jehan,4,1743681600
 triaging,Alexandre Prokoudine,36,1598011200
+triaging,Bruno,1,1782561600
 triaging,Debarshi Ray,45,1535112000
 triaging,Alexandre Prokoudine,36,1531828800
 triaging,Ell,30,1537876800
@@ -130844,18 +131724,22 @@ triaging,lillolollo,10,1555848000
 triaging,André Klapper,15,1555848000
 triaging,"Øyvind ""pippin"" Kolås",2,1566129600
 triaging,woob,440,1566129600
+triaging,Bruno,1,1783771200
 triaging,Thomas Manni,39,1595073600
 triaging,"Øyvind ""pippin"" Kolås",2,1564920000
+triaging,Bruno,1,1782734400
 triaging,"Øyvind ""pippin"" Kolås",2,1579089600
 triaging,Bruno,1,1780142400
 triaging,Bruno,1,1780142400
 triaging,Ell,30,1596196800
 triaging,"Øyvind ""pippin"" Kolås",2,1596110400
 triaging,Milek7,16014,1596110400
+triaging,Bruno,1,1782561600
 triaging,Thomas Manni,39,1600603200
 triaging,Jehan,4,1600603200
 triaging,gimplyworxs,9712,1599220800
 triaging,"Øyvind ""pippin"" Kolås",2,1614340800
+triaging,Bruno,1,1783771200
 triaging,"Øyvind ""pippin"" Kolås",2,1554897600
 triaging,Debarshi Ray,45,1554897600
 triaging,Bruno,1,1778414400
@@ -130866,6 +131750,12 @@ triaging,"Øyvind ""pippin"" Kolås",2,1779192000
 triaging,Bruno,1,1778673600
 triaging,Jacob Boerema,7,1778932800
 triaging,Bruno,1,1780228800
+triaging,Bruno,1,1783080000
+triaging,Ondřej Míchal,394,1783166400
+triaging,Jacob Boerema,7,1780574400
+triaging,Tal Regev,3,1782993600
+triaging,Bruno,1,1782561600
+triaging,Tal Regev,3,1783166400
 triaging,"Øyvind ""pippin"" Kolås",2,1540468800
 triaging,Michael Natterer,42,1548936000
 triaging,"Øyvind ""pippin"" Kolås",2,1543924800
@@ -130876,6 +131766,7 @@ triaging,"Øyvind ""pippin"" Kolås",2,1557144000
 triaging,"Øyvind ""pippin"" Kolås",2,1557144000
 triaging,"Øyvind ""pippin"" Kolås",2,1558699200
 triaging,Felix Schwarz,450,1558008000
+triaging,Bruno,1,1782734400
 triaging,"Øyvind ""pippin"" Kolås",2,1553601600
 triaging,"Øyvind ""pippin"" Kolås",2,1559476800
 triaging,"Øyvind ""pippin"" Kolås",2,1565611200
@@ -130906,6 +131797,7 @@ triaging,"Øyvind ""pippin"" Kolås",2,1591704000
 triaging,"Øyvind ""pippin"" Kolås",2,1610452800
 triaging,"Øyvind ""pippin"" Kolås",2,1613649600
 triaging,Bruno,1,1780142400
+triaging,Bruno,1,1782561600
 triaging,"Øyvind ""pippin"" Kolås",2,1625486400
 triaging,JonnyRobbie,431,1626609600
 triaging,"Øyvind ""pippin"" Kolås",2,1627214400
@@ -131005,6 +131897,7 @@ triaging,Bruno,1,1757160000
 triaging,Bruno,1,1759752000
 triaging,Bruno,1,1759838400
 triaging,Bruno,1,1759838400
+triaging,Bruno,1,1783771200
 triaging,Lukas Oberhuber,13,1761048000
 triaging,Bruno,1,1764158400
 triaging,Bruno,1,1763899200
@@ -131035,15 +131928,23 @@ triaging,Bruno,1,1777550400
 triaging,Bruno,1,1770897600
 triaging,Jacob Boerema,7,1770897600
 triaging,Ondřej Míchal,394,1774872000
+triaging,Bruno,1,1782734400
 triaging,Jehan,4,1744632000
 triaging,"Øyvind ""pippin"" Kolås",2,1744718400
 triaging,Beaver,16003,1744718400
 triaging,Jacob Boerema,7,1744632000
+triaging,Bruno,1,1782734400
 triaging,Jehan,4,1773662400
+triaging,Bruno,1,1782734400
 triaging,Ondřej Míchal,394,1777982400
 triaging,Alx Sa,422,1777982400
 triaging,Jacob Boerema,7,1778932800
 triaging,Jacob Boerema,7,1779883200
+triaging,Jacob Boerema,7,1781870400
+triaging,Alx Sa,422,1781611200
+triaging,Bruno,1,1783080000
+triaging,Bruno,1,1783339200
+triaging,Jacob Boerema,7,1783684800
 triaging,Sam Gleske,88,1562500800
 triaging,Michael Schumacher,34,1536840000
 triaging,Sam Gleske,88,1562500800
@@ -131112,6 +132013,9 @@ triaging,Bruno,1,1774785600
 triaging,Alx Sa,422,1774785600
 triaging,Jehan,4,1773576000
 triaging,Bruno,1,1778500800
+triaging,balooii,409,1780660800
+triaging,Jehan,4,1781870400
+triaging,André Klapper,15,1781870400
 triaging,Jehan,4,1713268800
 triaging,Alx Sa,422,1712404800
 triaging,Alx Sa,422,1725796800
@@ -131134,11 +132038,15 @@ triaging,Jehan,4,1743163200
 triaging,Jehan,4,1765800000
 triaging,Jehan,4,1768910400
 triaging,Jehan,4,1775563200
+triaging,Bruno,1,1782561600
 triaging,Bruno,1,1779192000
 triaging,Michael Schumacher,34,1773748800
 triaging,Alx Sa,422,1768564800
 triaging,Jehan,4,1765108800
 triaging,Aryeom,699,1765108800
+triaging,Bruno,1,1781697600
+triaging,Bruno,1,1783857600
+triaging,Alx Sa,422,1783080000
 triaging,Martin Owens,8082,1610452800
 triaging,Ayush Koli,16017,1704974400
 triaging,lillolollo,10,1685534400
@@ -131182,6 +132090,9 @@ triaging,Jehan,4,1779710400
 triaging,Michal Vašut,711,1779796800
 triaging,Jehan,4,1780228800
 triaging,Michal Vašut,711,1780228800
+triaging,Michal Vašut,711,1783857600
+triaging,Bruno,1,1783166400
+triaging,Jehan,4,1783252800
 triaging,Sven Neumann,83,1058184000
 triaging,Sven Neumann,83,1058184000
 triaging,Sven Neumann,83,1058184000
@@ -132881,6 +133792,7 @@ triaging,Anders Jonsson,12,1766577600
 triaging,Jacob Boerema,7,1770120000
 triaging,Jacob Boerema,7,1770465600
 triaging,Jacob Boerema,7,1770984000
+triaging,Jacob Boerema,7,1782129600
 triaging,Jacob Boerema,7,1772625600
 triaging,Jacob Boerema,7,1758542400
 triaging,Muhammet Kara,426,1766404800
@@ -132895,6 +133807,10 @@ triaging,Марко М. Костић (Marko M. Kostić),1274,1775131200
 triaging,Jehan,4,1777636800
 triaging,Jacob Boerema,7,1777636800
 triaging,Bruno,1,1777550400
+triaging,Jacob Boerema,7,1782129600
+triaging,Anders Jonsson,12,1781784000
+triaging,Anders Jonsson,12,1781956800
+triaging,Jacob Boerema,7,1781956800
 triaging,lillolollo,10,1560945600
 triaging,Alex Samorukov,33,1572264000
 triaging,Michael Schumacher,34,1568203200
@@ -133004,6 +133920,7 @@ triaging,Dominik Reichardt,1292,1741608000
 triaging,Lukas Oberhuber,13,1741521600
 triaging,Bruno,1,1741435200
 triaging,Jehan,4,1741608000
+triaging,Lukas Oberhuber,13,1780660800
 triaging,Bruno,1,1759752000
 triaging,Lukas Oberhuber,13,1759752000
 triaging,balooii,409,1773057600
@@ -133438,6 +134355,7 @@ triaging,Stan Linke,16060,1674561600
 triaging,Povilas Kanapickas,9340,1611576000
 triaging,Gregory Reshetniak,10048,1601121600
 triaging,Michael Natterer,42,1546862400
+triaging,Reju,1251,1780920000
 triaging,Jehan,4,1619438400
 triaging,Michal Vašut,711,1740830400
 triaging,Denis Rangelov,698,1740916800
@@ -133925,6 +134843,7 @@ triaging,Denis Rangelov,698,1751371200
 triaging,Bruno,1,1707480000
 triaging,Bruno,1,1699185600
 triaging,Mark Sweeney,677,1699185600
+triaging,Alx Sa,422,1782993600
 triaging,Denis Rangelov,698,1746100800
 triaging,Indiana Porter,12941,1714651200
 triaging,Reju,1251,1746100800
@@ -134222,6 +135141,7 @@ triaging,Jacob Boerema,7,1741608000
 triaging,Denis Rangelov,698,1758628800
 triaging,Bruno,1,1747396800
 triaging,Richard Gitschlag,705,1758715200
+triaging,Jehan,4,1782129600
 triaging,Bruno,1,1709208000
 triaging,Michael Schumacher,34,1658664000
 triaging,gimplyworxs,9712,1658664000
@@ -134275,6 +135195,8 @@ triaging,Denis Rangelov,698,1759665600
 triaging,Bruno,1,1724155200
 triaging,Denis Rangelov,698,1759665600
 triaging,Bruno,1,1724155200
+triaging,Richard Gitschlag,705,1783080000
+triaging,Jehan,4,1782993600
 triaging,Denis Rangelov,698,1758801600
 triaging,Bruno,1,1758801600
 triaging,Liam Quin,118,1759665600
@@ -134340,6 +135262,8 @@ triaging,Bruno,1,1733659200
 triaging,Denis Rangelov,698,1730808000
 triaging,Jehan,4,1584964800
 triaging,Michael Natterer,42,1588161600
+triaging,Liam Quin,118,1781524800
+triaging,Richard Gitschlag,705,1781524800
 triaging,Mark Sweeney,677,1760702400
 triaging,Denis Rangelov,698,1757937600
 triaging,James Eadon,703,1760184000
@@ -134493,6 +135417,7 @@ triaging,Jehan,4,1762776000
 triaging,Liam Quin,118,1762776000
 triaging,David Gowers,161,1762776000
 triaging,Bruno,1,1762776000
+triaging,Reju,1251,1780920000
 triaging,Jacob Boerema,7,1763121600
 triaging,Richard Gitschlag,705,1762948800
 triaging,Bruno,1,1757160000
@@ -134561,8 +135486,10 @@ triaging,Richard Gitschlag,705,1755604800
 triaging,Jehan,4,1730721600
 triaging,Liam Quin,118,1755691200
 triaging,Bruno,1,1755691200
-triaging,David Gowers,161,1762689600
+triaging,Liam Quin,118,1782388800
+triaging,Ellie,1455,1782388800
 triaging,Richard Gitschlag,705,1762689600
+triaging,David Gowers,161,1762689600
 triaging,Bruno,1,1763812800
 triaging,Denis Rangelov,698,1747137600
 triaging,James Eadon,703,1743508800
@@ -134968,10 +135895,10 @@ triaging,Jacob Boerema,7,1770638400
 triaging,Michal Vašut,711,1770638400
 triaging,Denis Rangelov,698,1770552000
 triaging,Jehan,4,1770552000
-triaging,Liam Quin,118,1770638400
+triaging,Alx Sa,422,1757160000
 triaging,Richard Gitschlag,705,1757160000
 triaging,Denis Rangelov,698,1757160000
-triaging,Alx Sa,422,1757160000
+triaging,Liam Quin,118,1770638400
 triaging,Bruno,1,1757160000
 triaging,Jehan,4,1758715200
 triaging,Philipp,13678,1747569600
@@ -135078,7 +136005,11 @@ triaging,Richard Gitschlag,705,1771243200
 triaging,Liam Quin,118,1771156800
 triaging,James Eadon,703,1760097600
 triaging,Denis Rangelov,698,1759752000
+triaging,Jehan,4,1782820800
+triaging,Liam Quin,118,1782648000
+triaging,Bruno,1,1782648000
 triaging,Richard Gitschlag,705,1760097600
+triaging,Awussi,18297,1782561600
 triaging,Michael Schumacher,34,1672228800
 triaging,Barış L,15928,1677585600
 triaging,Jacob Boerema,7,1743768000
@@ -135394,9 +136325,9 @@ triaging,Michal Vašut,711,1772107200
 triaging,Americo Gobbo,1461,1765108800
 triaging,Denis Rangelov,698,1765108800
 triaging,Bruno,1,1745755200
+triaging,Denis Rangelov,698,1771502400
 triaging,Richard Gitschlag,705,1771502400
 triaging,Jehan,4,1775217600
-triaging,Denis Rangelov,698,1771502400
 triaging,Gabriele,415,1775131200
 triaging,David Gowers,161,1771588800
 triaging,Michal Vašut,711,1771588800
@@ -135469,12 +136400,14 @@ triaging,Jehan,4,1776081600
 triaging,Denis Rangelov,698,1776081600
 triaging,DwZ,1548,1776081600
 triaging,Liam Quin,118,1734177600
+triaging,Bruno,1,1769947200
 triaging,Harsh Verma,135,1775649600
+triaging,Liam Quin,118,1770033600
+triaging,Alx Sa,422,1770379200
+triaging,Michal Vašut,711,1783944000
+triaging,Richard Gitschlag,705,1783857600
 triaging,Denis Rangelov,698,1769947200
 triaging,Gabriele,415,1775822400
-triaging,Alx Sa,422,1770379200
-triaging,Liam Quin,118,1770033600
-triaging,Bruno,1,1769947200
 triaging,Richard Gitschlag,705,1776254400
 triaging,Jehan,4,1732536000
 triaging,Americo Gobbo,1461,1717934400
@@ -135585,15 +136518,17 @@ triaging,Richard Gitschlag,705,1774353600
 triaging,Liam Quin,118,1750852800
 triaging,Michal Vašut,711,1748001600
 triaging,Jacob Boerema,7,1748001600
+triaging,Richard Gitschlag,705,1783339200
 triaging,Denis Rangelov,698,1773144000
 triaging,Michal Vašut,711,1772884800
+triaging,Liam Quin,118,1783857600
 triaging,Bruno,1,1706961600
 triaging,Liam Quin,118,1774526400
-triaging,Ondřej Míchal,394,1780315200
-triaging,Denis Rangelov,698,1747137600
 triaging,v4vansh,708,1770206400
-triaging,Alx Sa,422,1774699200
 triaging,Richard Gitschlag,705,1774526400
+triaging,Denis Rangelov,698,1747137600
+triaging,Ondřej Míchal,394,1780315200
+triaging,Alx Sa,422,1774699200
 triaging,Bruno,1,1774526400
 triaging,Richard Gitschlag,705,1777809600
 triaging,Michael Schumacher,34,1777809600
@@ -135602,11 +136537,13 @@ triaging,Alx Sa,422,1776686400
 triaging,Tobias,704,1777896000
 triaging,Bruno,1,1754568000
 triaging,Elle Stone,38,1571054400
+triaging,v4vansh,708,1781352000
 triaging,Liam Quin,118,1778068800
 triaging,Denis Rangelov,698,1777982400
 triaging,Bruno,1,1777982400
 triaging,Bruno,1,1778155200
 triaging,Liam Quin,118,1778155200
+triaging,Liam Quin,118,1783425600
 triaging,Bruno,1,1778155200
 triaging,Americo Gobbo,1461,1754395200
 triaging,Richard Gitschlag,705,1756641600
@@ -135661,12 +136598,12 @@ triaging,Alx Sa,422,1779105600
 triaging,Alx Sa,422,1779278400
 triaging,Michael Schumacher,34,1779278400
 triaging,Denis Rangelov,698,1749902400
-triaging,Richard Gitschlag,705,1770465600
-triaging,Alx Sa,422,1770465600
-triaging,Tobias,704,1770984000
 triaging,Jehan,4,1770465600
-triaging,David Gowers,161,1770724800
 triaging,Denis Rangelov,698,1770552000
+triaging,Alx Sa,422,1770465600
+triaging,Richard Gitschlag,705,1770465600
+triaging,Tobias,704,1770984000
+triaging,David Gowers,161,1770724800
 triaging,Bruno,1,1770465600
 triaging,André Klapper,15,1565265600
 triaging,Aryeom,699,1779364800
@@ -135680,7 +136617,99 @@ triaging,Denis Rangelov,698,1779364800
 triaging,Richard Gitschlag,705,1778673600
 triaging,Bruno,1,1758801600
 triaging,Alx Sa,422,1780488000
+triaging,Richard Gitschlag,705,1780574400
 triaging,Alx Sa,422,1780488000
+triaging,Richard Gitschlag,705,1780660800
+triaging,Bruno,1,1780660800
+triaging,Richard Gitschlag,705,1780660800
+triaging,Bruno,1,1780660800
+triaging,Liam Quin,118,1780660800
+triaging,Bruno,1,1780660800
+triaging,Richard Gitschlag,705,1780660800
+triaging,Denis Rangelov,698,1780660800
+triaging,Bruno,1,1780660800
+triaging,André Klapper,15,1592395200
+triaging,Denis Rangelov,698,1780747200
+triaging,Bruno,1,1780660800
+triaging,Richard Gitschlag,705,1780833600
+triaging,Bruno,1,1780747200
+triaging,Liam Quin,118,1780833600
+triaging,Denis Rangelov,698,1780833600
+triaging,Michal Vašut,711,1780833600
+triaging,Bruno,1,1781092800
+triaging,Alx Sa,422,1781092800
+triaging,Jehan,4,1780920000
+triaging,Richard Gitschlag,705,1781179200
+triaging,Liam Quin,118,1781179200
+triaging,Bruno,1,1780920000
+triaging,Alx Sa,422,1780920000
+triaging,Liam Quin,118,1780920000
+triaging,Richard Gitschlag,705,1780920000
+triaging,Alx Sa,422,1781438400
+triaging,Liam Quin,118,1781697600
+triaging,Denis Rangelov,698,1781611200
+triaging,Bruno,1,1782129600
+triaging,Denis Rangelov,698,1781870400
+triaging,Michal Vašut,711,1782043200
+triaging,Liam Quin,118,1781956800
+triaging,Alx Sa,422,1781956800
+triaging,Michal Vašut,711,1782302400
+triaging,Jehan,4,1782302400
+triaging,Bruno,1,1782302400
+triaging,David Gowers,161,1782475200
+triaging,Denis Rangelov,698,1782388800
+triaging,Bruno,1,1782388800
+triaging,Bruno,1,1782475200
+triaging,Denis Rangelov,698,1782475200
+triaging,Liam Quin,118,1782475200
+triaging,Aryeom,699,1782561600
+triaging,Denis Rangelov,698,1782561600
+triaging,Michal Vašut,711,1782561600
+triaging,Jehan,4,1782475200
+triaging,Bruno,1,1782475200
+triaging,Bruno,1,1782561600
+triaging,Denis Rangelov,698,1782648000
+triaging,Jehan,4,1782648000
+triaging,Liam Quin,118,1782648000
+triaging,Bruno,1,1782648000
+triaging,Richard Gitschlag,705,1782648000
+triaging,Jehan,4,1782907200
+triaging,Bruno,1,1782561600
+triaging,Alx Sa,422,1782907200
+triaging,Richard Gitschlag,705,1783512000
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1710331200
+triaging,Richard Gitschlag,705,1783425600
+triaging,André Klapper,15,1679918400
+triaging,Bruno,1,1770292800
+triaging,Richard Gitschlag,705,1770292800
+triaging,Alabeo,18169,1770292800
+triaging,Michael Schumacher,34,1770292800
+triaging,Bruno,1,1783512000
+triaging,Not given,10772,1765540800
+triaging,Michael Natterer,42,1546862400
+triaging,Bruno,1,1783512000
+triaging,James Eadon,703,1743595200
+triaging,Bruno,1,1783512000
+triaging,Alx Sa,422,1713700800
+triaging,"Mr. Beedell, Roke Julian Lockhart (RJLB)",2390,1742644800
+triaging,Kamil Burda,9267,1742126400
+triaging,rich2005,9641,1713700800
+triaging,Bruno,1,1783512000
+triaging,Michael Schumacher,34,1583668800
+triaging,Alx Sa,422,1783512000
+triaging,Jeffery Small,1450,1783512000
+triaging,Bruno,1,1783512000
+triaging,lillolollo,10,1608552000
+triaging,Michael Davies,1448,1608552000
+triaging,Liam Quin,118,1783512000
+triaging,Richard Gitschlag,705,1783512000
+triaging,Bruno,1,1783512000
+triaging,Chas Belov,666,1735387200
+triaging,Richard Gitschlag,705,1783512000
+triaging,Bruno,1,1783512000
+triaging,Denis Rangelov,698,1784030400
+triaging,Richard Gitschlag,705,1784030400
 triaging,Jehan,4,1628078400
 triaging,Robin Swift,715,1658145600
 triaging,nmat,1085,1628078400
@@ -135854,6 +136883,8 @@ triaging,Bruno,1,1775131200
 triaging,Bruno,1,1777032000
 triaging,Bruno,1,1777204800
 triaging,Bruno,1,1779192000
+triaging,Bruno,1,1783080000
+triaging,Bruno,1,1783771200
 triaging,Garry R. Osgood,557,990964800
 triaging,Daniel Egger,913,1002110400
 triaging,Raphaël Quinet,937,1002196800
@@ -137863,10 +138894,12 @@ triaging,Jehan,4,1778760000
 triaging,Jehan,4,1778241600
 triaging,Bruno,1,1778241600
 triaging,Bruno,1,1778760000
+triaging,Bruno,1,1782648000
 triaging,Alx Sa,422,1778932800
 triaging,Jacob Boerema,7,1773748800
 triaging,Jehan,4,1779105600
 triaging,Jehan,4,1777204800
+triaging,Denis Rangelov,698,1780833600
 triaging,Bruno,1,1777118400
 triaging,Anders Jonsson,12,1779192000
 triaging,Lukas Oberhuber,13,1779105600
@@ -137875,8 +138908,21 @@ triaging,Jehan,4,1779883200
 triaging,Bruno,1,1779364800
 triaging,Bruno,1,1779969600
 triaging,Jehan,4,1780142400
+triaging,Bruno,1,1780574400
 triaging,Jehan,4,1780315200
 triaging,Bruno,1,1780401600
+triaging,Bruno,1,1781179200
+triaging,Jehan,4,1781179200
+triaging,Bruno,1,1783771200
+triaging,Jehan,4,1781870400
+triaging,Bruno,1,1780142400
+triaging,Alx Sa,422,1780142400
+triaging,Bruno,1,1781784000
+triaging,Jehan,4,1781784000
+triaging,Jehan,4,1782302400
+triaging,Bruno,1,1782302400
+triaging,Bruno,1,1783252800
+triaging,Bruno,1,1783425600
 triaging,Pat David,716,1554552000
 triaging,Jehan,4,1554552000
 triaging,Michael Schumacher,34,1560081600
@@ -170177,6 +171223,7 @@ triaging,Sam Gleske,88,1527249600
 triaging,Sam Gleske,88,1527249600
 triaging,Michael Schumacher,34,1527422400
 triaging,Jehan,4,1527422400
+triaging,Bruno,1,1783512000
 triaging,Tobias,704,1527163200
 triaging,Ell,30,1527681600
 triaging,Michael Natterer,42,1527681600
@@ -171302,6 +172349,7 @@ triaging,Michael Natterer,42,1546862400
 triaging,Michael Natterer,42,1546862400
 triaging,Jehan,4,1546862400
 triaging,Michael Natterer,42,1546862400
+triaging,Bruno,1,1781265600
 triaging,Michael Natterer,42,1546862400
 triaging,Michael Natterer,42,1546862400
 triaging,Michael Natterer,42,1546862400
@@ -172179,6 +173227,7 @@ triaging,Michael Natterer,42,1559131200
 triaging,lillolollo,10,1565870400
 triaging,Massimo Valentini,44,1565784000
 triaging,André Klapper,15,1566388800
+triaging,Bruno,1,1780660800
 triaging,Michael Schumacher,34,1566648000
 triaging,Michael Natterer,42,1562760000
 triaging,Massimo Valentini,44,1562760000
@@ -173106,6 +174155,7 @@ triaging,Alexandre Prokoudine,36,1541505600
 triaging,nb1,1577,1582545600
 triaging,lillolollo,10,1546776000
 triaging,Michael Natterer,42,1544616000
+triaging,Bruno,1,1783512000
 triaging,Michael Schumacher,34,1583668800
 triaging,Alexandre Prokoudine,36,1581854400
 triaging,Michael Natterer,42,1583668800
@@ -173158,6 +174208,7 @@ triaging,Michael Schumacher,34,1581854400
 triaging,André Klapper,15,1570190400
 triaging,Massimo Valentini,44,1584360000
 triaging,André Klapper,15,1584360000
+triaging,Alx Sa,422,1781092800
 triaging,lillolollo,10,1584532800
 triaging,Massimo Valentini,44,1584532800
 triaging,Michael Schumacher,34,1583150400
@@ -176256,6 +177307,7 @@ triaging,Jacob Boerema,7,1639310400
 triaging,Michael Schumacher,34,1639224000
 triaging,Jacob Boerema,7,1640347200
 triaging,André Klapper,15,1640347200
+triaging,Richard Gitschlag,705,1781006400
 triaging,Michael Schumacher,34,1640433600
 triaging,Jehan,4,1640174400
 triaging,Roman Horník,9127,1584446400
@@ -176691,6 +177743,7 @@ triaging,Michael Schumacher,34,1572696000
 triaging,Michael Natterer,42,1559044800
 triaging,Alex Samorukov,33,1542974400
 triaging,André Klapper,15,1542801600
+triaging,Bruno,1,1780660800
 triaging,Jehan,4,1639483200
 triaging,Michael Schumacher,34,1615723200
 triaging,Michael Natterer,42,1532088000
@@ -179441,6 +180494,7 @@ triaging,Ell,30,1582804800
 triaging,nmat,1085,1582804800
 triaging,Jehan,4,1585915200
 triaging,Michael Schumacher,34,1585915200
+triaging,Bruno,1,1780660800
 triaging,Nazosan,17450,1665489600
 triaging,Mikhail Svarichevsky,14587,1650542400
 triaging,Jehan,4,1650801600
@@ -180692,6 +181746,7 @@ triaging,luzpaz,93,1699012800
 triaging,nmat,1085,1645704000
 triaging,Michael Schumacher,34,1700308800
 triaging,Alx Sa,422,1697371200
+triaging,Bruno,1,1780660800
 triaging,Michael Schumacher,34,1700222400
 triaging,Michael Schumacher,34,1667476800
 triaging,luzpaz,93,1699963200
@@ -182838,6 +183893,7 @@ triaging,Jehan,4,1598184000
 triaging,Massimo Valentini,44,1581163200
 triaging,Michael Natterer,42,1583582400
 triaging,Michael Schumacher,34,1581076800
+triaging,Tom Merien,18355,1783512000
 triaging,Bruno,1,1708776000
 triaging,Elle Stone,38,1597579200
 triaging,Bruno,1,1708776000
@@ -183116,6 +184172,7 @@ triaging,Jehan,4,1605355200
 triaging,Michael Natterer,42,1546862400
 triaging,Bruno,1,1709121600
 triaging,Jehan,4,1709035200
+triaging,Bruno,1,1783512000
 triaging,Bruno,1,1709208000
 triaging,Michael Schumacher,34,1613995200
 triaging,Bruno,1,1709208000
@@ -183956,6 +185013,7 @@ triaging,Stanislav Grinkov,1468,1676030400
 triaging,Stanislav Grinkov,1468,1710244800
 triaging,Bruno,1,1710331200
 triaging,Bruno,1,1710331200
+triaging,Richard Gitschlag,705,1783425600
 triaging,André Klapper,15,1679918400
 triaging,programmer_ceds,1194,1710331200
 triaging,Bruno,1,1710331200
@@ -185346,8 +186404,8 @@ triaging,lillolollo,10,1714305600
 triaging,lillolollo,10,1714305600
 triaging,lillolollo,10,1714305600
 triaging,lillolollo,10,1714305600
-triaging,lillolollo,10,1714305600
 triaging,Alx Sa,422,1714305600
+triaging,lillolollo,10,1714305600
 triaging,André Klapper,15,1714478400
 triaging,Lukas Oberhuber,13,1662033600
 triaging,Michael Schumacher,34,1614686400
@@ -185912,6 +186970,7 @@ triaging,Michael Schumacher,34,1716811200
 triaging,Bruno,1,1716897600
 triaging,lillolollo,10,1716984000
 triaging,Alx Sa,422,1716206400
+triaging,Denis Rangelov,698,1781524800
 triaging,Michael Schumacher,34,1589544000
 triaging,Kevin Payne,683,1589544000
 triaging,Alx Sa,422,1717070400
@@ -186065,6 +187124,7 @@ triaging,Bruno,1,1708603200
 triaging,Jeffery Small,1450,1557403200
 triaging,DanMan,114,1528545600
 triaging,Tobias,704,1600862400
+triaging,rf3874h,18346,1783425600
 triaging,Idriss Fekir,9265,1717848000
 triaging,Bruno,1,1717848000
 triaging,Michael Schumacher,34,1717848000
@@ -186710,6 +187770,7 @@ triaging,Alx Sa,422,1694779200
 triaging,Bruno,1,1708430400
 triaging,Michael Schumacher,34,1723291200
 triaging,Denis Rangelov,698,1723032000
+triaging,Bruno,1,1780660800
 triaging,André Klapper,15,1592395200
 triaging,Denis Rangelov,698,1723291200
 triaging,Bruno,1,1723291200
@@ -187435,6 +188496,7 @@ triaging,Alx Sa,422,1698926400
 triaging,Michael Schumacher,34,1674734400
 triaging,luzpaz,93,1557403200
 triaging,Michael Natterer,42,1546603200
+triaging,Bruno,1,1780660800
 triaging,Michael Schumacher,34,1606478400
 triaging,Jehan,4,1574164800
 triaging,lillolollo,10,1573905600
@@ -188327,6 +189389,7 @@ triaging,Lloyd Konneker,123,1728475200
 triaging,Liam Quin,118,1728302400
 triaging,programmer_ceds,1194,1735300800
 triaging,Bruno,1,1735300800
+triaging,Bruno,1,1783512000
 triaging,Chas Belov,666,1735387200
 triaging,programmer_ceds,1194,1735214400
 triaging,André Klapper,15,1735041600
@@ -190139,6 +191202,8 @@ triaging,James Shinn,11356,1682683200
 triaging,Michael Schumacher,34,1590321600
 triaging,Michael Natterer,42,1528977600
 triaging,Alexandre Prokoudine,36,1528891200
+triaging,Richard Gitschlag,705,1784030400
+triaging,Alx Sa,422,1784030400
 triaging,Michael Schumacher,34,1738152000
 triaging,Alx Sa,422,1742299200
 triaging,lillolollo,10,1742299200
@@ -190520,6 +191585,7 @@ triaging,Bruno,1,1742817600
 triaging,Denis Rangelov,698,1742817600
 triaging,Bruno,1,1742731200
 triaging,Bruno,1,1742299200
+triaging,Richard Gitschlag,705,1781092800
 triaging,Denis Rangelov,698,1742817600
 triaging,Jehan,4,1742817600
 triaging,Michael Schumacher,34,1742817600
@@ -190743,6 +191809,7 @@ triaging,Michael Schumacher,34,1742990400
 triaging,Bruno,1,1742990400
 triaging,Bruno,1,1743163200
 triaging,Bruno,1,1743163200
+triaging,Bruno,1,1782820800
 triaging,Jacob Boerema,7,1742731200
 triaging,Michael Schumacher,34,1742385600
 triaging,Bruno,1,1743163200
@@ -190825,6 +191892,7 @@ triaging,Muphenz,11196,1665576000
 triaging,Michael Schumacher,34,1665576000
 triaging,Stephan Trenker,11197,1665489600
 triaging,nmat,1085,1643803200
+triaging,Max Parry,18340,1781352000
 triaging,ShellWen Chen,1065,1743422400
 triaging,Lukas Oberhuber,13,1737288000
 triaging,Alx Sa,422,1737201600
@@ -190975,6 +192043,7 @@ triaging,Jehan,4,1628856000
 triaging,Massimo Valentini,44,1628337600
 triaging,lillolollo,10,1592654400
 triaging,Michael Schumacher,34,1592654400
+triaging,Bruno,1,1783512000
 triaging,lillolollo,10,1608552000
 triaging,Michael Davies,1448,1608552000
 triaging,Jehan,4,1608033600
@@ -191338,11 +192407,13 @@ triaging,Alx Sa,422,1745150400
 triaging,Bruno,1,1743508800
 triaging,Bruno,1,1745236800
 triaging,Bruno,1,1745064000
+triaging,Richard Gitschlag,705,1781092800
+triaging,Hei Tor,17906,1705406400
+triaging,Denis Rangelov,698,1781092800
 triaging,Alexandre Prokoudine,36,1584878400
 triaging,Bruno,1,1741176000
 triaging,Olli,17905,1741176000
 triaging,Mark Sweeney,677,1705406400
-triaging,Hei Tor,17906,1705406400
 triaging,Ghost User,89,1705320000
 triaging,Thierry CHEN,17907,1610625600
 triaging,André Klapper,15,1597147200
@@ -191364,8 +192435,8 @@ triaging,TazPsssh,17913,1745323200
 triaging,Tobias,704,1745236800
 triaging,DaLamama,17914,1745236800
 triaging,Bruno,1,1745064000
-triaging,Jehan,4,1631707200
 triaging,Bruno,1,1706702400
+triaging,Jehan,4,1631707200
 triaging,Alexandre Prokoudine,36,1648382400
 triaging,André Klapper,15,1631707200
 triaging,Bruno,1,1745409600
@@ -192080,7 +193151,9 @@ triaging,Bruno,1,1746014400
 triaging,Michael Schumacher,34,1745668800
 triaging,Alx Sa,422,1743595200
 triaging,Bruno,1,1746100800
+triaging,Richard Gitschlag,705,1781092800
 triaging,Bruno,1,1746100800
+triaging,Manfred Mueller,18341,1781092800
 triaging,Bruno,1,1746100800
 triaging,Michael Schumacher,34,1744804800
 triaging,programmer_ceds,1194,1744804800
@@ -192145,6 +193218,7 @@ triaging,Jacob Boerema,7,1742040000
 triaging,AdyashaDas_0405,16068,1742558400
 triaging,Alx Sa,422,1742040000
 triaging,lillolollo,10,1742040000
+triaging,Bruno,1,1783857600
 triaging,Jehan,4,1742904000
 triaging,André Klapper,15,1747051200
 triaging,Elle Stone,38,1707739200
@@ -192277,6 +193351,7 @@ triaging,Bruno,1,1747310400
 triaging,Bruno,1,1747396800
 triaging,Bruno,1,1747396800
 triaging,Alexandre Prokoudine,36,1547121600
+triaging,Bruno,1,1783512000
 triaging,Bruno,1,1747396800
 triaging,Bruno,1,1747396800
 triaging,DC,16065,1597838400
@@ -192935,8 +194010,8 @@ triaging,Witold Baryluk,12280,1574164800
 triaging,Michael Schumacher,34,1573905600
 triaging,Jehan,4,1558094400
 triaging,Jacob Boerema,7,1750161600
-triaging,Jacob Boerema,7,1742904000
 triaging,Bruno,1,1742817600
+triaging,Jacob Boerema,7,1742904000
 triaging,Bruno,1,1750075200
 triaging,Bruno,1,1736856000
 triaging,Jehan,4,1746446400
@@ -193140,10 +194215,10 @@ triaging,Gabriele,415,1751544000
 triaging,Bruno,1,1715947200
 triaging,Michael Schumacher,34,1751544000
 triaging,lillolollo,10,1709294400
+triaging,Bruno,1,1741780800
 triaging,Azamat H. Hackimov,17974,1751716800
 triaging,callmetango,17975,1750334400
 triaging,LinuxUser GD,17976,1745409600
-triaging,Bruno,1,1741780800
 triaging,"Øyvind ""pippin"" Kolås",2,1741780800
 triaging,Michael Schumacher,34,1741780800
 triaging,Alx Sa,422,1733054400
@@ -193532,6 +194607,7 @@ triaging,Bruno,1,1752840000
 triaging,Michael Schumacher,34,1615550400
 triaging,Bruno,1,1752840000
 triaging,André Klapper,15,1616328000
+triaging,Bruno,1,1781524800
 triaging,Jehan,4,1654430400
 triaging,Jacob Boerema,7,1650715200
 triaging,Massimo Valentini,44,1635508800
@@ -193677,8 +194753,8 @@ triaging,Bruno,1,1752840000
 triaging,Bruno,1,1752840000
 triaging,sverx,18004,1718884800
 triaging,Michael Schumacher,34,1665748800
-triaging,Lukas Oberhuber,13,1736942400
 triaging,Bruno,1,1708430400
+triaging,Lukas Oberhuber,13,1736942400
 triaging,Alx Sa,422,1729684800
 triaging,lillolollo,10,1686398400
 triaging,Jacob Boerema,7,1666267200
@@ -194966,6 +196042,7 @@ triaging,Oona Räisänen,8584,1753876800
 triaging,Gabriele,415,1746273600
 triaging,NBuddy,18035,1748952000
 triaging,ScanEditor,18036,1780488000
+triaging,Richard Gitschlag,705,1780574400
 triaging,Bruno,1,1756468800
 triaging,Bruno,1,1756555200
 triaging,Gabriele,415,1756555200
@@ -195890,6 +196967,7 @@ triaging,Bruno,1,1759060800
 triaging,Bruno,1,1710331200
 triaging,Gabriele,415,1758974400
 triaging,Bruno,1,1715860800
+triaging,Michael Schumacher,34,1780660800
 triaging,Jacob Boerema,7,1758369600
 triaging,Bruno,1,1758369600
 triaging,Sultrekov,13832,1759147200
@@ -195906,8 +196984,8 @@ triaging,Bruno,1,1716379200
 triaging,Dwazou,1272,1758888000
 triaging,Bertrand Berlin,18095,1730721600
 triaging,lillolollo,10,1692273600
-triaging,Alx Sa,422,1746100800
 triaging,Bruno,1,1746100800
+triaging,Alx Sa,422,1746100800
 triaging,Beaver,16003,1744718400
 triaging,Bruno,1,1757419200
 triaging,Jehan,4,1758974400
@@ -196010,6 +197088,7 @@ triaging,BobsDaughter,1511,1758801600
 triaging,ShiroYuki_Mot,1470,1758628800
 triaging,Jernej Simončič,823,1758542400
 triaging,Alx Sa,422,1758542400
+triaging,Richard Gitschlag,705,1781006400
 triaging,Vrihub,1517,1759838400
 triaging,Michael Natterer,42,1533211200
 triaging,Bruno,1,1759838400
@@ -196208,6 +197287,7 @@ triaging,André Klapper,15,1576065600
 triaging,André Klapper,15,1760875200
 triaging,Alx Sa,422,1759924800
 triaging,André Klapper,15,1760961600
+triaging,rf3874h,18346,1783425600
 triaging,Bruno,1,1743336000
 triaging,QwertyChouskie,15012,1760961600
 triaging,Alx Sa,422,1744545600
@@ -196219,6 +197299,7 @@ triaging,Bruno,1,1746100800
 triaging,Michael Schumacher,34,1744200000
 triaging,Bruno,1,1761048000
 triaging,Bruno,1,1761048000
+triaging,Michael Schumacher,34,1780660800
 triaging,Bruno,1,1760356800
 triaging,Denis Rangelov,698,1752321600
 triaging,Jehan,4,1752235200
@@ -196840,6 +197921,7 @@ triaging,Richard Gitschlag,705,1758715200
 triaging,Jasper,709,1758715200
 triaging,Frank Galatis,18124,1676030400
 triaging,Jehan,4,1596110400
+triaging,Bruno,1,1783857600
 triaging,Jehan,4,1566388800
 triaging,Bruno,1,1763640000
 triaging,Michael Schumacher,34,1758024000
@@ -197068,6 +198150,7 @@ triaging,Bruno,1,1765454400
 triaging,Jacob Boerema,7,1744027200
 triaging,Bruno,1,1742731200
 triaging,Bruno,1,1746187200
+triaging,Bruno,1,1783512000
 triaging,Not given,10772,1765540800
 triaging,Michael Natterer,42,1546862400
 triaging,Alx Sa,422,1749988800
@@ -197205,8 +198288,10 @@ triaging,Bruno,1,1766318400
 triaging,Jehan,4,1766318400
 triaging,Bruno,1,1766318400
 triaging,Denis Rangelov,698,1766404800
-triaging,Bruno,1,1765800000
 triaging,Richard Gitschlag,705,1766059200
+triaging,Luca,18314,1781352000
+triaging,balooii,409,1781352000
+triaging,Bruno,1,1765800000
 triaging,André Klapper,15,1766491200
 triaging,Bruno,1,1766491200
 triaging,Michael Natterer,42,1546862400
@@ -197523,6 +198608,7 @@ triaging,Michael Natterer,42,1568030400
 triaging,Alx Sa,422,1767700800
 triaging,Bruno,1,1767700800
 triaging,Bruno,1,1767787200
+triaging,Manu Cornet,18310,1781006400
 triaging,Bruno,1,1768046400
 triaging,André Klapper,15,1768046400
 triaging,Jehan,4,1756382400
@@ -197565,6 +198651,7 @@ triaging,Jacob Boerema,7,1768478400
 triaging,Jehan,4,1756900800
 triaging,Bruno,1,1756814400
 triaging,André Klapper,15,1768564800
+triaging,Bruno,1,1782129600
 triaging,André Klapper,15,1767614400
 triaging,Michael Schumacher,34,1768564800
 triaging,Jehan,4,1761134400
@@ -197773,6 +198860,7 @@ triaging,Richard Gitschlag,705,1764936000
 triaging,Alx Sa,422,1769601600
 triaging,Bruno,1,1769342400
 triaging,Iaacov,15435,1769515200
+triaging,Bruno,1,1783512000
 triaging,James Eadon,703,1743595200
 triaging,Alx Sa,422,1713700800
 triaging,"Mr. Beedell, Roke Julian Lockhart (RJLB)",2390,1742644800
@@ -197815,6 +198903,7 @@ triaging,Gabriele,415,1745409600
 triaging,Jehan,4,1770120000
 triaging,Jacob Boerema,7,1768478400
 triaging,Bruno,1,1761825600
+triaging,Bruno,1,1783771200
 triaging,Jehan,4,1742990400
 triaging,Liam Quin,118,1755950400
 triaging,esoteridactyl,18167,1745668800
@@ -197842,10 +198931,10 @@ triaging,Jacob Boerema,7,1769947200
 triaging,Jehan,4,1753272000
 triaging,Bruno,1,1770206400
 triaging,Bruno,1,1770292800
+triaging,Bruno,1,1770292800
 triaging,Richard Gitschlag,705,1770292800
 triaging,Alabeo,18169,1770292800
 triaging,Michael Schumacher,34,1770292800
-triaging,Bruno,1,1770292800
 triaging,Bruno,1,1748260800
 triaging,Michael Schumacher,34,1760443200
 triaging,Richard Gitschlag,705,1760356800
@@ -198296,8 +199385,8 @@ triaging,doobs,15684,1772107200
 triaging,Jehan,4,1772193600
 triaging,Richard Gitschlag,705,1772107200
 triaging,Bruno,1,1742904000
-triaging,Francis L,18181,1768046400
 triaging,Bruno,1,1742558400
+triaging,Francis L,18181,1768046400
 triaging,Alexander N.,18182,1762257600
 triaging,Michael Schumacher,34,1742558400
 triaging,jasavina,18183,1742817600
@@ -198490,8 +199579,8 @@ triaging,Lukas Oberhuber,13,1755086400
 triaging,Bruno,1,1752840000
 triaging,lillolollo,10,1609934400
 triaging,Alx Sa,422,1772712000
-triaging,Richard Gitschlag,705,1771761600
 triaging,Bruno,1,1710763200
+triaging,Richard Gitschlag,705,1771761600
 triaging,Michael Schumacher,34,1666267200
 triaging,Bruno,1,1772712000
 triaging,Bruno,1,1768824000
@@ -198611,6 +199700,7 @@ triaging,Josef Ridky,1189,1750852800
 triaging,lillolollo,10,1741435200
 triaging,Alx Sa,422,1741435200
 triaging,Richard Gitschlag,705,1773144000
+triaging,Bruno,1,1782129600
 triaging,Bruno,1,1773230400
 triaging,balooii,409,1772452800
 triaging,Jehan,4,1772452800
@@ -198757,6 +199847,7 @@ triaging,André Klapper,15,1773662400
 triaging,Michael Schumacher,34,1758456000
 triaging,Bruno,1,1763553600
 triaging,Michael Schumacher,34,1763640000
+triaging,Richard Gitschlag,705,1781870400
 triaging,Bruno,1,1773662400
 triaging,Bruno,1,1773748800
 triaging,Richard Gitschlag,705,1773748800
@@ -198774,6 +199865,7 @@ triaging,Bruno,1,1773576000
 triaging,Bruno,1,1773748800
 triaging,Bruno,1,1773748800
 triaging,Alx Sa,422,1773835200
+triaging,Michael Schumacher,34,1780660800
 triaging,Ahmed E. Yassin,9270,1773748800
 triaging,albfe,115,1771416000
 triaging,Jacob Boerema,7,1771588800
@@ -198787,6 +199879,8 @@ triaging,Americo Gobbo,1461,1773748800
 triaging,Richard Gitschlag,705,1773748800
 triaging,Bruno,1,1773748800
 triaging,Bruno,1,1753012800
+triaging,David,18342,1782475200
+triaging,Alx Sa,422,1782561600
 triaging,Richard Gitschlag,705,1773748800
 triaging,Alx Sa,422,1773921600
 triaging,Bruno,1,1765368000
@@ -198817,6 +199911,7 @@ triaging,Jacob Boerema,7,1649419200
 triaging,Bruno,1,1774008000
 triaging,Bruno,1,1774008000
 triaging,Bruno,1,1779710400
+triaging,Bruno,1,1781092800
 triaging,Bruno,1,1774008000
 triaging,luzpaz,93,1645012800
 triaging,Jehan,4,1645099200
@@ -198855,6 +199950,7 @@ triaging,RobotLeopard86,14654,1753358400
 triaging,Brett,18207,1772712000
 triaging,Michael Schumacher,34,1770724800
 triaging,Bruno,1,1742817600
+triaging,Alx Sa,422,1780660800
 triaging,Bruno,1,1774180800
 triaging,Michael Schumacher,34,1773662400
 triaging,Bruno,1,1774180800
@@ -198960,6 +200056,7 @@ triaging,Michael Schumacher,34,1743163200
 triaging,Ulrich Windl,1277,1757419200
 triaging,Zr4g0n,13566,1754913600
 triaging,Bruno,1,1743336000
+triaging,balooii,409,1781352000
 triaging,Bruno,1,1761566400
 triaging,zdavatz,18215,1767614400
 triaging,Matthias Clasen,2812,1761566400
@@ -199141,6 +200238,7 @@ triaging,Jehan,4,1648641600
 triaging,Michael Schumacher,34,1774785600
 triaging,Michael Schumacher,34,1571832000
 triaging,Bruno,1,1774699200
+triaging,Einar Lielmanis,18359,1783857600
 triaging,Alx Sa,422,1774699200
 triaging,Bruno,1,1774785600
 triaging,Bruno,1,1774785600
@@ -199232,9 +200330,9 @@ triaging,Alx Sa,422,1775217600
 triaging,Bruno,1,1775217600
 triaging,Richard Gitschlag,705,1775217600
 triaging,Michael Schumacher,34,1775217600
+triaging,Bruno,1,1746100800
 triaging,Richard Gitschlag,705,1775304000
 triaging,Estecka,131,1747224000
-triaging,Bruno,1,1746100800
 triaging,Alx Sa,422,1775304000
 triaging,Bruno,1,1754049600
 triaging,Bruno,1,1775217600
@@ -199358,11 +200456,15 @@ triaging,Jehan,4,1776081600
 triaging,Jehan,4,1774699200
 triaging,Bruno,1,1774699200
 triaging,screem02,9264,1774699200
+triaging,Michael Catanzaro,29,1783425600
 triaging,Alx Sa,422,1775908800
 triaging,Gabriele,415,1775908800
+triaging,Michael Catanzaro,29,1783425600
 triaging,Alx Sa,422,1775908800
 triaging,Alx Sa,422,1775908800
+triaging,Michael Catanzaro,29,1783425600
 triaging,Alx Sa,422,1775995200
+triaging,Michael Catanzaro,29,1783425600
 triaging,Alx Sa,422,1775995200
 triaging,Alx Sa,422,1776081600
 triaging,Michael Schumacher,34,1776081600
@@ -199419,8 +200521,12 @@ triaging,Jehan,4,1772193600
 triaging,Bruno,1,1770379200
 triaging,Michael Schumacher,34,1776254400
 triaging,Liam Quin,118,1766059200
+triaging,Jehan,4,1782043200
+triaging,balooii,409,1782043200
+triaging,retrodev,18343,1782043200
 triaging,GrucciNishikino,18237,1763640000
 triaging,Bruno,1,1763121600
+triaging,Michael Catanzaro,29,1783425600
 triaging,Alx Sa,422,1776254400
 triaging,Bruno,1,1774699200
 triaging,Richard Gitschlag,705,1774699200
@@ -199503,6 +200609,9 @@ triaging,Michael Catanzaro,29,1775476800
 triaging,Michael Schumacher,34,1776513600
 triaging,Richard Gitschlag,705,1776513600
 triaging,Bruno,1,1776081600
+triaging,Jacob Boerema,7,1784030400
+triaging,Brent Hull,13311,1784030400
+triaging,Michael Catanzaro,29,1783425600
 triaging,Alx Sa,422,1775908800
 triaging,Jacob Boerema,7,1772884800
 triaging,Bruno,1,1772712000
@@ -199569,8 +200678,8 @@ triaging,Bruno,1,1776772800
 triaging,Michael Natterer,42,1776859200
 triaging,Neman,18241,1776772800
 triaging,SVlad,9710,1776772800
-triaging,Jacob Boerema,7,1776772800
 triaging,Michael Catanzaro,29,1776686400
+triaging,Jacob Boerema,7,1776772800
 triaging,Alx Sa,422,1776081600
 triaging,Aruius,134,1776945600
 triaging,Michael Natterer,42,1752321600
@@ -199671,6 +200780,7 @@ triaging,lillolollo,10,1598875200
 triaging,Jacob Boerema,7,1598616000
 triaging,Michael Schumacher,34,1586606400
 triaging,Bruno,1,1777464000
+triaging,Alx Sa,422,1781006400
 triaging,Richard Gitschlag,705,1777204800
 triaging,Michael Natterer,42,1777118400
 triaging,Denis Rangelov,698,1764763200
@@ -199696,6 +200806,7 @@ triaging,screem02,9264,1777118400
 triaging,Bruno,1,1777204800
 triaging,Bruno,1,1777204800
 triaging,Alx Sa,422,1743595200
+triaging,Michael Catanzaro,29,1783425600
 triaging,Americo Gobbo,1461,1708689600
 triaging,Alx Sa,422,1708689600
 triaging,"Øyvind ""pippin"" Kolås",2,1584360000
@@ -199707,6 +200818,7 @@ triaging,Alx Sa,422,1777377600
 triaging,Michael Catanzaro,29,1777377600
 triaging,Florent Saudel,18246,1777464000
 triaging,Jacob Boerema,7,1777377600
+triaging,Michael Catanzaro,29,1783425600
 triaging,Michael Catanzaro,29,1773921600
 triaging,Alx Sa,422,1774008000
 triaging,Bruno,1,1777291200
@@ -199728,6 +200840,7 @@ triaging,Alx Sa,422,1777550400
 triaging,Michael Schumacher,34,1777550400
 triaging,Alx Sa,422,1777550400
 triaging,Michael Schumacher,34,1777550400
+triaging,Lloyd Konneker,123,1782129600
 triaging,Bruno,1,1777550400
 triaging,Americo Gobbo,1461,1777204800
 triaging,Richard Gitschlag,705,1768910400
@@ -199806,6 +200919,8 @@ triaging,v4vansh,708,1776168000
 triaging,Denis Rangelov,698,1737892800
 triaging,Jehan,4,1604836800
 triaging,v4vansh,708,1776427200
+triaging,Jehan,4,1782302400
+triaging,Richard Gitschlag,705,1782216000
 triaging,Alx Sa,422,1767787200
 triaging,Alx Sa,422,1777809600
 triaging,Bruno,1,1709812800
@@ -199840,6 +200955,7 @@ triaging,mYnDstrEAm,15497,1771416000
 triaging,Ciro Santilli,18255,1737460800
 triaging,Richard Gitschlag,705,1777896000
 triaging,Mike S,15754,1777809600
+triaging,balooii,409,1781524800
 triaging,Bruno,1,1777896000
 triaging,Michael Schumacher,34,1615636800
 triaging,Michael Natterer,42,1547121600
@@ -200003,6 +201119,7 @@ triaging,luzpaz,93,1647345600
 triaging,Matti,18260,1629460800
 triaging,Mayank Suman,9359,1622376000
 triaging,Bruno,1,1777982400
+triaging,Bruno,1,1780660800
 triaging,James Eadon,703,1758369600
 triaging,Jacob Boerema,7,1703160000
 triaging,Luca Bacci,18,1605960000
@@ -200047,6 +201164,7 @@ triaging,Samuel Dzur,17511,1697112000
 triaging,Jehan,4,1697112000
 triaging,Jacob Boerema,7,1671105600
 triaging,Bruno,1,1777982400
+triaging,Fredrik Sandebert,18344,1780747200
 triaging,James Eadon,703,1760616000
 triaging,Bruno,1,1738670400
 triaging,Michael Schumacher,34,1738670400
@@ -200101,11 +201219,12 @@ triaging,Michael Schumacher,34,1608465600
 triaging,Bruno,1,1778068800
 triaging,Michael Schumacher,34,1777982400
 triaging,Richard Gitschlag,705,1777982400
+triaging,Jacob Boerema,7,1781611200
 triaging,Bruno,1,1777982400
 triaging,WarisMaqbool,690,1775736000
+triaging,Jacob Boerema,7,1743249600
 triaging,Richard Gitschlag,705,1778155200
 triaging,Bruno,1,1743163200
-triaging,Jacob Boerema,7,1743249600
 triaging,Isopod,17399,1743163200
 triaging,Michael Schumacher,34,1743163200
 triaging,Aruius,134,1778155200
@@ -200206,9 +201325,9 @@ triaging,Tomek,9913,1730894400
 triaging,Ghost User,89,1552392000
 triaging,Ell,30,1551355200
 triaging,lillolollo,10,1551355200
+triaging,Jehan,4,1778500800
 triaging,Bruno,1,1778500800
 triaging,Richard Gitschlag,705,1778500800
-triaging,Jehan,4,1778500800
 triaging,Alx Sa,422,1778587200
 triaging,Bruno,1,1777982400
 triaging,teapot,1543,1778500800
@@ -200314,13 +201433,14 @@ triaging,Bruno,1,1779278400
 triaging,Krasnaya Ploshchad’,665,1779192000
 triaging,Massimo Valentini,44,1566302400
 triaging,Jehan,4,1743768000
+triaging,Ping Cheng,18345,1781870400
 triaging,Richard Gitschlag,705,1778673600
 triaging,Erin Skomra,18271,1778673600
 triaging,Michael Schumacher,34,1779278400
 triaging,Alx Sa,422,1779278400
+triaging,Jehan,4,1619438400
 triaging,Americo Gobbo,1461,1639137600
 triaging,Ondřej Míchal,394,1764590400
-triaging,Jehan,4,1619438400
 triaging,Bruno,1,1756814400
 triaging,James Denney,635,1712145600
 triaging,Ghost User,89,1712145600
@@ -200441,6 +201561,7 @@ triaging,Michael Schumacher,34,1779451200
 triaging,Bruno,1,1779624000
 triaging,Bruno,1,1779710400
 triaging,Michael Schumacher,34,1779710400
+triaging,Alx Sa,422,1783425600
 triaging,Jordan Petridis,17763,1779796800
 triaging,Bruno,1,1779883200
 triaging,Bruno,1,1779796800
@@ -200460,6 +201581,7 @@ triaging,Jehan,4,1778500800
 triaging,Bruno,1,1780142400
 triaging,Alx Sa,422,1780142400
 triaging,Michael Schumacher,34,1780142400
+triaging,Bruno,1,1780660800
 triaging,Michael Schumacher,34,1780142400
 triaging,Michael Schumacher,34,1780315200
 triaging,Michael Schumacher,34,1780315200
@@ -200476,12 +201598,154 @@ triaging,Bruno,1,1780228800
 triaging,Richard Gitschlag,705,1780315200
 triaging,Michael Schumacher,34,1780315200
 triaging,BobsDaughter,1511,1780315200
+triaging,Alx Sa,422,1781956800
+triaging,Ronald,1507,1781006400
 triaging,Michael Schumacher,34,1780488000
 triaging,Jehan,4,1780488000
 triaging,Bruno,1,1780488000
 triaging,Michael Schumacher,34,1780574400
 triaging,Alx Sa,422,1780488000
+triaging,Michael Schumacher,34,1780574400
+triaging,Jacob Boerema,7,1780574400
 triaging,Bruno,1,1780574400
+triaging,Alx Sa,422,1776513600
+triaging,Alx Sa,422,1776513600
+triaging,Alx Sa,422,1776686400
+triaging,Alx Sa,422,1776513600
+triaging,Alx Sa,422,1776513600
+triaging,Alx Sa,422,1776600000
+triaging,Bruno,1,1776600000
+triaging,Alx Sa,422,1776600000
+triaging,Alx Sa,422,1776513600
+triaging,Bruno,1,1780660800
+triaging,Liam Quin,118,1780747200
+triaging,Denis Rangelov,698,1780747200
+triaging,Bruno,1,1780660800
+triaging,Richard Gitschlag,705,1780747200
+triaging,Bruno,1,1780747200
+triaging,Bruno,1,1780747200
+triaging,Bruno,1,1780747200
+triaging,Bruno,1,1780920000
+triaging,Jehan,4,1780920000
+triaging,Bruno,1,1781006400
+triaging,Bruno,1,1781179200
+triaging,Bruno,1,1781092800
+triaging,Bruno,1,1781179200
+triaging,Bruno,1,1781092800
+triaging,Alx Sa,422,1781092800
+triaging,Bruno,1,1780920000
+triaging,Bruno,1,1780920000
+triaging,Bruno,1,1781265600
+triaging,teapot,1543,1781092800
+triaging,Bruno,1,1781352000
+triaging,Bruno,1,1781352000
+triaging,Bruno,1,1781438400
+triaging,Denis Rangelov,698,1781438400
+triaging,Bruno,1,1781006400
+triaging,Jehan,4,1781006400
+triaging,Bruno,1,1781870400
+triaging,Bruno,1,1781870400
+triaging,Bruno,1,1781870400
+triaging,Bruno,1,1781265600
+triaging,Bruno,1,1781352000
+triaging,Bruno,1,1781524800
+triaging,Jehan,4,1781524800
+triaging,programmer_ceds,1194,1781524800
+triaging,Bruno,1,1781611200
+triaging,balooii,409,1781697600
+triaging,Bruno,1,1781784000
+triaging,Bruno,1,1781870400
+triaging,Bruno,1,1781352000
+triaging,Gabriele,415,1781956800
+triaging,Alx Sa,422,1781956800
+triaging,Jehan,4,1782043200
+triaging,Richard Gitschlag,705,1782043200
+triaging,Bruno,1,1781611200
+triaging,Alx Sa,422,1781956800
+triaging,Bruno,1,1782129600
+triaging,Bruno,1,1782129600
+triaging,Alx Sa,422,1782129600
+triaging,Bruno,1,1782129600
+triaging,Jehan,4,1782043200
+triaging,Bruno,1,1782216000
+triaging,Bruno,1,1782216000
+triaging,Richard Gitschlag,705,1782302400
+triaging,Anders Jonsson,12,1782216000
+triaging,Bruno,1,1782561600
+triaging,Bruno,1,1782561600
+triaging,Bruno,1,1782561600
+triaging,"Øyvind ""pippin"" Kolås",2,1548849600
+triaging,Bruno,1,1782302400
+triaging,Richard Gitschlag,705,1782561600
+triaging,Bruno,1,1782907200
+triaging,Michael Catanzaro,29,1782993600
+triaging,Alx Sa,422,1781784000
+triaging,Michael Catanzaro,29,1782993600
+triaging,Michael Catanzaro,29,1782993600
+triaging,Alx Sa,422,1781524800
+triaging,Michael Catanzaro,29,1782907200
+triaging,Michael Catanzaro,29,1782907200
+triaging,Alx Sa,422,1782129600
+triaging,Bruno,1,1783080000
+triaging,Bruno,1,1783080000
+triaging,Bruno,1,1782043200
+triaging,Bruno,1,1782216000
+triaging,Bruno,1,1783598400
+triaging,Richard Gitschlag,705,1782302400
+triaging,Anders Jonsson,12,1782388800
+triaging,Bruno,1,1782302400
+triaging,Bruno,1,1782475200
+triaging,Bruno,1,1782561600
+triaging,Bruno,1,1782561600
+triaging,Alx Sa,422,1782216000
+triaging,Bruno,1,1782388800
+triaging,Bruno,1,1782388800
+triaging,Bruno,1,1782907200
+triaging,Alx Sa,422,1782907200
+triaging,Richard Gitschlag,705,1782993600
+triaging,Bruno,1,1782648000
+triaging,Bruno,1,1782648000
+triaging,Richard Gitschlag,705,1782648000
+triaging,Bruno,1,1782648000
+triaging,Bruno,1,1782734400
+triaging,Bruno,1,1782907200
+triaging,Bruno,1,1782907200
+triaging,Alx Sa,422,1782820800
+triaging,Richard Gitschlag,705,1783080000
+triaging,Lloyd Konneker,123,1782907200
+triaging,Bruno,1,1783339200
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Alx Sa,422,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Richard Gitschlag,705,1783339200
+triaging,Alx Sa,422,1783339200
+triaging,Bruno,1,1783339200
+triaging,programmer_ceds,1194,1783512000
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783425600
+triaging,Bruno,1,1783512000
+triaging,Michael Catanzaro,29,1783425600
+triaging,Jacob Boerema,7,1783512000
+triaging,Alx Sa,422,1781784000
+triaging,Bruno,1,1783512000
+triaging,Alx Sa,422,1782648000
+triaging,Michael Catanzaro,29,1782734400
+triaging,Jacob Boerema,7,1783339200
+triaging,Emmanuele Bassi,16009,1782561600
+triaging,Bruno,1,1783512000
+triaging,Bruno,1,1783771200
+triaging,Richard Gitschlag,705,1783771200
+triaging,Alx Sa,422,1783598400
+triaging,Bruno,1,1783944000
 triaging,Michael Natterer,42,1527768000
 triaging,Michael Natterer,42,1528200000
 triaging,Michael Natterer,42,1528459200
@@ -201074,6 +202338,7 @@ triaging,Tobias,704,1666094400
 triaging,Jehan,4,1665835200
 triaging,Jehan,4,1664971200
 triaging,Jehan,4,1665489600
+triaging,Bruno,1,1782993600
 triaging,Lloyd Konneker,123,1655294400
 triaging,Jehan,4,1648814400
 triaging,Jehan,4,1648641600
@@ -201822,6 +203087,7 @@ triaging,Alx Sa,422,1719316800
 triaging,Denis Rangelov,698,1719316800
 triaging,Bruno,1,1719489600
 triaging,Alx Sa,422,1719489600
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1720267200
 triaging,Jehan,4,1720180800
 triaging,Michael Schumacher,34,1720180800
@@ -202316,8 +203582,8 @@ triaging,Mark Sweeney,677,1741694400
 triaging,Akkana Peck,304,1741780800
 triaging,Anders Jonsson,12,1741694400
 triaging,Anders Jonsson,12,1741867200
-triaging,Jehan,4,1623844800
 triaging,Bruno,1,1741867200
+triaging,Jehan,4,1623844800
 triaging,lillolollo,10,1741780800
 triaging,Jacob Boerema,7,1741608000
 triaging,lillolollo,10,1741348800
@@ -202433,8 +203699,8 @@ triaging,Siarhei Kuchuk,8721,1700308800
 triaging,Michael Schumacher,34,1700222400
 triaging,Alx Sa,422,1743768000
 triaging,Jacob Boerema,7,1689508800
-triaging,Zhafran Rama Azmi,13955,1740657600
 triaging,Bruno,1,1716206400
+triaging,Zhafran Rama Azmi,13955,1740657600
 triaging,Alx Sa,422,1716206400
 triaging,Liam Quin,118,1706356800
 triaging,Jehan,4,1746792000
@@ -202742,6 +204008,9 @@ triaging,Anders Jonsson,12,1759147200
 triaging,Jehan,4,1759492800
 triaging,Reju,1251,1759492800
 triaging,Liam Quin,118,1748088000
+triaging,Jehan,4,1782993600
+triaging,Aryeom,699,1783080000
+triaging,Bruno,1,1782993600
 triaging,Denis Rangelov,698,1759665600
 triaging,Jehan,4,1749988800
 triaging,Bruno,1,1749902400
@@ -202778,10 +204047,10 @@ triaging,Jehan,4,1662724800
 triaging,Jacob Boerema,7,1662897600
 triaging,Bruno,1,1760443200
 triaging,Jehan,4,1666872000
+triaging,Bruno,1,1706875200
 triaging,Jehan,4,1740657600
 triaging,Liam Quin,118,1716465600
 triaging,lillolollo,10,1707048000
-triaging,Bruno,1,1706875200
 triaging,Jehan,4,1749816000
 triaging,Denis Rangelov,698,1714305600
 triaging,Alx Sa,422,1714219200
@@ -202828,6 +204097,9 @@ triaging,Jehan,4,1761393600
 triaging,Ondřej Míchal,394,1761048000
 triaging,Jehan,4,1761652800
 triaging,Alx Sa,422,1761652800
+triaging,Tobias,704,1783512000
+triaging,David Gowers,161,1783512000
+triaging,Richard Gitschlag,705,1783080000
 triaging,Jehan,4,1761566400
 triaging,Denis Rangelov,698,1761566400
 triaging,Reju,1251,1761480000
@@ -202994,6 +204266,7 @@ triaging,Gerald Brosseau,11743,1769774400
 triaging,David Gowers,161,1770552000
 triaging,Jacob Boerema,7,1753876800
 triaging,Alx Sa,422,1771416000
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1770984000
 triaging,Jacob Boerema,7,1755864000
 triaging,Jehan,4,1763553600
@@ -203069,6 +204342,7 @@ triaging,Jehan,4,1761566400
 triaging,Jehan,4,1773403200
 triaging,Aryeom,699,1773316800
 triaging,Denis Rangelov,698,1773144000
+triaging,Jehan,4,1781006400
 triaging,Bruno,1,1771761600
 triaging,Bruno,1,1773489600
 triaging,infinity,1534,1773576000
@@ -203090,10 +204364,12 @@ triaging,Alx Sa,422,1774267200
 triaging,Alx Sa,422,1774526400
 triaging,Bruno,1,1774526400
 triaging,Alx Sa,422,1774440000
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1774612800
 triaging,Stanislav Grinkov,1468,1677844800
 triaging,Alx Sa,422,1677499200
 triaging,Jehan,4,1774526400
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1774526400
 triaging,Bruno,1,1773748800
 triaging,Jehan,4,1750248000
@@ -203106,13 +204382,14 @@ triaging,Bruno,1,1775563200
 triaging,Denis Rangelov,698,1775649600
 triaging,balooii,409,1775131200
 triaging,Jehan,4,1773316800
+triaging,Bruno,1,1781006400
 triaging,Jehan,4,1773748800
 triaging,Anders Jonsson,12,1774699200
 triaging,Bruno,1,1773662400
 triaging,Alx Sa,422,1773662400
+triaging,Bruno,1,1746705600
 triaging,Jehan,4,1746619200
 triaging,Estecka,131,1745755200
-triaging,Bruno,1,1746705600
 triaging,Isopod,17399,1746014400
 triaging,Alx Sa,422,1772798400
 triaging,Jehan,4,1772971200
@@ -203132,8 +204409,10 @@ triaging,Bruno,1,1775390400
 triaging,Jacob Boerema,7,1775649600
 triaging,Jehan,4,1775563200
 triaging,n5jjr,15712,1775390400
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1776168000
 triaging,Aruius,134,1775995200
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1776254400
 triaging,Bruno,1,1775736000
 triaging,Nils Philippsen,60,1775822400
@@ -203145,6 +204424,7 @@ triaging,Jacob Boerema,7,1772625600
 triaging,Alx Sa,422,1775908800
 triaging,Richard Gitschlag,705,1752926400
 triaging,Jehan,4,1752840000
+triaging,Bruno,1,1782993600
 triaging,David Gowers,161,1773403200
 triaging,Anders Jonsson,12,1775390400
 triaging,Jacob Boerema,7,1775217600
@@ -203159,6 +204439,7 @@ triaging,Jehan,4,1772020800
 triaging,Ondřej Míchal,394,1771848000
 triaging,Alx Sa,422,1776427200
 triaging,Jehan,4,1776081600
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1776859200
 triaging,Bruno,1,1776772800
 triaging,toolboxx,15773,1776859200
@@ -203177,6 +204458,7 @@ triaging,Bruno,1,1777204800
 triaging,Jacob Boerema,7,1777204800
 triaging,Ondřej Míchal,394,1777204800
 triaging,Bruno,1,1777291200
+triaging,Bruno,1,1781006400
 triaging,Alx Sa,422,1776945600
 triaging,Jacob Boerema,7,1773144000
 triaging,Jehan,4,1772971200
@@ -203198,7 +204480,9 @@ triaging,Jehan,4,1658491200
 triaging,Bruno,1,1777723200
 triaging,Alx Sa,422,1688817600
 triaging,Ondřej Míchal,394,1779796800
+triaging,Bruno,1,1782993600
 triaging,lillolollo,10,1708430400
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1676376000
 triaging,Jehan,4,1780401600
 triaging,Ondřej Míchal,394,1779969600
@@ -203243,6 +204527,7 @@ triaging,Bruno,1,1743163200
 triaging,Bruno,1,1777723200
 triaging,Jehan,4,1743076800
 triaging,Jacob Boerema,7,1742472000
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1707480000
 triaging,Jehan,4,1707480000
 triaging,Bruno,1,1777723200
@@ -203257,12 +204542,15 @@ triaging,Bruno,1,1777723200
 triaging,Jacob Boerema,7,1742731200
 triaging,Alx Sa,422,1741953600
 triaging,Michael Schumacher,34,1742385600
+triaging,Alx Sa,422,1783857600
+triaging,Bruno,1,1782993600
 triaging,Bruno,1,1777723200
 triaging,Jacob Boerema,7,1698840000
-triaging,Jehan,4,1698840000
 triaging,Alx Sa,422,1698840000
+triaging,Jehan,4,1698840000
 triaging,Ondřej Míchal,394,1779796800
 triaging,Bruno,1,1777723200
+triaging,Alx Sa,422,1780574400
 triaging,Denis Rangelov,698,1775649600
 triaging,Ville Pätsi,2271,1777118400
 triaging,Michael Natterer,42,1777118400
@@ -203272,10 +204560,11 @@ triaging,Jehan,4,1750852800
 triaging,Brian Yurko,18293,1752840000
 triaging,Jacob Boerema,7,1750852800
 triaging,Ondřej Míchal,394,1750852800
+triaging,Bruno,1,1754308800
+triaging,Richard Gitschlag,705,1782043200
 triaging,Alx Sa,422,1755000000
 triaging,Reju,1251,1754308800
 triaging,Denis Rangelov,698,1754308800
-triaging,Bruno,1,1754308800
 triaging,Bruno,1,1745755200
 triaging,Jacob Boerema,7,1745841600
 triaging,Jehan,4,1736596800
@@ -203309,11 +204598,11 @@ triaging,Bruno,1,1761998400
 triaging,Americo Gobbo,1461,1762776000
 triaging,Alx Sa,422,1761998400
 triaging,Gabriele,415,1761998400
-triaging,Jehan,4,1764936000
 triaging,Bruno,1,1757246400
+triaging,Jehan,4,1764936000
 triaging,Bruno,1,1766836800
-triaging,Denis Rangelov,698,1757160000
 triaging,Bruno,1,1755777600
+triaging,Denis Rangelov,698,1757160000
 triaging,Alx Sa,422,1755777600
 triaging,Alx Sa,422,1769601600
 triaging,Bruno,1,1777723200
@@ -203321,6 +204610,10 @@ triaging,Jehan,4,1770638400
 triaging,Jacob Boerema,7,1770465600
 triaging,Bruno,1,1770897600
 triaging,Jehan,4,1770897600
+triaging,Bruno,1,1782993600
+triaging,Alx Sa,422,1780833600
+triaging,Bruno,1,1782993600
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1779624000
 triaging,Anders Jonsson,12,1771243200
 triaging,Alx Sa,422,1770897600
@@ -203332,22 +204625,30 @@ triaging,Jehan,4,1748952000
 triaging,Jehan,4,1773748800
 triaging,Michael Schumacher,34,1773403200
 triaging,Ondřej Míchal,394,1779796800
+triaging,Alx Sa,422,1781956800
 triaging,Jehan,4,1773748800
+triaging,Bruno,1,1782993600
 triaging,Liam Quin,118,1774267200
 triaging,Denis Rangelov,698,1774094400
 triaging,programmer_ceds,1194,1773921600
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1780056000
 triaging,Reju,1251,1774785600
 triaging,Jehan,4,1774526400
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1774526400
+triaging,Bruno,1,1782993600
 triaging,Reju,1251,1775044800
 triaging,David Gowers,161,1774958400
+triaging,Bruno,1,1782216000
 triaging,Jehan,4,1776168000
 triaging,balooii,409,1775736000
 triaging,Alx Sa,422,1775736000
-triaging,Ondřej Míchal,394,1774958400
-triaging,Jehan,4,1775649600
+triaging,Petr Vorel,1560,1783425600
 triaging,Liam Quin,118,1775044800
+triaging,Bruno,1,1782993600
+triaging,Jehan,4,1775649600
+triaging,Ondřej Míchal,394,1774958400
 triaging,Bruno,1,1777723200
 triaging,Jehan,4,1676203200
 triaging,Alx Sa,422,1676203200
@@ -203359,48 +204660,60 @@ triaging,Fahad Al-Saidi,15849,1773576000
 triaging,Liam Quin,118,1772798400
 triaging,Bruno,1,1772798400
 triaging,Jehan,4,1776340800
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1776340800
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1775822400
 triaging,Alx Sa,422,1773748800
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1776340800
 triaging,Alx Sa,422,1774872000
 triaging,Jehan,4,1776340800
 triaging,Alx Sa,422,1774612800
 triaging,Jehan,4,1776340800
+triaging,Bruno,1,1753099200
 triaging,Denis Rangelov,698,1754222400
 triaging,Alx Sa,422,1753185600
 triaging,Jehan,4,1754049600
 triaging,Liam Quin,118,1753790400
-triaging,Bruno,1,1753099200
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1762516800
 triaging,Alx Sa,422,1755691200
 triaging,Jehan,4,1772971200
 triaging,Aruius,134,1774267200
 triaging,Jacob Boerema,7,1776686400
+triaging,Alx Sa,422,1773316800
+triaging,Tobias,704,1782216000
 triaging,Jacob Boerema,7,1773144000
 triaging,Jehan,4,1773403200
-triaging,Alx Sa,422,1773316800
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1773316800
 triaging,Jacob Boerema,7,1773144000
+triaging,Bruno,1,1782993600
 triaging,Jehan,4,1776340800
+triaging,Richard Gitschlag,705,1782302400
 triaging,Alx Sa,422,1775390400
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1776772800
 triaging,Richard Gitschlag,705,1776945600
-triaging,Alx Sa,422,1777809600
 triaging,Bruno,1,1777809600
+triaging,Alx Sa,422,1777809600
 triaging,Jehan,4,1763208000
 triaging,Denis Rangelov,698,1763208000
 triaging,Anders Jonsson,12,1763208000
 triaging,Bruno,1,1763208000
 triaging,Anders Jonsson,12,1777809600
+triaging,Bruno,1,1782993600
 triaging,Bruno,1,1777809600
 triaging,Aruius,134,1777550400
-triaging,Ondřej Míchal,394,1780228800
-triaging,Jehan,4,1770206400
+triaging,Alx Sa,422,1781956800
 triaging,Bruno,1,1770206400
-triaging,Gabriele,415,1777809600
-triaging,Denis Rangelov,698,1770206400
 triaging,Liam Quin,118,1770292800
+triaging,Jehan,4,1770206400
+triaging,Anders Jonsson,12,1781956800
+triaging,Denis Rangelov,698,1770206400
+triaging,Ondřej Míchal,394,1780228800
+triaging,Gabriele,415,1777809600
 triaging,Jehan,4,1777723200
 triaging,SmallJoker,16105,1777377600
 triaging,Bruno,1,1777204800
@@ -203414,13 +204727,15 @@ triaging,Anders Jonsson,12,1756468800
 triaging,Ondřej Míchal,394,1756209600
 triaging,Denis Rangelov,698,1755000000
 triaging,Alexandre Prokoudine,36,1755000000
-triaging,Alx Sa,422,1748174400
 triaging,Bruno,1,1777723200
+triaging,Alx Sa,422,1748174400
 triaging,Bruno,1,1777723200
 triaging,Bruno,1,1777723200
 triaging,Nara,15170,1763035200
 triaging,Bruno,1,1777809600
 triaging,Alx Sa,422,1775649600
+triaging,Bruno,1,1782993600
+triaging,Bruno,1,1782993600
 triaging,Ondřej Míchal,394,1780056000
 triaging,Alx Sa,422,1777723200
 triaging,Reju,1251,1777723200
@@ -203432,14 +204747,17 @@ triaging,Anders Jonsson,12,1760270400
 triaging,Ondřej Míchal,394,1777377600
 triaging,Jehan,4,1777032000
 triaging,Bruno,1,1777032000
+triaging,Bruno,1,1782993600
 triaging,Anders Jonsson,12,1778328000
 triaging,Michael Schumacher,34,1778328000
 triaging,Richard Gitschlag,705,1778068800
 triaging,Alx Sa,422,1774267200
 triaging,Denis Rangelov,698,1774267200
+triaging,Bruno,1,1782993600
 triaging,WarisMaqbool,690,1779969600
 triaging,Jehan,4,1775995200
 triaging,Denis Rangelov,698,1775736000
+triaging,Bruno,1,1782993600
 triaging,Ken Shirriff,1139,1778587200
 triaging,Bruno,1,1776513600
 triaging,Lukas Oberhuber,13,1776772800
@@ -203470,13 +204788,17 @@ triaging,Jacob Boerema,7,1742472000
 triaging,Bruno,1,1777723200
 triaging,Jehan,4,1743508800
 triaging,Jacob Boerema,7,1779364800
+triaging,Bruno,1,1782993600
 triaging,Alx Sa,422,1779278400
 triaging,Jehan,4,1779364800
 triaging,Bruno,1,1779364800
 triaging,Jacob Boerema,7,1779364800
+triaging,Bruno,1,1782993600
 triaging,Denis Rangelov,698,1779364800
 triaging,Jacob Boerema,7,1779364800
 triaging,Richard Gitschlag,705,1779019200
+triaging,Bruno,1,1781697600
+triaging,balooii,409,1781697600
 triaging,Aruius,134,1777550400
 triaging,Alx Sa,422,1778587200
 triaging,Anders Jonsson,12,1777464000
@@ -203486,10 +204808,10 @@ triaging,Jehan,4,1776340800
 triaging,Richard Gitschlag,705,1773921600
 triaging,Alx Sa,422,1773662400
 triaging,Bruno,1,1755086400
+triaging,Tobias,704,1777896000
 triaging,Jehan,4,1753358400
 triaging,Ondřej Míchal,394,1778241600
 triaging,"Øyvind ""pippin"" Kolås",2,1778068800
-triaging,Tobias,704,1777896000
 triaging,Alexandre Prokoudine,36,1753704000
 triaging,Alx Sa,422,1779451200
 triaging,Bruno,1,1779451200
@@ -203499,3 +204821,55 @@ triaging,Bruno,1,1780056000
 triaging,Bruno,1,1779796800
 triaging,Bruno,1,1780228800
 triaging,Alx Sa,422,1780574400
+triaging,Bruno,1,1781092800
+triaging,Jehan,4,1781870400
+triaging,Aryeom,699,1782561600
+triaging,Denis Rangelov,698,1781870400
+triaging,Bruno,1,1782993600
+triaging,Richard Gitschlag,705,1780920000
+triaging,Alx Sa,422,1781006400
+triaging,Richard Gitschlag,705,1781524800
+triaging,Liam Quin,118,1781438400
+triaging,Bruno,1,1781611200
+triaging,Bruno,1,1781611200
+triaging,Jehan,4,1781611200
+triaging,Bruno,1,1781006400
+triaging,Bruno,1,1781697600
+triaging,Bruno,1,1781870400
+triaging,Jehan,4,1781870400
+triaging,Bruno,1,1781956800
+triaging,Lloyd Konneker,123,1782129600
+triaging,Bruno,1,1782129600
+triaging,Jehan,4,1782129600
+triaging,Bruno,1,1782129600
+triaging,Harsh Verma,135,1782129600
+triaging,Alx Sa,422,1782216000
+triaging,Anders Jonsson,12,1782388800
+triaging,David Gowers,161,1782648000
+triaging,Richard Gitschlag,705,1782561600
+triaging,Alx Sa,422,1782820800
+triaging,Alx Sa,422,1782216000
+triaging,Bruno,1,1782907200
+triaging,Bruno,1,1781265600
+triaging,Alx Sa,422,1782820800
+triaging,Bruno,1,1782993600
+triaging,Jacob Boerema,7,1782907200
+triaging,Bruno,1,1782302400
+triaging,Jacob Boerema,7,1782388800
+triaging,balooii,409,1782993600
+triaging,Alx Sa,422,1782388800
+triaging,Bruno,1,1782388800
+triaging,Anders Jonsson,12,1783252800
+triaging,Alx Sa,422,1783425600
+triaging,Bruno,1,1783598400
+triaging,Alx Sa,422,1783512000
+triaging,Bruno,1,1783598400
+triaging,Alx Sa,422,1783857600
+triaging,Bruno,1,1783684800
+triaging,Bruno,1,1783598400
+triaging,Alx Sa,422,1783598400
+triaging,Alx Sa,422,1783857600
+triaging,Bruno,1,1783857600
+triaging,Jacob Boerema,7,1784030400
+triaging,Alx Sa,422,1783684800
+triaging,Bruno,1,1783857600
