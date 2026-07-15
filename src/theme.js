@@ -54,30 +54,30 @@ export function mountThemePicker(target) {
     typeof target === "string" ? document.querySelector(target) : target;
   if (!mount) return;
 
-  var wrapper = document.createElement("div");
+  const wrapper = document.createElement("div");
   wrapper.className = "ca-theme-wrapper";
 
-  var btn = document.createElement("button");
+  const btn = document.createElement("button");
   btn.id = "ca-theme-btn";
   btn.className = "ca-theme-btn";
   btn.setAttribute("aria-haspopup", "true");
   btn.setAttribute("aria-expanded", "false");
 
-  var menu = document.createElement("div");
+  const menu = document.createElement("div");
   menu.className = "ca-theme-menu";
   menu.setAttribute("role", "menu");
 
-  var items = ORDER.map(function (t) {
-    var item = document.createElement("button");
+  const items = ORDER.map((t) => {
+    const item = document.createElement("button");
     item.className = "ca-theme-menu-item";
     item.setAttribute("role", "menuitem");
     item.dataset.value = t;
-    var icon = document.createElement("span");
+    const icon = document.createElement("span");
     icon.className = "ca-theme-menu-icon";
     icon.textContent = ICONS[t];
     item.appendChild(icon);
     item.appendChild(document.createTextNode(LABELS[t]));
-    item.addEventListener("click", function (e) {
+    item.addEventListener("click", (e) => {
       e.stopPropagation();
       applyTheme(t);
       refresh();
@@ -88,10 +88,10 @@ export function mountThemePicker(target) {
   });
 
   function refresh() {
-    var t = getTheme();
+    const t = getTheme();
     btn.textContent = ICONS[t];
     btn.dataset.theme = t;
-    items.forEach(function (item) {
+    items.forEach((item) => {
       item.classList.toggle(
         "ca-theme-menu-item--active",
         item.dataset.value === t,
@@ -113,7 +113,7 @@ export function mountThemePicker(target) {
   }
 
   btn.title = "Theme";
-  btn.addEventListener("click", function (e) {
+  btn.addEventListener("click", (e) => {
     e.stopPropagation();
     if (menu.classList.contains("ca-is-open")) {
       closeMenu();
@@ -122,7 +122,7 @@ export function mountThemePicker(target) {
     }
   });
 
-  document.addEventListener("keydown", function (e) {
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeMenu();
   });
 

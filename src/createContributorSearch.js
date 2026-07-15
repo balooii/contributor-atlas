@@ -6,34 +6,32 @@ import { placeDropdown } from "./dropdownPlacement.js";
 export function createContributorSearch(mount, Visual, rawContributions) {
   // Build deduplicated contributor index from all raw contributions
   const seen = new Map();
-  rawContributions.forEach(function (row) {
+  rawContributions.forEach((row) => {
     if (!seen.has(row.contributor_id)) {
       seen.set(row.contributor_id, row.contributor_name);
     }
   });
-  const contributors = Array.from(seen, function ([id, name]) {
-    return { id: id, name: name };
-  }).sort(function (a, b) {
-    return a.name.localeCompare(b.name);
-  });
+  const contributors = Array.from(seen, ([id, name]) => ({ id, name })).sort(
+    (a, b) => a.name.localeCompare(b.name),
+  );
 
-  var wrapper = document.createElement("div");
+  const wrapper = document.createElement("div");
   wrapper.className = "ca-search-wrapper";
 
-  var input = document.createElement("input");
+  const input = document.createElement("input");
   input.type = "search";
   input.className = "ca-search-input";
   input.placeholder = "Search contributor…";
   input.autocomplete = "off";
   input.spellcheck = false;
 
-  var clearBtn = document.createElement("button");
+  const clearBtn = document.createElement("button");
   clearBtn.className = "ca-search-clear";
   clearBtn.type = "button";
   clearBtn.title = "Clear";
   clearBtn.textContent = "×";
 
-  var dropdown = document.createElement("div");
+  const dropdown = document.createElement("div");
   dropdown.className = "ca-search-dropdown";
   dropdown.setAttribute("role", "listbox");
 
@@ -43,11 +41,11 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
   mount.appendChild(wrapper);
 
-  var STORAGE_KEY = "selected-contributor";
+  const STORAGE_KEY = "selected-contributor";
 
-  var selectedId = null;
-  var isOpen = false;
-  var activeIndex = -1; // keyboard-highlighted row index (-1 is none)
+  let selectedId = null;
+  let isOpen = false;
+  let activeIndex = -1; // keyboard-highlighted row index (-1 is none)
 
   function escapeRegex(s) {
     return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -55,14 +53,14 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
   function highlight(text, query) {
     if (!query) return document.createTextNode(text);
-    var re = new RegExp("(" + escapeRegex(query) + ")", "gi");
-    var fragment = document.createDocumentFragment();
-    text.split(re).forEach(function (matchedPart, i) {
+    const re = new RegExp("(" + escapeRegex(query) + ")", "gi");
+    const fragment = document.createDocumentFragment();
+    text.split(re).forEach((matchedPart, i) => {
       // as we're using split() with a regex with a capture group
       // i=0 is part before match; i=1 is match;  i=2 is part after match
       if (matchedPart === "") return;
       if (i % 2 === 1) {
-        var mark = document.createElement("mark");
+        const mark = document.createElement("mark");
         mark.textContent = matchedPart;
         fragment.appendChild(mark);
       } else {
@@ -78,19 +76,19 @@ export function createContributorSearch(mount, Visual, rawContributions) {
 
   function resetActive() {
     activeIndex = -1;
-    getItems().forEach(function (el) {
+    getItems().forEach((el) => {
       el.classList.remove("ca-is-active");
     });
   }
 
   function setActiveIndex(idx) {
-    var items = getItems();
+    const items = getItems();
     if (items.length === 0) {
       activeIndex = -1;
       return;
     }
     activeIndex = ((idx % items.length) + items.length) % items.length;
-    items.forEach(function (item, i) {
+    items.forEach((item, i) => {
       item.classList.toggle("ca-is-active", i === activeIndex);
     });
     items[activeIndex].scrollIntoView({ block: "nearest" });
@@ -121,11 +119,9 @@ export function createContributorSearch(mount, Visual, rawContributions) {
   }
 
   function restoreContributor() {
-    var storedId = localStorage.getItem(STORAGE_KEY);
+    const storedId = localStorage.getItem(STORAGE_KEY);
     if (storedId) {
-      var match = contributors.find(function (c) {
-        return c.id === storedId;
-      });
+      const match = contributors.find((c) => c.id === storedId);
       if (match) {
         selectContributor(match.id, match.name);
       } else {
@@ -167,13 +163,13 @@ export function createContributorSearch(mount, Visual, rawContributions) {
       return;
     }
 
-    var q = query.toLowerCase();
-    var matches = contributors.filter(function (c) {
-      return c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q);
-    });
+    const q = query.toLowerCase();
+    const matches = contributors.filter(
+      (c) => c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q),
+    );
 
     if (matches.length === 0) {
-      var empty = document.createElement("div");
+      const empty = document.createElement("div");
       empty.className = "ca-search-no-results";
       empty.textContent = "No contributors found";
       dropdown.appendChild(empty);
@@ -181,14 +177,14 @@ export function createContributorSearch(mount, Visual, rawContributions) {
       return;
     }
 
-    matches.slice(0, 100).forEach(function (c) {
-      var item = document.createElement("button");
+    matches.slice(0, 100).forEach((c) => {
+      const item = document.createElement("button");
       item.className = "ca-search-dropdown-item";
       item.setAttribute("role", "option");
       item.dataset.id = c.id;
       if (c.id === selectedId) item.classList.add("ca-is-selected");
       item.appendChild(highlight(c.name, query));
-      item.addEventListener("click", function (e) {
+      item.addEventListener("click", (e) => {
         e.stopPropagation();
         selectContributor(c.id, c.name);
       });
@@ -198,17 +194,17 @@ export function createContributorSearch(mount, Visual, rawContributions) {
     openDropdown();
   }
 
-  input.addEventListener("input", function () {
+  input.addEventListener("input", () => {
     updateClearBtn();
     renderResults(input.value.trim());
   });
 
-  input.addEventListener("focus", function () {
+  input.addEventListener("focus", () => {
     if (input.value.trim()) renderResults(input.value.trim());
   });
 
-  input.addEventListener("keydown", function (e) {
-    var items = getItems();
+  input.addEventListener("keydown", (e) => {
+    const items = getItems();
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -226,12 +222,12 @@ export function createContributorSearch(mount, Visual, rawContributions) {
     }
   });
 
-  clearBtn.addEventListener("click", function (e) {
+  clearBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     unselectContributor();
   });
 
-  document.addEventListener("keydown", function (e) {
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && isOpen) closeDropdown();
   });
 
