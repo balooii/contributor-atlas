@@ -23,7 +23,7 @@ _KNOWN_SOURCES = {"git", "gitlab", "bugzilla", "handcrafted"}
 
 
 def discover_files(dir_path):
-    """Return (filename, source_type) for every _contributions_*.csv with a recognised source type."""
+    """Return (filename, source_type) for every _contributions_*.csv with a recognized source type."""
     results = []
     for path in sorted((dir_path / "raw").glob("_contributions_*.csv")):
         inner = path.stem[len("_contributions_") :]
@@ -42,7 +42,7 @@ def parse_args():
     p.add_argument(
         "--debug",
         action="store_true",
-        help="include contribution_id column and skip numeric-id anonymisation",
+        help="include contribution_id column and skip numeric-id anonymization",
     )
     p.add_argument(
         "--aliases",
@@ -87,14 +87,11 @@ def _truncate_ts(raw):
 
 
 def parse_aliases(path):
-    """Parse contributor-aliases.txt.
+    """Parse contributor-aliases.txt
 
-    Format: Name <id> [<id> ...]  — all IDs on a line belong to the same person.
-    Lines whose first non-whitespace character is '#' are comments.
-
-    Returns by_id: lower(id) → (name, key_id)
+    Returns a dict: lower(id) => (name, key_id)
     where key_id is the first id on the line, used only as a stable per-person
-    grouping key for disambiguation — it carries no canonical meaning.
+    grouping key for disambiguation.
     """
     by_id = {}
     if not path.exists():
@@ -120,7 +117,7 @@ def parse_aliases(path):
 
 
 def canonicalize(raw_name, raw_id, by_id):
-    """Return canonical contributor tuple (contributor_name, contributor_id) tuple"""
+    """Return canonical contributor tuple (contributor_name, contributor_id)"""
     return by_id.get(raw_id.lower(), (raw_name, raw_id))
 
 
@@ -129,8 +126,8 @@ def read_rows(name, source_type):
 
     Raw CSV sources differ slightly so we do some mapping:
     - git uses 'contributor_email'
-    - gitlab/bugzilla use 'contributor_id'
-    - only gitlab carries 'contributor_public_email'. This
+    - gitlab/bugzilla/handcrafted use 'contributor_id'
+    - only gitlab carries 'contributor_public_email'
     """
     path = SCRIPT_DIR / "raw" / name
     id_column = "contributor_email" if source_type == "git" else "contributor_id"

@@ -446,6 +446,11 @@ _TIER_DESCRIPTIONS = {
         "noreply commit (e.g. 123-user@users.noreply.gitlab.gnome.org), "
         "or commit local-part = handle (e.g. user@domain.com for @user)."
     ),
+    "name-cleanup": (
+        "no duplicates to merge; name carries a "
+        "'TZ YYYY' prefix (e.g. 'CST 1998  Francisco Bustamante'). The alias "
+        "just strips the prefix so the name reads cleanly."
+    ),
     "high": (
         "same name across sources AND BOTH a specific name (multi-word or "
         "containing a digit, e.g. 'Jane Smith') AND >=1 identifier in >=2 "
@@ -672,6 +677,19 @@ def main():
     # very-high entry and drop the lower one.
     very_high = _merge_into_very_high(very_high, high, medium, low, very_low, single_source)
 
+    covered_ids = {
+        i for tier in (very_high, high, medium, low, very_low, single_source) for _d, ids, _c in tier for i in ids
+    }
+    name_cleanup = []
+    for rid, names in id_names.items():
+        if rid.startswith(("@", "#")) or rid.lower() in by_id or rid in covered_ids:
+            continue
+        if not any(_TZ_DATE_PREFIX_RE.match(n) for n in names):
+            continue
+        display = _display_name(names, "")
+        if display and not _TZ_DATE_PREFIX_RE.match(display):
+            name_cleanup.append((display, [rid], {rid: set(names)}))
+
     # Active block: existing entries plus any drafts the user accepted, merged,
     # de-duplicated, and sorted alphabetically so accepted suggestions land in
     # place instead of accumulating in separate "lifted" sections.
@@ -694,6 +712,7 @@ def main():
         _emit_section(f, "low", low)
         _emit_section(f, "very-low", very_low)
         _emit_section(f, "single-source", single_source)
+        _emit_section(f, "name-cleanup", name_cleanup)
 
     print(f"Wrote draft entires into {aliases_path}:")
     print(f"    very-high:     {len(very_high)}")
@@ -702,6 +721,7 @@ def main():
     print(f"    low:           {len(low)}")
     print(f"    very-low:      {len(very_low)}")
     print(f"    single-source: {len(single_source)}")
+    print(f"    name-cleanup:  {len(name_cleanup)}")
     if accepted_lines:
         print(f"Merged {len(accepted_lines)} accepted draft line(s) into the sorted active block.")
 
