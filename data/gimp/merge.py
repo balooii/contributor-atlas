@@ -12,6 +12,7 @@ Output schema:
 
 import argparse
 import csv
+import json
 import re
 import sys
 from pathlib import Path
@@ -49,6 +50,13 @@ def parse_args():
         metavar="FILE",
         help="file created by make_alias_draft.py used to canonicalize author names/emails/handles",
     )
+    p.add_argument(
+        "--id-map",
+        default=str(SCRIPT_DIR / "contributor-id-map.cache.json"),
+        metavar="FILE",
+        help="cache mapping canonical id -> numeric id that keeps the emitted "
+        "contributor_id stable across runs",
+    )
     return p.parse_args()
 
 
@@ -65,6 +73,17 @@ def _strip_name_annotation(content):
 def _deobfuscate_id(content):
     """Undo [at] obfuscation used in contributor-aliases.txt to deter scrapers."""
     return content.replace("[at]", "@")
+
+
+def _truncate_ts(raw):
+    """Truncate a Unix-seconds timestamp to noon UTC: day precision is enough
+    for the viz, and keeping exact times would unnecessarily expose when
+    contributors choose to spend their personal time on the project."""
+    try:
+        ts = int(raw)
+    except (ValueError, TypeError):
+        return raw
+    return (ts // 86400) * 86400 + 43200
 
 
 def parse_aliases(path):
@@ -170,6 +189,43 @@ def _filter_triaging_earliest_only(rows):
     return dropped_non_earliest, filtered_rows
 
 
+def load_id_map(path):
+    if not path.exists():
+        return {}
+    try:
+        with open(path) as f:
+            return {cid: int(num) for cid, num in json.load(f).items()}
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def save_id_map(path, mapping):
+    ordered = {cid: num for cid, num in sorted(mapping.items(), key=lambda kv: kv[1])}
+    tmp = path.with_name(path.name + ".tmp")
+    with open(tmp, "w") as f:
+        json.dump(ordered, f, separators=(",", ":"))
+    tmp.replace(path)
+
+
+def assign_numeric_ids(canon_rows, id_map_path):
+    """Map each canonical contributor_id to a stable opaque number.
+
+    The frontend only uses contributor_id as a grouping key, so any
+    stable-per-person unique value works. Updates cache file in-place."""
+    numeric_ids = load_id_map(id_map_path)
+    used = set(numeric_ids.values())
+    next_id = (max(used) + 1) if used else 1
+
+    for _, _, contributor_id in canon_rows:
+        if contributor_id in numeric_ids:
+            continue
+        numeric_ids[contributor_id] = next_id
+        next_id += 1
+
+    save_id_map(id_map_path, numeric_ids)
+    return numeric_ids
+
+
 def main():
     args = parse_args()
     out_path = Path(args.out)
@@ -207,13 +263,11 @@ def main():
         canon_rows.append((row, new_name, contributor_id))
 
     # Replace the real contributor_id (email/handle) with an opaque enumerated
-    # number for privacy. The frontend only uses contributor_id as a grouping
-    # key, so any stable-per-person unique value works. Not stable across runs of merge.py.
+    # number for privacy, keeping the number stable across runs (see
+    # assign_numeric_ids).
     numeric_ids = {}
     if not args.debug:
-        for _, _, contributor_id in canon_rows:
-            if contributor_id not in numeric_ids:
-                numeric_ids[contributor_id] = len(numeric_ids) + 1
+        numeric_ids = assign_numeric_ids(canon_rows, Path(args.id_map))
 
     header = ["category", "contributor_name", "contributor_id", "timestamp"]
     if args.debug:
@@ -224,14 +278,7 @@ def main():
         writer.writerow(header)
         for row, new_name, contributor_id in canon_rows:
             category = row["category"]
-            try:
-                ts = int(row["timestamp"])
-                # Truncate to noon UTC: day precision is enough for the viz, and
-                # keeping exact times would unnecessarily expose when contributors
-                # choose to spend their personal time on the project.
-                ts = (ts // 86400) * 86400 + 43200
-            except (ValueError, TypeError):
-                ts = row["timestamp"]
+            ts = _truncate_ts(row["timestamp"])
             out_id = contributor_id if args.debug else str(numeric_ids[contributor_id])
             data_row = [category, new_name, out_id, ts]
             if args.debug:
