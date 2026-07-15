@@ -1,7 +1,7 @@
 /* Landing-page-only styles (index.html). */
 
 :root {
-  --c-landing-muted: rgba(255, 255, 255, 0.62);
+  --c-landing-muted: rgba(255, 255, 255, 0.6);
   --c-landing-card-bg: #161616;
   --c-landing-card-border: #262626;
   --c-landing-rule: rgba(255, 255, 255, 0.08);
@@ -61,10 +61,11 @@ nav {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--c-landing-muted);
+  margin-bottom: 14px;
 }
 .ca-hero .ca-eyebrow {
   color: var(--accent);
-  margin-bottom: 14px;
 }
 .ca-lead {
   font-size: 1.1rem;
@@ -83,7 +84,6 @@ nav {
 }
 
 .ca-section-title {
-  color: var(--c-landing-muted);
   margin: 64px 0 20px;
 }
 
@@ -162,8 +162,7 @@ nav {
   opacity: 1;
 }
 .ca-card p {
-  font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--c-landing-muted);
 }
 
@@ -179,7 +178,6 @@ nav {
   margin-bottom: 12px;
 }
 .ca-contribute p {
-  font-size: 1rem;
   line-height: 1.6;
   color: var(--c-landing-muted);
 }
@@ -211,14 +209,8 @@ nav {
   padding-top: 28px;
   border-top: 1px solid var(--c-landing-rule);
 }
-.ca-disclaimer h2,
-.ca-colophon h2 {
-  color: var(--c-landing-muted);
-  margin-bottom: 14px;
-}
 .ca-disclaimer p,
 .ca-colophon p {
-  font-size: 1rem;
   line-height: 1.6;
   color: var(--c-landing-muted);
   max-width: 70ch;

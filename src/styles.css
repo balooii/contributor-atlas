@@ -307,8 +307,7 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 0;
-  transition: opacity 200ms ease-in;
+  transition: opacity 0.15s;
 }
 
 .ca-canvas-hover {
@@ -535,7 +534,6 @@
 }
 
 .ca-search-dropdown-item {
-  width: 100%;
   flex-shrink: 0;
   text-align: left;
   background: none;
@@ -550,8 +548,8 @@
   text-overflow: ellipsis;
   opacity: 0.75;
   transition:
-    background 0.1s,
-    opacity 0.1s;
+    background 0.15s,
+    opacity 0.15s;
 }
 .ca-search-dropdown-item:hover,
 .ca-search-dropdown-item.ca-is-selected {
@@ -763,7 +761,7 @@
   max-width: 260px;
   font-size: 11px;
   color: var(--tc-text);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 /* Invisible bridge that extends the tooltip's hover area across the 8px gap to
    the pill, so the tooltip isn't torn down too early. */
@@ -861,7 +859,7 @@
   color: var(--tc-text);
   background: var(--tc-btn-bg);
   border: 1px solid var(--tc-btn-border);
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   letter-spacing: 0.04em;
   padding: 3px 8px;
@@ -899,7 +897,7 @@
   font-size: 10px;
   color: var(--tc-label);
   opacity: 0.7;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   align-self: flex-end;
 }

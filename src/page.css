@@ -90,20 +90,12 @@ nav > .ca-home {
   font-size: 18px;
   display: none;
 }
-nav > .ca-home:hover {
-  color: var(--c-nav-text);
-  opacity: 1;
-}
 nav > .ca-brand {
   margin-left: 0;
   margin-right: auto;
   opacity: 1;
-  letter-spacing: 0.15rem;
+  letter-spacing: 0.2em;
   color: color-mix(in srgb, var(--c-nav-text) 65%, transparent);
-}
-nav > .ca-brand:hover {
-  opacity: 1;
-  color: var(--c-nav-text);
 }
 nav > .ca-brand .ca-brand-project {
   color: var(--accent);
@@ -120,9 +112,9 @@ nav > .ca-brand .ca-brand-project {
 }
 nav > #ca-theme-picker {
   margin-left: 14px;
-  min-width: calc(
-    15px + 2 * 4px
-  ); /* so nav doesn't shift once async mount picker returns */
+  /* 23px == (15px icon + 2 * 4px padding), so nav doesn't shift once async
+     mount picker returns */
+  min-width: 23px;
   display: flex;
   align-items: center;
 }
