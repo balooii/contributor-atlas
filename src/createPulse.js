@@ -18,7 +18,8 @@ export function createPulse(container) {
   readColors();
   const MARGIN = { top: 30, right: 30, bottom: 52, left: 68 };
 
-  let categoryColor = d3.scaleOrdinal();
+  let scale_category_color = d3.scaleOrdinal();
+  const categoryColor = (cat) => scale_category_color(cat);
 
   let raw_contributions = [],
     highlights_data = [];
@@ -163,7 +164,7 @@ export function createPulse(container) {
       const w = Math.max(1, x1 - x0 - gap);
       ctx.globalAlpha = _hoveredBucket && d !== _hoveredBucket ? 0.55 : 1;
       let cumulative = 0;
-      categoryColor.domain().forEach((cat) => {
+      scale_category_color.domain().forEach((cat) => {
         const v = d.counts[cat] || 0;
         if (!v) return;
         const yBottom = yScale(cumulative);
@@ -313,7 +314,7 @@ export function createPulse(container) {
     let html = `<div class="ca-tt-title">${bucketLabel(d.date)}</div>`;
     html += `<div class="ca-tt-meta">${tooltip.pluralize(total, "contribution")} · ${tooltip.pluralize(d.contributors, "contributor")}</div>`;
     html += tooltip.categoryRows(
-      categoryColor.domain(),
+      scale_category_color.domain(),
       d.counts,
       total,
       categoryColor,
@@ -355,7 +356,7 @@ export function createPulse(container) {
     FULL_MAX = d3.max(raw_contributions, (d) => d.ts);
 
     const cats = values[2];
-    categoryColor = d3
+    scale_category_color = d3
       .scaleOrdinal()
       .domain(Object.keys(cats))
       .range(Object.values(cats));

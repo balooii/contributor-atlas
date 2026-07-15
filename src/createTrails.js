@@ -39,8 +39,8 @@ export function createTrails(container) {
   const MAX_ZOOM = 60;
   const ZOOM_SENSITIVITY = 0.0025;
 
-  let _catScale = d3.scaleOrdinal();
-  const categoryColor = (cat) => _catScale(cat);
+  let scale_category_color = d3.scaleOrdinal();
+  const categoryColor = (cat) => scale_category_color(cat);
 
   let raw_contributions = [];
   let contributors = [];
@@ -761,7 +761,7 @@ export function createTrails(container) {
     html += `<div class="ca-tt-meta">${fmt(new Date(s.start * 1000))}${sameDay ? "" : ` – ${fmt(new Date(s.end * 1000))}`}</div>`;
     html += `<div class="ca-tt-meta">${tooltip.pluralize(s.total, "contribution")}</div>`;
     html += tooltip.categoryRows(
-      _catScale.domain(),
+      scale_category_color.domain(),
       s.counts,
       s.total,
       categoryColor,
@@ -810,7 +810,7 @@ export function createTrails(container) {
     FULL_MAX = d3.max(raw_contributions, (d) => d.ts);
 
     const cats = values[1];
-    _catScale = d3
+    scale_category_color = d3
       .scaleOrdinal()
       .domain(Object.keys(cats))
       .range(Object.values(cats));
