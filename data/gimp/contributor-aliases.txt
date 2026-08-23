@@ -237,6 +237,7 @@ Dima Ryazanov <dima[at]gmail.com> <@dima>
 Dimitris Apostolou <@rex4539> <#Dimitris-Apostolou>
 Dimitris Papavasiliou <dpapavas[at]gmail.com> <#Dimitris-Papavasiliou>
 Dimitris Spingos <dmtrs32[at]gmail.com> <@dimspingos>
+Dimitriy Ryazantcev <dimitriy.ryazantcev[at]gmail.com> <@DJm00n>
 Dirk Hoffmann <@Hoffmann> <#Dirk_Hoffmann>
 Djavan Fagundes <djavan[at]comum.org> <djavanf[at]gnome.org>
 dlatikay <dlatikay[at]outlook.com> <@dlatikaynen>
@@ -311,7 +312,7 @@ Hans Lo <hansshulo[at]gmail.com> <#Hans-Lo>
 Hans Petter Jansson <hpj[at]cl.no> <#Hans-Petter-Jansson>
 Harald Korneliussen <vintermann[at]gmail.com> <#Harald-Korneliussen>
 Hari Rana <theevilskeleton[at]riseup.net> <@TheEvilSkeleton>
-Harsh Verma <harshkardam246[at]gmail.com> <@harshverma>
+Harsh Verma <harshkardam246[at]gmail.com> <harshverma[at]gnome.org> <@harshverma>
 Hartmut Kuhse <hk_priv[at]gmx.de> <onkelhatti[at]gimp.org> <#Hartmut-Kuhse>
 Hasbullah Bin Pit <sebol[at]ikhlas.com> <sebol[at]src.gnome.org>
 Heiko Becker <heirecka[at]exherbo.org> <@heirecka>
@@ -385,6 +386,7 @@ Joe Hansen <joedalton2[at]yahoo.dk> <#Joe-Hansen>
 Joey Riches <josephriches[at]gmail.com> <@joebonrichie>
 Johannes Matschke <butesa[at]freenet.de> <#Johannes-Matschke>
 John Bampton <jbampton[at]gmail.com> <@johnbam>
+John Cardullo <john[at]jcarmedia.org> <@jcardullo>
 John H. Davis <@jsdavis> <#John-H.-Davis>
 John K. Herreshoff <@John_k_h> <#John-K.-Herreshoff>
 John Marshall <jtm.home[at]gmail.com> <@jtm94> <#John-Marshall>
@@ -467,6 +469,7 @@ Luna Jernberg <droidbittin[at]gmail.com> <@droidbittin>
 luzpaz <kunda[at]scribus.net> <luzpaz[at]pm.me> <@luzpaz> <luzpaz[at]users.noreply.github.com|luz paz/luz.paz/luzpaz>
 Mandrake <mandrake[at]mandrake.net>
 Manish Singh <yosh[at]gimp.org> <yosh[at]src.gnome.org> <#Manish-Singh>
+Manu Cornet <m[at]ma.nu> <@lmanul>
 Marcelo Hernandez <marcelohdez.inq[at]gmail.com> <@marcelohdez>
 Marc Espie <espie[at]openbsd.org> <@marc.espie.openbsd> <@marcespie>
 Marc Lehmann <pcg[at]src.gnome.org> <pcg[at]goof.com|CEST 1998 Marc Lehmann> <#Marc-Lehmann>
@@ -537,7 +540,7 @@ Miroslav Talasek <miroslav.talasek[at]seznam.cz> <#Miroslav-Talasek>
 MohammadSaleh Kamyab <mskf1383[at]envs.net> <mskf1383[at]protonmail.com>
 Morgane Glidic <sardemff7+git[at]sardemff7.net> <@sardemff7>
 mottechy <@mottechy> <#mottechy>
-Mr. Beedell, Roke Julian Lockhart (RJLB) <suybnd6r[at]rokejulianlockhart.addy.io> <@RokeJulianLockhart>
+Mr. Beedell, Roke Julian Lockhart (RJLB) <suybnd6r[at]rokejulianlockhart.addy.io> <@RokeJulianLockhart> <@beedell.roke_julian_lockhart>
 mr.fantastic <mrfantastic[at]firemail.cc> <@mr.fantastic>
 M-Rick <@M-Rick> <#M-Rick>
 Muhammet Kara <muhammet.k[at]gmail.com> <muhammetk[at]gmail.com> <@muhammetk>
@@ -679,6 +682,7 @@ Rūdolfs Mazurs <alta.liepa[at]gmail.com> <rudolfs.mazurs[at]gmail.com> <rudolfs
 Rupert Weber <gimp[at]leguanease.org> <r.weberhenschel[at]gmail.com|Rupert/Rupert Weber> <rpwh[at]gmx.de> <@r.weberhenschel> <@rupertwhite6080|Rupert> <#Rupert|Rupert> <#Rupert-Weber>
 Ruthra Kumar <ruthrab[at]gmail.com> <@ruthra-kumar>
 Ryan Danny <ryanaaronphilip[at]gmail.com> <@ryanaaronphilip>
+Ryan McDonald <mcdonald.ryan[at]gmail.com> <@Unexpected-Development>
 Ryan S <@smeds> <#Ryan-S>
 Ryan Sims <@ryanjsims> <149375-ryanjsims[at]users.noreply.gitlab.gnome.org>
 Ryo ONODERA <ryo_on[at]yk.rim.or.jp> <#Ryo-ONODERA>
@@ -841,6 +845,7 @@ Yoshinori Yamakawa <citrus_juicer[at]live.jp> <yamma-ma[at]users.sourceforge.jp>
 Yuri Chornoivan <yurchor[at]ukr.net> <@yurchor>
 Yurii Kolesnykov <root[at]yurikoles.com> <@yurikoles>
 zamfofex <zamfofex[at]twdb.moe> <@zamfofex>
+Zana-Fishy <zanafishy[at]gmail.com> <@Zana-Fishy>
 Zander Brown <zbrown[at]gnome.org> <@ZanderBrown>
 Zbigniew Chyla <Zbigniew.Chyla[at]gmail.com> <cyba[at]gnome.pl> <#Zbigniew-Chyla>
 Zhouyang <jiazhouyang09[at]gmail.com> <#Zhouyang>
@@ -860,11 +865,12 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Roman Horník <@Kremator> <@roman.hornik|Roman Hornik/Roman Horník>
 # Sven  Neumann <neo[at]bender|MEST 1999  Sven Neumann/MEST 1999 Sven Neumann/Sven  Neumann/Sven Neumann> <s.neumann[at]phase-zero.de|Sven Neumann> <s.neumann[at]raumfeld.com|Sven Neumann>
 
-# === medium (3) ===
+# === medium (4) ===
 # same name across sources AND (specific name (e.g. 'Jane Smith' with different emails per source) OR >=1 identifier in >=2 sources (e.g. 'Bruno' with same email in git and gitlab)), but not both.
 # Bruno <brunolopesdsilv[at]outlook.com|Bruno/Bruno Lopes> <#Bruno> <#bruno|bruno>
 # Einar Lielmanis <@spicausis> <#Einar-Lielmanis>
 # Franz Wein <@franzj> <#Franz-Wein>
+# Timo Stolz <@timostolz> <#TImo-Stolz|TImo Stolz>
 
 # === low (9) ===
 # NOT in common-names dataset AND (not-specific name AND 0 identifiers in >=2 sources (e.g. 'Xantiva' in git and gitlab with different IDs), OR match only under aggressive normalization (e.g. 'Adam D Moss' <=> 'Adam Moss')).
@@ -878,7 +884,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Pascal Massimino <pascal.massimino[at]gmail.com|Pascal Massimino/skal> <skal[at]google.com|Skal> <@skal65535|skal>
 # S <@alex2275> <@pees> <#s|s>
 
-# === very-low (337) ===
+# === very-low (339) ===
 # in common-names dataset AND (not-specific name AND 0 identifiers in >=2 sources (e.g. 'Alex' in git and gitlab with different IDs), OR match only under aggressive normalization (e.g. 'J Alex' <=> 'Alex')) - high false-positive risk.
 # A. Rudi B. <@arbbornscheinmediade> <#Rudi|Rudi>
 # Aaron <@ay_ay_ron> <#Aaron> <#aaron|aaron>
@@ -887,7 +893,8 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Adam Ł. <@AJusted|Adam W> <@NoobHackSaw|Adam> <@adam.langowicz> <@adammaj1|Adam> <@ajburley|Adam> <#Adam|Adam> <#adam|adam>
 # Adrian <@adrianpkr> <#Adrian>
 # Adrian R. <@adrian-r> <@adrianpkr|Adrian> <#Adrian|Adrian>
-# Al M <@b71682cc> <#Al|Al>
+# Al <@aleksy|al> <#Al>
+# Al M <@aleksy|al> <@b71682cc> <#Al|Al>
 # Albert <lakonfrariadelavila[at]gmail.com|Albert/Albert F/Konfrare Albert> <#Albert>
 # Alejandro <@alejandrogs|alejandro> <#Alejandro>
 # Alex <@ShetlandHouse> <@TheBicPen> <@ahaden> <@alexlu130> <@alextarasov362> <@alexzk1> <@newyorkvanity> <@powell77k> <@walterware> <#Alex> <#alex|alex>
@@ -1012,7 +1019,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Jason F. <@jh1548454|Jason> <@just-jason|Jason> <#Jason|Jason> <#Jason-F.> <#Jason-J|Jason J> <#jason|jason>
 # Jay <@jaycrav3ns> <#Jay> <#jay|jay>
 # Jay F <@jaycrav3ns|Jay> <#Jay|Jay> <#Jay-F> <#jay|jay>
-# Jeff G. <@jacampora360|Jeff A> <#Jeff|Jeff> <#Jeff-G.> <#jeff|jeff>
+# Jeff G. <@jacampora360|Jeff A> <@jhcarter44|Jeff C> <#Jeff|Jeff> <#Jeff-G.> <#jeff|jeff>
 # Jennifer <@LadyS> <@jlwheeler186> <#jennifer|jennifer>
 # Jim <@Goalie33> <#Jim> <#jim|jim>
 # Jim K. <@Goalie33|Jim> <@JimH3|Jim H.> <@N4BFR|Jim R> <#Jim|Jim> <#Jim-K.> <#jim|jim>
@@ -1046,6 +1053,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Kate <@kateshort2> <#Kate>
 # Kathryn <@jkathryn882> <#Kathryn>
 # Keith <@KeithRoberts> <#Keith> <#keith|keith>
+# Kelly <@k_sablatura> <#kelly|kelly>
 # Kevin <@KevinABowman> <@kblans> <#Kevin> <#kevin|kevin>
 # Kevin L. C. <@KevDoy|Kevin D> <@KevinABowman|Kevin> <@UrIcApTEFU|Kevin L> <@kblans|Kevin> <#Kevin|Kevin> <#Kevin-L.-C.> <#Kevin-M.|Kevin M.> <#kevin|kevin>
 # Klaus <@KlausZehe> <@kbauer> <#Klaus>
@@ -1098,14 +1106,14 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Max J <@MaxZ|Max> <@Maxwh2007|Max> <@maxsocial001> <#Max|Max> <#max|max>
 # Maxim <@gnomax> <#Maxim>
 # Mel <@M3l> <#Mel>
-# Michael <@EhmJayBe> <@Michael> <@Michael_Eyinck> <#Michael> <#michael|michael>
-# Michael D. <@EhmJayBe|Michael> <@Michael|Michael> <@Michael_Eyinck|Michael> <@werfox|Michael Z> <@wrongdoer|Michael S> <#Michael|Michael> <#Michael-B.|Michael B.> <#Michael-C|Michael C> <#Michael-D.> <#michael|michael>
+# Michael <@EhmJayBe> <@Michael> <@Michael_Eyinck> <@michael.kotai> <#Michael> <#michael|michael>
+# Michael D. <@EhmJayBe|Michael> <@Michael|Michael> <@Michael_Eyinck|Michael> <@michael.kotai|Michael> <@werfox|Michael Z> <@wrongdoer|Michael S> <#Michael|Michael> <#Michael-B.|Michael B.> <#Michael-C|Michael C> <#Michael-D.> <#michael|michael>
 # Michal <m.powalko[at]gmail.com> <@Mi-Pe> <@deix> <@michaldybczak> <#Michal> <#michal|michal>
 # Michel <@michel971> <#Michel>
 # Michele <michele.gherlone[at]liceoberchet.it> <#Michele> <#michele|michele>
 # Michelle P. <@backlash6709> <#Michelle|Michelle>
 # Mike <@mb1> <@mikezach|mike> <#Mike> <#mike|mike>
-# Mike S <@MikeS> <@mb1|Mike> <@michiel.lemaster|Mike L> <@mikes.home1|Mike R> <@mikezach|mike> <#Mike|Mike> <#Mike-E|Mike E> <#Mike-H|Mike H> <#mike|mike>
+# Mike S <@MikeS> <@mb1|Mike> <@michiel.lemaster|Mike L> <@mikes.home1|Mike R> <@mikezach|mike> <@mk-fg|Mike K> <#Mike|Mike> <#Mike-E|Mike E> <#Mike-H|Mike H> <#mike|mike>
 # Mirko <@Mirko> <#Mirko> <#mirko|mirko>
 # MM <@michaelangelo99> <#MM>
 # MP <@groundhog719> <#mp|mp>
@@ -1115,7 +1123,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Nick S. <@nicthu|Nick> <#Nick|Nick> <#Nick-S.> <#nick|nick>
 # Nico <@NicoHood> <#Nico>
 # Nicola <@nicfab|nicola> <#Nicola>
-# nicolas <@nclm> <#nicolas>
+# Nicolas <@nclm|nicolas> <@nicolasm45> <#nicolas|nicolas>
 # Nicole D <@lifehackeraf> <#Nicole|Nicole>
 # Nikita <kotvkvante|nikita> <@mrhaack> <@sandbox>
 # Niko E. <@niko|Niko> <@nniok|niko> <#Niko-E.>
@@ -1170,7 +1178,6 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Scott R <scott|scott> <@ScottK|Scott K> <@ScottQ> <#Scott|Scott>
 # sean <@CalcotAndJones> <#sean>
 # Sean S. <@CalcotAndJones|sean> <@ProfElectric> <#Sean-M.|Sean M.> <#sean|sean>
-# Sebastien <bonaime[at]ipgp.fr> <@sbonaime>
 # Senya <senya[at]riseup.net> <@cmrd-senya> <#senya|senya>
 # Sergio c <@sirspeedygraphics> <#Sergio|Sergio>
 # Shlomo D <@sternsh|Shlomo> <#Shlomo-D>
@@ -1183,6 +1190,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Steve L. <@Stevo_K|Steve K> <@steve.d01|Steve> <@stevegodun|Steve> <#Steve|Steve> <#Steve-L.> <#steve|steve>
 # Sven <@SvenS> <@shoeper> <#Sven> <#sven|sven>
 # Sven S. <@SvenS|Sven> <@shoeper|Sven> <#Sven|Sven> <#Sven-J.|Sven J.> <#Sven-S.> <#sven|sven>
+# Sébastien <bonaime[at]ipgp.fr|Sebastien> <@SebastienM> <@sbonaime|Sebastien>
 # Terry <@Terry> <#Terry>
 # Terry P <@Terry|Terry> <@TerryP> <#Terry|Terry>
 # Tester <@Testing> <#Tester>
@@ -1218,7 +1226,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # Zach <@ZThing222> <#Zach>
 # Zero <@zero_fire|zero> <@zeroaladreta|zero> <#Zero>
 
-# === single-source (232) ===
+# === single-source (233) ===
 # same name with >=2 distinct IDs all within ONE source (e.g. 'Andy Thomas' committing as both alt@gimp.org and alt@picnic.demon.co.uk) - no cross-source corroboration, so for gitlab and bugzilla these are likely false-positives. May be useful for mails.
 # A <#A> <#a|a>
 # Akira <@Akirakp_30> <@akirapink>
@@ -1371,6 +1379,7 @@ Zi Jiaxu <3119932298[at]qq.com> <@CDmking>
 # P <#P> <#p|p>
 # P D <@dandap73> <@pd3|p d>
 # P Zack <@mackpascal> <@zedayseekay|Zack>
+# Pablo <@Pabloski85> <@PawelPatyk>
 # Pascal Polleunus <@ppo-gnome> <@ppo1>
 # Patrick Hulin <#Patrick-Hulin> <#patrick.hulin|patrick.hulin>
 # Patrick Jacquot <#Patrick-JACQUOT|Patrick JACQUOT> <#Patrick-Jacquot>
