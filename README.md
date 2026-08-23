@@ -17,7 +17,7 @@ There are five views. Each one is a self-contained Canvas visualization that can
 | View             | Description                                                                                                      |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
 | **Gathering**    | All contributors packed in a circle with the project in the center                                               |
-| **Pulse**        | Project activity over time, measured as number of contributions, as a bar chart                                  |
+| **Pulse**        | Project activity over time as a bar chart                                                                        |
 | **Trails**       | Contributor arcs across the timeline                                                                             |
 | **Ripples**      | All contributors shown as concentric circles around the project, sorted by number of contributions               |
 | **Cornerstones** | A ring of top contributors around the project, surrounded by everyone else who contributed, randomly distributed |

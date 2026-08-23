@@ -35,6 +35,8 @@
   --c-project: #a09080;
   --c-project-bg: #232323;
   --c-contributor: #8099bb;
+  --c-pulse-new: #e6e6e6;
+  --c-pulse-returning: #6b6b6b;
   --c-glow: 245, 121, 0;
   --c-glow-alpha: 0.12;
   --c-vignette-alpha: 0.55;
@@ -97,6 +99,8 @@
     --c-project: #504030;
     --c-project-bg: #e7e7e7;
     --c-contributor: #334155;
+    --c-pulse-new: #2e2e2e;
+    --c-pulse-returning: #9a9a9a;
     --c-highlight: #000000;
     --c-glow: 247, 156, 74;
     --c-glow-alpha: 0.07;
@@ -157,6 +161,8 @@
   --c-project: #504030;
   --c-project-bg: #e7e7e7;
   --c-contributor: #334155;
+  --c-pulse-new: #2e2e2e;
+  --c-pulse-returning: #9a9a9a;
   --c-highlight: #000000;
   --c-glow: 247, 156, 74;
   --c-glow-alpha: 0.07;

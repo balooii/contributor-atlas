@@ -24,7 +24,11 @@ import { bootstrapPage } from "./pageBootstrap.js";
 import { createTimelineControl } from "./createTimelineControl.js";
 import { createContributorSearch } from "./createContributorSearch.js";
 import { createGathering } from "./createGathering.js";
-import { createPulse } from "./createPulse.js";
+import {
+  createPulse,
+  MODE_CONTRIBUTIONS,
+  MODE_CONTRIBUTORS,
+} from "./createPulse.js";
 import { createTrails } from "./createTrails.js";
 import { createRipples } from "./createRipples.js";
 import { createCornerstones } from "./createCornerstones.js";
@@ -132,8 +136,18 @@ export function pulse(container, options = {}) {
       }
       Visual([contributions, highlights, project.category_colors]);
       if (showControls) {
+        const modeControl = createTimelineControl.buildButtonGroup(
+          "show",
+          [
+            { label: "contributions", value: MODE_CONTRIBUTIONS },
+            { label: "contributors", value: MODE_CONTRIBUTORS },
+          ],
+          Visual.mode(),
+          (v) => Visual.mode(v),
+        );
         createTimelineControl(controls)
           .chapters(project.chapters || [])
+          .extras(modeControl)
           .attach(Visual);
       }
       Visual.resize();

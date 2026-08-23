@@ -2,10 +2,16 @@ import * as d3 from "d3";
 import { createTooltip } from "./createTooltip.js";
 import * as ChartBase from "./chartBase.js";
 
+export const MODE_CONTRIBUTIONS = "contributions";
+export const MODE_CONTRIBUTORS = "contributors";
+const COHORT_RETURNING = "returning";
+const COHORT_NEW = "new";
+
 export function createPulse(container) {
   container.classList.add("ca-view");
 
   let COLOR_BACKGROUND, COLOR_LINK, COLOR_TEXT, COLOR_HIGHLIGHT;
+  let COLOR_NEW, COLOR_RETURNING;
   let FONT_FAMILY;
   function readColors() {
     const cs = getComputedStyle(container);
@@ -13,6 +19,8 @@ export function createPulse(container) {
     COLOR_LINK = cs.getPropertyValue("--c-border").trim();
     COLOR_TEXT = cs.getPropertyValue("--c-text").trim();
     COLOR_HIGHLIGHT = cs.getPropertyValue("--c-highlight").trim();
+    COLOR_NEW = cs.getPropertyValue("--c-pulse-new").trim();
+    COLOR_RETURNING = cs.getPropertyValue("--c-pulse-returning").trim();
     FONT_FAMILY = cs.getPropertyValue("--font-family").trim();
   }
   readColors();
@@ -26,6 +34,23 @@ export function createPulse(container) {
   const range = ChartBase.createRangeFilter();
   let FULL_MIN, FULL_MAX;
   let W, H, PR;
+
+  let mode = MODE_CONTRIBUTIONS;
+  let first_seen = new Map();
+  let firstSeenBucket = new Map();
+  let interval = null;
+
+  const CONTRIBUTOR_KEYS = [COHORT_RETURNING, COHORT_NEW];
+  const stackKeys = () =>
+    mode === MODE_CONTRIBUTORS
+      ? CONTRIBUTOR_KEYS
+      : scale_category_color.domain();
+  const stackColor = (key) => {
+    if (mode !== MODE_CONTRIBUTORS) return categoryColor(key);
+    return key === COHORT_NEW ? COLOR_NEW : COLOR_RETURNING;
+  };
+  const totalFor = (d) =>
+    mode === MODE_CONTRIBUTORS ? d.contributors : d.contributions;
 
   const canvas = document.createElement("canvas");
   canvas.className = "ca-activity-canvas";
@@ -51,28 +76,45 @@ export function createPulse(container) {
     return d3.timeMonth;
   }
 
+  const bucketOf = (ts, itv) => itv.floor(new Date(ts * 1000)).getTime();
+
   function aggregateByBucket(contributions) {
-    const interval = pickBucket();
     if (!contributions.length) return { data: [], interval };
     const byBucket = d3.rollup(
       contributions,
       (v) => {
-        const counts = {};
+        const catCounts = mode === MODE_CONTRIBUTORS ? null : {};
         const contributors = new Set();
         v.forEach((c) => {
-          counts[c.cat] = (counts[c.cat] || 0) + 1;
+          if (catCounts) catCounts[c.cat] = (catCounts[c.cat] || 0) + 1;
           contributors.add(c.contributor);
         });
-        return { counts, contributors: contributors.size };
+        return { catCounts, contributors, contributions: v.length };
       },
-      (d) => interval.floor(new Date(d.ts * 1000)).getTime(),
+      (d) => bucketOf(d.ts, interval),
     );
-    const data = Array.from(byBucket, ([t, { counts, contributors }]) => ({
-      date: new Date(+t),
-      counts,
-      contributors,
-      total: Object.values(counts).reduce((a, b) => a + b, 0),
-    })).sort((a, b) => a.date - b.date);
+    const data = Array.from(byBucket, ([t, b]) => {
+      const bucketTs = +t;
+      let counts;
+      if (mode === MODE_CONTRIBUTORS) {
+        let fresh = 0;
+        b.contributors.forEach((id) => {
+          if (firstSeenBucket.get(id) === bucketTs) fresh++;
+        });
+        counts = {
+          [COHORT_NEW]: fresh,
+          [COHORT_RETURNING]: b.contributors.size - fresh,
+        };
+      } else {
+        counts = b.catCounts;
+      }
+      return {
+        date: new Date(bucketTs),
+        counts,
+        contributors: b.contributors.size,
+        contributions: b.contributions,
+      };
+    }).sort((a, b) => a.date - b.date);
     return { data, interval };
   }
 
@@ -102,7 +144,7 @@ export function createPulse(container) {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.total) * 1.08])
+      .domain([0, d3.max(data, totalFor) * 1.08])
       .range([MARGIN.top + cH, MARGIN.top])
       .nice();
 
@@ -157,6 +199,7 @@ export function createPulse(container) {
     ctx.globalAlpha = 1;
 
     // Stacked bars (one segment per category, in _categoryOrder bottom -> top)
+    const keys = stackKeys();
     data.forEach((d) => {
       const x0 = xScale(d.date);
       const x1 = xScale(interval.offset(d.date, 1));
@@ -164,12 +207,12 @@ export function createPulse(container) {
       const w = Math.max(1, x1 - x0 - gap);
       ctx.globalAlpha = _hoveredBucket && d !== _hoveredBucket ? 0.55 : 1;
       let cumulative = 0;
-      scale_category_color.domain().forEach((cat) => {
-        const v = d.counts[cat] || 0;
+      keys.forEach((key) => {
+        const v = d.counts[key] || 0;
         if (!v) return;
         const yBottom = yScale(cumulative);
         const yTop = yScale(cumulative + v);
-        ctx.fillStyle = categoryColor(cat);
+        ctx.fillStyle = stackColor(key);
         ctx.fillRect(x0 + gap / 2, yTop, w, yBottom - yTop);
         cumulative += v;
       });
@@ -310,14 +353,19 @@ export function createPulse(container) {
   }
 
   function showTooltip(d, clientX, clientY) {
-    const total = d.total;
+    const contributions = tooltip.pluralize(d.contributions, "contribution");
+    const contributors = tooltip.pluralize(d.contributors, "contributor");
+    const parts =
+      mode === MODE_CONTRIBUTORS
+        ? [contributors, contributions]
+        : [contributions, contributors];
     let html = `<div class="ca-tt-title">${bucketLabel(d.date)}</div>`;
-    html += `<div class="ca-tt-meta">${tooltip.pluralize(total, "contribution")} · ${tooltip.pluralize(d.contributors, "contributor")}</div>`;
+    html += `<div class="ca-tt-meta">${parts.join(" · ")}</div>`;
     html += tooltip.categoryRows(
-      scale_category_color.domain(),
+      stackKeys(),
       d.counts,
-      total,
-      categoryColor,
+      totalFor(d),
+      stackColor,
     );
     tooltip.show(html, clientX, clientY);
   }
@@ -355,6 +403,17 @@ export function createPulse(container) {
     FULL_MIN = d3.min(raw_contributions, (d) => d.ts);
     FULL_MAX = d3.max(raw_contributions, (d) => d.ts);
 
+    first_seen = new Map(
+      ChartBase.aggregateByContributor(values[0]).map((r) => [
+        r.contributor_id,
+        r.contribution_sec_min,
+      ]),
+    );
+    interval = pickBucket();
+    firstSeenBucket = new Map(
+      [...first_seen].map(([id, ts]) => [id, bucketOf(ts, interval)]),
+    );
+
     const cats = values[2];
     scale_category_color = d3
       .scaleOrdinal()
@@ -368,6 +427,15 @@ export function createPulse(container) {
   chart.fullDateRange = () => [FULL_MIN, FULL_MAX];
   chart.setRange = (start, end) => {
     if (range.set(start, end) && raw_contributions.length) rerun();
+    return chart;
+  };
+  chart.mode = (v) => {
+    if (v === undefined) return mode;
+    if (v !== MODE_CONTRIBUTIONS && v !== MODE_CONTRIBUTORS) return chart;
+    if (v !== mode) {
+      mode = v;
+      if (raw_contributions.length) rerun();
+    }
     return chart;
   };
   chart.resize = () => {

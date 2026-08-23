@@ -757,8 +757,7 @@ export function createCornerstones(container) {
 
   function calculateEdgeCenters(l) {
     // Arc radius: the distance between source and target
-    l.r =
-      sqrt(sq(l.target.x - l.source.x) + sq(l.target.y - l.source.y));
+    l.r = sqrt(sq(l.target.x - l.source.x) + sq(l.target.y - l.source.y));
     l.sign = true;
     l.center = findCenter(
       l.r,
